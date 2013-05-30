@@ -1,209 +1,363 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-        <title>Force Layout Playground</title>
-        <script type="text/javascript" src="d3/d3.v3.js"></script>
-        <style>
-            body {
-                font: 13px sans-serif;
-                position: relative;
-                width: 960px;
-                height: 500px;
-                }
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>Force Layout Playground</title>
+    <script type="text/javascript" src="d3/d3.v3.js"></script>
+    <script type="text/javascript" src="utils/deepCopy.js"></script>
+    <style>
+        body {
+            font: 13px sans-serif;
+            position: relative;
+            width: 960px;
+            height: 500px;
+        }
+        .node {
+            cursor: crosshair;
+        }
+        .link {
+            stroke: #000;
+            stroke-width: 5;
+        }
 
-                .node {
-                    cursor: crosshair;
-                }
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            width: 120px;
+            height: 55px;
+            padding: 2px;
+            font: 15px sans-serif;
+            background: lightsteelblue;
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
 
-                .link {
-                    stroke: #999;
-                    stroke-width: 4;
-                }
+    </style>
+</head>
+<body>
+<div id="vaccinate">
+    <input name="vaccinateButton"
+           type="button"
+           value="Vaccinate!"
+           onclick="vaccinate()" />
+</div>
 
-        </style>
-    </head>
-    <body>
-    <div id="option">
-        <input name="updateButton"
-               type="button"
-               value="Vaccinate!"
-               onclick="update()" />
-    </div>
+<div id="vizOption">
+    <input name="sizeByDegreeButton"
+           type="button"
+           value="Size By Degree"
+           onclick="toggleSizeByDegree()" />
+</div>
 
-        <script type="text/javascript">
+<div id="subStrat">
+    <input name="submitStrategyButton"
+           type="button"
+           value="Submit Strategy"
+           onclick="subStrat()" />
+</div>
 
-            // make graph object
-            // nodes are basic individuals with IDs from 0-19
-            // edges/links are in JSON format.  Note that prior node IDs must match link IDs
-            var graph = {
-                nodes: [{id:0, status:0}, {id:1, status:0}, {id:2, status:0},{id:3, status:0},{id:4, status:0},{id:5, status:0},{id:6, status:0},{id:7, status:0},{id:8, status:0},{id:9, status:0},{id:10, status:0},{id:11, status:0},{id:12, status:0},{id:13, status:0},{id:14, status:0},{id:15, status:0},{id:16, status:0},{id:17, status:0},{id:18, status:0},{id:19, status:0}],
-                links: [{source:0,target:2},{source:0,target:15},{source:0,target:13},{source:1,target:4},{source:1,target:2},{source:1,target:18},{source:1,target:7},{source:2,target:3},{source:2,target:14},{source:2,target:19},{source:3,target:5},{source:3,target:8},{source:4,target:9},{source:4,target:12},{source:4,target:16},{source:5,target:16},{source:5,target:2},{source:5,target:14},{source:5,target:19},{source:6,target:3},{source:6,target:13},{source:6,target:16},{source:6,target:17},{source:7,target:3},{source:7,target:6},{source:8,target:2},{source:8,target:14},{source:8,target:0},{source:3,target:19},{source:3,target:13},{source:6,target:12},{source:6,target:15},{source:6,target:3},{source:7,target:9},{source:7,target:1}]
-            };
+<script type="text/javascript">
+var preVaccination  = true;
+var sizeByDegree    = false;
+var submitted       = false;
 
-            // select "body" section, and append an empty SVG with height and width values
-            var width = 960,
-                height = 500,
-                svg;
-                svg = d3.select("body").append("svg")
-                    .attr("width", width)
-                    .attr("weight", height);
 
-//            // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
-            var force = d3.layout.force()
-                    .nodes(graph.nodes)
-                    .links(graph.links)
-                    .size([width, height])
-                    .charge(-1000)
-                    .on("tick", tick)
-                    .start();
+// make graph object
+// nodes are basic individuals with IDs from 0-19
+// edges/links are in JSON format.  Note that prior node IDs must match link IDs
+var graph = {
+    nodes: [{id:0, status:0}, {id:1, status:0}, {id:2, status:0},{id:3, status:0},{id:4, status:0},{id:5, status:0},{id:6, status:0},{id:7, status:0},{id:8, status:0}],
+    links: [{source:0,target:1},{source:0,target:2},{source:1,target:2},{source:1,target:3},{source:2,target:3},{source:2,target:4},{source:4,target:5},{source:3,target:4},{source:3,target:6},{source:6,target:8},{source:7,target:8},{source:4,target:7}]
+};
 
-            // associate empty SVGs with link data. assign attributes.
-            var link = svg.selectAll(".link")
-                    .data(graph.links)
-                    .enter().append("line")
-                    .attr("class", "link");
+var originalGraph = owl.deepCopy(graph);
 
-            // associate empty SVGs with node data. assign attributes. call force.drag to make them moveable.
-            var node = svg.selectAll(".node")
-                    .data(graph.nodes)
-                    .enter().append("circle")
-                    .attr("class", "node")
-                    .attr("r", degree)
-                    .style("fill", color)
-                    .call(force.drag)
-                    .on("click", click);
 
-            // tick function, which does the physics for each individual node.
-            function tick() {
-                link.attr("x1", function(d) { return d.source.x; })
-                        .attr("y1", function(d) { return d.source.y; })
-                        .attr("x2", function(d) { return d.target.x; })
-                        .attr("y2", function(d) { return d.target.y; });
+// select "body" section, and append an empty SVG with height and width values
+var width = 500,
+        height = 300,
+        svg;
+svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("weight", height);
 
-                node.attr("cx", function(d) { return d.x; })
-                        .attr("cy", function(d) { return d.y; });
+// initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
+var force = d3.layout.force()
+        .nodes(graph.nodes)
+        .links(graph.links)
+        .size([width, height])
+        .charge(-1000)
+        .on("tick", tick)
+        .start();
+
+// associate empty SVGs with link data. assign attributes.
+var link = svg.selectAll(".link")
+        .data(graph.links)
+        .enter().append("line")
+        .attr("class", "link");
+
+// associate empty SVGs with node data. assign attributes. call force.drag to make them moveable.
+var node = svg.selectAll(".node")
+        .data(graph.nodes)
+        .enter().append("circle")
+        .attr("class", "node")
+        .attr("r", degreeSize)
+        .style("fill", color)
+        .on("mouseover", function(d) {
+            div.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+            div.html("NodeID:\t" + d.id + "<br/>" + "Neighbors:\t" +  degree(d) + "<br/>"  + "Centrality: ##")
+                    .style("left", 500 + "px")
+                    .style("top", 20 + "px");
+        })
+        .on("mouseout", function(d) {
+            div.transition()
+                    .duration(400)
+                    .style("opacity", 0)})
+        .call(force.drag)
+        .on("click", click);
+
+var div = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+
+
+
+// tick function, which does the physics for each individual node & link.
+function tick() {
+    link.attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+
+    node.attr("cx", function(d) { return d.x; })
+            .attr("cy", function(d) { return d.y; });
+}
+
+function combinedUpdate() {
+    if (preVaccination ) {
+        updateNodeAttributes();
+    }
+    else {
+        updateFullGraph();
+        updateNodeAttributes();
+    }
+    preVaccination  = true;
+}
+
+function updateFullGraph() {
+    var nodes = filterNodes();
+    var links = filterLinks();
+
+    force
+            .nodes(nodes)
+            .links(links)
+            .start();
+
+    // select all links, join them with new data, and save it to "link" variable
+    link = svg.selectAll("line.link")
+            .data(links, function(d) { return d.source.id + "-" + d.target.id; });
+
+    // enter new links (unnecessary at the moment)
+    link.enter().insert("svg:line", ".node")
+            .attr("class", "link")
+            .attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+
+    // Exit any old links.
+    link.exit().remove();
+
+    // Update the nodes…
+    node = svg.selectAll("circle.node")
+            .data(nodes, function(d) { return d.id; })
+            .style("fill", color);
+
+    // Enter any new nodes.
+    node.enter().append("svg:circle")
+            .attr("class", "node")
+            .attr("cx", function(d) { return d.x; })
+            .attr("cy", function(d) { return d.y; })
+            .attr("r", degreeSize)
+            .style("fill", color)
+            .on("click", click)
+            .call(force.drag);
+
+    // Exit any old nodes.
+    node.exit().remove();
+
+    graph.nodes = nodes;
+    graph.links = links;
+}
+
+function updateNodeAttributes() {
+    force
+            .nodes(graph.nodes)
+            .links(graph.links)
+            .start();
+
+    // Update the nodes…
+    node = svg.selectAll("circle.node")
+            .data(graph.nodes, function(d) { return d.id; })
+            .attr("r", degreeSize)
+            .style("fill", color);
+}
+
+function vaccinate() {
+    preVaccination  = false;
+    combinedUpdate();
+}
+
+function degree(node) {
+    var degree = 0;
+    for (var i = 0; i < graph.links.length; i++) {
+        if (graph.links[i].source == node || graph.links[i].target == node) degree++;
+    }
+    return degree;
+}
+
+function degreeSize(node) {
+    var degSize = null;
+    if (sizeByDegree == false) degSize = 8;
+    if (sizeByDegree == true)  degSize = (degree(node) + 2) * 2.5;
+    return degSize;
+}
+
+function toggleSizeByDegree() {
+    sizeByDegree = !sizeByDegree;
+    combinedUpdate();
+}
+
+function filterNodes() {
+    var nodes = [];
+    for (var i = 0; i < graph.nodes.length; i++) {
+        if (graph.nodes[i].status == 0) {
+            nodes.push(graph.nodes[i]);
+        }
+    }
+    return nodes;
+}
+
+function filterLinks() {
+    var links = [];
+    for (var i = 0; i < graph.links.length; i++) {
+        if (graph.links[i].source.status == 0 && graph.links[i].target.status == 0) {
+            links.push(graph.links[i]);
+        }
+    }
+    return links;
+}
+
+function color(d) {
+    var color = null;
+    if (d.status == 0) color = "#ff0000";
+    if (d.status == 1) color = "#c6dbef";
+    return color;
+}
+
+function click(node) {
+    if (node.status == 1) node.status = 0;
+    else node.status = 1;
+    combinedUpdate();
+}
+
+
+function findNeighbors(sampleNode) {
+    var neighbors = [];
+    for (var i = 0; i < graph.links.length; i++) {
+        var testLink = graph.links[i];
+        if (testLink.source == sampleNode && !neighbors.contains(testlink.source)) neighbors.push(testLink.source);
+        if (testLink.target == sampleNode && !neighbors.contains(testlink.target)) neighbors.push(testLink.target);
+    }
+    return neighbors;
+}
+
+function subStrat() {
+    for (var postVacNODE = 0; postVacNODE < graph.nodes.length; postVacNODE++) {
+        if (graph.nodes[postVacNODE].status == 1) {
+            var nodeToChange = graph.nodes[postVacNODE].id
+        }
+        else continue;
+
+        for (var preVacNODE = 0; preVacNODE < originalGraph.nodes.length; preVacNODE++) {
+            if (originalGraph.nodes[preVacNODE].id == nodeToChange) {
+                originalGraph.nodes[preVacNODE].status = 1;
             }
+        }
+    }
 
-            function update() {
-                var nodes = filterNodes();
-                var links = filterLinks();
-                force
-                        .nodes(nodes)
-                        .links(links)
-                        .start();
+    updatePostVac()
 
-                // select all links, join them with new data, and save it to "link" variable
-                link = svg.selectAll("line.link")
-                        .data(links, function(d) { return d.source.id + "-" + d.target.id; });
+}
 
-                // enter new links (unnecessary at the moment)
-                link.enter().insert("svg:line", ".node")
-                        .attr("class", "link")
-                        .attr("x1", function(d) { return d.source.x; })
-                        .attr("y1", function(d) { return d.source.y; })
-                        .attr("x2", function(d) { return d.target.x; })
-                        .attr("y2", function(d) { return d.target.y; });
+function updatePostVac() {
+    var nodes = originalGraph.nodes;
+    var links = originalGraph.links;
 
-                // Exit any old links.
-                link.exit().remove();
+    force
+            .nodes(nodes)
+            .links(links)
+            .start();
 
-                // Update the nodes…
-                node = svg.selectAll("circle.node")
-                        .data(nodes, function(d) { return d.id; })
-                        .style("fill", color);
+    // select all links, join them with new data, and save it to "link" variable
+    link = svg.selectAll("line.link")
+            .data(links, function(d) { return d.source.id + "-" + d.target.id; });
 
-                // Enter any new nodes.
-                node.enter().append("svg:circle")
-                        .attr("class", "node")
-                        .attr("cx", function(d) { return d.x; })
-                        .attr("cy", function(d) { return d.y; })
-                        .attr("r", degree)
-                        .style("fill", color)
-                        .on("click", click)
-                        .call(force.drag);
+    // enter new links (unnecessary at the moment)
+    link.enter().insert("svg:line", ".node")
+            .attr("class", "link")
+            .attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
 
-                // Exit any old nodes.
-                node.exit().remove();
+    // Exit any old links.
+    link.exit().remove();
 
-                graph.nodes = nodes;
-                graph.links = links;
-            }
+    // Update the nodes…
+    node = svg.selectAll("circle.node")
+            .data(nodes, function(d) { return d.id; })
+            .style("fill", color);
 
-            function updateNodeColor() {
-                force
-                        .nodes(graph.nodes)
-                        .links(graph.links)
-                        .start();
+    // Enter any new nodes.
+    node.enter().append("svg:circle")
+            .attr("class", "node")
+            .attr("cx", function(d) { return d.x; })
+            .attr("cy", function(d) { return d.y; })
+            .attr("r", degreeSize)
+            .style("fill", color)
+            .on("click", click)
+            .call(force.drag);
 
-                // Update the nodes…
-                node = svg.selectAll("circle.node")
-                        .data(graph.nodes, function(d) { return d.id; })
-                        .style("fill", color);
+    // Exit any old nodes.
+    node.exit().remove();
 
-                // Enter any new nodes.
-                node.enter().append("svg:circle")
-                        .attr("class", "node")
-                        .attr("cx", function(d) { return d.x; })
-                        .attr("cy", function(d) { return d.y; })
-                        .attr("r", degree)
-                        .style("fill", color)
-                        .on("click", click)
-                        .call(force.drag);
+    graph.nodes = nodes;
+    graph.links = links;
 
-                // Exit any old nodes.
-                node.exit().remove();
-
-            }
-
-            function degree(node) {
-                var degree = 0;
-                for (var i = 0; i < graph.links.length; i++) {
-                    if (graph.links[i].source == node || graph.links[i].target == node) degree++;
-                }
-                return degree*3;
-            }
-
-            function filterNodes() {
-                var nodes = [];
-                for (var i = 0; i < graph.nodes.length; i++) {
-                    if (graph.nodes[i].status == 0) {
-                        nodes.push(graph.nodes[i]);
-                    }
-                }
-                return nodes;
-            }
-
-            function filterLinks() {
-                var links = [];
-                for (var i = 0; i < graph.links.length; i++) {
-                    if (graph.links[i].source.status == 0 && graph.links[i].target.status == 0) {
-                        links.push(graph.links[i]);
-                    }
-                }
-                return links;
-            }
-
-            function color(d) {
-                if (d.status == 0) return "#8b0000";
-                if (d.status == 1) return "#c6dbef";
-            }
-
-            function click(node) {
-                if (node.status == 1) node.status = 0;
-                else node.status = 1;
-                updateNodeColor();
-            }
-
-
-
-//
-//
+}
 
 
 
 
 
-        </script>
-    </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
 </html>
