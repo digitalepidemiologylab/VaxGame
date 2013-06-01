@@ -70,18 +70,15 @@ var twineIndex = 0;
 // edges/links are in JSON format.  Note that prior node IDs must match link IDs
 var graph = {
     nodes: [{id:0, status:0, group:null, edges:[], marked:false}, {id:1, status:0, group:null, edges:[], marked:false}, {id:2, status:0, group:null, edges:[], marked:false},{id:3, status:0, group:null, edges:[], marked:false},{id:4, status:0, group:null, edges:[], marked:false},{id:5, status:0, group:null, edges:[], marked:false},{id:6, status:0, group:null, edges:[], marked:false},{id:7, status:0, group:null, edges:[], marked:false},{id:8, status:0, group:null, edges:[], marked:false}],
-    links: [{source:0,target:1, id:null, traversed:false},{source:0,target:2, id:null, traversed:false},{source:1,target:2, id:null, traversed:false},{source:1,target:3, id:null, traversed:false},{source:2,target:3, id:null, traversed:false},{source:2,target:4, id:null, traversed:false},{source:3,target:4, id:null, traversed:false},{source:3,target:6, id:null, traversed:false},{source:4,target:7, id:null, traversed:false}]
+    links: [{source:0,target:1, id:null, traversed:false},{source:0,target:2, id:null, traversed:false},{source:1,target:2, id:null, traversed:false},{source:1,target:3, id:null, traversed:false},{source:2,target:3, id:null, traversed:false},{source:2,target:4, id:null, traversed:false},{source:4,target:5, id:null, traversed:false},{source:3,target:4, id:null, traversed:false},{source:3,target:6, id:null, traversed:false},{source:6,target:8, id:null, traversed:false},{source:7,target:8, id:null, traversed:false},{source:4,target:7, id:null, traversed:false}]
 };
-
-//links: [{source:0,target:1, id:null, traversed:false},{source:0,target:2, id:null, traversed:false},{source:1,target:2, id:null, traversed:false},{source:1,target:3, id:null, traversed:false},{source:2,target:3, id:null, traversed:false},{source:2,target:4, id:null, traversed:false},{source:4,target:5, id:null, traversed:false},{source:3,target:4, id:null, traversed:false},{source:3,target:6, id:null, traversed:false},{source:6,target:8, id:null, traversed:false},{source:7,target:8, id:null, traversed:false},{source:4,target:7, id:null, traversed:false}]
 
 
 assignEdgesForAllNodes();
+var originalGraph = owl.deepCopy(graph);
 
 var groupCounter = 0;
-//assignCommunities();
-
-var originalGraph = owl.deepCopy(graph);
+assignGroups();
 
 // select "body" section, and append an empty SVG with height and width values
 var width = 500,
@@ -220,6 +217,8 @@ function updateNodeAttributes() {
 function vaccinate() {
     preVaccination  = false;
     combinedUpdate();
+    updateCommunities();
+    console.log(groupCounter);
 }
 
 function degree(node) {
@@ -389,14 +388,6 @@ function assignEdgesForAllNodes() {
     }
 }
 
-function markNode(node) {
-    node.group = groupCounter;
-}
-
-function markEdgeTraversal(edge) {
-    edge.traversed = true;
-}
-
 function findLink(source, target) {
     var link = null;
     for (var i = 0; i < graph.links.length; i++) {
@@ -406,6 +397,8 @@ function findLink(source, target) {
     return link;
 }
 
+
+// community detection by BFS
 function getUnmarkedUngroupedNodes() {
     var unmarkedNodes = [];
     for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
@@ -414,6 +407,19 @@ function getUnmarkedUngroupedNodes() {
         if (node.marked == false) unmarkedNodes.push(node);
     }
     return unmarkedNodes;
+}
+
+function updateCommunities() {
+    for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
+        var node = graph.nodes[nodeIndex];
+        node.group = null;
+        node.marked = false;
+        twine = [];
+        twineIndex = 0;
+        groupCounter = 0;
+    }
+
+    assignGroups();
 }
 
 function assignGroups() {
