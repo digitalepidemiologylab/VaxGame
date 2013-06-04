@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>VaxGame</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <title><%= full_title(yield(:title)) %></title>
+  <%= stylesheet_link_tag    "application", media: "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%= render 'layouts/shim' %>
 </head>
 <body>
+<%= render 'layouts/header' %>
 
-<%= yield %>
+<div>  <%= yield %> </div>
 
+<div class="container">
+  <%= render 'layouts/footer' %>
+</div>
 </body>
 </html>
