@@ -1,0 +1,26 @@
+body {
+  font: 13px sans-serif;
+  position: relative;
+  width: 960px;
+  height: 500px;
+}
+.node {
+  cursor: crosshair;
+}
+.link {
+  stroke: #000;
+  stroke-width: 5;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 160px;
+  height: 55px;
+  padding: 2px;
+  font: 15px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}

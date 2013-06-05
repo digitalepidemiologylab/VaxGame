@@ -174,22 +174,19 @@
     w("jsnx.classes.func.set_edge_attributes",be);w("jsnx.set_edge_attributes",be);function ce(a,b){var c={};F(a.p(l,k),function(a){b in a[2]&&(c[[a[0],a[1]]]=a[2][b])});return c}w("jsnx.classes.func.get_edge_attributes",ce);w("jsnx.get_edge_attributes",ce);w("jsnx.version","0.1.2next");}));
 
 var timestep = 0;
-var transmissionRate = .1;
+var transmissionRate = .03;
 var latencyPeriod = 3;
-var recoveryRate = 0;
+var recoveryRate = .03;
 var maxRecoveryTime = 7;
 var indexCase = null;
 var diseaseIsSpreading = false;
 var healthStatuses = [0,0,0,0,0];
-var totalSims = 50;
+var totalSims = 100;
 
 var graph = {
     nodes: [{id:0, status:"V", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}, {id:1, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}, {id:2, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:3, status:"V", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:4, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:5, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:6, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:7, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:8, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}],
     links: [{source:0,target:1, id:null},{source:0,target:2, id:null},{source:1,target:2, id:null},{source:1,target:3, id:null},{source:2,target:3, id:null},{source:2,target:4, id:null},{source:4,target:5, id:null},{source:3,target:4, id:null},{source:3,target:6, id:null},{source:6,target:8, id:null},{source:7,target:8, id:null},{source:4,target:7, id:null}]
 };
-
-convertGraphForNetX();
-
 
 function selectIndexCase() {
     var numberOfPeople = graph.nodes.length;
@@ -255,7 +252,6 @@ function runTimesteps() {
         this.timestep++;
         checkForCompletion();
     }
-    console.log(healthStatuses[0] + "\t" + healthStatuses[1] + "\t" + healthStatuses[2] + "\t" + healthStatuses[3] + "\t" + healthStatuses[4]);
 }
 
 function multiBioSims() {
@@ -263,6 +259,7 @@ function multiBioSims() {
         selectIndexCase();
         runTimesteps();
         resetSim();
+        updateNodeAttributes();
     }
 }
 
@@ -313,7 +310,7 @@ function findNeighbors(sampleNode) {
 
 // select "body" section, and append an empty SVG with height and width values
 var width = 900,
-    height = 400,
+    height = 500,
     svg;
 svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -345,7 +342,7 @@ var node = svg.selectAll(".node")
         div.transition()
             .duration(200)
             .style("opacity", .9);
-        div.html("NodeID:\t" + d.id + "<br/>" + "Times Infected:\t" )
+        div.html("NodeID:\t" + d.id + "<br/>" + "Status:\t" + status(d) + "<br/>" + "Risk:\t" + (100*d.timesInfected/totalSims) + "%")
             .style("left", 600 + "px")
             .style("top", 150 + "px");
     })
@@ -370,10 +367,35 @@ function tick() {
         .attr("cy", function(d) { return d.y; });
 }
 
+function updateNodeAttributes() {
+    force
+        .nodes(graph.nodes)
+        .links(graph.links)
+        .charge(-2500)
+        .start();
+
+    // Update the nodes…
+    node = svg.selectAll("circle.node")
+        .data(graph.nodes, function(d) { return d.id; })
+        .attr("r", size)
+        .style("fill", color);
+}
+
+function size(d) {
+    return (d.timesInfected);
+}
+
+function status(d) {
+    var statusString = null;
+    if (d.status == "S")  statusString = "susceptible";
+    if (d.status == "V")  statusString = "vaccinated";
+    return statusString;
+}
+
 function color(d) {
     var color = null;
-    if (d.status == 0) color = "#ff0000";
-    if (d.status == 1) color = "#c6dbef";
+    if (d.status == "S") color = "#ff0000";
+    if (d.status == "V") color = "#c6dbef";
     return color;
 }
 
@@ -385,33 +407,7 @@ function degree(node) {
     return degree;
 }
 
-function convertGraphForNetX() {
-    var vertices = [];
-    var edges = [];
-    var G = jsnx.Graph();
-
-    for (var node = 0; node < graph.nodes.length; node++) {
-        vertices.push(graph.nodes[node].id);
-        
-        if (graph.nodes[node].status == 0) graph.nodes[node].status = "S";
-        if (graph.nodes[node].status == 1) graph.nodes[node].status = "V";
-        
-    }
-
-    for (var edge = 0; edge < graph.links.length; edge++) {
-        var formatted = [];
-        formatted.push(graph.links[edge].source.id);
-        formatted.push(graph.links[edge].target.id);
-        edges.push(formatted);
-    }
-
-    G.add_nodes_from(vertices);
-    G.add_edges_from(edges);
-
-    this.G = G;
-}
-
-
+multiBioSims();
 
 
 

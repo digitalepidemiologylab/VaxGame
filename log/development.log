@@ -46020,3 +46020,3909 @@ Served asset /static_pages.js - 304 Not Modified (0ms)
 
 Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:24:12 -0400
 Served asset /application.js - 304 Not Modified (20ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:27:53 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (77.1ms)
+Compiled application.js  (7ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 159ms (Views: 158.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:27:54 -0400
+Served asset /application.js - 304 Not Modified (16ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (48.0ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 131ms (Views: 130.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:28:28 -0400
+Served asset /application.js - 304 Not Modified (22ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.2ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 128ms (Views: 127.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /outbreakSim.js - 200 OK (3ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:29:11 -0400
+Served asset /application.js - 304 Not Modified (16ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:30:05 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (1ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.4ms)
+Compiled application.js  (7ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 99ms (Views: 99.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:06 -0400
+Served asset /application.js - 304 Not Modified (16ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (1ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (18.7ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 105ms (Views: 105.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:30:47 -0400
+Served asset /application.js - 304 Not Modified (16ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (48.2ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 130ms (Views: 130.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:31:19 -0400
+Served asset /application.js - 304 Not Modified (23ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (15.6ms)
+Compiled application.js  (7ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 98ms (Views: 97.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:22 -0400
+Served asset /application.js - 304 Not Modified (46ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Processing by StaticPagesController#outbreak as HTML
+  Rendered static_pages/outbreak.html.erb within layouts/application (5.7ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 20ms (Views: 19.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /outbreakSim.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:35:35 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreak.css  (22ms)  (pid 6378)
+Compiled application.css  (34ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (114.6ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 129ms (Views: 128.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /application.css - 304 Not Modified (48ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /outbreak.css - 200 OK (2ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /outbreakSim.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:36:50 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreak.css  (6ms)  (pid 6378)
+Compiled application.css  (3ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (41.5ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 55ms (Views: 55.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /application.css - 304 Not Modified (18ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /outbreak.css - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /outbreakSim.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:37:41 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:38:20 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (18.3ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 148ms (Views: 147.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:21 -0400
+Served asset /application.js - 304 Not Modified (20ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (15.8ms)
+Compiled application.js  (7ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 100ms (Views: 100.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:38:50 -0400
+Served asset /application.js - 304 Not Modified (16ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (52.1ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 133ms (Views: 133.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:39:33 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:39:34 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:39:34 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:39:34 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:39:34 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:39:34 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:39:34 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:39:34 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:39:34 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:39:34 -0400
+Served asset /application.js - 304 Not Modified (18ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.2ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 102ms (Views: 102.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:04 -0400
+Served asset /application.js - 304 Not Modified (17ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.5ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.5ms)
+Completed 200 OK in 106ms (Views: 105.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /outbreakSim.js - 200 OK (3ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:38 -0400
+Served asset /application.js - 304 Not Modified (55ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:40:49 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (3ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (22.0ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 107ms (Views: 106.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:49 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:49 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:49 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:49 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:49 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:49 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:49 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:49 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:40:49 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:49 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:50 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:50 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:50 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:50 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:50 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:50 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:50 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:50 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:50 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:50 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:50 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:40:50 -0400
+Served asset /application.js - 304 Not Modified (16ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.7ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.5ms)
+Completed 200 OK in 105ms (Views: 105.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /outbreakSim.js - 200 OK (3ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:38 -0400
+Served asset /application.js - 304 Not Modified (16ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.6ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 102ms (Views: 102.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:46 -0400
+Served asset /application.js - 304 Not Modified (49ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.4ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 99ms (Views: 99.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:58 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:59 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:59 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:59 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:41:59 -0400
+Served asset /application.js - 304 Not Modified (16ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.2ms)
+Compiled application.js  (7ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 102ms (Views: 101.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /outbreakSim.js - 200 OK (4ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:09 -0400
+Served asset /application.js - 304 Not Modified (16ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.4ms)
+Compiled application.js  (7ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 102ms (Views: 101.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:27 -0400
+Served asset /application.js - 304 Not Modified (17ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.3ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 104ms (Views: 103.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:42:48 -0400
+Served asset /application.js - 304 Not Modified (50ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.4ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 100ms (Views: 99.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:26 -0400
+Served asset /application.js - 304 Not Modified (18ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Processing by StaticPagesController#outbreak as HTML
+  Rendered static_pages/outbreak.html.erb within layouts/application (6.3ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 20ms (Views: 20.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /outbreakSim.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:32 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Processing by StaticPagesController#outbreak as HTML
+  Rendered static_pages/outbreak.html.erb within layouts/application (6.2ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 20ms (Views: 19.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /outbreakSim.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:45 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Processing by StaticPagesController#outbreak as HTML
+  Rendered static_pages/outbreak.html.erb within layouts/application (6.4ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (20.9ms)
+  Rendered layouts/_footer.html.erb (0.5ms)
+Completed 200 OK in 41ms (Views: 40.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /outbreakSim.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:48 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Processing by StaticPagesController#outbreak as HTML
+  Rendered static_pages/outbreak.html.erb within layouts/application (6.5ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 21ms (Views: 21.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /outbreakSim.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:43:52 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Processing by StaticPagesController#outbreak as HTML
+  Rendered static_pages/outbreak.html.erb within layouts/application (6.6ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.5ms)
+Completed 200 OK in 21ms (Views: 21.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /outbreakSim.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:29 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (61.0ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 116ms (Views: 116.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:49 -0400
+Served asset /application.js - 304 Not Modified (51ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Processing by StaticPagesController#outbreak as HTML
+  Rendered static_pages/outbreak.html.erb within layouts/application (6.2ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 21ms (Views: 20.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /outbreakSim.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:52 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Processing by StaticPagesController#outbreak as HTML
+  Rendered static_pages/outbreak.html.erb within layouts/application (6.1ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 20ms (Views: 20.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /outbreakSim.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:49:55 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Processing by StaticPagesController#outbreak as HTML
+  Rendered static_pages/outbreak.html.erb within layouts/application (6.2ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 20ms (Views: 20.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /outbreakSim.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:03 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (36.8ms)
+Compiled application.js  (9ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 138ms (Views: 138.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /outbreakSim.js - 200 OK (3ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:13 -0400
+Served asset /application.js - 304 Not Modified (21ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.4ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 148ms (Views: 147.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /outbreakSim.js - 200 OK (3ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:24 -0400
+Served asset /application.js - 304 Not Modified (19ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.5ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 105ms (Views: 105.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:50:34 -0400
+Served asset /application.js - 304 Not Modified (50ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.5ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 71ms (Views: 70.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /outbreakSim.js - 200 OK (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:12 -0400
+Served asset /application.js - 304 Not Modified (19ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.4ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 102ms (Views: 102.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /outbreakSim.js - 200 OK (3ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:51:31 -0400
+Served asset /application.js - 304 Not Modified (17ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Processing by StaticPagesController#outbreak as HTML
+  Rendered static_pages/outbreak.html.erb within layouts/application (6.1ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 20ms (Views: 19.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /outbreakSim.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:17 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:52:31 -0400
+Processing by StaticPagesController#outbreak as HTML
+Compiled outbreakSim.js  (2ms)  (pid 6378)
+  Rendered static_pages/outbreak.html.erb within layouts/application (16.9ms)
+Compiled application.js  (8ms)  (pid 6378)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 111ms (Views: 110.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:31 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:31 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:31 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /outbreakSim.js - 200 OK (3ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:32 -0400
+Served asset /application.js - 304 Not Modified (21ms)
+
+
+Started GET "/outbreak" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Processing by StaticPagesController#outbreak as HTML
+  Rendered static_pages/outbreak.html.erb within layouts/application (6.3ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 21ms (Views: 20.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /bootstrap.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /bootstrap-responsive.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /bootstrap-responsive.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /bootstrap.min.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /game.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreak.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /outbreak.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/angular.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /angular.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /bootstrap.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /d3.v3.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/d3.v3.min.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /d3.v3.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deepCopy.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /deepCopy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/game.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /game.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jsnetworkx-custom.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /jsnetworkx-custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/outbreakSim.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /outbreakSim.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-06-05 15:52:50 -0400
+Served asset /application.js - 304 Not Modified (0ms)
