@@ -12,4 +12,10 @@ class StaticPagesController < ApplicationController
   def contact
   end
 
+  def game
+  end
+
+  def outbreak
+  end
+
 end

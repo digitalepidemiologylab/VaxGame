@@ -173,188 +173,143 @@
     else var e=L.v.apply(l,ab(a.t())),c=c+("Average degree: "+(e/d).toFixed(4))}return c}w("jsnx.classes.func.info",Zd);w("jsnx.info",Zd);function $d(a,b,c){F(c,function(c,e){a.node[e][b]=c})}w("jsnx.classes.func.set_node_attributes",$d);w("jsnx.set_node_attributes",$d);function ae(a,b){var c={};F(a.qa,function(a,e){b in a&&(c[e]=a[b])});return c}w("jsnx.classes.func.get_node_attributes",ae);w("jsnx.get_node_attributes",ae);function be(a,b,c){F(c,function(b,c){c=c.split(",");a.g(c[0])[c[1]]=b})}
     w("jsnx.classes.func.set_edge_attributes",be);w("jsnx.set_edge_attributes",be);function ce(a,b){var c={};F(a.p(l,k),function(a){b in a[2]&&(c[[a[0],a[1]]]=a[2][b])});return c}w("jsnx.classes.func.get_edge_attributes",ce);w("jsnx.get_edge_attributes",ce);w("jsnx.version","0.1.2next");}));
 
-function gameController($scope) {
-    $scope.toggleDegree = function() {
-        toggleSizeByDegree();
-    }
+var timestep = 0;
+var transmissionRate = .1;
+var latencyPeriod = 3;
+var recoveryRate = 0;
+var maxRecoveryTime = 7;
+var indexCase = null;
+var diseaseIsSpreading = false;
+var healthStatuses = [0,0,0,0,0];
+var totalSims = 50;
 
-    $scope.toggleBC = function() {
-        toggleSizeByBC();
-    }
-
-    $scope.vaccinesUsed = 0;
-
-    $scope.communityCompletion = 0;
-
-    $scope.largestCompletion = 0;
-
-    $scope.worstCase = estimateWorstCase();
-    $scope.numberOfCommunities = numberOfCommunities;
-    $scope.largestCommunity = largestCommunity;
-    $scope.targetWorstCase = targetEstimate;
-
-
-
-    $scope.vaccinate = function() {
-        vaccinate();
-        combinedUpdate();
-        $scope.vaccinesUsed = getNumberOfVaccinesUsed();
-        $scope.completion = updateCompletions();
-        $scope.numberOfCommunities = numberOfCommunities;
-        $scope.largestCommunity = largestCommunity;
-        $scope.worstCase = worstCase;
-        $scope.targetWorstCase = targetEstimate;
-
-    }
-
-    $scope.subStrategy = function() {
-        subStrat();
-    }
-
-
-
-}
-
-var preVaccination  = true;
-var sizeByDegree    = false;
-var submitted       = false;
-var sizeByBC        = false;
-var twine = [];
-var twineIndex = 0;
-var numberOfCommunities = null;
-var G = jsnx.Graph();
-var bcScores = [];
-var largestCommunity = null;
-var vaccinesUsed = null;
-var communities = [];
-var targetEstimate = 2.75;
-var worstCase = 0;
-
-var completion = 0;
-
-function updateCompletions() {
-    worstCase = estimateWorstCase();
-    completion = 100 * (1 - (worstCase - targetEstimate));
-
-    return completion;
-
-}
-
-
-
-function toggleSizeByBC() {
-    sizeByBC = !sizeByBC;
-    combinedUpdate();
-}
-
-function getNumberOfVaccinesUsed() {
-    vaccinesUsed = 0;
-    for (var i = 0; i < originalGraph.nodes.length; i++) {
-        if (originalGraph.nodes[i].status == 1) vaccinesUsed++;
-
-    }
-    return vaccinesUsed;
-}
-
-function findLargestCommunity() {
-    communities = [];
-
-    for (var i = 0; i < groupCounter; i++) {
-        communities[i] = 0;
-    }
-
-    for (var ii = 0; ii < groupCounter; ii++) {
-        for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
-            if (graph.nodes[nodeIndex].group == ii) communities[ii]++;
-
-        }
-    }
-
-    largestCommunity = Array.max(communities);
-}
-
-function estimateWorstCase() {
-    var sumSquared = 0;
-    var sum = 0;
-    var worstCase = 0;
-    for (var i = 0; i < communities.length; i++) {
-        sumSquared += communities[i] * communities[i];
-        sum += communities[i];
-    }
-    worstCase = sumSquared / sum;
-    worstCase =  parseFloat(Math.round(worstCase * 100) / 100).toFixed(2)
-    return worstCase;
-
-}
-
-
-
-
-
-Array.max = function( array ){
-    return Math.max.apply( Math, array );
-};
-
-
-// make graph object
-// nodes are basic individuals with IDs from 0-19
-// edges/links are in JSON format.  Note that prior node IDs must match link IDs
 var graph = {
-    nodes: [{id:0, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}, {id:1, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}, {id:2, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:3, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:4, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:5, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:6, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:7, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:8, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}],
+    nodes: [{id:0, status:"V", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}, {id:1, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}, {id:2, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:3, status:"V", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:4, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:5, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:6, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:7, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:8, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}],
     links: [{source:0,target:1, id:null},{source:0,target:2, id:null},{source:1,target:2, id:null},{source:1,target:3, id:null},{source:2,target:3, id:null},{source:2,target:4, id:null},{source:4,target:5, id:null},{source:3,target:4, id:null},{source:3,target:6, id:null},{source:6,target:8, id:null},{source:7,target:8, id:null},{source:4,target:7, id:null}]
 };
 
+convertGraphForNetX();
 
-function convertGraphForNetX() {
-    var vertices = [];
-    var edges = [];
-    var G = jsnx.Graph();
 
-    for (var node = 0; node < graph.nodes.length; node++) {
-        vertices.push(graph.nodes[node].id);
+function selectIndexCase() {
+    var numberOfPeople = graph.nodes.length;
+
+    do{
+        var randomIndex = Math.floor(Math.random() * numberOfPeople);
+        var indexCase = graph.nodes[randomIndex];
     }
+    while (indexCase.status == "V");
 
-    for (var edge = 0; edge < graph.links.length; edge++) {
-        var formatted = [];
-        formatted.push(graph.links[edge].source.id);
-        formatted.push(graph.links[edge].target.id);
-        edges.push(formatted);
-    }
-
-    G.add_nodes_from(vertices);
-    G.add_edges_from(edges);
-
-    this.G = G;
-}
-
-function computeBetweennessCentrality() {
-    var bc = jsnx.betweenness_centrality(G);
-    var bcScores = [];
-    for (var i = 0; i < graph.nodes.length; i++) {
-        bcScores[i] = bc[i];
-        graph.nodes[i].bcScore = bc[i];
-    }
-
-    return bcScores;
+    this.indexCase = indexCase;
+    exposeIndividual(this.indexCase);
+    this.diseaseIsSpreading = true;
 
 }
 
-
-function computeShortestPath(source, target, G) {
-    var shortestDistance = Math.POSITIVE_INFINITY;
-    var shortestPath = jsnx.bidirectional_shortest_path(G,source,target);
-    shortestDistance = shortestPath.length - 1;
-
-    return shortestPath;
+function exposeIndividual(individual) {
+    if (individual.status == "S") {
+        individual.status = "E";
+        individual.exposureTimestep = this.timestep;
+    }
 }
 
+function exposedToInfected(individual) {
+    if (individual.status != "E") return;
+    var timeSinceExposure = this.timestep - individual.exposureTimestep;
+    if (timeSinceExposure > latencyPeriod) individual.status = "I";
+}
 
+function infectedToRecovered(individual) {
+    if (individual.status != "I") return;
+    var timeSinceInfection = this.timestep - individual.infectiousTimestep;
+    if (Math.random() < recoveryRate || timeSinceInfection > maxRecoveryTime) individual.status = "R";
+}
 
-assignEdgesForAllNodes();
+function stateChanges() {
+    for (var index = 0; index < graph.nodes.length; index++) {
+        var individual = graph.nodes[index];
+        exposedToInfected(individual);
+        infectedToRecovered(individual);
+    }
+}
 
-var groupCounter = 0;
+function resetSim() {
+    this.timestep = 0;
+    this.diseaseIsSpreading = true;
+    this.healthStatuses = [0,0,0,0,0];
+    for (var index = 0; index < graph.nodes.length; index++) {
+        var individual = graph.nodes[index];
+        if (individual.status == "V") continue;
+        if (individual.status == "R") individual.timesInfected++;
+        individual.exposureTimestep = null;
+        individual.infectiousTimestep = null;
+        individual.status = "S";
+    }
+}
 
-var originalGraph = owl.deepCopy(graph);
+function runTimesteps() {
+    while(diseaseIsSpreading) {
+        infection();
+        stateChanges();
+        tallyStatuses();
+        this.timestep++;
+        checkForCompletion();
+    }
+    console.log(healthStatuses[0] + "\t" + healthStatuses[1] + "\t" + healthStatuses[2] + "\t" + healthStatuses[3] + "\t" + healthStatuses[4]);
+}
+
+function multiBioSims() {
+    for (var simCounter = 0; simCounter < totalSims; simCounter++) {
+        selectIndexCase();
+        runTimesteps();
+        resetSim();
+    }
+}
+
+function checkForCompletion() {
+    if (healthStatuses[1] == 0 && healthStatuses[2] == 0) diseaseIsSpreading = false;
+
+}
+
+function tallyStatuses() {
+    var healthStatuses = [0,0,0,0,0];
+    for (var index = 0; index < graph.nodes.length; index++) {
+        if (graph.nodes[index].status == "S") healthStatuses[0]++;
+        if (graph.nodes[index].status == "E") healthStatuses[1]++;
+        if (graph.nodes[index].status == "I") healthStatuses[2]++;
+        if (graph.nodes[index].status == "R") healthStatuses[3]++;
+        if (graph.nodes[index].status == "V") healthStatuses[4]++;
+    }
+   this.healthStatuses = healthStatuses;
+}
+
+function infection() {
+    for (var index = 0; index < graph.nodes.length; index++) {
+        if (graph.nodes[index].status != "S") continue;
+        var susceptible = graph.nodes[index];
+        var neighbors = findNeighbors(susceptible);
+        var numberOfInfectedNeighbors = 0;
+        for (var neighborIndex = 0; neighborIndex < neighbors.length; neighborIndex++) {
+            var neighbor = neighbors[neighborIndex];
+            if (neighbor.status == "I") {
+                numberOfInfectedNeighbors++;
+            }
+        }
+        var probabilityOfInfection = 1.0 - Math.pow(1.0 - transmissionRate,numberOfInfectedNeighbors);
+        if (Math.random() < probabilityOfInfection) exposeIndividual(susceptible);
+    }
+}
+
+function findNeighbors(sampleNode) {
+    var neighbors = [];
+    for (var i = 0; i < graph.links.length; i++) {
+        var testLink = graph.links[i];
+        if (testLink.source == sampleNode) neighbors.push(testLink.target);
+        if (testLink.target == sampleNode) neighbors.push(testLink.source);
+    }
+    return neighbors;
+}
+
 
 // select "body" section, and append an empty SVG with height and width values
 var width = 900,
@@ -384,29 +339,25 @@ var node = svg.selectAll(".node")
     .data(graph.nodes)
     .enter().append("circle")
     .attr("class", "node")
-    .attr("r", metric)
+    .attr("r", 8)
     .style("fill", color)
     .on("mouseover", function(d) {
         div.transition()
             .duration(200)
             .style("opacity", .9);
-        div.html("NodeID:\t" + d.id + "<br/>" + "Neighbors:\t" +  degree(d) + "<br/>"  + "Centrality:\t" + parseFloat(Math.round(d.bcScore * 100) / 100).toFixed(2))
-            .style("left", 500 + "px")
-            .style("top", 200 + "px");
+        div.html("NodeID:\t" + d.id + "<br/>" + "Times Infected:\t" )
+            .style("left", 600 + "px")
+            .style("top", 150 + "px");
     })
     .on("mouseout", function(d) {
         div.transition()
             .duration(400)
             .style("opacity", 0)})
     .call(force.drag)
-    .on("click", click);
 
 var div = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
-
-
-
 
 // tick function, which does the physics for each individual node & link.
 function tick() {
@@ -419,87 +370,11 @@ function tick() {
         .attr("cy", function(d) { return d.y; });
 }
 
-function combinedUpdate() {
-    bcScores = computeBetweennessCentrality();
-    updateCommunities();
-    findLargestCommunity();
-    updateCompletions();
-    if (preVaccination) {
-        updateNodeAttributes();
-    }
-    else {
-        updateFullGraph();
-        updateNodeAttributes();
-    }
-    preVaccination  = true;
-
-}
-
-function updateFullGraph() {
-    var nodes = filterNodes();
-    var links = filterLinks();
-
-    force
-        .nodes(nodes)
-        .links(links)
-        .start();
-
-    // select all links, join them with new data, and save it to "link" variable
-    link = svg.selectAll("line.link")
-        .data(links, function(d) { return d.source.id + "-" + d.target.id; });
-
-    // enter new links (unnecessary at the moment)
-    link.enter().insert("svg:line", ".node")
-        .attr("class", "link")
-        .attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-    // Exit any old links.
-    link.exit().remove();
-
-    // Update the nodes…
-    node = svg.selectAll("circle.node")
-        .data(nodes, function(d) { return d.id; })
-        .style("fill", color);
-
-    // Enter any new nodes.
-    node.enter().append("svg:circle")
-        .attr("class", "node")
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; })
-        .attr("r", metric)
-        .style("fill", color)
-        .on("click", click)
-        .call(force.drag);
-
-    // Exit any old nodes.
-    node.exit().remove();
-
-    graph.nodes = nodes;
-    graph.links = links;
-}
-
-function updateNodeAttributes() {
-    force
-        .nodes(graph.nodes)
-        .links(graph.links)
-        .start();
-
-    // Update the nodes…
-    node = svg.selectAll("circle.node")
-        .data(graph.nodes, function(d) { return d.id; })
-        .attr("r", metric)
-        .style("fill", color);
-}
-
-function vaccinate() {
-    preVaccination  = false;
-    getNumberOfVaccinesUsed();
-    combinedUpdate();
-    updateCommunities();
-    convertGraphForNetX();
+function color(d) {
+    var color = null;
+    if (d.status == 0) color = "#ff0000";
+    if (d.status == 1) color = "#c6dbef";
+    return color;
 }
 
 function degree(node) {
@@ -510,262 +385,33 @@ function degree(node) {
     return degree;
 }
 
-function degreeSize(node) {
-    var degSize = null;
-    if (sizeByDegree == false) degSize = 8;
-    if (sizeByDegree == true)  degSize = (degree(node) + 2) * 2.5;
-
-    return degSize;
-}
-
-function toggleSizeByDegree() {
-    sizeByDegree = !sizeByDegree;
-    combinedUpdate();
-}
-
-function metric(node) {
-    node.degree = degree(node);
-    node.bcScore = bcScores[node.id];
-    var sizeByMetric = 8;
-
-    if (sizeByBC == true && sizeByDegree == false) sizeByMetric = (node.bcScore / 0.025) + 6;
-    if (sizeByBC == false && sizeByDegree == true) sizeByMetric = (node.degree + 2) * 2;
-
-    if (sizeByBC == true && sizeByDegree == true) sizeByMetric = ((node.bcScore / 0.01) + 1) + ((node.degree + 2) * 2) / 2;
-    return sizeByMetric;
-}
-
-function filterNodes() {
-    var nodes = [];
-    for (var i = 0; i < graph.nodes.length; i++) {
-        if (graph.nodes[i].status == 0) {
-            nodes.push(graph.nodes[i]);
-        }
-
-        else {
-            originalGraph.nodes[i].status = 1;
-        }
-    }
-    return nodes;
-}
-
-function filterLinks() {
-    var links = [];
-    for (var i = 0; i < graph.links.length; i++) {
-        if (graph.links[i].source.status == 0 && graph.links[i].target.status == 0) {
-            links.push(graph.links[i]);
-        }
-    }
-    return links;
-}
-
-function color(d) {
-    var color = null;
-    if (d.status == 0) color = "#ff0000";
-    if (d.status == 1) color = "#c6dbef";
-    return color;
-}
-
-function click(node) {
-    if (node.status == 1) node.status = 0;
-    else node.status = 1;
-
-    for (var i = 0; i < originalGraph.nodes.length; i++) {
-        if (originalGraph.nodes[i] == node) originalGraph.nodes[i].status = node.status;
-    }
-
-    combinedUpdate();
-}
-
-
-function findNeighbors(sampleNode) {
-    var neighbors = [];
-    for (var i = 0; i < graph.links.length; i++) {
-        var testLink = graph.links[i];
-        if (testLink.source == sampleNode) neighbors.push(testLink.target);
-        if (testLink.target == sampleNode) neighbors.push(testLink.source);
-    }
-    return neighbors;
-}
-
-
-function subStrat() {
-    updatePostVac();
-}
-
-
-function updatePostVac() {
-    graph.nodes = originalGraph.nodes;
-    graph.links = originalGraph.links;
-
-    force
-        .nodes(graph.nodes)
-        .links(graph.links)
-        .start();
-
-    // select all links, join them with new data, and save it to "link" variable
-    link = svg.selectAll("line.link")
-        .data(graph.links, function(d) { return d.source.id + "-" + d.target.id; });
-
-    // enter new links
-    link.enter().insert("svg:line", ".node")
-        .attr("class", "link")
-        .attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-
-    // Update the nodes…
-    node = svg.selectAll("circle.node")
-        .data(graph.nodes, function(d) { return d.id; })
-        .style("fill", color)
-        .on("mouseover", function(d) {
-            div.transition()
-                .duration(200)
-                .style("opacity", .9);
-            div.html("NodeID:\t" + d.id + "<br/>" + "Neighbors:\t" +  degree(d) + "<br/>"  + "Centrality:\t" + parseFloat(Math.round(d.bcScore * 100) / 100).toFixed(2))
-                .style("left", 500 + "px")
-                .style("top", 20 + "px");
-        })
-        .on("mouseout", function(d) {
-            div.transition()
-                .duration(400)
-                .style("opacity", 0)});
-
-    // Enter any new nodes.
-    node.enter().append("svg:circle")
-        .attr("class", "node")
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; })
-        .attr("r", metric)
-        .style("fill", color)
-        .on("mouseover", function(d) {
-            div.transition()
-                .duration(200)
-                .style("opacity", .9);
-            div.html("NodeID:\t" + d.id + "<br/>" + "Neighbors:\t" +  degree(d) + "<br/>"  + "Centrality:\t" + parseFloat(Math.round(d.bcScore * 100) / 100).toFixed(2))
-                .style("left", 500 + "px")
-                .style("top", 20 + "px");
-        })
-        .on("mouseout", function(d) {
-            div.transition()
-                .duration(400)
-                .style("opacity", 0)})
-        .on("click", click)
-        .call(force.drag);
-
-    // Exit any old nodes.
-    node.exit().remove();
-}
-
-function assignEdgeIDs() {
-    for (var id = 0; id < graph.links.length; id++) {
-        var link = graph.links[id];
-        link.id = id;
-    }
-}
-
-function assignEdgesToNode(node) {
+function convertGraphForNetX() {
+    var vertices = [];
     var edges = [];
-    for (var linkIndex = 0; linkIndex < graph.links.length; linkIndex++) {
-        var link = graph.links[linkIndex];
+    var G = jsnx.Graph();
 
-        if (link.source == node.id || link.target == node.id) {
-            edges.push(link.id);
-        }
+    for (var node = 0; node < graph.nodes.length; node++) {
+        vertices.push(graph.nodes[node].id);
+        
+        if (graph.nodes[node].status == 0) graph.nodes[node].status = "S";
+        if (graph.nodes[node].status == 1) graph.nodes[node].status = "V";
+        
     }
-    return edges;
+
+    for (var edge = 0; edge < graph.links.length; edge++) {
+        var formatted = [];
+        formatted.push(graph.links[edge].source.id);
+        formatted.push(graph.links[edge].target.id);
+        edges.push(formatted);
+    }
+
+    G.add_nodes_from(vertices);
+    G.add_edges_from(edges);
+
+    this.G = G;
 }
 
-function assignEdgesForAllNodes() {
-    assignEdgeIDs();
-    for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
-        var node = graph.nodes[nodeIndex];
-        node.edges = assignEdgesToNode(node);
-    }
-}
-
-function findLink(source, target) {
-    var link = null;
-    for (var i = 0; i < graph.links.length; i++) {
-        if (graph.links[i].source == source && graph.links[i].target == target) link = graph.links[i];
-        if (graph.links[i].target == source && graph.links[i].source == target) link = graph.links[i];
-    }
-    return link;
-}
-
-function getUnmarkedUngroupedNodes() {
-    var unmarkedNodes = [];
-    for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
-        var node = graph.nodes[nodeIndex];
-
-        if (node.marked == false) unmarkedNodes.push(node);
-    }
-    return unmarkedNodes;
-}
-
-function updateCommunities() {
-    twine = [];
-    twineIndex = 0;
-    groupCounter = 1;
-    for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
-        var node = graph.nodes[nodeIndex];
-        node.group = null;
-        node.marked = false;
-    }
-
-    assignGroups();
-
-}
-
-function assignGroups() {
-    while(true) {
-        var unassigned = getUnmarkedUngroupedNodes();
-
-        if (unassigned.length == 0) {
-            numberOfCommunities = groupCounter - 1;
-            break;
-        }
-
-        if (pacMan(unassigned[0]) && unassigned.length != 0) {
-            groupCounter++;
-        }
-
-    }
-}
-
-function pacMan(node) {
-    node.group = groupCounter;
-    var nextNode = null;
-    if (node != null && !node.marked) {
-        node.marked = true;
-        node.group = groupCounter;
-        twine.push(node);
-        var nodeDegree = degree(node);
-        var neighbors = findNeighbors(node);
-        for (var completionCounter = 0; completionCounter < nodeDegree; completionCounter++) {
-            var nodeToCheck = neighbors[completionCounter];
-            if (!nodeToCheck.marked) {
-                nextNode = nodeToCheck;
-                pacMan(nextNode);
-            }
-        }
-    }
-    if (node == null && twineIndex != 0) {
-        twineIndex =- 1;
-        nextNode = twine[twineIndex];
-        pacMan(nextNode);
-    }
-    else {
-        return true;
-    }
 
 
-}
 
-updateCommunities();
-convertGraphForNetX();
-bcScores = computeBetweennessCentrality();
-findLargestCommunity();
 

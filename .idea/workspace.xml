@@ -9,8 +9,8 @@
     <file path="/app.js" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370203269198" ignored="false" />
     <file path="/Dummy.txt" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370282270903" ignored="false" />
     <file path="/_header.html.erb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370296237231" ignored="false" />
-    <file path="/routes.rb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370291380994" ignored="false" />
-    <file path="/static_pages_controller.rb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370291342409" ignored="false" />
+    <file path="/routes.rb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370451130643" ignored="false" />
+    <file path="/static_pages_controller.rb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370451036751" ignored="false" />
     <file path="/about.html.erb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370289913818" ignored="false" />
     <file path="/home.html.erb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370296648335" ignored="false" />
     <file path="$PROJECT_DIR$/../Vax/Gemfile" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370286427761" ignored="false" />
@@ -18,12 +18,15 @@
     <file path="/application_helper.rb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370289561251" ignored="false" />
     <file path="/contact.html.erb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370289458354" ignored="false" />
     <file path="/help.html.erb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370289851907" ignored="false" />
-    <file path="/game.html.erb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370373072626" ignored="false" />
+    <file path="/game.html.erb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370449536490" ignored="false" />
     <file path="/custom.css.scss" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370296544780" ignored="false" />
     <file path="/application.html.erb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370295083593" ignored="false" />
-    <file path="/game.js" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370373192571" ignored="false" />
+    <file path="/game.js" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370450619071" ignored="false" />
     <file path="/bootstrap.css" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370296435386" ignored="false" />
     <file path="/.gitignore" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370373562498" ignored="false" />
+    <file path="$PROJECT_DIR$/log/development.log" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370451199707" ignored="false" />
+    <file path="/outbreak.html.erb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370451248488" ignored="false" />
+    <file path="/outbreakSim.js" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370460200840" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,10 +46,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="game.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/static_pages/game.html.erb">
+      <file leaf-file-name="outbreak.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/static_pages/outbreak.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="114" selection-start="624" selection-end="624" vertical-scroll-proportion="-3.125">
+            <state line="14" column="42" selection-start="403" selection-end="403" vertical-scroll-proportion="-8.75">
               <folding />
             </state>
           </provider>
@@ -55,16 +58,18 @@
       <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="184" column="27" selection-start="85500" selection-end="85500" vertical-scroll-proportion="-5.96">
-              <folding />
+            <state line="587" column="25" selection-start="96709" selection-end="96709" vertical-scroll-proportion="-81.0">
+              <folding>
+                <element signature="e#344#85292#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="outbreakSim.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/outbreakSim.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="13" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0">
+            <state line="257" column="143" selection-start="88748" selection-end="88748" vertical-scroll-proportion="-3.1157024">
               <folding />
             </state>
           </provider>
@@ -80,30 +85,30 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/static_pages/contact.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/static_pages/help.html.erb" />
         <option value="$PROJECT_DIR$/app/views/static_pages/about.html.erb" />
-        <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/game.css.scss" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/application.js" />
         <option value="$PROJECT_DIR$/app/helpers/application_helper.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/static_pages_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
         <option value="$PROJECT_DIR$/app/views/layouts/_header.html.erb" />
-        <option value="$PROJECT_DIR$/app/assets/stylesheets/bootstrap.css" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/custom.css.scss" />
         <option value="$PROJECT_DIR$/app/views/static_pages/home.html.erb" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/app/assets/stylesheets/bootstrap.css" />
         <option value="$PROJECT_DIR$/app/views/static_pages/game.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/game.js" />
-        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/app/controllers/static_pages_controller.rb" />
+        <option value="$PROJECT_DIR$/config/routes.rb" />
+        <option value="$PROJECT_DIR$/app/views/static_pages/outbreak.html.erb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/outbreakSim.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-46" />
-    <option name="y" value="44" />
-    <option name="width" value="1295" />
-    <option name="height" value="745" />
+    <option name="x" value="92" />
+    <option name="y" value="24" />
+    <option name="width" value="1223" />
+    <option name="height" value="794" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -742,23 +747,23 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-46" y="44" width="1295" height="745" extended-state="0" />
+    <frame x="92" y="24" width="1223" height="794" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32855093" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2496124" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22417934" sideWeight="0.6712963" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23789296" sideWeight="0.67144907" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287037" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33027524" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287037" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -827,43 +832,9 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/static_pages/about.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="30" selection-start="103" selection-end="103" vertical-scroll-proportion="-2.5" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/static_pages.css.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/static_pages/help.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/index_disabled.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="121" selection-start="473" selection-end="473" vertical-scroll-proportion="-10.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/application.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/layouts/_header.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="36" selection-start="597" selection-end="597" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/bootstrap.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6122" column="103" selection-start="126825" selection-end="126825" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -910,23 +881,69 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="12" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/bootstrap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="53" selection-start="668" selection-end="669" vertical-scroll-proportion="0.33505154">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6133" column="5" selection-start="127027" selection-end="127031" vertical-scroll-proportion="-10.76">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/static_pages_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="28" selection-start="146" selection-end="146" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/static_pages/game.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="114" selection-start="624" selection-end="624" vertical-scroll-proportion="-3.125">
+        <state line="12" column="4" selection-start="404" selection-end="443" vertical-scroll-proportion="-0.42405063">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="20" selection-start="343" selection-end="343" vertical-scroll-proportion="0.22421524">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/static_pages/outbreak.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="42" selection-start="403" selection-end="403" vertical-scroll-proportion="-8.75">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="184" column="27" selection-start="85500" selection-end="85500" vertical-scroll-proportion="-5.96">
-          <folding />
+        <state line="587" column="25" selection-start="96709" selection-end="96709" vertical-scroll-proportion="-81.0">
+          <folding>
+            <element signature="e#344#85292#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/outbreakSim.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="13" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0">
+        <state line="257" column="143" selection-start="88748" selection-end="88748" vertical-scroll-proportion="-3.1157024">
           <folding />
         </state>
       </provider>

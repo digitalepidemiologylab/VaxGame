@@ -10,43 +10,53 @@
         <%= csrf_meta_tags %>
     </head>
 
-    <body ng-controller="myController">
+    <body ng-controller="gameController">
 
 
     <div class="navbar row-fluid">
       <div class="navbar-inner">
-        <div class="container" ng-model="numberOfCommunities" ng-model="largestCommunity" ng-model="vaccinesUsed">
+        <div class="container" ng-model="worstCase" ng-model="targetWorstCase" >
 
-          <a class="brand" href="#">Vax Goals: Number of Communities: {{numberOfCommunities}} || Largest Community: {{largestCommunity}} || Vaccines Used: {{vaccinesUsed}}</a>
+          <a class="brand" href="#">Worst Case Outbreak Scenario: Current={{worstCase}} || Goal={{targetWorstCase}}</a>
 
 
         </div>
       </div>
     </div>
 
-    Size By:
-    <div class="btn-group">
-      <button class="btn"
-              ng-click = 'toggleDegree()'
-              >
-              Degree
-      </button>
-      <button class="btn"
-              ng-click = 'toggleBC()'>
-              Betweenness Centrality
-      </button>
-      <button class="btn"
-              ng-click = 'vaccinate()'>
-        Vaccinate!
-      </button>
-      <button class="btn"
-              ng-click = 'subStrategy()'>
-        Submit Strategy
-      </button>
+   <span class="badge badge-info"       ng-model="numberOfCommunities"> Susceptible Groups: {{numberOfCommunities}} </span>
+   <span class="badge badge-important"  ng-model="largestCommunity"   > Largest Group: {{largestCommunity}}         </span>
+    <span class="badge badge-inverse"   ng-model="vaccinesUsed"       > Vaccines Used: {{vaccinesUsed}}             </span>
+
+
+    <div class="progress" class="middle" ng-model="completion">
+      <div class="bar bar-success" style="width: {{completion}}%;"></div>
+
     </div>
 
-    </body>
 
+
+
+    <div ng-controller="gameController">
+        Size By:
+        <div class="btn-group">
+          <button class="btn" ng-click = 'toggleDegree()'> Degree                 </button>
+          <button class="btn" ng-click = 'toggleBC()'    > Betweenness Centrality </button>
+        </div>
+    </div>
+
+
+
+    <button class="btn"
+            ng-click = 'vaccinate()'>
+      Vaccinate!
+    </button>
+    <button class="btn"
+            ng-click = 'subStrategy()'>
+      Submit Strategy
+    </button>
+
+    </body>
 
 
 </html>
