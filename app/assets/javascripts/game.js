@@ -177,24 +177,16 @@ function gameController($scope) {
     $scope.toggleDegree = function() {
         toggleSizeByDegree();
     }
-
     $scope.toggleBC = function() {
         toggleSizeByBC();
     }
-
     $scope.vaccinesUsed = 0;
-
     $scope.communityCompletion = 0;
-
     $scope.largestCompletion = 0;
-
     $scope.worstCase = estimateWorstCase();
     $scope.numberOfCommunities = numberOfCommunities;
     $scope.largestCommunity = largestCommunity;
     $scope.targetWorstCase = targetEstimate;
-
-
-
     $scope.vaccinate = function() {
         vaccinate();
         combinedUpdate();
@@ -204,15 +196,10 @@ function gameController($scope) {
         $scope.largestCommunity = largestCommunity;
         $scope.worstCase = worstCase;
         $scope.targetWorstCase = targetEstimate;
-
     }
-
     $scope.subStrategy = function() {
         subStrat();
     }
-
-
-
 }
 
 var preVaccination  = true;
@@ -229,19 +216,14 @@ var vaccinesUsed = null;
 var communities = [];
 var targetEstimate = 2.75;
 var worstCase = 0;
-
 var completion = 0;
 
 function updateCompletions() {
     worstCase = estimateWorstCase();
     completion = 100 * (1 - (worstCase - targetEstimate));
-
     return completion;
 
 }
-
-
-
 function toggleSizeByBC() {
     sizeByBC = !sizeByBC;
     combinedUpdate();
@@ -251,26 +233,8 @@ function getNumberOfVaccinesUsed() {
     vaccinesUsed = 0;
     for (var i = 0; i < originalGraph.nodes.length; i++) {
         if (originalGraph.nodes[i].status == 1) vaccinesUsed++;
-
     }
     return vaccinesUsed;
-}
-
-function findLargestCommunity() {
-    communities = [];
-
-    for (var i = 0; i < groupCounter; i++) {
-        communities[i] = 0;
-    }
-
-    for (var ii = 0; ii < groupCounter; ii++) {
-        for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
-            if (graph.nodes[nodeIndex].group == ii) communities[ii]++;
-
-        }
-    }
-
-    largestCommunity = Array.max(communities);
 }
 
 function estimateWorstCase() {
@@ -287,15 +251,6 @@ function estimateWorstCase() {
 
 }
 
-
-
-
-
-Array.max = function( array ){
-    return Math.max.apply( Math, array );
-};
-
-
 // make graph object
 // nodes are basic individuals with IDs from 0-19
 // edges/links are in JSON format.  Note that prior node IDs must match link IDs
@@ -304,56 +259,7 @@ var graph = {
     links: [{source:0,target:1, id:null},{source:0,target:2, id:null},{source:1,target:2, id:null},{source:1,target:3, id:null},{source:2,target:3, id:null},{source:2,target:4, id:null},{source:4,target:5, id:null},{source:3,target:4, id:null},{source:3,target:6, id:null},{source:6,target:8, id:null},{source:7,target:8, id:null},{source:4,target:7, id:null}]
 };
 
-
-function convertGraphForNetX() {
-    var vertices = [];
-    var edges = [];
-    var G = jsnx.Graph();
-
-    for (var node = 0; node < graph.nodes.length; node++) {
-        vertices.push(graph.nodes[node].id);
-    }
-
-    for (var edge = 0; edge < graph.links.length; edge++) {
-        var formatted = [];
-        formatted.push(graph.links[edge].source.id);
-        formatted.push(graph.links[edge].target.id);
-        edges.push(formatted);
-    }
-
-    G.add_nodes_from(vertices);
-    G.add_edges_from(edges);
-
-    this.G = G;
-}
-
-function computeBetweennessCentrality() {
-    var bc = jsnx.betweenness_centrality(G);
-    var bcScores = [];
-    for (var i = 0; i < graph.nodes.length; i++) {
-        bcScores[i] = bc[i];
-        graph.nodes[i].bcScore = bc[i];
-    }
-
-    return bcScores;
-
-}
-
-
-function computeShortestPath(source, target, G) {
-    var shortestDistance = Math.POSITIVE_INFINITY;
-    var shortestPath = jsnx.bidirectional_shortest_path(G,source,target);
-    shortestDistance = shortestPath.length - 1;
-
-    return shortestPath;
-}
-
-
-
-assignEdgesForAllNodes();
-
 var groupCounter = 0;
-
 var originalGraph = owl.deepCopy(graph);
 
 // select "body" section, and append an empty SVG with height and width values
@@ -405,16 +311,12 @@ var div = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-
-
-
 // tick function, which does the physics for each individual node & link.
 function tick() {
     link.attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
-
     node.attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
 }
@@ -434,11 +336,9 @@ function combinedUpdate() {
     preVaccination  = true;
 
 }
-
 function updateFullGraph() {
-    var nodes = filterNodes();
-    var links = filterLinks();
-
+    var nodes = filterSusceptibleNodes(0);
+    var links = filterLinks(0);
     force
         .nodes(nodes)
         .links(links)
@@ -502,19 +402,10 @@ function vaccinate() {
     convertGraphForNetX();
 }
 
-function degree(node) {
-    var degree = 0;
-    for (var i = 0; i < graph.links.length; i++) {
-        if (graph.links[i].source == node || graph.links[i].target == node) degree++;
-    }
-    return degree;
-}
-
 function degreeSize(node) {
     var degSize = null;
     if (sizeByDegree == false) degSize = 8;
     if (sizeByDegree == true)  degSize = (degree(node) + 2) * 2.5;
-
     return degSize;
 }
 
@@ -525,38 +416,11 @@ function toggleSizeByDegree() {
 
 function metric(node) {
     node.degree = degree(node);
-    node.bcScore = bcScores[node.id];
     var sizeByMetric = 8;
-
     if (sizeByBC == true && sizeByDegree == false) sizeByMetric = (node.bcScore / 0.025) + 6;
     if (sizeByBC == false && sizeByDegree == true) sizeByMetric = (node.degree + 2) * 2;
-
     if (sizeByBC == true && sizeByDegree == true) sizeByMetric = ((node.bcScore / 0.01) + 1) + ((node.degree + 2) * 2) / 2;
     return sizeByMetric;
-}
-
-function filterNodes() {
-    var nodes = [];
-    for (var i = 0; i < graph.nodes.length; i++) {
-        if (graph.nodes[i].status == 0) {
-            nodes.push(graph.nodes[i]);
-        }
-
-        else {
-            originalGraph.nodes[i].status = 1;
-        }
-    }
-    return nodes;
-}
-
-function filterLinks() {
-    var links = [];
-    for (var i = 0; i < graph.links.length; i++) {
-        if (graph.links[i].source.status == 0 && graph.links[i].target.status == 0) {
-            links.push(graph.links[i]);
-        }
-    }
-    return links;
 }
 
 function color(d) {
@@ -569,34 +433,21 @@ function color(d) {
 function click(node) {
     if (node.status == 1) node.status = 0;
     else node.status = 1;
-
     for (var i = 0; i < originalGraph.nodes.length; i++) {
         if (originalGraph.nodes[i] == node) originalGraph.nodes[i].status = node.status;
     }
-
     combinedUpdate();
 }
-
-
-function findNeighbors(sampleNode) {
-    var neighbors = [];
-    for (var i = 0; i < graph.links.length; i++) {
-        var testLink = graph.links[i];
-        if (testLink.source == sampleNode) neighbors.push(testLink.target);
-        if (testLink.target == sampleNode) neighbors.push(testLink.source);
-    }
-    return neighbors;
-}
-
 
 function subStrat() {
     updatePostVac();
 }
 
-
 function updatePostVac() {
     graph.nodes = originalGraph.nodes;
     graph.links = originalGraph.links;
+    convertGraphForNetX();
+    bcScores = computeBetweennessCentrality();
 
     force
         .nodes(graph.nodes)
@@ -657,111 +508,6 @@ function updatePostVac() {
 
     // Exit any old nodes.
     node.exit().remove();
-}
-
-function assignEdgeIDs() {
-    for (var id = 0; id < graph.links.length; id++) {
-        var link = graph.links[id];
-        link.id = id;
-    }
-}
-
-function assignEdgesToNode(node) {
-    var edges = [];
-    for (var linkIndex = 0; linkIndex < graph.links.length; linkIndex++) {
-        var link = graph.links[linkIndex];
-
-        if (link.source == node.id || link.target == node.id) {
-            edges.push(link.id);
-        }
-    }
-    return edges;
-}
-
-function assignEdgesForAllNodes() {
-    assignEdgeIDs();
-    for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
-        var node = graph.nodes[nodeIndex];
-        node.edges = assignEdgesToNode(node);
-    }
-}
-
-function findLink(source, target) {
-    var link = null;
-    for (var i = 0; i < graph.links.length; i++) {
-        if (graph.links[i].source == source && graph.links[i].target == target) link = graph.links[i];
-        if (graph.links[i].target == source && graph.links[i].source == target) link = graph.links[i];
-    }
-    return link;
-}
-
-function getUnmarkedUngroupedNodes() {
-    var unmarkedNodes = [];
-    for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
-        var node = graph.nodes[nodeIndex];
-
-        if (node.marked == false) unmarkedNodes.push(node);
-    }
-    return unmarkedNodes;
-}
-
-function updateCommunities() {
-    twine = [];
-    twineIndex = 0;
-    groupCounter = 1;
-    for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
-        var node = graph.nodes[nodeIndex];
-        node.group = null;
-        node.marked = false;
-    }
-
-    assignGroups();
-
-}
-
-function assignGroups() {
-    while(true) {
-        var unassigned = getUnmarkedUngroupedNodes();
-
-        if (unassigned.length == 0) {
-            numberOfCommunities = groupCounter - 1;
-            break;
-        }
-
-        if (pacMan(unassigned[0]) && unassigned.length != 0) {
-            groupCounter++;
-        }
-
-    }
-}
-
-function pacMan(node) {
-    node.group = groupCounter;
-    var nextNode = null;
-    if (node != null && !node.marked) {
-        node.marked = true;
-        node.group = groupCounter;
-        twine.push(node);
-        var nodeDegree = degree(node);
-        var neighbors = findNeighbors(node);
-        for (var completionCounter = 0; completionCounter < nodeDegree; completionCounter++) {
-            var nodeToCheck = neighbors[completionCounter];
-            if (!nodeToCheck.marked) {
-                nextNode = nodeToCheck;
-                pacMan(nextNode);
-            }
-        }
-    }
-    if (node == null && twineIndex != 0) {
-        twineIndex =- 1;
-        nextNode = twine[twineIndex];
-        pacMan(nextNode);
-    }
-    else {
-        return true;
-    }
-
-
 }
 
 updateCommunities();
