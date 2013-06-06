@@ -261,6 +261,7 @@ function multiBioSims() {
         resetSim();
         updateNodeAttributes();
     }
+    resetSim();
 }
 
 function checkForCompletion() {
@@ -297,17 +298,6 @@ function infection() {
     }
 }
 
-function findNeighbors(sampleNode) {
-    var neighbors = [];
-    for (var i = 0; i < graph.links.length; i++) {
-        var testLink = graph.links[i];
-        if (testLink.source == sampleNode) neighbors.push(testLink.target);
-        if (testLink.target == sampleNode) neighbors.push(testLink.source);
-    }
-    return neighbors;
-}
-
-
 // select "body" section, and append an empty SVG with height and width values
 var width = 900,
     height = 500,
@@ -320,7 +310,7 @@ svg = d3.select("body").append("svg")
 var force = d3.layout.force()
     .nodes(graph.nodes)
     .links(graph.links)
-    .size([width-100, height-100])
+    .size([width, height])
     .charge(-1000)
     .on("tick", tick)
     .start();
@@ -336,7 +326,7 @@ var node = svg.selectAll(".node")
     .data(graph.nodes)
     .enter().append("circle")
     .attr("class", "node")
-    .attr("r", 8)
+    .attr("r", 10)
     .style("fill", color)
     .on("mouseover", function(d) {
         div.transition()
@@ -352,9 +342,17 @@ var node = svg.selectAll(".node")
             .style("opacity", 0)})
     .call(force.drag)
 
+
 var div = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
+
+var texts = svg.selectAll("text.label")
+    .data(graph.nodes)
+    .enter().append("text")
+    .attr("class", "label")
+    .attr("fill", "black")
+    .text(text)
 
 // tick function, which does the physics for each individual node & link.
 function tick() {
@@ -365,6 +363,10 @@ function tick() {
 
     node.attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
+
+    texts.attr("transform", function(d) {
+        return "translate(" + (d.x-9) + "," + (d.y+5) + ")";
+    });
 }
 
 function updateNodeAttributes() {
@@ -374,15 +376,31 @@ function updateNodeAttributes() {
         .charge(-2500)
         .start();
 
+
+
     // Update the nodes…
     node = svg.selectAll("circle.node")
         .data(graph.nodes, function(d) { return d.id; })
         .attr("r", size)
-        .style("fill", color);
+        .style("fill", color)
+
+
+    texts = svg.selectAll("text.label")
+        .data(graph.nodes, function(d) { return d.timesInfected})
+        .text(text);
+}
+
+function text(d) {
+    var text = " ";
+    if (d.status == "V") return text;
+    else return d.timesInfected + "x";
 }
 
 function size(d) {
-    return (d.timesInfected);
+    if (d.status == "V") return 10;
+    else {
+        return (d.timesInfected + 3);
+    }
 }
 
 function status(d) {
@@ -397,14 +415,6 @@ function color(d) {
     if (d.status == "S") color = "#ff0000";
     if (d.status == "V") color = "#c6dbef";
     return color;
-}
-
-function degree(node) {
-    var degree = 0;
-    for (var i = 0; i < graph.links.length; i++) {
-        if (graph.links[i].source == node || graph.links[i].target == node) degree++;
-    }
-    return degree;
 }
 
 multiBioSims();
