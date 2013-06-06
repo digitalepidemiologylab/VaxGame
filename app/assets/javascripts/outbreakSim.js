@@ -181,7 +181,7 @@ var maxRecoveryTime = 7;
 var indexCase = null;
 var diseaseIsSpreading = false;
 var healthStatuses = [0,0,0,0,0];
-var totalSims = 100;
+var totalSims = 10;
 
 var graph = {
     nodes: [{id:0, status:"V", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}, {id:1, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}, {id:2, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:3, status:"V", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:4, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:5, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:6, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:7, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:8, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}],

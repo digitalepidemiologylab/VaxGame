@@ -1,3 +1,60 @@
+function generateSmallWorld(n, p, k) {
+    var vertices = [];
+    var edges = [];
+
+    var nodes = [];
+
+    for (var nodeCreateID = 0; nodeCreateID < n; nodeCreateID++) {
+        vertices.push(nodeCreateID);
+        var nodeString = {id:vertices[nodeCreateID], status:0, group:null, edges:[], marked:false, degree:null, bcScore:null};
+        nodes.push(nodeString);
+
+    }
+
+    for (var nodeID = 0; nodeID < n; nodeID++) {
+        for (var edgeID = 0; edgeID < k; edgeID++) {
+            var diff = Math.floor((edgeID / 2) + 1);
+            if (edgeID%2 == 1) diff *= -1;
+            var newIndex = nodeID + diff;
+            if (newIndex < 0) newIndex+=n;
+            if (newIndex >= n) newIndex -= n;
+            var edge = [nodeID, newIndex];
+            edges.push(edge);
+        }
+    }
+
+    for (var edgeIndex = 0; edgeIndex < edges.length; edgeIndex++) {
+        if (Math.random() < p) {
+            var source = edges[edgeIndex][0];
+
+            do {
+                var randomIndex = Math.floor(Math.random() * n);
+                var newDestination = vertices[randomIndex];
+            }
+            while(source == newDestination);  // can still allow for double edges
+
+            edges[edgeIndex][1] = newDestination;
+        }
+    }
+
+    var graph = {};
+    var links = [];
+    for (var i = 0; i < edges.length; i++) {
+        var linkString = {source:edges[i][0],target:edges[i][1]};
+        links.push(linkString);
+    }
+
+
+
+    graph.nodes = nodes;
+    graph.links = links;
+
+//    console.log(graph.nodes);
+//    console.log(graph.links);
+    return graph;
+
+}
+
 function degree(node) {
     var degree = 0;
     for (var i = 0; i < graph.links.length; i++) {
@@ -6,12 +63,12 @@ function degree(node) {
     return degree;
 }
 
-function findNeighbors(sampleNode) {
+function findNeighbors(node) {
     var neighbors = [];
     for (var i = 0; i < graph.links.length; i++) {
         var testLink = graph.links[i];
-        if (testLink.source == sampleNode) neighbors.push(testLink.target);
-        if (testLink.target == sampleNode) neighbors.push(testLink.source);
+        if (testLink.source == node) neighbors.push(testLink.target);
+        if (testLink.target == node) neighbors.push(testLink.source);
     }
     return neighbors;
 }
@@ -219,7 +276,7 @@ function getSimpleShortestPathDist(G,source, target) {
 }
 
 
-// BETWEENNESS CENTRALITY MUST BE FIXED TO ACCOUNT FOR POST-VACCINATION
+// PRE-VACCINATION
 function computeBetweennessCentrality() {
     var bc = jsnx.betweenness_centrality(G);
     var bcScores = [];
@@ -227,6 +284,61 @@ function computeBetweennessCentrality() {
         bcScores[i] = bc[i];
         graph.nodes[i].bcScore = bc[i];
         originalGraph.nodes[i].bcScore = bc[i];
+    }
+
+    return bcScores;
+
+}
+
+// POST-VACCINATION
+function computeBetweennessCentrality_afterVaccination(numberOfCommunities) {
+    var bcScores = [];
+    for (var groupID = 0; groupID < numberOfCommunities; groupID++) {
+        var nodes = [];
+        var links = [];
+
+        for (var nodeID = 0; nodeID < graph.nodes.length; nodeID++) {
+            var node = graph.nodes[nodeID];
+            if (node.group == groupID) {
+                nodes.push(node);
+
+                for (var linkID = 0; linkID < graph.links.length; linkID++) {
+                    var link = graph.links[linkID];
+                    if (link.source == node) links.push(link); //only add source to avoid duplication
+                }
+            }
+        }
+
+        var miniGraph = {};
+        miniGraph.nodes = nodes;
+        miniGraph.links = links;
+
+        var bc = jsnx.betweenness_centrality(miniGraph);
+
+        for (var i = 0; i < bc.length; i++) {
+            var nodeForBC = nodes[i];
+            var bcScore = bc[i];
+            bcScores.push([nodeForBC, bcScore]);
+            console.log(bcScores);
+
+        }
+
+    }
+
+    for (var index = 0; index < graph.nodes.length; index++) {
+        var vertex = graph.nodes[index];
+        for (var bcIndex = 0; bcIndex < bcScores.length; bcIndex++) {
+            var thisBCnode = bcScores[bcIndex][0];
+            var thisBCscore = bcScores[bcIndex][1];
+            console.log(thisBCnode + "\t" + thisBCscore);
+            if (thisBCnode == vertex) {
+                vertex.bcScore = thisBCscore;
+                console.log(vertex + "\t" + vertex.bcScore + "\t" + thisBCscore);
+
+            }
+
+        }
+
     }
 
     return bcScores;

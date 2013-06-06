@@ -173,6 +173,8 @@
     else var e=L.v.apply(l,ab(a.t())),c=c+("Average degree: "+(e/d).toFixed(4))}return c}w("jsnx.classes.func.info",Zd);w("jsnx.info",Zd);function $d(a,b,c){F(c,function(c,e){a.node[e][b]=c})}w("jsnx.classes.func.set_node_attributes",$d);w("jsnx.set_node_attributes",$d);function ae(a,b){var c={};F(a.qa,function(a,e){b in a&&(c[e]=a[b])});return c}w("jsnx.classes.func.get_node_attributes",ae);w("jsnx.get_node_attributes",ae);function be(a,b,c){F(c,function(b,c){c=c.split(",");a.g(c[0])[c[1]]=b})}
     w("jsnx.classes.func.set_edge_attributes",be);w("jsnx.set_edge_attributes",be);function ce(a,b){var c={};F(a.p(l,k),function(a){b in a[2]&&(c[[a[0],a[1]]]=a[2][b])});return c}w("jsnx.classes.func.get_edge_attributes",ce);w("jsnx.get_edge_attributes",ce);w("jsnx.version","0.1.2next");}));
 
+
+
 var preVaccination  = true;
 var sizeByDegree    = false;
 var submitted       = false;
@@ -185,7 +187,7 @@ var bcScores = [];
 var largestCommunity = null;
 var vaccinesUsed = null;
 var communities = [];
-var targetEstimate = 2.75;
+var targetEstimate = 8.5;
 var worstCase = 0;
 var completion = 0;
 
@@ -258,17 +260,21 @@ function estimateWorstCase() {
 // make graph object
 // nodes are basic individuals with IDs from 0-19
 // edges/links are in JSON format.  Note that prior node IDs must match link IDs
-var graph = {
-    nodes: [{id:0, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}, {id:1, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}, {id:2, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:3, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:4, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:5, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:6, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:7, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:8, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}],
-    links: [{source:0,target:1, id:null},{source:0,target:2, id:null},{source:1,target:2, id:null},{source:1,target:3, id:null},{source:2,target:3, id:null},{source:2,target:4, id:null},{source:4,target:5, id:null},{source:3,target:4, id:null},{source:3,target:6, id:null},{source:6,target:8, id:null},{source:7,target:8, id:null},{source:4,target:7, id:null}]
-};
+
+
+var graph = generateSmallWorld(50,0.10,3);
+
+//var graph = {
+//    nodes: [{id:0, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}, {id:1, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}, {id:2, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:3, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:4, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:5, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:6, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:7, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:8, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}],
+//    links: [{source:0,target:1, id:null},{source:0,target:2, id:null},{source:1,target:2, id:null},{source:1,target:3, id:null},{source:2,target:3, id:null},{source:2,target:4, id:null},{source:4,target:5, id:null},{source:3,target:4, id:null},{source:3,target:6, id:null},{source:6,target:8, id:null},{source:7,target:8, id:null},{source:4,target:7, id:null}]
+//};
 
 var groupCounter = 0;
 var originalGraph = owl.deepCopy(graph);
 
 // select "body" section, and append an empty SVG with height and width values
-var width = 900,
-    height = 400,
+var width = 700,
+    height = 700,
     svg;
 svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -278,8 +284,8 @@ svg = d3.select("body").append("svg")
 var force = d3.layout.force()
     .nodes(graph.nodes)
     .links(graph.links)
-    .size([width-100, height-100])
-    .charge(-1000)
+    .size([width, height])
+    .charge(-500)
     .on("tick", tick)
     .start();
 
@@ -451,7 +457,7 @@ function updatePostVac() {
     graph.nodes = originalGraph.nodes;
     graph.links = originalGraph.links;
     convertGraphForNetX();
-    bcScores = computeBetweennessCentrality();
+    computeBetweennessCentrality_afterVaccination(numberOfCommunities);
 
     force
         .nodes(graph.nodes)
