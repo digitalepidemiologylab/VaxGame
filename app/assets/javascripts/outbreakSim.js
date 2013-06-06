@@ -174,19 +174,21 @@
     w("jsnx.classes.func.set_edge_attributes",be);w("jsnx.set_edge_attributes",be);function ce(a,b){var c={};F(a.p(l,k),function(a){b in a[2]&&(c[[a[0],a[1]]]=a[2][b])});return c}w("jsnx.classes.func.get_edge_attributes",ce);w("jsnx.get_edge_attributes",ce);w("jsnx.version","0.1.2next");}));
 
 var timestep = 0;
-var transmissionRate = .03;
+var transmissionRate = .1;
 var latencyPeriod = 3;
 var recoveryRate = .03;
 var maxRecoveryTime = 7;
 var indexCase = null;
 var diseaseIsSpreading = false;
 var healthStatuses = [0,0,0,0,0];
-var totalSims = 10;
+var totalSims = 100;
 
-var graph = {
-    nodes: [{id:0, status:"V", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}, {id:1, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}, {id:2, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:3, status:"V", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:4, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:5, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:6, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:7, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:8, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}],
-    links: [{source:0,target:1, id:null},{source:0,target:2, id:null},{source:1,target:2, id:null},{source:1,target:3, id:null},{source:2,target:3, id:null},{source:2,target:4, id:null},{source:4,target:5, id:null},{source:3,target:4, id:null},{source:3,target:6, id:null},{source:6,target:8, id:null},{source:7,target:8, id:null},{source:4,target:7, id:null}]
-};
+var graph = generateSmallWorldForOutbreak(100, 0.10, 4);
+
+//var graph = {
+//    nodes: [{id:0, status:"V", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}, {id:1, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}, {id:2, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:3, status:"V", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:4, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:5, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:6, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:7, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:8, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}],
+//    links: [{source:0,target:1, id:null},{source:0,target:2, id:null},{source:1,target:2, id:null},{source:1,target:3, id:null},{source:2,target:3, id:null},{source:2,target:4, id:null},{source:4,target:5, id:null},{source:3,target:4, id:null},{source:3,target:6, id:null},{source:6,target:8, id:null},{source:7,target:8, id:null},{source:4,target:7, id:null}]
+//};
 
 function selectIndexCase() {
     var numberOfPeople = graph.nodes.length;
@@ -299,7 +301,7 @@ function infection() {
 }
 
 // select "body" section, and append an empty SVG with height and width values
-var width = 900,
+var width = 1000,
     height = 500,
     svg;
 svg = d3.select("body").append("svg")
@@ -311,7 +313,7 @@ var force = d3.layout.force()
     .nodes(graph.nodes)
     .links(graph.links)
     .size([width, height])
-    .charge(-1000)
+    .charge(-300)
     .on("tick", tick)
     .start();
 
@@ -347,12 +349,12 @@ var div = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-var texts = svg.selectAll("text.label")
-    .data(graph.nodes)
-    .enter().append("text")
-    .attr("class", "label")
-    .attr("fill", "black")
-    .text(text)
+//var texts = svg.selectAll("text.label")
+//    .data(graph.nodes)
+//    .enter().append("text")
+//    .attr("class", "label")
+//    .attr("fill", "black")
+//    .text(text)
 
 // tick function, which does the physics for each individual node & link.
 function tick() {
@@ -364,16 +366,16 @@ function tick() {
     node.attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
 
-    texts.attr("transform", function(d) {
-        return "translate(" + (d.x-9) + "," + (d.y+5) + ")";
-    });
+//    texts.attr("transform", function(d) {
+//        return "translate(" + (d.x-9) + "," + (d.y+5) + ")";
+//    });
 }
 
 function updateNodeAttributes() {
     force
         .nodes(graph.nodes)
         .links(graph.links)
-        .charge(-2500)
+        .charge(-300)
         .start();
 
 
@@ -384,10 +386,10 @@ function updateNodeAttributes() {
         .attr("r", size)
         .style("fill", color)
 
-
-    texts = svg.selectAll("text.label")
-        .data(graph.nodes, function(d) { return d.timesInfected})
-        .text(text);
+//
+//    texts = svg.selectAll("text.label")
+//        .data(graph.nodes, function(d) { return d.timesInfected})
+//        .text(text);
 }
 
 function text(d) {

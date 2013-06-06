@@ -262,7 +262,7 @@ function estimateWorstCase() {
 // edges/links are in JSON format.  Note that prior node IDs must match link IDs
 
 
-var graph = generateSmallWorld(50,0.10,3);
+var graph = generateSmallWorld(100,0.10,3);
 
 //var graph = {
 //    nodes: [{id:0, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}, {id:1, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}, {id:2, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:3, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:4, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:5, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:6, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:7, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:8, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}],
@@ -285,7 +285,7 @@ var force = d3.layout.force()
     .nodes(graph.nodes)
     .links(graph.links)
     .size([width, height])
-    .charge(-500)
+    .charge(-300)
     .on("tick", tick)
     .start();
 

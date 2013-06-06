@@ -26,8 +26,8 @@
     <file path="/.gitignore" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370373562498" ignored="false" />
     <file path="$PROJECT_DIR$/log/development.log" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370451199707" ignored="false" />
     <file path="/outbreak.html.erb" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370472108706" ignored="false" />
-    <file path="/outbreakSim.js" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370544716373" ignored="false" />
-    <file path="/graphTools.js" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370546717060" ignored="false" />
+    <file path="/outbreakSim.js" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370547257168" ignored="false" />
+    <file path="/graphTools.js" changelist="fd0c4daf-86d2-438c-b0e7-c342e3057013" time="1370547439224" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,10 +47,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="game.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="464" column="55" selection-start="94392" selection-end="94392" vertical-scroll-proportion="8.0">
+            <state line="264" column="34" selection-start="87602" selection-end="87602" vertical-scroll-proportion="0.5134281">
               <folding />
             </state>
           </provider>
@@ -59,34 +59,16 @@
       <file leaf-file-name="outbreakSim.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/outbreakSim.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="268" column="11" selection-start="88927" selection-end="88927" vertical-scroll-proportion="0.0">
+            <state line="176" column="25" selection-start="85340" selection-end="85340" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="outbreak.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/static_pages/outbreak.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="0" selection-start="68" selection-end="68" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="graphTools.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="graphTools.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/graphTools.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="292" column="48" selection-start="7418" selection-end="7418" vertical-scroll-proportion="0.71653545">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jsnetworkx-custom.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/jsnetworkx-custom.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="67" column="152" selection-start="1981" selection-end="1981" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -124,9 +106,9 @@
         <option value="$PROJECT_DIR$/app/views/static_pages/game.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/graphMetrics.js" />
         <option value="$PROJECT_DIR$/app/views/static_pages/outbreak.html.erb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/graphTools.js" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/outbreakSim.js" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/game.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/graphTools.js" />
       </list>
     </option>
   </component>
@@ -845,7 +827,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/routes.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="20" selection-start="343" selection-end="343" vertical-scroll-proportion="0.22421524" />
+        <state line="10" column="20" selection-start="343" selection-end="343" vertical-scroll-proportion="0.22421524">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/custom.css.scss">
@@ -881,13 +865,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/static_pages/outbreak.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="68" selection-end="68" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/jsnetworkx-custom.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -895,23 +872,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/outbreakSim.js">
+    <entry file="file://$PROJECT_DIR$/app/views/static_pages/outbreak.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="268" column="11" selection-start="88927" selection-end="88927" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="464" column="55" selection-start="94392" selection-end="94392" vertical-scroll-proportion="8.0">
+        <state line="4" column="0" selection-start="68" selection-end="68" vertical-scroll-proportion="-2.5">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/graphTools.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="292" column="48" selection-start="7418" selection-end="7418" vertical-scroll-proportion="0.71653545">
+        <state line="67" column="152" selection-start="1981" selection-end="1981" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/outbreakSim.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="176" column="25" selection-start="85340" selection-end="85340" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="264" column="34" selection-start="87602" selection-end="87602" vertical-scroll-proportion="0.5134281">
           <folding />
         </state>
       </provider>
