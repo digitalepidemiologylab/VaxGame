@@ -26,13 +26,11 @@ function generateSmallWorld(n, p, k) {
     for (var edgeIndex = 0; edgeIndex < edges.length; edgeIndex++) {
         if (Math.random() < p) {
             var source = edges[edgeIndex][0];
-
             do {
                 var randomIndex = Math.floor(Math.random() * n);
                 var newDestination = vertices[randomIndex];
             }
             while(source == newDestination);  // can still allow for double edges
-
             edges[edgeIndex][1] = newDestination;
         }
     }

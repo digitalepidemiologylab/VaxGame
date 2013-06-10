@@ -5,6 +5,7 @@ gem 'bootstrap-sass', '2.1'
 gem 'simple_form'
 gem 'angularjs_scaffold'
 gem 'angular-ui-rails'
+gem 'bcrypt-ruby', '3.0.1'
 
 
 # Bundle edge Rails instead:
@@ -12,6 +13,10 @@ gem 'angular-ui-rails'
 
 gem 'pg'
 
+
+group :test do
+  gem 'factory_girl_rails', '4.1.0'
+end
 
 group :development do
   gem 'annotate', '2.5.0'
@@ -34,8 +39,6 @@ end
 
 gem 'jquery-rails'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

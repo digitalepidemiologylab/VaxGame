@@ -2,7 +2,6 @@
 <html ng-app>
     <head>
         <% provide(:title, 'Vax') %>
-        <%= stylesheet_link_tag    "application", media: "all" %>
         <%= javascript_include_tag "jsnetworkx-custom.js" %>
         <%= javascript_include_tag "d3.v3.min.js" %>
         <%= javascript_include_tag "graphTools" %>
@@ -14,50 +13,44 @@
     <body ng-controller="gameController">
 
 
-    <div class="navbar row-fluid">
-      <div class="navbar-inner">
-        <div class="container" ng-model="worstCase" ng-model="targetWorstCase" >
-
-          <a class="brand" href="#">Worst Case Outbreak Scenario: Current={{worstCase}} || Goal={{targetWorstCase}}</a>
-
-
+        <div class="container" ng-model="worstCase" ng-model="targetWorstCase"  ng-model="numberOfCommunities"  ng-model="largestCommunity" ng-model="vaccinesUsed" >
+          <div class="span2"></div>
+          <a class="btn-large btn-info">
+              Largest Group: {{largestCommunity}}
+          </a>
+          <a class="btn-large btn-warning">
+            Susceptible Groups: {{numberOfCommunities}}
+          </a>
+          <a class="btn-large btn-inverse">
+              Vaccines Used: {{vaccinesUsed}}
+          </a>
         </div>
-      </div>
+
+        <div><br></div>
+
+    <button class="btn-success span4 offset1" ng-click='toggleDegree()'> Size By Neighbor Count
+    </button>
+
+    <button class="btn-danger span4 offset1" ng-click='toggleBC()'> Size By Betweenness
+    </button>
+
     </div>
 
-   <span class="badge badge-info"       ng-model="numberOfCommunities"> Susceptible Groups: {{numberOfCommunities}} </span>
-   <span class="badge badge-important"  ng-model="largestCommunity"   > Largest Group: {{largestCommunity}}         </span>
-    <span class="badge badge-inverse"   ng-model="vaccinesUsed"       > Vaccines Used: {{vaccinesUsed}}             </span>
-
-
-    <div class="progress" class="middle" ng-model="completion">
+    <div class="progress span10" ng-model="completion">
       <div class="bar bar-success" style="width: {{completion}}%;"></div>
 
     </div>
 
-
-
-
-    <div ng-controller="gameController">
-        Size By:
-        <div class="btn-group">
-          <button class="btn" ng-click = 'toggleDegree()'> Degree                 </button>
-          <button class="btn" ng-click = 'toggleBC()'    > Betweenness Centrality </button>
-        </div>
-    </div>
-
-
-
-    <button class="btn"
+    <button class="btn-danger btn-large span9 offset1"
             ng-click = 'vaccinate()'>
       Vaccinate!
     </button>
-    <button class="btn"
-            ng-click = 'subStrategy()'>
-      Submit Strategy
-    </button>
+
 
     </body>
+
+    <div> <br> </div>
+
 
 
 </html>
