@@ -8,4 +8,13 @@
       </h1>
     </section>
   </aside>
+  <div class="span8">
+    <% if @user.scores.any? %>
+        <h3>Scores (<%= @user.scores.count %>)</h3>
+        <ol class="scores">
+          <%= render @scores %>
+        </ol>
+        <%= will_paginate @scores %>
+    <% end %>
+  </div>
 </div>

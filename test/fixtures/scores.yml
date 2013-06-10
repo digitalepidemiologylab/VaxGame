@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  network_id: 1
+  refusers: MyText
+  vax: MyText
+  stars: 1
+  sim_size: 1.5
+
+two:
+  user_id: 1
+  network_id: 1
+  refusers: MyText
+  vax: MyText
+  stars: 1
+  sim_size: 1.5
