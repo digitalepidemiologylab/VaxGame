@@ -9,6 +9,7 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.0.1'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'gon', '3.0.5'
 
 
 

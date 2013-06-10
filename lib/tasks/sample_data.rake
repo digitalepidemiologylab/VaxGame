@@ -19,8 +19,9 @@ namespace :db do
         network_id = 1
         sim_size = 10.3
         stars = 2
+        refusers = "6,7,8,9,10"
         vax = '1,2,3,4,5'
-        users.each {|user| user.scores.create!(network_id: network_id, sim_size: sim_size, stars: stars, vax: vax)}
+        users.each {|user| user.scores.create!(network_id: network_id, sim_size: sim_size, refusers: refusers, stars: stars, vax: vax)}
       end
     end
   end

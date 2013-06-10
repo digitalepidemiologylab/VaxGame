@@ -173,6 +173,7 @@
     else var e=L.v.apply(l,ab(a.t())),c=c+("Average degree: "+(e/d).toFixed(4))}return c}w("jsnx.classes.func.info",Zd);w("jsnx.info",Zd);function $d(a,b,c){F(c,function(c,e){a.node[e][b]=c})}w("jsnx.classes.func.set_node_attributes",$d);w("jsnx.set_node_attributes",$d);function ae(a,b){var c={};F(a.qa,function(a,e){b in a&&(c[e]=a[b])});return c}w("jsnx.classes.func.get_node_attributes",ae);w("jsnx.get_node_attributes",ae);function be(a,b,c){F(c,function(b,c){c=c.split(",");a.g(c[0])[c[1]]=b})}
     w("jsnx.classes.func.set_edge_attributes",be);w("jsnx.set_edge_attributes",be);function ce(a,b){var c={};F(a.p(l,k),function(a){b in a[2]&&(c[[a[0],a[1]]]=a[2][b])});return c}w("jsnx.classes.func.get_edge_attributes",ce);w("jsnx.get_edge_attributes",ce);w("jsnx.version","0.1.2next");}));
 
+
 var preVaccination  = true;
 var sizeByDegree    = false;
 var submitted       = false;
