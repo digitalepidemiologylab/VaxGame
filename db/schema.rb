@@ -11,9 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130610205155) do
+ActiveRecord::Schema.define(:version => 20130610223051) do
 
   create_table "networks", :force => true do |t|
+    t.integer  "net_id"
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -21,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20130610205155) do
 
   create_table "scores", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "network_id"
+    t.integer  "net_id"
     t.text     "refusers"
     t.text     "vax"
     t.integer  "stars"
