@@ -22,7 +22,7 @@ var net_id = 0;
 
 var game = angular.module('game', []);
 
-game.controller('gameController', function($scope) {
+game.controller('gameController', ['$scope',function($scope) {
     $scope.vaccinated = [];
 
     $scope.toggleDegree = function() {
@@ -61,7 +61,7 @@ game.controller('gameController', function($scope) {
         $scope.net_id = net_id;
     }
 
-})
+}])
 
 function finalize() {
     var vaccinated = [];
