@@ -11,12 +11,12 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 
-
+//= require angular
+//= require angular-resource
 //= require bootstrap-dropdown
 //= require bootstrap
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require angular-resource
 //= require_tree .
 
