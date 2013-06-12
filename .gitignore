@@ -6,3 +6,5 @@
 log/development.log
 
 *.log
+
+.idea/workspace.xml

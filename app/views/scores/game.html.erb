@@ -3,7 +3,7 @@
 <head>
   <% provide(:title, 'Vax') %>
   <%= javascript_include_tag "d3.v3.min.js" %>
-  <%= javascript_include_tag "jsnetworkx-custom.js" %>
+  <%= javascript_include_tag "jsnetworkx" %>
   <%= javascript_include_tag "graphTools" %>
   <%= javascript_include_tag "deepCopy.js" %>
   <%= javascript_include_tag "game.js"%>
@@ -48,24 +48,40 @@
 
 
 <button class="btn-warning btn-large span9 offset1"
-        ng-model = "vaccinesUsed"
-        ng-click = 'finalize()'>
-  Submit {{vaccinesUsed}} vaccinations
-</button>
+   ng-model = "vaccinesUsed"
+   ng-click = 'finalize()'
+   data-toggle="modal"
+   href="#scoreModal">Submit {{vaccinesUsed}} vaccinations </button>
 
 
+<div class="modal hide" id="scoreModal">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Score Review</h3>
+  </div>
+  <div class="modal-body">
+
+    <%= form_for(Score.create) do |f| %>
+        <%= f.label :vax, ('Vaccinated Individuals') %>
+        <%= f.text_field :vax,  :'ng-model' => 'vax' %>
+
+        <%= f.label :net_id, ('Network ID') %>
+        <%= f.text_field :net_id, 'ng-model' => 'net_id' %>
+
+        <%= f.label :sim_size, ('Predicted Epidemic Size') %>
+        <%= f.text_field :sim_size, 'ng-model' => 'sim_size' %>
+
+        <%= f.label :stars, ('Completion') %>
+        <%= f.text_field :stars, 'ng-model' => 'stars'%>
+
+        <%= f.submit 'Submit', class: 'btn btn-primary'%>
+    <%end%>
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+  </div>
+</div>
 
 
 </body>
-
-<%= form_for(Score.create) do |f| %>
-    <%= f.text_field :vax,  :'ng-model' => 'vax' %>
-    <%= f.text_field :net_id, :'ng-model' => 'net_id' %>
-    <%= f.text_field :sim_size, :'ng-model' => 'sim_size' %>
-    <%= f.text_field :stars, :'ng-model' => 'stars' %>
-    <%= f.submit %>
-<%end%>
-
 
 <div> <br> </div>
 
