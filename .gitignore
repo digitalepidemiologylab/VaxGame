@@ -1,2 +1,8 @@
 /tmp/cache/*
 *.scssc
+
+*.log
+
+log/development.log
+
+*.log
