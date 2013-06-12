@@ -192,17 +192,27 @@ var completion = 0;
 var n = 50;
 var charge = n * -2;
 
-function gameController($scope) {
+var stars = 1;
+var refusers = [];
+var net_id = 0;
+
+var game = angular.module('game', []);
+
+game.controller('gameController', function($scope) {
+    $scope.vaccinated = [];
+
     $scope.toggleDegree = function() {
         toggleSizeByDegree();
     }
+
     $scope.toggleBC = function() {
         toggleSizeByBC();
     }
+
     $scope.vaccinesUsed = 0;
     $scope.communityCompletion = 0;
     $scope.largestCompletion = 0;
-    $scope.worstCase = estimateWorstCase();
+    $scope.sim_size = estimateWorstCase();
     $scope.vaccinesToBeUsed = 0;
     $scope.numberOfCommunities = numberOfCommunities;
     $scope.largestCommunity = largestCommunity;
@@ -215,12 +225,28 @@ function gameController($scope) {
         $scope.completion = updateCompletions();
         $scope.numberOfCommunities = numberOfCommunities;
         $scope.largestCommunity = largestCommunity;
-        $scope.worstCase = worstCase;
+        $scope.sim_size = worstCase;
         $scope.targetWorstCase = targetEstimate;
     }
+
+    $scope.finalize = function() {
+        $scope.vax = finalize();
+        $scope.sim_size = worstCase;
+        $scope.stars = stars;
+        $scope.refusers = refusers;
+        $scope.net_id = net_id;
+    }
+
+})
+
+function finalize() {
+    var vaccinated = [];
+    for (var i = 0; i < originalGraph.nodes.length; i++) {
+        var node = originalGraph.nodes[i];
+        if (node.status == 1) vaccinated.push(node.id);
+    }
+    return vaccinated;
 }
-
-
 
 function updateCompletions() {
     worstCase = estimateWorstCase();
@@ -266,10 +292,25 @@ function estimateWorstCase() {
 
 var graph = generateSmallWorld(n,0.10,3);
 
-//var graph = {
-//    nodes: [{id:0, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}, {id:1, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}, {id:2, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:3, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:4, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:5, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:6, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:7, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null},{id:8, status:0, group:null, edges:[], marked:false, degree:null, bcScore:null}],
-//    links: [{source:0,target:1, id:null},{source:0,target:2, id:null},{source:1,target:2, id:null},{source:1,target:3, id:null},{source:2,target:3, id:null},{source:2,target:4, id:null},{source:4,target:5, id:null},{source:3,target:4, id:null},{source:3,target:6, id:null},{source:6,target:8, id:null},{source:7,target:8, id:null},{source:4,target:7, id:null}]
-//};
+//var graph = {};
+//graph.nodes = [];
+//graph.links = [];
+//
+//var json;
+//json = d3.json("/networks/1.json");
+//
+//readJSON(json);
+
+function readJSON(json) {
+    for (var i = 0; i < json.graph.nodes; i++) {
+        graph.nodes[i] = json.graph.nodes[i];
+    }
+    for (var ii = 0; ii < json.graph.links; ii++) {
+        graph.links[ii] = json.graph.links[ii];
+    }
+}
+
+
 
 var groupCounter = 0;
 var originalGraph = owl.deepCopy(graph);
@@ -278,9 +319,20 @@ var originalGraph = owl.deepCopy(graph);
 var width = 700,
     height = 600,
     svg;
+
 svg = d3.select("body").append("svg")
     .attr("width", width)
-    .attr("weight", height);
+    .attr("weight", height)
+    .attr("pointer-events", "all")
+    .append('svg:g')
+    .call(d3.behavior.zoom().on("zoom", redraw))
+
+
+function redraw() {
+    svg.attr("transform",
+        "translate(" + d3.event.translate + ")"
+            + " scale(" + d3.event.scale + ")");
+}
 
 // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
 var force = d3.layout.force()

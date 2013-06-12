@@ -175,20 +175,15 @@
 
 var timestep = 0;
 var transmissionRate = .1;
-var latencyPeriod = 3;
+var latencyPeriod = 2;
 var recoveryRate = .03;
 var maxRecoveryTime = 7;
 var indexCase = null;
 var diseaseIsSpreading = false;
 var healthStatuses = [0,0,0,0,0];
-var totalSims = 100;
+var totalSims = 50;
 
-var graph = generateSmallWorldForOutbreak(100, 0.10, 4);
-
-//var graph = {
-//    nodes: [{id:0, status:"V", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}, {id:1, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}, {id:2, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:3, status:"V", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:4, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:5, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:6, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:7, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0},{id:8, status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0}],
-//    links: [{source:0,target:1, id:null},{source:0,target:2, id:null},{source:1,target:2, id:null},{source:1,target:3, id:null},{source:2,target:3, id:null},{source:2,target:4, id:null},{source:4,target:5, id:null},{source:3,target:4, id:null},{source:3,target:6, id:null},{source:6,target:8, id:null},{source:7,target:8, id:null},{source:4,target:7, id:null}]
-//};
+var graph = generateSmallWorldForOutbreak(50, 0.10, 4);
 
 function selectIndexCase() {
     var numberOfPeople = graph.nodes.length;
@@ -202,7 +197,6 @@ function selectIndexCase() {
     this.indexCase = indexCase;
     exposeIndividual(this.indexCase);
     this.diseaseIsSpreading = true;
-
 }
 
 function exposeIndividual(individual) {
@@ -306,7 +300,18 @@ var width = 1000,
     svg;
 svg = d3.select("body").append("svg")
     .attr("width", width)
-    .attr("weight", height);
+    .attr("weight", height)
+    .call(d3.behavior.zoom().on("zoom", redraw))
+    .append('svg:g');
+
+
+
+function redraw() {
+    console.log("here", d3.event.translate, d3.event.scale);
+    svg.attr("transform",
+        "translate(" + d3.event.translate + ")"
+            + " scale(" + d3.event.scale + ")");
+}
 
 // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
 var force = d3.layout.force()

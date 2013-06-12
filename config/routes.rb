@@ -3,6 +3,7 @@ VaxGame::Application.routes.draw do
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :scores
 
 
   match '/home', to: 'static_pages#home'
@@ -16,8 +17,9 @@ VaxGame::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
 
 
-  match '/game', to: 'static_pages#game'
-  match '/play', to: 'static_pages#game'
+
+  match '/game',     to: 'scores#game'
+  match '/play',     to: 'scores#game'
   match '/outbreak', to: 'static_pages#outbreak'
 
 

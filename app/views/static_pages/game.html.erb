@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="myApp">
     <head>
         <% provide(:title, 'Vax') %>
         <%= javascript_include_tag "d3.v3.min.js" %>
@@ -47,7 +47,15 @@
     </button>
 
 
+    <button class="btn-warning btn-large span9 offset1"
+            ng-model = "vaccinesUsed"
+            ng-click = 'finalize()'>
+      Submit {{vaccinesUsed}} vaccinations
+    </button>
+
+
     </body>
+
 
     <div> <br> </div>
 

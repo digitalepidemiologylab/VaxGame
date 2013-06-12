@@ -1,5 +1,4 @@
 class ScoresController < ApplicationController
-  before_filter :signed_in_user
 
   def create
     score = current_user.scores.build(params[:score])

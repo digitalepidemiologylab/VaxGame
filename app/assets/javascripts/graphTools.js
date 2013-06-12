@@ -1,7 +1,6 @@
 function generateSmallWorld(n, p, k) {
     var vertices = [];
     var edges = [];
-
     var nodes = [];
 
     for (var nodeCreateID = 0; nodeCreateID < n; nodeCreateID++) {
