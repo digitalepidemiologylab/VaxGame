@@ -74,7 +74,9 @@ function finalize() {
 
 function updateCompletions() {
     worstCase = estimateWorstCase();
-    completion = 100 * (1 - (worstCase - targetEstimate));
+    console.log(worstCase + "\t" + targetEstimate)
+    completion = (100 - (worstCase - targetEstimate));
+    console.log(completion);
     return completion;
 
 }
