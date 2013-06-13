@@ -237,7 +237,8 @@ function assignEdgesForAllNodes() {
 // These methods are used to generate a new graph based on a node status criteria, can handle 0 or 1.
 
 function filterSusceptibleNodes(criteria) {
-
+    if (criteria == "S") criteria = 0;
+    if (criteria == "V") criteria = 1;
     var nodes = [];
     for (var i = 0; i < graph.nodes.length; i++) {
         if (graph.nodes[i].status == criteria) {

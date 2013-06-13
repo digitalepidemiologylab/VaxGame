@@ -2,16 +2,40 @@ var game = angular.module('quarantineGame', []);
 
 game.controller('quarantineGameCTRL', ['$scope',function($scope) {
 
+    $scope.vaccinesUsed = 0;
+    $scope.$watch.vaccinesUsed = vaccinesUsed;
+
+
+
 }])
 
+
 //initialize constants
+var groupCounter = 0;
+var preVaccination  = true;
+var sizeByDegree    = true;
+var submitted       = false;
+var sizeByBC        = false;
+var numberOfCommunities = null;
+var G = jsnx.Graph();
+var bcScores = [];
+var largestCommunity = null;
+var vaccinesUsed = null;
+var communities = [];
+var targetEstimate = 10;
+var worstCase = 0;
+var completion = 0;
+var n = 50;
+
+var stars = 1;
+var refusers = [];
+var net_id = 0;
+
+
 var numberOfIndividuals = 50;
 var charge = -500;
 var rewire = 0.10;
 var meanDegree = 3;
-var groupCounter = 0;
-var preVaccination = true;
-var bcScores = [];
 var healthStatuses = [0,0,0,0,0];
 var timestep = 0;
 var transmissionRate = .50;
@@ -81,7 +105,7 @@ var node = svg.selectAll(".node")
     .data(graph.nodes)
     .enter().append("circle")
     .attr("class", "node")
-    .attr("r", 8)
+    .attr("r", metric)
     .style("fill", color)
     .on("mouseover", function(d) {
         div.transition()
@@ -114,7 +138,7 @@ function color(d) {
     return color;
 }
 
-function combinedUpdate() {
+function update() {
     infection();
     stateChanges();
     tallyStatuses();
@@ -210,19 +234,24 @@ function updateNodeAttributes() {
     // Update the nodes…
     node = svg.selectAll("circle.node")
         .data(graph.nodes, function(d) { return d.id; })
-        .attr("r", 8)
+        .attr("r", metric)
         .style("fill", color);
 }
 
 function click(node) {
     if (node.status == "S") node.status = "V";
-    combinedUpdate();
+    vaccinesUsed++;
+    update();
 }
 
-
-
-
-
+function metric(node) {
+    node.degree = degree(node);
+    var sizeByMetric = 8;
+    if (sizeByBC == true && sizeByDegree == false) sizeByMetric = (node.bcScore / 0.025) + 6;
+    if (sizeByBC == false && sizeByDegree == true) sizeByMetric = (node.degree + 2) * 2;
+    if (sizeByBC == true && sizeByDegree == true) sizeByMetric = ((node.bcScore / 0.01) + 1) + ((node.degree + 2) * 2) / 2;
+    return sizeByMetric;
+}
 
 function exposeIndividual(individual) {
     if (individual.status == "S") {
@@ -298,3 +327,23 @@ function infection() {
         if (Math.random() < probabilityOfInfection) exposeIndividual(susceptible);
     }
 }
+
+
+function updateCompletions() {
+    worstCase = estimateWorstCase();
+    console.log(worstCase + "\t" + targetEstimate)
+    completion = (100 - (worstCase - targetEstimate));
+    console.log(completion);
+    return completion;
+
+}
+
+
+updateCommunities();
+convertGraphForNetX();
+bcScores = computeBetweennessCentrality();
+findLargestCommunity();
+
+
+
+
