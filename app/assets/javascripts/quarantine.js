@@ -134,7 +134,7 @@ function filterSusceptibleNodes() {
 
     var nodes = [];
     for (var i = 0; i < graph.nodes.length; i++) {
-        if (graph.nodes[i].status != "V" || graph.nodes[i].status != "R" ) nodes.push(graph.nodes[i]);
+        if (graph.nodes[i].status != "V" && graph.nodes[i].status != "R" ) nodes.push(graph.nodes[i]);
     }
     return nodes;
 }
@@ -142,7 +142,10 @@ function filterSusceptibleNodes() {
 function filterLinks() {
     var links = [];
     for (var i = 0; i < graph.links.length; i++) {
-        if (graph.links[i].source.status == "V"  || graph.links[i].target.status == "V") {
+        if (graph.links[i].source.status == "V" || graph.links[i].target.status == "V") {
+            continue;
+        }
+        if (graph.links[i].source.status == "R" || graph.links[i].target.status == "R") {
             continue;
         }
         links.push(graph.links[i])
