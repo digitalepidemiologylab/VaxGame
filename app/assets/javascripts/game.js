@@ -62,7 +62,6 @@ game.controller('gameController', ['$scope',function($scope) {
     }
 
 }])
-
 function finalize() {
     var vaccinated = [];
     for (var i = 0; i < originalGraph.nodes.length; i++) {

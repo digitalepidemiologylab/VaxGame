@@ -5,7 +5,7 @@ function generateSmallWorld(n, p, k) {
 
     for (var nodeCreateID = 0; nodeCreateID < n; nodeCreateID++) {
         vertices.push(nodeCreateID);
-        var nodeString = {id:vertices[nodeCreateID], status:0, group:null, edges:[], marked:false, degree:null, bcScore:null};
+        var nodeString = {id:vertices[nodeCreateID], status:0, group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null};
         nodes.push(nodeString);
 
     }
@@ -30,6 +30,66 @@ function generateSmallWorld(n, p, k) {
                 var newDestination = vertices[randomIndex];
             }
             while(source == newDestination);  // can still allow for double edges
+            edges[edgeIndex][1] = newDestination;
+        }
+    }
+
+    var graph = {};
+    var links = [];
+    for (var i = 0; i < edges.length; i++) {
+        var linkString = {source:edges[i][0],target:edges[i][1]};
+        links.push(linkString);
+    }
+
+
+
+    graph.nodes = nodes;
+    graph.links = links;
+
+//    console.log(graph.nodes);
+//    console.log(graph.links);
+    return graph;
+
+}
+
+function generateSmallWorldForQuarantineGame(n, p, k) {
+    var vertices = [];
+    var edges = [];
+
+    var nodes = [];
+
+    for (var nodeCreateID = 0; nodeCreateID < n; nodeCreateID++) {
+        vertices.push(nodeCreateID);
+
+        var nodeString = null;
+        nodeString = {id:vertices[nodeCreateID], status:"S", exposureTimestep:null, infectiousTimestep:null, timesInfected:0};
+
+        nodes.push(nodeString);
+
+    }
+
+    for (var nodeID = 0; nodeID < n; nodeID++) {
+        for (var edgeID = 0; edgeID < k; edgeID++) {
+            var diff = Math.floor((edgeID / 2) + 1);
+            if (edgeID%2 == 1) diff *= -1;
+            var newIndex = nodeID + diff;
+            if (newIndex < 0) newIndex+=n;
+            if (newIndex >= n) newIndex -= n;
+            var edge = [nodeID, newIndex];
+            edges.push(edge);
+        }
+    }
+
+    for (var edgeIndex = 0; edgeIndex < edges.length; edgeIndex++) {
+        if (Math.random() < p) {
+            var source = edges[edgeIndex][0];
+
+            do {
+                var randomIndex = Math.floor(Math.random() * n);
+                var newDestination = vertices[randomIndex];
+            }
+            while(source == newDestination);  // can still allow for double edges
+
             edges[edgeIndex][1] = newDestination;
         }
     }
