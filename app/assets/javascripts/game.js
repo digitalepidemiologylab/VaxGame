@@ -18,17 +18,21 @@ var stars = 1;
 var refusers = [];
 var net_id = 0;
 
-var game = angular.module('game', []);
+var preventGame = angular.module('preventGame', []);
 
-game.controller('gameController', ['$scope',function($scope) {
+preventGame.controller('gameController', ['$scope',function($scope) {
     $scope.vaccinated = [];
 
     $scope.toggleDegree = function() {
-        toggleSizeByDegree();
+        toggleDegree();
+        updateNodeAttributes();
+
     }
 
     $scope.toggleBC = function() {
-        toggleSizeByBC();
+        toggleBC();
+        updateNodeAttributes();
+
     }
 
     $scope.vaccinesUsed = 0;
@@ -60,32 +64,29 @@ game.controller('gameController', ['$scope',function($scope) {
     }
 
 }])
+
+
+
 function finalize() {
     var vaccinated = [];
     for (var i = 0; i < originalGraph.nodes.length; i++) {
         var node = originalGraph.nodes[i];
-        if (node.status == 1) vaccinated.push(node.id);
+        if (node.status == "V") vaccinated.push(node.id);
     }
     return vaccinated;
 }
 
 function updateCompletions() {
     worstCase = estimateWorstCase();
-    console.log(worstCase + "\t" + targetEstimate)
     completion = (100 - (worstCase - targetEstimate));
-    console.log(completion);
     return completion;
 
-}
-function toggleSizeByBC() {
-    sizeByBC = !sizeByBC;
-    updateNodeAttributes();
 }
 
 function getNumberOfVaccinesUsed() {
     vaccinesUsed = 0;
     for (var i = 0; i < originalGraph.nodes.length; i++) {
-        if (originalGraph.nodes[i].status == 1) vaccinesUsed++;
+        if (originalGraph.nodes[i].status == "V") vaccinesUsed++;
     }
     return vaccinesUsed;
 }
@@ -104,10 +105,6 @@ function estimateWorstCase() {
 
 }
 
-
-
-
-
 // make graph object
 // nodes are basic individuals with IDs from 0-19
 // edges/links are in JSON format.  Note that prior node IDs must match link IDs
@@ -115,14 +112,6 @@ function estimateWorstCase() {
 
 var graph = generateSmallWorld(n,0.10,3);
 
-//var graph = {};
-//graph.nodes = [];
-//graph.links = [];
-//
-//var json;
-//json = d3.json("/networks/1.json");
-//
-//readJSON(json);
 
 function readJSON(json) {
     for (var i = 0; i < json.graph.nodes; i++) {
@@ -151,11 +140,7 @@ svg = d3.select("body").append("svg")
     .call(d3.behavior.zoom().on("zoom", redraw))
 
 
-function redraw() {
-    svg.attr("transform",
-        "translate(" + d3.event.translate + ")"
-            + " scale(" + d3.event.scale + ")");
-}
+
 
 // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
 var force = d3.layout.force()
@@ -192,21 +177,12 @@ var node = svg.selectAll(".node")
             .duration(400)
             .style("opacity", 0)})
     .call(force.drag)
-    .on("click", click);
+    .on("click", clickPrevent);
 
 var div = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-// tick function, which does the physics for each individual node & link.
-function tick() {
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
-}
 
 function combinedUpdate() {
     updateCommunities();
@@ -260,7 +236,7 @@ function updateFullGraph() {
         .attr("cy", function(d) { return d.y; })
         .attr("r", metric)
         .style("fill", color)
-        .on("click", click)
+        .on("click", clickPrevent)
         .call(force.drag);
 
     // Exit any old nodes.
@@ -268,19 +244,6 @@ function updateFullGraph() {
 
     graph.nodes = nodes;
     graph.links = links;
-}
-
-function updateNodeAttributes() {
-    force
-        .nodes(graph.nodes)
-        .links(graph.links)
-        .start();
-
-    // Update the nodes…
-    node = svg.selectAll("circle.node")
-        .data(graph.nodes, function(d) { return d.id; })
-        .attr("r", metric)
-        .style("fill", color);
 }
 
 
@@ -293,35 +256,6 @@ function vaccinate() {
 }
 
 
-function toggleSizeByDegree() {
-    sizeByDegree = !sizeByDegree;
-    updateNodeAttributes();
-}
-
-function metric(node) {
-    node.degree = degree(node);
-    var sizeByMetric = 8;
-    if (sizeByBC == true && sizeByDegree == false) sizeByMetric = (node.bcScore / 0.025) + 6;
-    if (sizeByBC == false && sizeByDegree == true) sizeByMetric = (node.degree + 2) * 2;
-    if (sizeByBC == true && sizeByDegree == true) sizeByMetric = ((node.bcScore / 0.01) + 1) + ((node.degree + 2) * 2) / 2;
-    return sizeByMetric;
-}
-
-function color(d) {
-    var color = null;
-    if (d.status == 0) color = "#ff0000";
-    if (d.status == 1) color = "#c6dbef";
-    return color;
-}
-
-function click(node) {
-    if (node.status == 1) node.status = 0;
-    else node.status = 1;
-    for (var i = 0; i < originalGraph.nodes.length; i++) {
-        if (originalGraph.nodes[i] == node) originalGraph.nodes[i].status = node.status;
-    }
-    combinedUpdate();
-}
 
 
 updateCommunities();
