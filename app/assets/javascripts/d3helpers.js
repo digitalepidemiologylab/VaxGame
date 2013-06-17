@@ -15,6 +15,14 @@ function toggleBC() {
 
 }
 
+function toggleDegree() {
+    console.log(sizeByDegree)
+    if (sizeByDegree) sizeByDegree=false;
+    else(sizeByDegree=true);
+    console.log(sizeByDegree)
+
+}
+
 function redraw() {
     svg.attr("transform",
         "translate(" + d3.event.translate + ")"
@@ -66,34 +74,6 @@ function updateNodeAttributes() {
         .data(graph.nodes, function(d) { return d.id; })
         .attr("r", metric)
         .style("fill", color);
-}
-
-function filterSusceptibleNodes() {
-
-    var nodes = [];
-    for (var i = 0; i < graph.nodes.length; i++) {
-        if (graph.nodes[i].status != "V" && graph.nodes[i].status != "R" ) nodes.push(graph.nodes[i]);
-    }
-
-    for (var ii = 0; ii < originalGraph.nodes.length; ii++) {
-        if (graph.nodes[ii].status == "V") originalGraph.nodes[ii].status="V";
-    }
-
-    return nodes;
-}
-
-function filterLinks() {
-    var links = [];
-    for (var i = 0; i < graph.links.length; i++) {
-        if (graph.links[i].source.status == "V" || graph.links[i].target.status == "V") {
-            continue;
-        }
-        if (graph.links[i].source.status == "R" || graph.links[i].target.status == "R") {
-            continue;
-        }
-        links.push(graph.links[i])
-    }
-    return links;
 }
 
 
