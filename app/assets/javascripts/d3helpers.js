@@ -37,6 +37,10 @@ function tick() {
         .attr("y2", function(d) { return d.target.y; });
     node.attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
+
+        texts.attr("transform", function(d) {
+        return "translate(" + (d.x-9) + "," + (d.y+5) + ")";
+    });
 }
 
 // color function
