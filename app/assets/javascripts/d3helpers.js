@@ -38,9 +38,17 @@ function tick() {
     node.attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
 
+    try{
         texts.attr("transform", function(d) {
-        return "translate(" + (d.x-9) + "," + (d.y+5) + ")";
-    });
+            return "translate(" + (d.x-9) + "," + (d.y+5) + ")"
+        });
+    }
+    catch(e){
+        //catch and just suppress error
+    }
+
+
+
 }
 
 // color function

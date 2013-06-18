@@ -47,18 +47,8 @@ var node = svg.selectAll(".node")
     .call(force.drag)
     .on("click", clickMenu)
 
-var texts = svg.selectAll("text.label")
-    .data(menuGraph.nodes)
-    .enter().append("text")
-    .attr("class", "label")
-    .attr("fill", "black")
-    .text(textMenu)
-    .call(force.drag)
 
 
-function textMenu(d) {
-    return d.name;
-}
 
 function colorMenu(d) {
     var color = null;
