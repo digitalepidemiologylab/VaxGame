@@ -2,12 +2,11 @@
 <html ng-app="preventGame">
 <head>
   <% provide(:title, 'Vax') %>
-  <script type="text/javascript" src="/assets/d3.v3.js"></script>
-  <script type="text/javascript" src="/assets/angular.min.js"></script>
-  <script type="text/javascript" src="/assets/graphTools.js"></script>
-  <script type="text/javascript" src="/assets/deepCopy.js"></script>
-  <script type="text/javascript" src="/assets/d3helpers.js"></script>
-  <script type="text/javascript" src="/assets/game.js"></script>
+  <%= javascript_include_tag "d3.v3" %>
+  <%= javascript_include_tag "jsnetworkx" %>
+  <%= javascript_include_tag "graphTools" %>
+  <%= javascript_include_tag "deepCopy" %>
+  <%= javascript_include_tag "game"%>
   <%= csrf_meta_tags %>
 </head>
 
