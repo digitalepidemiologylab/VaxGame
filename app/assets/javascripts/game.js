@@ -22,7 +22,7 @@ var net_id = 0;
 
 var preventGame = angular.module('preventGame', []);
 
-preventGame.controller('gameController', ['$scope',function($scope) {
+var preventGameCTRL = ['$scope',function($scope) {
     $scope.vaccinated = [];
 
     $scope.toggleDegree = function() {
@@ -65,8 +65,7 @@ preventGame.controller('gameController', ['$scope',function($scope) {
         $scope.net_id = net_id;
     }
 
-}])
-
+}];
 
 
 function finalize() {
