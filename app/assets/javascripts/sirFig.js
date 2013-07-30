@@ -1,13 +1,14 @@
 d3.select("body").append("div1");
 
-
-var series = [
-    [{group: 0 ,time: 1, value: 20}, {group:0, time: 2, value: 18}, {group:0, time: 3, value: 15}, {group:0, time: 4, value: 10}, {group:0, time: 5, value: 7}, {group:0, time: 6, value: 4}, {group:0, time: 7, value: 0}, {group:0, time: 8, value: 0}],
-    [{group: 1, time: 1, value: 0}, {group:1, time: 2, value: 2}, {group:1, time: 3, value: 5}, {group:1, time: 4, value: 10}, {group:1, time: 5, value: 13}, {group:1, time: 6, value: 16}, {group:1, time: 7, value: 20}, {group:1, time: 8, value: 15}],
-    [{group: 2, time: 1, value: 0}, {group:2, time: 2, value: 0}, {group:2, time: 3, value: 0}, {group:2, time: 4, value: 0}, {group:2, time: 5, value: 0}, {group:2, time: 6, value: 0}, {group:2, time: 7, value: 0}, {group:2, time: 8, value: 5}],
-    [{group: 3, time: 1, value: 0}, {group:3, time: 2, value: 5}, {group:3, time: 3, value: 5}, {group:3, time: 4, value: 5}, {group:3, time: 5, value: 5}, {group:3, time: 6, value: 6}, {group:3, time: 7, value: 6}, {group:3, time: 8, value: 6}]
-];
-
+var series = [[{group: "S", time: 0, value: numberOfIndividuals}],
+              [{group: "I", time: 0, value: 0}],
+              [{group: "R", time: 0, value: 0}]];
+//var series = [
+//    [{group: 0 ,time: 1, value: 20}, {group:0, time: 2, value: 18}, {group:0, time: 3, value: 15}, {group:0, time: 4, value: 10}, {group:0, time: 5, value: 7}, {group:0, time: 6, value: 4}, {group:0, time: 7, value: 0}, {group:0, time: 8, value: 0}],
+//    [{group: 1, time: 1, value: 0}, {group:1, time: 2, value: 2}, {group:1, time: 3, value: 5}, {group:1, time: 4, value: 10}, {group:1, time: 5, value: 13}, {group:1, time: 6, value: 16}, {group:1, time: 7, value: 20}, {group:1, time: 8, value: 15}],
+//    [{group: 2, time: 1, value: 0}, {group:2, time: 2, value: 0}, {group:2, time: 3, value: 0}, {group:2, time: 4, value: 0}, {group:2, time: 5, value: 0}, {group:2, time: 6, value: 0}, {group:2, time: 7, value: 0}, {group:2, time: 8, value: 5}],
+//    [{group: 3, time: 1, value: 0}, {group:3, time: 2, value: 5}, {group:3, time: 3, value: 5}, {group:3, time: 4, value: 5}, {group:3, time: 5, value: 5}, {group:3, time: 6, value: 6}, {group:3, time: 7, value: 6}, {group:3, time: 8, value: 6}]
+//];
 
 var n = series[0].length;
 
@@ -20,12 +21,12 @@ var marginFig = {top: 10, right: 10, bottom: 20, left: 40},
 
 // x scale
 var xFig = d3.scale.linear()
-    .domain([1, n])
+    .domain([1, 14])
     .range([0, widthFig]);
 
 // y scale
 var yFig = d3.scale.linear()
-    .domain([-1, 20])
+    .domain([-1, 50])
     .range([heightFig, 0]);
 
 // the lines
@@ -61,12 +62,26 @@ svgFig.append("g")
     .attr("class", "y axis")
     .call(d3.svg.axis().scale(yFig).orient("left"));
 
-function update() {
-    // translate current timestep to data
+function updateSIRfig() {
 
-    // redraw figure accordingly
+    updateSeries();
 
-    // should be called by "runTimesteps()"
+    svgFig.selectAll("path")
+        .data(series) // set the new data
+        .attr("d", lineFig) // apply the new data values
+
+}
+
+function updateSeries() {
+    series = [[{group: "S", time: 0, value: numberOfIndividuals}],
+             [{group: "I", time: 0, value: 0}],
+             [{group: "R", time: 0, value: 0}]];
+
+    for (var time = 0; time < timestep-1; time++) {
+        series[0].push(s_series[time]);
+        series[1].push(i_series[time]);
+        series[2].push(r_series[time]);
+    }
 }
 
 

@@ -9,7 +9,9 @@ var hospitalQuarantineEfficacy = 0.50;      // proportion of edges, per individu
 var martialLaw_edgeRemovalFrequency = 0.25; // proportion of edges, in entire graph, that are severed upon martial law
 var rateOfVoluntarySegregation = 0.10;
 var rateOfRefusalAdoption = 0.10;
-var series = [{group:"S", time:timestep, value:50}, {group:"I", time:timestep, value:0}, {group:"R", time:timestep, value:0}];
+var s_series = [];
+var i_series = [];
+var r_series = [];
 
 
 function makePublicAnnouncement() {
@@ -147,7 +149,6 @@ function infection() {
 }
 
 function runTimesteps() {
-    getStatuses();
     updateExposures();
     infection();
     stateChanges();
@@ -155,6 +156,8 @@ function runTimesteps() {
     if (this.timestep%2 == 0) {
         vaccineSupply++;
     }
+    getStatuses();
+    updateSIRfig();
 }
 
 function getStatuses() {
@@ -170,15 +173,9 @@ function getStatuses() {
         if (individual.status == "R") R++;
     }
 
-    var sData = {group:"S", time:timestep, value:S};
-    var iData = {group:"I", time:timestep, value:I};
-    var rData = {group:"R", time:timestep, value:R};
-
-    series[0].push(sData);
-    series[1].push(iData);
-    series[2].push(rData);
-
-
+    s_series.push({group:"S", time:timestep, value:S});
+    i_series.push({group:"I", time:timestep, value:I});
+    r_series.push({group:"R", time:timestep, value:R});
 
 }
 
