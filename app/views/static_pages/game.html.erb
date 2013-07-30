@@ -1,65 +1,29 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
-    <head>
-        <% provide(:title, 'Vax') %>
-        <%= javascript_include_tag "d3" %>
-        <%= javascript_include_tag "jsnetworkx" %>
-        <%= javascript_include_tag "graphTools" %>
-        <%= javascript_include_tag "deepCopy" %>
-        <%= javascript_include_tag "game.js"%>
-        <%= csrf_meta_tags %>
-    </head>
+<html ng-app="outbreakGame">
+<head>
+  <% provide(:title, 'Vax') %>
+  <%= javascript_include_tag "d3.v3" %>
+  <%= javascript_include_tag "jsnetworkx" %>
+  <%= javascript_include_tag "forceNet"%>
+  <%= javascript_include_tag "netrics"%>
+  <%= javascript_include_tag "sir"%>
+  <%= javascript_include_tag "userInteraction"%>
+  <%= javascript_include_tag "dataChange"%>
+  <%= javascript_include_tag "deepCopy"%>
+  <%= csrf_meta_tags %>
+</head>
 
-    <body ng-controller="gameController">
+<body ng-controller="outbreakGameCTRL">
 
+<div>
+  <button class="btn-success span4 offset1" ng-model="currentMode" ng-click='toggleAction()'> User Action: {{currentMode}}
+  </button>
 
-        <div class="container" ng-model="worstCase" ng-model="targetWorstCase"  ng-model="numberOfCommunities"  ng-model="largestCommunity" ng-model="vaccinesUsed" >
-          <div class="span2"></div>
-          <a class="btn-large btn-info">
-              Largest Group: {{largestCommunity}}
-          </a>
-          <a class="btn-large btn-warning">
-            Susceptible Groups: {{numberOfCommunities}}
-          </a>
-          <a class="btn-large btn-inverse">
-              Vaccines Used: {{vaccinesUsed}}
-          </a>
-        </div>
+  <button class="btn-danger span4 offset1" ng-model="toggleVizString" ng-click='toggleVizMode()'> Toggle Visualization: {{toggleVizString}}
+  </button>
+</div>
 
-        <div><br></div>
-
-    <button class="btn-success span4 offset1" ng-click='toggleDegree()'> Size By Neighbor Count
-    </button>
-
-    <button class="btn-danger span4 offset1" ng-click='toggleBC()'> Size By Betweenness
-    </button>
-
-    </div>
-
-    <div class="progress span10" ng-model="completion">
-      <div class="bar bar-success" style="width: {{completion}}%;"></div>
-
-    </div>
-
-    <button class="btn-danger btn-large span9 offset1"
-            ng-click = 'vaccinate()'>
-      Vaccinate!
-    </button>
-
-
-    <button class="btn-warning btn-large span9 offset1"
-            ng-model = "vaccinesUsed"
-            ng-click = 'finalize()'>
-      Submit {{vaccinesUsed}} vaccinations
-    </button>
-
-
-    </body>
-
-
-    <div> <br> </div>
-
-
+</body>
 
 </html>
 

@@ -231,3 +231,53 @@ input {
   margin-top: 45px;
   @include box_sizing;
 }
+
+
+
+
+body {
+  font-family: "Helvetica Neue", Helvetica;
+}
+
+/* tell the SVG path to be a thin blue line without any area fill */
+path {
+  stroke-width: 1;
+  fill: none;
+}
+
+.data1 {
+  stroke: green;
+}
+
+.data2 {
+  stroke: orange;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line {
+  stroke: lightgrey;
+}
+
+.x.axis .minor {
+  stroke-opacity: .5;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.x.axis text {
+  font-size: 10px;
+}
+
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke: #000;
+}
+
+.y.axis text {
+  font-size: 12px;
+}

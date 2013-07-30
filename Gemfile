@@ -9,7 +9,6 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.0.1'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
-gem 'gon', '3.0.5'
 
 
 
@@ -17,6 +16,8 @@ gem 'gon', '3.0.5'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
+gem "nvd3-rails", :git => "git@github.com:adeven/nvd3-rails.git", :submodules => true
+
 
 
 group :test do

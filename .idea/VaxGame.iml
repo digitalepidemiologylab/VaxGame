@@ -17,6 +17,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="d3" level="application" />
+    <orderEntry type="library" name="angularJS" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="actionmailer (v3.2.11, RVM: ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="actionpack (v3.2.11, RVM: ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activemodel (v3.2.11, RVM: ruby-1.9.3-p194) [gem]" level="application" />
@@ -45,7 +47,6 @@
     <orderEntry type="library" scope="PROVIDED" name="factory_girl (v4.1.0, RVM: ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="factory_girl_rails (v4.1.0, RVM: ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="faker (v1.0.1, RVM: ruby-1.9.3-p194) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="gon (v3.0.5, RVM: ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hike (v1.2.2, RVM: ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v0.6.4, RVM: ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="journey (v1.0.4, RVM: ruby-1.9.3-p194) [gem]" level="application" />
@@ -55,6 +56,7 @@
     <orderEntry type="library" scope="PROVIDED" name="mime-types (v1.23, RVM: ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.7.3, RVM: ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nifty-generators (v0.4.6, RVM: ruby-1.9.3-p194) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="nvd3-rails (v0.0.1@c30415, RVM: ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pg (v0.15.1, RVM: ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="polyglot (v0.3.3, RVM: ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v1.4.5, RVM: ruby-1.9.3-p194) [gem]" level="application" />

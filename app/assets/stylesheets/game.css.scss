@@ -24,3 +24,69 @@ div.tooltip {
   border-radius: 8px;
   pointer-events: none;
 }
+
+a {
+  color:#0000FF;
+  text-decoration:none; }
+
+#buttonBay {
+  position: absolute;
+  left: 880px;
+  top: 50px;
+  text-align: left;
+  margin: 0 auto;
+  padding: 10px;
+  background: #fff;
+  height: auto;
+  width: 550px;
+  border: 1px solid #ACD8F0;
+  overflow:auto;
+}
+
+#HUDbuttons {
+  position: absolute;
+  left: 0px;
+}
+
+div1 {
+  position: absolute;
+  left: 880px;
+  top: 300px;
+  text-align:left;
+  margin:0 auto;
+  margin-bottom:25px;
+  padding:10px;
+  background:#fff;
+  height:300px;
+  width:550px;
+  border:1px solid #ACD8F0;
+  overflow:auto;
+}
+
+
+#readOut {
+  position: absolute;
+  left: 880px;
+  top: 300px;
+  text-align:left;
+  margin:0 auto;
+  margin-bottom:25px;
+  padding:10px;
+  background:#fff;
+  height:300px;
+  width:550px;
+  border:1px solid #ACD8F0;
+  overflow:auto;
+}
+
+#recentUpdate {
+  position: absolute;
+  left: 250px;
+}
+
+#previousUpdates {
+  position: relative;
+
+}
+
+

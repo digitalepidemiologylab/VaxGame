@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html ng-app="preventGame">
+<html ng-app="outbreakGame">
 <head>
   <% provide(:title, 'Vax') %>
   <%= javascript_include_tag "d3.v3" %>
   <%= javascript_include_tag "jsnetworkx" %>
-  <%= javascript_include_tag "graphTools" %>
-  <%= javascript_include_tag "deepCopy" %>
-  <%= javascript_include_tag "game"%>
+  <%= javascript_include_tag "forceNet"%>
+  <%= javascript_include_tag "netrics"%>
+  <%= javascript_include_tag "sir"%>
+  <%= javascript_include_tag "userInteraction"%>
+  <%= javascript_include_tag "dataChange"%>
+  <%= javascript_include_tag "deepCopy"%>
+  <%= javascript_include_tag "nv.d3.js"%>
+  <%= javascript_include_tag "sirFig"%>
   <%= csrf_meta_tags %>
 </head>
 
-<body ng-controller="preventGameCTRL">
+<body ng-controller="outbreakGameCTRL">
 
 
-<div class="container" ng-model="worstCase" ng-model="targetWorstCase"  ng-model="numberOfCommunities"  ng-model="largestCommunity" ng-model="vaccinesUsed" >
+
+<div id="HUDbuttons" class="container" ng-model="numberOfCommunities"  ng-model="largestCommunity" ng-model="vaccinesRemaining" >
   <div class="span2"></div>
   <a class="btn-large btn-info">
     Largest Group: {{largestCommunity}}
@@ -22,70 +28,75 @@
     Susceptible Groups: {{numberOfCommunities}}
   </a>
   <a class="btn-large btn-inverse">
-    Vaccines Used: {{vaccinesUsed}}
+    Vaccines Remaining: {{vaccinesRemaining}}
   </a>
-</div>
 
-<div><br></div>
+  <br> </br>
 
-<button class="btn-success span4 offset1" ng-click='toggleDegree()'> Size By Neighbor Count
-</button>
+  <div ng-model="recentUpdate">
+    <text id="recentUpdate"> {{recentUpdate}} </text>
 
-<button class="btn-danger span4 offset1" ng-click='toggleBC()'> Size By Betweenness
-</button>
-
-</div>
-
-<div class="progress span10" ng-model="completion">
-  <div class="bar bar-success" style="width: {{completion}}%;"></div>
-
-</div>
-
-<button class="btn-danger btn-large span9 offset1"
-        ng-click = 'vaccinate()'>
-  Vaccinate!
-</button>
-
-
-<button class="btn-warning btn-large span9 offset1"
-   ng-model = "vaccinesUsed"
-   ng-click = 'finalize()'
-   data-toggle="modal"
-   href="#scoreModal">Submit {{vaccinesUsed}} vaccinations </button>
-
-
-<div class="modal hide" id="scoreModal">
-  <div class="modal-header">
-    <button class="close" data-dismiss="modal">×</button>
-    <h3>Score Review</h3>
   </div>
-  <div class="modal-body">
 
-    <%= form_for(Score.create) do |f| %>
-        <%= f.label :vax, ('Vaccinated Individuals') %>
-        <%= f.text_field :vax,  :'ng-model' => 'vax' %>
-
-        <%= f.label :net_id, ('Network ID') %>
-        <%= f.text_field :net_id, 'ng-model' => 'net_id' %>
-
-        <%= f.label :sim_size, ('Predicted Epidemic Size') %>
-        <%= f.text_field :sim_size, 'ng-model' => 'sim_size' %>
-
-        <%= f.label :stars, ('Completion') %>
-        <%= f.text_field :stars, 'ng-model' => 'stars'%>
-
-        <%= f.submit 'Submit', class: 'btn btn-primary'%>
-    <%end%>
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
-  </div>
 </div>
 
+
+
+
+
+  <div id="buttonBay">
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand">Policy</a>
+        <ul class="nav">
+          <button class = "btn btn-action" type="button" ng-model="publicAnnouncement_disable" ng-click="makePublicAnnouncement()" ng-disabled = "publicAnnouncement_disable" class="btn btn-primary"> Public Announcement </button>
+          <button class = "btn btn-action" type="button" ng-model="martialLaw_disable" ng-click="declareMartialLaw()" ng-disabled="martialLaw_disable" class="btn btn-primary"> Declare Martial Law </button>
+        </ul>
+      </div>
+    </div>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand">Medicine</a>
+        <ul class="nav">
+          <div id="medical" class="btn-group" data-toggle="buttons-radio">
+            <button class = "btn btn-action active" type="button" ng-click="checkVaccinate()" class="btn btn-primary">Vaccinate</button>
+            <button class = "btn btn-action" type="button" ng-click="checkQuarantine()" class="btn btn-primary">Quarantine</button>
+            <button class = "btn btn-action" type="button" ng-click="checkTreatment()" class="btn btn-primary">Treat</button>
+          </div>
+        </ul>
+      </div>
+    </div>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand">Intel</a>
+        <ul class="nav">
+            <div class="btn-group" data-toggle="buttons-checkbox">
+              <button class = "btn btn-action" type="button" ng-click="toggleSizeByDegree()" class="btn btn-primary">Popularity</button>
+              <button class = "btn btn-action" type="button" ng-click="toggleSizeByBC()" class="btn btn-primary">Centrality</button>
+            </div>
+        </ul>
+      </div>
+    </div>
+
+  <button class="btn-large btn-inverse" ng-click="submit()">  Start Outbreak! </button>
+
+  </div>
+
+
+
+
+  <div id="readOut">
+    <div id="svgHolder">
+    </div>
+
+
+   <ol id="previousUpdates" ng-repeat="update in previousUpdates"> Day {{update.timestep}} : {{update.string}} </ol>
+</div>
 
 </body>
-
-<div> <br> </div>
-
-
 
 </html>
 
