@@ -46,6 +46,7 @@
       <div class="navbar-inner">
         <a class="brand">Policy</a>
         <ul class="nav">
+          <button class = "btn btn-action" type="button" ng-model="researchVaccine_disable" ng-click="researchVaccine()" ng-disabled="researchVaccine_disable"> Research Vaccine </button>
           <button class = "btn btn-action" type="button" ng-model="publicAnnouncement_disable" ng-click="makePublicAnnouncement()" ng-disabled = "publicAnnouncement_disable"> Public Announcement </button>
           <button class = "btn btn-action" type="button" ng-model="martialLaw_disable" ng-click="declareMartialLaw()" ng-disabled="martialLaw_disable"> Declare Martial Law </button>
         </ul>
@@ -57,9 +58,9 @@
         <a class="brand">Medicine</a>
         <ul class="nav">
           <div id="medical" class="btn-group" data-toggle="buttons-radio">
-            <button class = "btn btn-action active" type="button" ng-click="checkVaccinate()" class="btn btn-primary">Vaccinate</button>
-            <button class = "btn btn-action" type="button" ng-click="checkQuarantine()" class="btn btn-primary">Quarantine</button>
-            <button class = "btn btn-action" type="button" ng-click="checkTreatment()" class="btn btn-primary">Treat</button>
+            <button class = "btn btn-action active" type = "button" ng-model="vaccination_disable" ng-disabled="vaccination_disable" ng-click = "checkVaccinate()">Vaccinate</button>
+            <button class = "btn btn-action" type="button" ng-model="quarantine_disable" ng-disabled="quarantine_disable" ng-click="checkQuarantine()">Quarantine</button>
+            <button class = "btn btn-action" type="button" ng-model="treat_disable" ng-disabled="treat_disable" ng-click="checkTreatment()">Treat</button>
           </div>
         </ul>
       </div>
@@ -70,10 +71,14 @@
         <a class="brand">Intel</a>
         <ul class="nav">
             <div class="btn-group" data-toggle="buttons-checkbox">
-              <button class = "btn btn-action" type="button" ng-click="toggleSizeByDegree()" class="btn btn-primary">Popularity</button>
-              <button class = "btn btn-action" type="button" ng-click="toggleSizeByBC()" class="btn btn-primary">Centrality</button>
+              <button class = "btn btn-action" type="button" ng-click="toggleSizeByDegree()">Popularity</button>
+              <button class = "btn btn-action" type="button" ng-click="toggleSizeByBC()">Centrality</button>
             </div>
-          <div class= "btn btn-action" ng-model="detectOutbreak_disable" type="button" ng-click = "detectOutbreak()" ng-disabled = "detectOutbreak_disable"
+
+            <div>
+             <button class= "btn btn-action" ng-model="detectOutbreak_disable" type="button" ng-click = "detectOutbreak()" ng-disabled = "detectOutbreak_disable"> Detect Outbreak </button>
+            </div>
+
         </ul>
       </div>
     </div>

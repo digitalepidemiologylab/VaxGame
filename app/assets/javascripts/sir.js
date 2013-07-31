@@ -14,6 +14,7 @@ var i_series = [];
 var r_series = [];
 var sim_series = [];
 var simulation = true;
+var diseaseIsSpreading = false;
 
 
 function makePublicAnnouncement() {
@@ -151,15 +152,24 @@ function infection() {
 }
 
 function runTimesteps() {
-    updateExposures();
-    infection();
-    stateChanges();
-    this.timestep++;
-    if (this.timestep%3 == 0) {
-        vaccineSupply++;
+    if (diseaseIsSpreading) {
+        updateExposures();
+        infection();
+        stateChanges();
+        this.timestep++;
+        if (this.timestep%2 == 0) {
+            vaccineSupply++;
+        }
+        getStatuses();
+        updateSIRfig();
     }
-    getStatuses();
-    updateSIRfig();
+    else {
+        vaccineSupply++;
+        this.timestep++;
+        getStatuses();
+        updateSIRfig();
+    }
+
 }
 
 function getStatuses() {
@@ -189,6 +199,8 @@ function runSimulation() {
 
     selectIndexCase();
     selectIndexCase();
+    diseaseIsSpreading = true;
+
 
     while (timestep < 30) {
         runTimesteps();
@@ -200,6 +212,7 @@ function runSimulation() {
     r_series = [];
 
     simulation = false;
+    diseaseIsSpreading = false;
     graph = owl.deepCopy(preSimGraph);
     timestep = -1;
     updateGraph();

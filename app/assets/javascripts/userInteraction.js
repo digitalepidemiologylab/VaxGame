@@ -3,10 +3,12 @@ var treatMode = false;
 var quarantineMode = false;
 var sizeByDegree = false;
 var sizeByBC = false;
-var vaccineSupply = 5;
+var vaccineSupply = 0;
 var recentUpdate = "Outbreak Imminent! Time to vaccinate.";
 var previousUpdates = [];
 var lastUpdateTimestep = 0;
+var vaccineResearched = true;
+
 
 
 function toggleSizeByDegree() {
@@ -65,12 +67,12 @@ function click(node) {
 function startGame() {
     selectIndexCase();
     selectIndexCase();
-    timestep++;
+    diseaseIsSpreading = true;
     updateGraph();
     vaccinateMode = false;
-    quarantineMode = true ;
+    quarantineMode = true;
     treatMode = false;
-    setRecentUpdate("Outbreak Detected!");
+    timestep++;
 }
 
 function vaccinateAction(node) {

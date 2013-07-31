@@ -10,8 +10,13 @@ var outbreakGameCTRL = ['$scope', '$timeout',function($scope, $timeout) {
     $scope.numberOfCommunities = numberOfCommunities;
     $scope.largestCommunity = largestCommunity;
     $scope.vaccinesRemaining = vaccineSupply;
-    $scope.martialLaw_disable = false;
-    $scope.publicAnnouncement_disable = false;
+    $scope.detectOutbreak_disable = true;
+    $scope.researchVaccine_disable = false;
+    $scope.martialLaw_disable = true;
+    $scope.publicAnnouncement_disable = true;
+    $scope.vaccination_disable = true;
+    $scope.quarantine_disable = true;
+    $scope.treat_disable = true;
     $scope.recentUpdate = "";
     $scope.previousUpdates = [];
 
@@ -24,8 +29,36 @@ var outbreakGameCTRL = ['$scope', '$timeout',function($scope, $timeout) {
         $timeout(updateUI, 1000);
         $scope.recentUpdate = recentUpdate;
         $scope.previousUpdates = previousUpdates;
+
+        if (vaccineSupply > 0) $scope.vaccination_disable = false;
     }
     $timeout(updateUI, 1000);
+
+    $scope.researchVaccine = function() {
+        vaccineResearched = true;
+        $scope.researchVaccine_disable = true;
+        $scope.detectOutbreak_disable = false;
+        runTimesteps();
+    }
+
+    $scope.detectOutbreak = function() {
+        if (Math.random() > 0.50) {
+            $scope.detectOutbreak_disable = true;
+            startGame();
+            setRecentUpdate("Outbreak Detected!")
+            $scope.publicAnnouncement_disable = false;
+            $scope.martialLaw_disable = false;
+            $scope.quarantine_disable = false;
+            $scope.treat_disable = false;
+        }
+        else {
+            setRecentUpdate("No Outbreak Detected.")
+            runTimesteps();
+        }
+
+
+
+    }
 
     $scope.makePublicAnnouncement = function() {
         makePublicAnnouncement();
