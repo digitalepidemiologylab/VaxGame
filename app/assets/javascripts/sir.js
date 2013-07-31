@@ -16,44 +16,6 @@ var sim_series = [];
 var simulation = true;
 var diseaseIsSpreading = false;
 
-
-function makePublicAnnouncement() {
-    for (var i = 0; i < graph.nodes.length; i++) {
-        var individual = graph.nodes[i];
-        if (Math.random() < 0.10) voluntarilySegregateIndividual(individual);
-        if (Math.random() > (1.0 - rateOfRefusalAdoption)) makeRefuser(individual);
-    }
-}
-
-function voluntarilySegregateIndividual(individual) {
-    individual.status = "VOL";
-}
-
-function makeRefuser(individual) {
-    individual.status = "REF";
-
-}
-
-function declareMartialLaw() {
-    var links = graph.links;
-
-    for (var i = 0; i < links.length; i++) {
-        if (Math.random() < martialLaw_edgeRemovalFrequency) {
-            var linkToRemove = findLink(links[i].source, links[i].target);
-
-            try {
-                linkToRemove.remove = true;
-            }
-            catch(e) {
-               //catch and just suppress errors
-            }
-        }
-    }
-
-    graph.links = links;
-}
-
-
 function treatInfected(individual) {
     if (Math.random() < treatmentEfficacy) {
         forceRecovery(individual);
@@ -157,14 +119,21 @@ function runTimesteps() {
         infection();
         stateChanges();
         this.timestep++;
-        if (this.timestep%2 == 0) {
+        if (this.timestep%5 == 0) {
             vaccineSupply++;
         }
         getStatuses();
         updateSIRfig();
     }
     else {
-        vaccineSupply++;
+        if (Math.random() < 0.20) {
+            startGame();
+        }
+
+        if (this.timestep%5 == 0) {
+            vaccineSupply++;
+        }
+
         this.timestep++;
         getStatuses();
         updateSIRfig();
@@ -214,7 +183,7 @@ function runSimulation() {
     simulation = false;
     diseaseIsSpreading = false;
     graph = owl.deepCopy(preSimGraph);
-    timestep = -1;
+    timestep = 0;
     updateGraph();
 
 

@@ -4,11 +4,48 @@ var quarantineMode = false;
 var sizeByDegree = false;
 var sizeByBC = false;
 var vaccineSupply = 0;
-var recentUpdate = "Outbreak Imminent! Time to vaccinate.";
+var recentUpdate = "New Pathogen Detected! Consider Researching a Vaccine.";
 var previousUpdates = [];
 var lastUpdateTimestep = 0;
 var vaccineResearched = true;
+var outbreakDetected = false;
 
+
+function makePublicAnnouncement() {
+    for (var i = 0; i < graph.nodes.length; i++) {
+        var individual = graph.nodes[i];
+        if (Math.random() < 0.10) voluntarilySegregateIndividual(individual);
+        if (Math.random() > (1.0 - rateOfRefusalAdoption)) makeRefuser(individual);
+    }
+}
+
+function voluntarilySegregateIndividual(individual) {
+    individual.status = "VOL";
+}
+
+function makeRefuser(individual) {
+    individual.status = "REF";
+
+}
+
+function declareMartialLaw() {
+    var links = graph.links;
+
+    for (var i = 0; i < links.length; i++) {
+        if (Math.random() < martialLaw_edgeRemovalFrequency) {
+            var linkToRemove = findLink(links[i].source, links[i].target);
+
+            try {
+                linkToRemove.remove = true;
+            }
+            catch(e) {
+                //catch and just suppress errors
+            }
+        }
+    }
+
+    graph.links = links;
+}
 
 
 function toggleSizeByDegree() {
@@ -50,6 +87,7 @@ function click(node) {
     if (vaccinateMode && vaccineSupply > 0)  {
         vaccinateAction(node);
         updateNodeAttributes();
+        runTimesteps();
     }
 
     else {
@@ -62,6 +100,7 @@ function click(node) {
         runTimesteps();
         updateGraph();
     }
+
 }
 
 function startGame() {
@@ -72,7 +111,6 @@ function startGame() {
     vaccinateMode = false;
     quarantineMode = true;
     treatMode = false;
-    timestep++;
 }
 
 function vaccinateAction(node) {

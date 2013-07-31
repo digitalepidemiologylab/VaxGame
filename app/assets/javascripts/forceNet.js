@@ -1,4 +1,4 @@
-var numberOfIndividuals = 50;
+var numberOfIndividuals = 100;
 var rewire = 0.10;
 var meanDegree = 3;
 var charge = -100;
@@ -36,26 +36,27 @@ var outbreakGameCTRL = ['$scope', '$timeout',function($scope, $timeout) {
 
     $scope.researchVaccine = function() {
         vaccineResearched = true;
+        vaccineSupply = 5;
         $scope.researchVaccine_disable = true;
         $scope.detectOutbreak_disable = false;
+        timestep = 0;
         runTimesteps();
     }
 
     $scope.detectOutbreak = function() {
-        if (Math.random() > 0.50) {
-            $scope.detectOutbreak_disable = true;
-            startGame();
-            setRecentUpdate("Outbreak Detected!")
-            $scope.publicAnnouncement_disable = false;
-            $scope.martialLaw_disable = false;
-            $scope.quarantine_disable = false;
-            $scope.treat_disable = false;
+        if (diseaseIsSpreading) {
+            if (Math.random() < 0.50) {
+                outbreakDetected = true;
+                $scope.detectOutbreak_disable = true;
+                setRecentUpdate("Outbreak Detected!")
+                $scope.publicAnnouncement_disable = false;
+                $scope.martialLaw_disable = false;
+                $scope.quarantine_disable = false;
+                $scope.treat_disable = false;
+            }
         }
-        else {
-            setRecentUpdate("No Outbreak Detected.")
-            runTimesteps();
-        }
-
+        else {setRecentUpdate("No Outbreak Detected.")};
+        updateGraph();
 
 
     }

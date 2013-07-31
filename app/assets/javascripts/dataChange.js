@@ -13,13 +13,29 @@ function metric(node) {
 
 function color(node) {
     var color = null;
-    if (node.status == "S") color = "#37FDFC";
-    if (node.status == "V") color = "#ffff00";
-    if (node.status == "E") color = "#db3248";
-    if (node.status == "I") color = "#ff0000";
-    if (node.status == "R") color = "#9400D3";
-    if (node.status == "Q") color = "#37F000";
-    if (node.status == "VOL") color = "#ffff00";
-    if (node.status == "REF") color = "#37FDFC";
-    return color;
+
+    if (outbreakDetected && diseaseIsSpreading) {
+        if (node.status == "S") color = "#37FDFC";
+        if (node.status == "V") color = "#ffff00";
+        if (node.status == "E") color = "#db3248";
+        if (node.status == "I") color = "#ff0000";
+        if (node.status == "R") color = "#9400D3";
+        if (node.status == "Q") color = "#37F000";
+        if (node.status == "VOL") color = "#ffff00";
+        if (node.status == "REF") color = "#37FDFC";
+        return color;
+    }
+
+    else {
+        if (node.status == "S") color = "#37FDFC";
+        if (node.status == "V") color = "#ffff00";
+        if (node.status == "E") color = "#37FDFC";
+        if (node.status == "I") color = "#37FDFC";
+        if (node.status == "R") color = "#37FDFC";
+        if (node.status == "Q") color = "#37F000";
+        if (node.status == "VOL") color = "#37FDFC";
+        if (node.status == "REF") color = "#37FDFC";
+        return color;
+    }
+
 }

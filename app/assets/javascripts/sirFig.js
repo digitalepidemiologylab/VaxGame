@@ -10,7 +10,7 @@ var n = series[0].length;
 var colorLines = d3.scale.category10();
 
 // canvas margins
-var marginFig = {top: 5, right: 10, bottom: 20, left: 25},
+var marginFig = {top: 5, right: 10, bottom: 20, left: 35},
     widthFig = 500 - marginFig.left - marginFig.right,
     heightFig = 230 - marginFig.top - marginFig.bottom;
 
@@ -21,7 +21,7 @@ var xFig = d3.scale.linear()
 
 // y scale
 var yFig = d3.scale.linear()
-    .domain([-1, 50])
+    .domain([-1, numberOfIndividuals])
     .range([heightFig, 0]);
 
 // the lines
@@ -39,10 +39,10 @@ var svgFig = d3.select("div1").append("svg")
     .attr("transform", "translate(" + marginFig.left + "," + marginFig.top + ")");
 
 // append lines to canvas
-svgFig.selectAll(".lineFig")
+svgFig.selectAll(".line")
     .data(series)
     .enter().append("path")
-    .attr("class", "lineFig")
+    .attr("class", "line")
     .attr("d", lineFig)
     .style("stroke-width", 5)
     .style("stroke", function(d) {return colorLines(d[0].group)});
@@ -65,6 +65,7 @@ function updateSIRfig() {
 
     svgFig.selectAll("path")
         .data(series) // set the new data
+        .transition()
         .attr("d", lineFig) // apply the new data values
 
 }
