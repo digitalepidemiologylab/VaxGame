@@ -12,6 +12,8 @@ var rateOfRefusalAdoption = 0.10;
 var s_series = [];
 var i_series = [];
 var r_series = [];
+var sim_series = [];
+var simulation = true;
 
 
 function makePublicAnnouncement() {
@@ -153,7 +155,7 @@ function runTimesteps() {
     infection();
     stateChanges();
     this.timestep++;
-    if (this.timestep%2 == 0) {
+    if (this.timestep%3 == 0) {
         vaccineSupply++;
     }
     getStatuses();
@@ -176,6 +178,32 @@ function getStatuses() {
     s_series.push({group:"S", time:timestep, value:S});
     i_series.push({group:"I", time:timestep, value:I});
     r_series.push({group:"R", time:timestep, value:R});
+
+}
+
+
+runSimulation();
+function runSimulation() {
+
+    var preSimGraph = owl.deepCopy(graph);
+
+    selectIndexCase();
+    selectIndexCase();
+
+    while (timestep < 30) {
+        runTimesteps();
+    }
+    sim_series = owl.deepCopy(i_series);
+
+    s_series = [];
+    i_series = [];
+    r_series = [];
+
+    simulation = false;
+    graph = owl.deepCopy(preSimGraph);
+    timestep = -1;
+    updateGraph();
+
 
 }
 

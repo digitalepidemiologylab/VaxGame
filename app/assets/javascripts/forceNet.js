@@ -2,8 +2,6 @@ var numberOfIndividuals = 50;
 var rewire = 0.10;
 var meanDegree = 3;
 var charge = -100;
-
-
 var outbreakGame = angular.module('outbreakGame', []);
 
 var outbreakGameCTRL = ['$scope', '$timeout',function($scope, $timeout) {

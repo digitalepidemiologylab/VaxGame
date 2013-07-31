@@ -71,7 +71,6 @@ function startGame() {
     quarantineMode = true ;
     treatMode = false;
     setRecentUpdate("Outbreak Detected!");
-
 }
 
 function vaccinateAction(node) {

@@ -40,17 +40,14 @@
 </div>
 
 
-
-
-
   <div id="buttonBay">
 
     <div class="navbar">
       <div class="navbar-inner">
         <a class="brand">Policy</a>
         <ul class="nav">
-          <button class = "btn btn-action" type="button" ng-model="publicAnnouncement_disable" ng-click="makePublicAnnouncement()" ng-disabled = "publicAnnouncement_disable" class="btn btn-primary"> Public Announcement </button>
-          <button class = "btn btn-action" type="button" ng-model="martialLaw_disable" ng-click="declareMartialLaw()" ng-disabled="martialLaw_disable" class="btn btn-primary"> Declare Martial Law </button>
+          <button class = "btn btn-action" type="button" ng-model="publicAnnouncement_disable" ng-click="makePublicAnnouncement()" ng-disabled = "publicAnnouncement_disable"> Public Announcement </button>
+          <button class = "btn btn-action" type="button" ng-model="martialLaw_disable" ng-click="declareMartialLaw()" ng-disabled="martialLaw_disable"> Declare Martial Law </button>
         </ul>
       </div>
     </div>
@@ -76,6 +73,7 @@
               <button class = "btn btn-action" type="button" ng-click="toggleSizeByDegree()" class="btn btn-primary">Popularity</button>
               <button class = "btn btn-action" type="button" ng-click="toggleSizeByBC()" class="btn btn-primary">Centrality</button>
             </div>
+          <div class= "btn btn-action" ng-model="detectOutbreak_disable" type="button" ng-click = "detectOutbreak()" ng-disabled = "detectOutbreak_disable"
         </ul>
       </div>
     </div>

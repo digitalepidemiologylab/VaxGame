@@ -15,10 +15,7 @@ VaxGame::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
 
   match '/test', to: 'static_pages#test'
-
-  match '/quarantine', to: 'static_pages#quarantine'
   match '/game',       to: 'scores#game'
-  match '/outbreak',   to: 'static_pages#outbreak'
 
 
 end
