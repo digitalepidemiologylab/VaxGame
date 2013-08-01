@@ -18,85 +18,8 @@
 
 
 
-<div id="HUDbuttons" class="container" ng-model="numberOfCommunities"  ng-model="largestCommunity" ng-model="vaccinesRemaining" >
-  <div class="span2"></div>
-  <a class="btn-large btn-info">
-    Largest Group: {{largestCommunity}}
-  </a>
-  <a class="btn-large btn-warning">
-    Susceptible Groups: {{numberOfCommunities}}
-  </a>
-  <a class="btn-large btn-inverse">
-    Vaccines Remaining: {{vaccinesRemaining}}
-  </a>
-
-  <br> </br>
-
-  <div ng-model="recentUpdate">
-    <text id="recentUpdate"> {{recentUpdate}} </text>
-
-  </div>
-
-</div>
 
 
-  <div id="buttonBay">
-
-    <div class="navbar">
-      <div class="navbar-inner">
-        <a class="brand">Policy</a>
-        <ul class="nav">
-          <button class = "btn btn-action" type="button" ng-model="researchVaccine_disable" ng-click="researchVaccine()" ng-disabled="researchVaccine_disable"> Research Vaccine </button>
-          <button class = "btn btn-action" type="button" ng-model="publicAnnouncement_disable" ng-click="makePublicAnnouncement()" ng-disabled = "publicAnnouncement_disable"> Public Announcement </button>
-          <button class = "btn btn-action" type="button" ng-model="martialLaw_disable" ng-click="declareMartialLaw()" ng-disabled="martialLaw_disable"> Declare Martial Law </button>
-        </ul>
-      </div>
-    </div>
-
-    <div class="navbar">
-      <div class="navbar-inner">
-        <a class="brand">Medicine</a>
-        <ul class="nav">
-          <div id="medical" class="btn-group" data-toggle="buttons-radio">
-            <button class = "btn btn-action active" type = "button" ng-model="vaccination_disable" ng-disabled="vaccination_disable" ng-click = "checkVaccinate()">Vaccinate</button>
-            <button class = "btn btn-action" type="button" ng-model="quarantine_disable" ng-disabled="quarantine_disable" ng-click="checkQuarantine()">Quarantine</button>
-            <button class = "btn btn-action" type="button" ng-model="treat_disable" ng-disabled="treat_disable" ng-click="checkTreatment()">Treat</button>
-          </div>
-        </ul>
-      </div>
-    </div>
-
-    <div class="navbar">
-      <div class="navbar-inner">
-        <a class="brand">Intel</a>
-        <ul class="nav">
-            <div class="btn-group" data-toggle="buttons-checkbox">
-              <button class = "btn btn-action" type="button" ng-click="toggleSizeByDegree()">Popularity</button>
-              <button class = "btn btn-action" type="button" ng-click="toggleSizeByBC()">Centrality</button>
-            </div>
-
-            <div>
-             <button class= "btn btn-action" ng-model="detectOutbreak_disable" type="button" ng-click = "detectOutbreak()" ng-disabled = "detectOutbreak_disable"> Detection </button>
-            </div>
-
-        </ul>
-      </div>
-    </div>
-
-  <button class="btn-large btn-inverse" ng-click="submit()">  Start Outbreak! </button>
-
-  </div>
-
-
-
-
-  <div id="readOut">
-    <div id="svgHolder">
-    </div>
-
-
-   <ol id="previousUpdates" ng-repeat="update in previousUpdates"> Day {{update.timestep}} : {{update.string}} </ol>
-</div>
 
 </body>
 

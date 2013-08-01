@@ -174,7 +174,7 @@ function runSimulation() {
     while (timestep < 30) {
         runTimesteps();
     }
-    sim_series = owl.deepCopy(i_series);
+    sim_series = i_series;
 
     s_series = [];
     i_series = [];
@@ -183,6 +183,7 @@ function runSimulation() {
     simulation = false;
     diseaseIsSpreading = false;
     graph = owl.deepCopy(preSimGraph);
+    preSimGraph = [];
     timestep = 0;
     updateGraph();
 

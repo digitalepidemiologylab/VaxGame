@@ -3,6 +3,9 @@ var rewire = 0.10;
 var meanDegree = 3;
 var charge = -100;
 var outbreakGame = angular.module('outbreakGame', []);
+var currentColorBC = "black";
+var currentColorDeg = "black";
+
 
 var outbreakGameCTRL = ['$scope', '$timeout',function($scope, $timeout) {
     updateCommunities();
@@ -155,6 +158,10 @@ var div = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
+
+
+
+
 // necessary for drag & zoom
 function redraw() {
     svg.attr("transform",
@@ -205,6 +212,8 @@ function updateNodeAttributes() {
         .data(graph.nodes, function(d) { return d.id; })
         .attr("r", metric)
         .style("fill", color);
+
+
 }
 
 
