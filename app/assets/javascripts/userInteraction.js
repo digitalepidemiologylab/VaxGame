@@ -21,21 +21,45 @@ var svgBay = d3.select("div0").append("svg")
     .attr("height", heightBay)
     .append("g");
 
-// single research vaccination button
-var researchVaccineButton = d3.select("div0").select("svg")
-    .append("rect")
-    .attr("x", 25)
-    .attr("y", 25)
-    .attr("width", 50)
-    .attr("height", 30)
+var researchVaccineButton = d3.superformula()
+    .type("ellipse")
+    .size(12000)
+    .segments(360)
 
-// this pops-in two new buttons (make announcement, declare martial law, etc)
-var policyOption = d3.select("div0").select("svg")
-    .append("rect")
-    .attr("x", 150)
-    .attr("y", 25)
-    .attr("width", 50)
-    .attr("height", 30)
+var researchLegend = d3.select("div0").select("svg").append("text")
+    .text("Research Vaccine")
+    .attr("x", 17)
+    .attr("y", -5)
+    .style("font-size", 14);
+
+svgBay.append("path")
+    .attr("class", "researchVaccineButton")
+    .attr("d", researchVaccineButton)
+    .style("fill", "red")
+    .style("stroke", 10)
+    .attr("transform", "translate(85,-7)")
+    .on("click", researchVaccineButtonAttributes);
+
+
+
+function researchVaccineButtonAttributes() {
+    vaccineResearched = true;
+    vaccineSupply = 5;
+
+    d3.select("div0").select("svg").select("text")
+        .text("Vaccine Researched")
+
+    d3.select(this)
+        .transition()
+        .duration(500)
+        .style("fill", "lightgrey")
+        .attr("d", researchVaccineButton.type("rectangle"))
+        .attr("d", researchVaccineButton.size(13000));
+
+
+
+}
+
 
 
 
@@ -233,9 +257,6 @@ function detectOutbreakAttributes() {
         updateGraph();
 
 }
-
-
-
 
 
 var centraltiyLegend = d3.select("body").select("svg")
