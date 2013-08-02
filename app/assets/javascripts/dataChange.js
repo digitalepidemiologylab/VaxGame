@@ -1,12 +1,12 @@
 function metric(node) {
     var metric = null;
-    if (sizeByDegree == false) {
-        if (sizeByBC == false) metric = 8;   // both false, basic
-        if (sizeByBC == true) metric = (node.bcScore / 0.025) + 6;  // only bc
+    if (toggleDegree == false) {
+        if (toggleCentrality == false) metric = 8;   // both false, basic
+        if (toggleCentrality == true) metric = (node.bcScore / 0.025) + 6;  // only bc
     }
     else {
-        if (sizeByBC == true) metric = ((node.bcScore / 0.01) + 1) + ((node.degree + 2) * 2) / 2; // both true, composite
-        if (sizeByBC == false) metric =  (node.degree + 2) * 2; // only degree
+        if (toggleCentrality == true) metric = ((node.bcScore / 0.01) + 1) + ((node.degree + 2) * 2) / 2; // both true, composite
+        if (toggleCentrality == false) metric =  (node.degree + 2) * 2; // only degree
     }
     return metric;
 }

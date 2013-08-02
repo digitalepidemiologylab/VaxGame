@@ -12,9 +12,10 @@ var rateOfRefusalAdoption = 0.10;
 var s_series = [];
 var i_series = [];
 var r_series = [];
-var sim_series = [];
 var simulation = true;
 var diseaseIsSpreading = false;
+var sim_series = [];
+
 
 function treatInfected(individual) {
     if (Math.random() < treatmentEfficacy) {
@@ -161,10 +162,32 @@ function getStatuses() {
 }
 
 
-runSimulation();
-function runSimulation() {
+function copyGraphByElement(element) {
+    var nodes = [];
+    var links = [];
 
-    var preSimGraph = owl.deepCopy(graph);
+    if (element == "nodes") {
+        for (var i = 0; i < graph.nodes.length; i++) {
+            nodes[i] = graph.nodes[i];
+        }
+        return nodes;
+    }
+
+    if (element == "links") {
+        for (var ii = 0; ii < graph.links.length; ii++) {
+            links[ii] = graph.links[ii];
+        }
+        return links;
+    }
+}
+
+runSimulation();
+
+function runSimulation() {
+    var nodes = copyGraphByElement("nodes");
+    var links = copyGraphByElement("links");
+
+    console.log(nodes);
 
     selectIndexCase();
     selectIndexCase();
@@ -174,7 +197,11 @@ function runSimulation() {
     while (timestep < 30) {
         runTimesteps();
     }
-    sim_series = i_series;
+
+    for (var time = 0; time < i_series.length; time++) {
+        sim_series[time] = i_series[time];
+    }
+
 
     s_series = [];
     i_series = [];
@@ -182,8 +209,13 @@ function runSimulation() {
 
     simulation = false;
     diseaseIsSpreading = false;
-    graph = owl.deepCopy(preSimGraph);
-    preSimGraph = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+        graph.nodes[i].status = "S";
+        graph.nodes[i].exposureTimestep = null;
+
+    }
+
     timestep = 0;
     updateGraph();
 

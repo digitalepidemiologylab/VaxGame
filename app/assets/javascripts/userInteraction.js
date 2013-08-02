@@ -1,14 +1,14 @@
 var vaccinateMode = true;
 var treatMode = false;
 var quarantineMode = false;
-var sizeByDegree = false;
-var sizeByBC = false;
 var vaccineSupply = 0;
 var recentUpdate = "New Pathogen Detected! Consider Researching a Vaccine.";
 var previousUpdates = [];
 var lastUpdateTimestep = 0;
 var vaccineResearched = true;
 var outbreakDetected = false;
+var toggleDegree = false;
+var toggleCentrality = false;
 
 d3.select("body").append("div0")
 
@@ -37,69 +37,220 @@ var policyOption = d3.select("div0").select("svg")
     .attr("width", 50)
     .attr("height", 30)
 
-// toggle mode...transitions between different shapes and colors and text to indicate mode (vaccination, quarantine, and treatment)
-var medicalModeSelection = d3.select("div0").select("svg")
-    .append("rect")
-    .attr("x", 275)
-    .attr("y", 25)
-    .attr("width", 50)
-    .attr("height", 30)
 
-var sizeByDegreeToggle = d3.select("body").select("svg")
-    .append("circle")
-    .attr("cx", 675)
-    .attr("cy", -40)
-    .attr("r", 12)
-    .on("click", function() {
-        toggleSizeByDegree();
+
+// user interface / interactive legend
+
+// medical mode toggle button
+var shape = d3.superformula()
+    .type("gear")
+    .size(1400)
+    .segments(360)
+
+var svgToggle = d3.select("body").select("svg")
+    .attr("width", 800)
+    .attr("heigth", 100)
+    .append("g");
+
+svgToggle.append("path")
+    .attr("class", "shape")
+    .attr("d", shape)
+    .style("fill", "yellow")
+    .style("stroke", 10)
+    .on("click", transitionShape)
+    .attr("transform", "translate(50,25)");
+
+var medicalModeLegend = d3.select("body").select("svg")
+    .append("text")
+    .text(medicalModeTextReturn())
+    .attr("x", 15)
+    .attr("y", -10)
+    .style("font-size", 14);
+
+
+function medicalModeTextReturn() {
+    if (vaccinateMode) return "Vaccinate";
+    if (quarantineMode) return "Quarantine";
+    if (treatMode) return "Treat";
+}
+
+
+function transitionShape() {
+    updateMedicalMode();
+
+    d3.select("text")
+        .text(medicalModeTextReturn());
+
+    d3.select(this)
+        .transition()
+        .duration(500)
+        .style("fill", chooseColor)
+        .attr("d", shape.type(chooseShape));
+
+    updateNodeAttributes();
+
+//    console.log(vaccinateMode + "\t" + quarantineMode + "\t" + treatMode);
+}
+
+function chooseColor() {
+    if (vaccinateMode) return "yellow";
+    if (quarantineMode) return "green";
+    if (treatMode) return "red";
+}
+
+function chooseShape() {
+    if (vaccinateMode) return "gear";
+    if (quarantineMode) return "clover";
+    if (treatMode) return "cross";
+}
+
+function updateMedicalMode() {
+    if (vaccinateMode == true) {
+        if (!diseaseIsSpreading) return;
+        vaccinateMode = false;
+        quarantineMode = true;
+        treatMode = false;
+        return;
+    }
+
+    if (quarantineMode == true) {
+        vaccinateMode = false;
+        quarantineMode = false;
+        treatMode = true;
+        return;
+    }
+
+    if (treatMode == true) {
+        vaccinateMode = true;
+        quarantineMode = false;
+        treatMode = false;
+
+        if (vaccineSupply <= 0) {
+            vaccinateMode = false;
+            quarantineMode = true;
+        }
+
+        return;
+    }
+}
+
+var toggleDegreeShapes = d3.superformula()
+    .type("circle")
+    .size(500)
+    .segments(360)
+
+svgToggle.append("path")
+    .attr("class", "toggleDegreeShapes")
+    .attr("d", toggleDegreeShapes)
+    .style("fill", "black")
+    .style("stroke", 10)
+    .on("click", toggleDegreeAttributes)
+    .attr("transform", "translate(50,450)");
+
+function toggleDegreeAttributes() {
+
+    toggleDegree = !toggleDegree;
+
+    if (toggleDegree) {
         d3.select(this)
-            .attr("fill", function() {
-                if (currentColorDeg == "black") {
-                    currentColorDeg = "blue";
-                    return "blue";
-                }
-                if (currentColorDeg == "blue") {
-                    currentColorDeg = "black";
-                    return "black";
-                }
-            });
+            .transition()
+            .duration(500)
+            .style("fill", "blue")
+            .attr("d", toggleDegreeShapes.type("asterisk"));
 
-    });
+
+    }
+    else {
+        d3.select(this)
+            .transition()
+            .duration(500)
+            .style("fill", "black")
+            .attr("d", toggleDegreeShapes.type("circle"));
+
+    }
+    updateNodeAttributes();
+
+
+}
+
+var toggleCentralityShapes = d3.superformula()
+    .type("circle")
+    .size(500)
+    .segments(360)
+
+
+svgToggle.append("path")
+    .attr("class", "toggleCentralityShapes")
+    .attr("d", toggleCentralityShapes)
+    .style("fill", "black")
+    .style("stroke", 10)
+    .on("click", toggleCentralityAttributes)
+    .attr("transform", "translate(750,450)");
+
+function toggleCentralityAttributes() {
+    toggleCentrality = !toggleCentrality;
+
+    if (toggleCentrality) {
+        d3.select(this)
+            .transition()
+            .duration(500)
+            .style("fill", "purple")
+            .attr("d", toggleCentralityShapes.type("asterisk"));
+
+
+    }
+    else {
+        d3.select(this)
+            .transition()
+            .duration(500)
+            .style("fill", "black")
+            .attr("d", toggleCentralityShapes.type("circle"));
+
+    }
+    updateNodeAttributes();
+}
+
+var detectOutbreakShape = d3.superformula()
+    .type("circle")
+    .size(1400)
+    .segments(360)
+
+svgToggle.append("path")
+    .attr("class", "detectOutbreakShape")
+    .attr("d", detectOutbreakShape)
+    .style("fill", "black")
+    .style("stroke", 10)
+    .attr("transform", "translate(725,35)")
+    .on("click", detectOutbreakAttributes);
+
+
+function detectOutbreakAttributes() {
+    if (diseaseIsSpreading) {
+            if (Math.random() < 0.50) {
+                outbreakDetected = true;
+            }
+        }
+        updateGraph();
+
+}
+
+
+
+
+
+var centraltiyLegend = d3.select("body").select("svg")
+    .append("text")
+    .text("Size By Centrality")
+    .attr("x", 585)
+    .attr("y", 456)
+    .style("font-size", 14);
 
 var degreeLegend = d3.select("body").select("svg")
     .append("text")
     .text("Size By Popularity")
-    .attr("x", 515)
-    .attr("y", -35)
+    .attr("x", 80)
+    .attr("y", 456)
     .style("font-size", 14);
-
-var centralityLegend = d3.select("body").select("svg")
-    .append("text")
-    .text("Size By Centrality")
-    .attr("x", 160)
-    .attr("y", -35)
-    .style("font-size", 14);
-
-var sizeByCentralityToggle = d3.select("body").select("svg")
-    .append("circle")
-    .attr("cx", 140)
-    .attr("cy", -40)
-    .attr("r", 12)
-    .on("click", function() {
-        toggleSizeByBC();
-        d3.select(this)
-            .attr("fill", function() {
-                if (currentColorBC == "black") {
-                    currentColorBC = "blue";
-                    return "blue";
-                }
-                if (currentColorBC == "blue") {
-                    currentColorBC = "black";
-                    return "black";
-                }
-            });
-    });
-
 
 
 function makePublicAnnouncement() {
@@ -138,47 +289,10 @@ function declareMartialLaw() {
     graph.links = links;
 }
 
-
-function toggleSizeByDegree() {
-    sizeByDegree = !sizeByDegree;
-    updateNodeAttributes();
-}
-
-function toggleSizeByBC() {
-    sizeByBC = !sizeByBC;
-    updateNodeAttributes();
-}
-
-function toggleVaccinate() {
-    if (vaccinateMode == false) {
-        vaccinateMode = true;
-        treatMode = false;
-        quarantineMode = false;
-    }
-}
-
-function toggleTreatment() {
-    if (treatMode == false) {
-        treatMode = true;
-        vaccinateMode = false;
-        quarantineMode = false;
-    }
-}
-
-function toggleQuarantine() {
-    if (quarantineMode == false) {
-        quarantineMode = true;
-        treatMode = false;
-        vaccinateMode = false;
-    }
-}
-
-
 function click(node) {
     if (vaccinateMode && vaccineSupply > 0)  {
         vaccinateAction(node);
         updateNodeAttributes();
-        runTimesteps();
     }
 
     else {

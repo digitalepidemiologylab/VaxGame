@@ -1,3 +1,21 @@
+path {
+  stroke-width: 1.5px;
+}
+
+.small {
+  fill: steelblue;
+}
+
+.big {
+  stroke: #666;
+  fill: #ddd;
+}
+
+.small:hover {
+  stroke: steelblue;
+  fill: lightsteelblue;
+}
+
 body {
   font: 13px sans-serif;
   position: relative;
@@ -29,9 +47,15 @@ a {
   color:#0000FF;
   text-decoration:none; }
 
+svgForce {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
 div0 {
   position: absolute;
-  left: 880px;
+  left: 800px;
   top: 50px;
   text-align: left;
   margin: 0 auto;
@@ -46,7 +70,7 @@ div0 {
 
 div1 {
   position: absolute;
-  left: 880px;
+  left: 800px;
   top: 300px;
   text-align:left;
   margin:0 auto;

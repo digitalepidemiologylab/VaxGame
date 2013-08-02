@@ -6,114 +6,115 @@ var outbreakGame = angular.module('outbreakGame', []);
 var currentColorBC = "black";
 var currentColorDeg = "black";
 
+//
+//var outbreakGameCTRL = ['$scope', '$timeout',function($scope, $timeout) {
+//    updateCommunities();
+//    findLargestCommunity();
+//    $scope.numberOfCommunities = numberOfCommunities;
+//    $scope.largestCommunity = largestCommunity;
+//    $scope.vaccinesRemaining = vaccineSupply;
+//    $scope.detectOutbreak_disable = true;
+//    $scope.researchVaccine_disable = false;
+//    $scope.martialLaw_disable = true;
+//    $scope.publicAnnouncement_disable = true;
+//    $scope.vaccination_disable = true;
+//    $scope.quarantine_disable = true;
+//    $scope.treat_disable = true;
+//    $scope.recentUpdate = "";
+//    $scope.previousUpdates = [];
+//
+//    var updateUI = function() {
+//        updateCommunities();
+//        findLargestCommunity();
+//        $scope.largestCommunity = largestCommunity;
+//        $scope.numberOfCommunities = numberOfCommunities;
+//        $scope.vaccinesRemaining = vaccineSupply;
+//        $timeout(updateUI, 1000);
+//        $scope.recentUpdate = recentUpdate;
+//        $scope.previousUpdates = previousUpdates;
+//
+//        if (vaccineSupply > 0) $scope.vaccination_disable = false;
+//    }
+//    $timeout(updateUI, 1000);
+//
+//    $scope.researchVaccine = function() {
+//        vaccineResearched = true;
+//        vaccineSupply = 5;
+//        $scope.researchVaccine_disable = true;
+//        $scope.detectOutbreak_disable = false;
+//        timestep = 0;
+//        runTimesteps();
+//    }
+//
+//    $scope.detectOutbreak = function() {
+//        if (diseaseIsSpreading) {
+//            if (Math.random() < 0.50) {
+//                outbreakDetected = true;
+//                $scope.detectOutbreak_disable = true;
+//                setRecentUpdate("Outbreak Detected!")
+//                $scope.publicAnnouncement_disable = false;
+//                $scope.martialLaw_disable = false;
+//                $scope.quarantine_disable = false;
+//                $scope.treat_disable = false;
+//            }
+//        }
+//        else {setRecentUpdate("No Outbreak Detected.")};
+//        updateGraph();
+//
+//
+//    }
+//
+//    $scope.makePublicAnnouncement = function() {
+//        makePublicAnnouncement();
+//        updateNodeAttributes();
+//        $scope.publicAnnouncement_disable = true;
+//    }
+//
+//    $scope.declareMartialLaw = function() {
+//        declareMartialLaw();
+//        updateGraph();
+//        $scope.martialLaw_disable = true;
+//    }
+//
+//    $scope.toggleSizeByDegree = function() {
+//        toggleSizeByDegree();
+//    }
+//
+//    $scope.toggleSizeByBC = function() {
+//        toggleSizeByBC();
+//    }
+//
+//    $scope.checkVaccinate = function() {
+//        toggleVaccinate();
+//    }
+//
+//    $scope.checkQuarantine = function() {
+//        toggleQuarantine();
+//    }
+//
+//    $scope.checkTreatment = function() {
+//        toggleTreatment();
+//    }
+//
+//    $scope.submit = function() {
+//        startGame();
+//        $scope.vaccinesRemaining = vaccineSupply;
+//        updateCommunities();
+//        findLargestCommunity();
+//        $scope.numberOfCommunities = numberOfCommunities;
+//        $scope.largestCommunity = largestCommunity;
+//    }
+//
+//
+//
+//}];
 
-var outbreakGameCTRL = ['$scope', '$timeout',function($scope, $timeout) {
-    updateCommunities();
-    findLargestCommunity();
-    $scope.numberOfCommunities = numberOfCommunities;
-    $scope.largestCommunity = largestCommunity;
-    $scope.vaccinesRemaining = vaccineSupply;
-    $scope.detectOutbreak_disable = true;
-    $scope.researchVaccine_disable = false;
-    $scope.martialLaw_disable = true;
-    $scope.publicAnnouncement_disable = true;
-    $scope.vaccination_disable = true;
-    $scope.quarantine_disable = true;
-    $scope.treat_disable = true;
-    $scope.recentUpdate = "";
-    $scope.previousUpdates = [];
-
-    var updateUI = function() {
-        updateCommunities();
-        findLargestCommunity();
-        $scope.largestCommunity = largestCommunity;
-        $scope.numberOfCommunities = numberOfCommunities;
-        $scope.vaccinesRemaining = vaccineSupply;
-        $timeout(updateUI, 1000);
-        $scope.recentUpdate = recentUpdate;
-        $scope.previousUpdates = previousUpdates;
-
-        if (vaccineSupply > 0) $scope.vaccination_disable = false;
-    }
-    $timeout(updateUI, 1000);
-
-    $scope.researchVaccine = function() {
-        vaccineResearched = true;
-        vaccineSupply = 5;
-        $scope.researchVaccine_disable = true;
-        $scope.detectOutbreak_disable = false;
-        timestep = 0;
-        runTimesteps();
-    }
-
-    $scope.detectOutbreak = function() {
-        if (diseaseIsSpreading) {
-            if (Math.random() < 0.50) {
-                outbreakDetected = true;
-                $scope.detectOutbreak_disable = true;
-                setRecentUpdate("Outbreak Detected!")
-                $scope.publicAnnouncement_disable = false;
-                $scope.martialLaw_disable = false;
-                $scope.quarantine_disable = false;
-                $scope.treat_disable = false;
-            }
-        }
-        else {setRecentUpdate("No Outbreak Detected.")};
-        updateGraph();
-
-
-    }
-
-    $scope.makePublicAnnouncement = function() {
-        makePublicAnnouncement();
-        updateNodeAttributes();
-        $scope.publicAnnouncement_disable = true;
-    }
-
-    $scope.declareMartialLaw = function() {
-        declareMartialLaw();
-        updateGraph();
-        $scope.martialLaw_disable = true;
-    }
-
-    $scope.toggleSizeByDegree = function() {
-        toggleSizeByDegree();
-    }
-
-    $scope.toggleSizeByBC = function() {
-        toggleSizeByBC();
-    }
-
-    $scope.checkVaccinate = function() {
-        toggleVaccinate();
-    }
-
-    $scope.checkQuarantine = function() {
-        toggleQuarantine();
-    }
-
-    $scope.checkTreatment = function() {
-        toggleTreatment();
-    }
-
-    $scope.submit = function() {
-        startGame();
-        $scope.vaccinesRemaining = vaccineSupply;
-        updateCommunities();
-        findLargestCommunity();
-        $scope.numberOfCommunities = numberOfCommunities;
-        $scope.largestCommunity = largestCommunity;
-    }
-
-
-
-}];
-
-$('#medical > button.active').text();
+//$('#medical > button.active').text();
 
 
 var graph = generateSmallWorld(numberOfIndividuals,rewire,meanDegree);
 var originalGraph = owl.deepCopy(graph);
+
 
 // select "body" section, and append an empty SVG with height and width values
 var width = 700,
@@ -131,7 +132,7 @@ svg = d3.select("body").append("svg")
 var force = d3.layout.force()
     .nodes(graph.nodes)
     .links(graph.links)
-    .size([width, height])
+    .size([width, 450])
     .charge(charge)
     .on("tick", tick)
     .start();
@@ -192,13 +193,13 @@ function tick() {
 
 function updateNodeAttributes() {
     var charge = null;
-    if (sizeByDegree == false) {
-        if (sizeByBC == false) charge = -150;   // both false, basic
-        if (sizeByBC == true) charge = -200;  // only bc
+    if (toggleDegree == false) {
+        if (toggleCentrality == false) charge = -150;   // both false, basic
+        if (toggleCentrality == true) charge = -200;  // only bc
     }
     else {
-        if (sizeByBC == true) charge = -300; // both true, composite
-        if (sizeByBC == false) charge =  -200; // only degree
+        if (toggleCentrality == true) charge = -300; // both true, composite
+        if (toggleCentrality == false) charge =  -200; // only degree
     }
 
     force
@@ -282,6 +283,9 @@ function initGraphMeasures() {
     this.bcScores = computeBetweennessCentrality();
     findLargestCommunity();
 }
+
+
+
 
 
 

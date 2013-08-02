@@ -2,5 +2,83 @@
 <meta charset="utf-8">
 <body>
 <%= javascript_include_tag "d3.v3" %>
-<%= javascript_include_tag "sirFig" %>
+<%= javascript_include_tag "superformula" %>
+
+
+
+<script>
+
+
+
+    var shape = d3.superformula()
+            .type("square")
+            .size(1400)
+            .segments(360)
+
+
+    svg.append("path")
+            .attr("class", "shape")
+            .attr("transform", "translate(450,250)")
+            .attr("d", shape)
+            .style("fill", "yellow")
+            .style("stroke", 10)
+            .on("click", transitionShape)
+
+    function transitionShape() {
+        updateMedicalMode();
+
+        d3.select(this)
+                .transition()
+                .duration(500)
+                .style("fill", chooseColor)
+                .attr("d", shape.type(chooseShape));
+
+
+        console.log(vaccinateMode + "\t" + quarantineMode + "\t" + treatMode);
+    }
+
+    function chooseColor() {
+        if (vaccinateMode) return "yellow";
+        if (quarantineMode) return "green";
+        if (treatMode) return "red";
+    }
+
+    function chooseShape() {
+        if (vaccinateMode) return "square";
+        if (quarantineMode) return "circle";
+        if (treatMode) return "cross";
+    }
+
+    function updateMedicalMode() {
+        if (vaccinateMode == true) {
+            vaccinateMode = false;
+            quarantineMode = true;
+            treatMode = false;
+            return;
+        }
+
+        if (quarantineMode == true) {
+            vaccinateMode = false;
+            quarantineMode = false;
+            treatMode = true;
+            return;
+        }
+
+        if (treatMode == true) {
+            vaccinateMode = true;
+            quarantineMode = false;
+            treatMode = false;
+            return;
+        }
+    }
+
+
+
+
+
+
+
+
+
+</script>
 
