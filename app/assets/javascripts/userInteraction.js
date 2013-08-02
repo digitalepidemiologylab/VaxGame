@@ -238,7 +238,7 @@ var detectOutbreakShape = d3.superformula()
 var detectLegend = d3.select("body").select("svg").append("text")
     .attr("class", "textDetect")
     .text("Detect Outbreak")
-    .attr("x", 665)
+    .attr("x", 660)
     .attr("y", -5)
     .style("font-size", 14);
 
@@ -259,13 +259,13 @@ function detectOutbreakAttributes() {
         .style("opacity", 0.35)
     .attr("d", detectOutbreakShape.size(10000000));
 
-    window.setTimeout(wait, 300);
+    window.setTimeout(waitToShrink, 300);
 
     if (diseaseIsSpreading) {
             if (Math.random() < 0.75) {
                 outbreakDetected = true;
                 d3.select(".textDetect")
-                    .text("Outbreak Detected!")
+                    .text("Outbreak Detected!");
             }
         }
     runTimesteps();
@@ -273,14 +273,25 @@ function detectOutbreakAttributes() {
 
 }
 
-function wait() {
+function waitToShrink() {
 
-    d3.select(".detectShape")
-        .transition()
-        .duration(100)
-        .style("fill", "black")
-        .style("opacity", 1)
-        .attr("d", detectOutbreakShape.size(1400))
+    if (outbreakDetected == true) {
+        d3.select(".detectShape")
+            .transition()
+            .duration(100)
+            .style("fill", "black")
+            .style("opacity", 1)
+            .attr("d", detectOutbreakShape.size(0));
+
+    }
+    else {
+        d3.select(".detectShape")
+            .transition()
+            .duration(100)
+            .style("fill", "black")
+            .style("opacity", 1)
+            .attr("d", detectOutbreakShape.size(1400));
+    }
 
 }
 
