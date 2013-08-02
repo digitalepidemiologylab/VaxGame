@@ -245,7 +245,7 @@ var detectLegend = d3.select("body").select("svg").append("text")
     .style("font-size", 14);
 
 svgToggle.append("path")
-    .attr("class", "detectOutbreakShape")
+    .attr("class", "textDetect")
     .attr("d", detectOutbreakShape)
     .style("fill", "black")
     .style("stroke", 10)
@@ -257,15 +257,13 @@ function detectOutbreakAttributes() {
     if (diseaseIsSpreading) {
             if (Math.random() < 0.75) {
                 outbreakDetected = true;
-                d3.select("body").select("svg").select("text")
+                d3.select("svgToggle").select("text")
                     .text("Outbreak Detected!")
             }
         }
     runTimesteps();
     updateGraph();
-
 }
-
 
 var centraltiyLegend = d3.select("body").select("svg")
     .append("text")
@@ -337,16 +335,6 @@ function click(node) {
 
 }
 
-function startGame() {
-    selectIndexCase();
-    selectIndexCase();
-    diseaseIsSpreading = true;
-    updateGraph();
-    vaccinateMode = false;
-    quarantineMode = true;
-    treatMode = false;
-}
-
 function vaccinateAction(node) {
     if (node.status == "V" || node.status == "I" || node.status == "R") return;
     if (node.status == "S") {
@@ -366,22 +354,22 @@ function treatAction(node) {
 }
 
 
-function mouseOver(node) {
-    div.transition()
-        .duration(200)
-        .style("opacity", .9);
-    div.html("NodeID:\t" + node.id + "<br/>" + "Neighbors:\t" +  degree(node) + "<br/>"  + "Centrality:\t" + parseFloat(Math.round(node.bcScore * 100) / 100).toFixed(2))
-        .style("left", 500 + "px")
-        .style("top", 200 + "px");
-}
-
-
-function mouseOut(node) {
-    div.transition()
-        .duration(400)
-        .style("opacity", 0)
-
-}
+//function mouseOver(node) {
+//    div.transition()
+//        .duration(200)
+//        .style("opacity", .9);
+//    div.html("NodeID:\t" + node.id + "<br/>" + "Neighbors:\t" +  degree(node) + "<br/>"  + "Centrality:\t" + parseFloat(Math.round(node.bcScore * 100) / 100).toFixed(2))
+//        .style("left", 500 + "px")
+//        .style("top", 200 + "px");
+//}
+//
+//
+//function mouseOut(node) {
+//    div.transition()
+//        .duration(400)
+//        .style("opacity", 0)
+//
+//}
 
 function setRecentUpdate(updateString) {
 

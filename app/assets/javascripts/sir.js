@@ -16,7 +16,7 @@ var simulation = true;
 var diseaseIsSpreading = false;
 var sim_series = [];
 
-var startDay = 0;
+
 
 
 function treatInfected(individual) {
@@ -118,9 +118,9 @@ function infection() {
 
 function runTimesteps() {
     if (timestep == startDay) {
-        selectIndexCase();
-        selectIndexCase();
         diseaseIsSpreading = true;
+        selectIndexCase();
+        selectIndexCase();
     }
 
     if (diseaseIsSpreading) {
@@ -188,14 +188,9 @@ function copyGraphByElement(element) {
 runSimulation();
 
 function runSimulation() {
+    startDay = Math.floor(Math.random() * 5);
     var nodes = copyGraphByElement("nodes");
     var links = copyGraphByElement("links");
-
-    console.log(nodes);
-
-    selectIndexCase();
-    selectIndexCase();
-    diseaseIsSpreading = true;
 
 
     while (timestep < 30) {
@@ -213,8 +208,6 @@ function runSimulation() {
 
     simulation = false;
     diseaseIsSpreading = false;
-    startDay = Math.floor(Math.random() * 5)
-
 
     for (var i = 0; i < nodes.length; i++) {
         graph.nodes[i].status = "S";
