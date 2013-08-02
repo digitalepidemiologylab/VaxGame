@@ -16,6 +16,8 @@ var simulation = true;
 var diseaseIsSpreading = false;
 var sim_series = [];
 
+var startDay = 0;
+
 
 function treatInfected(individual) {
     if (Math.random() < treatmentEfficacy) {
@@ -115,6 +117,12 @@ function infection() {
 }
 
 function runTimesteps() {
+    if (timestep == startDay) {
+        selectIndexCase();
+        selectIndexCase();
+        diseaseIsSpreading = true;
+    }
+
     if (diseaseIsSpreading) {
         updateExposures();
         infection();
@@ -127,10 +135,6 @@ function runTimesteps() {
         updateSIRfig();
     }
     else {
-        if (Math.random() < 0.20) {
-            startGame();
-        }
-
         if (this.timestep%5 == 0) {
             vaccineSupply++;
         }
@@ -209,6 +213,8 @@ function runSimulation() {
 
     simulation = false;
     diseaseIsSpreading = false;
+    startDay = Math.floor(Math.random() * 5)
+
 
     for (var i = 0; i < nodes.length; i++) {
         graph.nodes[i].status = "S";

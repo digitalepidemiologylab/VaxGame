@@ -202,7 +202,6 @@ var toggleCentralityShapes = d3.superformula()
     .size(500)
     .segments(360)
 
-
 svgToggle.append("path")
     .attr("class", "toggleCentralityShapes")
     .attr("d", toggleCentralityShapes)
@@ -239,6 +238,12 @@ var detectOutbreakShape = d3.superformula()
     .size(1400)
     .segments(360)
 
+var detectLegend = d3.select("body").select("svg").append("text")
+    .text("Detect Outbreak")
+    .attr("x", 665)
+    .attr("y", -5)
+    .style("font-size", 14);
+
 svgToggle.append("path")
     .attr("class", "detectOutbreakShape")
     .attr("d", detectOutbreakShape)
@@ -250,11 +255,14 @@ svgToggle.append("path")
 
 function detectOutbreakAttributes() {
     if (diseaseIsSpreading) {
-            if (Math.random() < 0.50) {
+            if (Math.random() < 0.75) {
                 outbreakDetected = true;
+                d3.select("body").select("svg").select("text")
+                    .text("Outbreak Detected!")
             }
         }
-        updateGraph();
+    runTimesteps();
+    updateGraph();
 
 }
 
