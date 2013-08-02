@@ -2,9 +2,6 @@ var vaccinateMode = true;
 var treatMode = false;
 var quarantineMode = false;
 var vaccineSupply = 0;
-var recentUpdate = "New Pathogen Detected! Consider Researching a Vaccine.";
-var previousUpdates = [];
-var lastUpdateTimestep = 0;
 var vaccineResearched = true;
 var outbreakDetected = false;
 var toggleDegree = false;
@@ -239,13 +236,14 @@ var detectOutbreakShape = d3.superformula()
     .segments(360)
 
 var detectLegend = d3.select("body").select("svg").append("text")
+    .attr("class", "textDetect")
     .text("Detect Outbreak")
     .attr("x", 665)
     .attr("y", -5)
     .style("font-size", 14);
 
 svgToggle.append("path")
-    .attr("class", "textDetect")
+    .attr("class", "detectShape")
     .attr("d", detectOutbreakShape)
     .style("fill", "black")
     .style("stroke", 10)
@@ -254,16 +252,38 @@ svgToggle.append("path")
 
 
 function detectOutbreakAttributes() {
+    d3.select(this)
+        .transition()
+        .duration(300)
+        .style("fill", "yellow")
+        .style("opacity", 0.35)
+    .attr("d", detectOutbreakShape.size(10000000));
+
+    window.setTimeout(wait, 300);
+
     if (diseaseIsSpreading) {
             if (Math.random() < 0.75) {
                 outbreakDetected = true;
-                d3.select("svgToggle").select("text")
+                d3.select(".textDetect")
                     .text("Outbreak Detected!")
             }
         }
     runTimesteps();
     updateGraph();
+
 }
+
+function wait() {
+
+    d3.select(".detectShape")
+        .transition()
+        .duration(100)
+        .style("fill", "black")
+        .style("opacity", 1)
+        .attr("d", detectOutbreakShape.size(1400))
+
+}
+
 
 var centraltiyLegend = d3.select("body").select("svg")
     .append("text")
@@ -371,15 +391,3 @@ function treatAction(node) {
 //
 //}
 
-function setRecentUpdate(updateString) {
-
-    if (updateString == recentUpdate) return;
-
-    var previousUpdateData = {string:recentUpdate, timestep:lastUpdateTimestep}
-
-    previousUpdates.push(previousUpdateData);
-
-    recentUpdate = updateString;
-    lastUpdateTimestep = timestep;
-
-}
