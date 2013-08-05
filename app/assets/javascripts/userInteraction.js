@@ -25,6 +25,7 @@ var researchVaccineButton = d3.superformula()
 
 var researchLegend = d3.select("div0").select("svg").append("text")
     .text("Research Vaccine")
+    .attr("class", "ResearchText")
     .attr("x", 17)
     .attr("y", -5)
     .style("font-size", 14);
@@ -43,7 +44,11 @@ function researchVaccineButtonAttributes() {
     vaccineResearched = true;
     vaccineSupply = 5;
 
-    d3.select("div0").select("svg").select("text")
+    d3.select("text.SupplyText")
+        .text(vaccineSupplyTextReturn());
+
+
+    d3.select("div0").select("svg").select("text.ResearchText")
         .text("Vaccine Researched")
 
     d3.select(this)
@@ -53,11 +58,7 @@ function researchVaccineButtonAttributes() {
         .attr("d", researchVaccineButton.type("rectangle"))
         .attr("d", researchVaccineButton.size(13000));
 
-
-
 }
-
-
 
 
 // user interface / interactive legend
@@ -88,11 +89,24 @@ var medicalModeLegend = d3.select("body").select("svg")
     .attr("y", -10)
     .style("font-size", 14);
 
-
 function medicalModeTextReturn() {
     if (vaccinateMode) return "Vaccinate";
     if (quarantineMode) return "Quarantine";
     if (treatMode) return "Treat";
+}
+
+var vaccineSupplyLegend = d3.select("body").select("svg")
+    .append("text")
+    .attr("class", "SupplyText")
+    .text(vaccineSupplyTextReturn)
+    .attr("x", 45)
+    .attr("y", 30)
+    .style("font-size", 14);
+
+function vaccineSupplyTextReturn() {
+    if (vaccinateMode) return vaccineSupply;
+    if (quarantineMode) return "";
+    if (treatMode) return "";
 }
 
 
@@ -126,11 +140,17 @@ function chooseShape() {
 }
 
 function updateMedicalMode() {
+
+
     if (vaccinateMode == true) {
         if (!diseaseIsSpreading) return;
         vaccinateMode = false;
         quarantineMode = true;
         treatMode = false;
+
+        d3.select("text.SupplyText")
+            .text(vaccineSupplyTextReturn());
+
         return;
     }
 
@@ -138,6 +158,10 @@ function updateMedicalMode() {
         vaccinateMode = false;
         quarantineMode = false;
         treatMode = true;
+
+        d3.select("text.SupplyText")
+            .text(vaccineSupplyTextReturn());
+
         return;
     }
 
@@ -150,6 +174,10 @@ function updateMedicalMode() {
             vaccinateMode = false;
             quarantineMode = true;
         }
+
+        d3.select("text.SupplyText")
+            .text(vaccineSupplyTextReturn());
+
 
         return;
     }
@@ -252,6 +280,9 @@ svgToggle.append("path")
 
 
 function detectOutbreakAttributes() {
+    d3.select(".SupplyText")
+        .text(vaccineSupplyTextReturn());
+
     d3.select(this)
         .transition()
         .duration(300)
