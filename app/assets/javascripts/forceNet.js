@@ -1,7 +1,7 @@
 var numberOfIndividuals = 50;
 var rewire = 0.10;
 var meanDegree = 3;
-var charge = -50;
+var charge = -100;
 var outbreakGame = angular.module('outbreakGame', []);
 var currentColorBC = "black";
 var currentColorDeg = "black";
@@ -22,6 +22,69 @@ svg = d3.select("body").append("svg")
     .attr("pointer-events", "all")
     .call(d3.behavior.zoom().on("zoom", redraw))
     .append('svg:g');
+
+// draw the legend
+var susceptibleNode = d3.select(".networkSVG").append("circle")
+    .attr("class", "susceptibleNode")
+    .attr("cx",30).attr("cy",25)
+    .style("stroke", 10)
+    .attr("r", 8)
+    .attr("fill", "#37FDFC")
+
+var susceptibleText = d3.select(".networkSVG").append("text")
+    .attr("class", "susceptibleText")
+    .attr("x",40).attr("y",30)
+    .text("Susceptible")
+
+var exposedNode = d3.select(".networkSVG").append("circle")
+    .attr("class", "exposedNode")
+    .attr("cx",135).attr("cy",25)
+    .attr("r", 8)
+    .style("stroke", 10)
+    .attr("fill", "#DB3248")
+
+var exposedText = d3.select(".networkSVG").append("text")
+    .attr("class", "exposedText")
+    .attr("x",145).attr("y",30)
+    .text("Exposed")
+
+var infectedNode = d3.select(".networkSVG").append("circle")
+    .attr("class", "infectedNode")
+    .attr("cx",220).attr("cy",25)
+    .attr("r", 8)
+    .style("stroke", 10)
+    .attr("fill", "#FF0000")
+
+var infectedText = d3.select(".networkSVG").append("text")
+    .attr("class", "infectedText")
+    .attr("x",230).attr("y",30)
+    .text("Infected")
+
+var recoveredNode = d3.select(".networkSVG").append("circle")
+    .attr("class", "recoveredNode")
+    .attr("cx",305).attr("cy",25)
+    .attr("r", 8)
+    .style("stroke", 10)
+    .attr("fill", "#9400D3")
+
+var recoveredText = d3.select(".networkSVG").append("text")
+    .attr("class", "recoveredText")
+    .attr("x",315).attr("y",30)
+    .text("Recovered")
+
+var vaccinatedNode = d3.select(".networkSVG").append("circle")
+    .attr("class", "vaccinatedNode")
+    .attr("cx",405).attr("cy",25)
+    .attr("r", 8)
+    .style("stroke", 10)
+    .attr("fill", "#FFFF00")
+
+var vaccinatedText = d3.select(".networkSVG").append("text")
+    .attr("class", "vaccinatedText")
+    .attr("x",415).attr("y",30)
+    .text("Vaccinated")
+
+
 
 // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
 var force = d3.layout.force()
@@ -44,6 +107,7 @@ var node = svg.selectAll(".node")
     .enter().append("circle")
     .attr("class", "node")
     .attr("r", metric)
+    .style("stroke", 10)
     .style("fill", color)
 //    .on("mouseover", mouseOver)
 //    .on("mouseout", mouseOut)
@@ -75,14 +139,11 @@ function tick() {
 
 
 function updateNodeAttributes() {
-    var charge = null;
     if (toggleDegree == false) {
-        if (toggleCentrality == false) charge = -50;   // both false, basic
-        if (toggleCentrality == true) charge = -50;  // only bc
+        if (toggleCentrality == true) charge -= 50;  // only bc
     }
     else {
-        if (toggleCentrality == true) charge = -75; // both true, composite
-        if (toggleCentrality == false) charge =  -50; // only degree
+        if (toggleCentrality == true) charge -= 100; // both true, composite
     }
 
     force
@@ -105,8 +166,6 @@ function updateNodeAttributes() {
 function updateGraph() {
     var nodes = removeVaccinatedNodes();
     var links = removeOldLinks();
-
-    charge -= numberOfIndividuals / 2;
 
     force
         .nodes(nodes)

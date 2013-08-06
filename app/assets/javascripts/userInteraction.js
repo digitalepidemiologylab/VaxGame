@@ -167,6 +167,11 @@ d3.select(".networkSVG").append("path")
     .attr("transform", "translate(250,250)")
 
 function detectOutbreakActions() {
+    if (!vaccineResearched) {
+        window.alert("You should reasearch a vaccine before continuing.")
+        return;
+    }
+
     d3.select(".detectOutbreakGear")
         .transition()
         .duration(800)
@@ -308,13 +313,7 @@ function announceOutbreak() {
     d3.select(".selectedPolicyText4").text("")
 
     updateNodeAttributes();
-
-
 }
-
-
-
-
 
 // martial law selector, indicator, and function
 var martialLawSelect = d3.select(".svgBay").append("text")
