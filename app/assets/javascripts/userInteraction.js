@@ -1,352 +1,561 @@
+var outbreakDetected = false;
+
+var vaccineResearched = false;
+var vaccineSupply = 0;
+
+var epidemicAnnounced = false;
+var newRefusers = 0;
+var newAdopters = 0;
+
+var martialLawDeclared = false;
+var brokenTies = 0;
+
 var vaccinateMode = true;
 var treatMode = false;
 var quarantineMode = false;
-var vaccineSupply = 0;
-var vaccineResearched = true;
-var outbreakDetected = false;
+
 var toggleDegree = false;
 var toggleCentrality = false;
 
 d3.select("body").append("div0")
 
 var widthBay = 500;
-var heightBay = 125;
+var heightBay = 250;
 
 // the svg canvas
 var svgBay = d3.select("div0").append("svg")
+    .attr("class", "svgBay")
     .attr("width", widthBay)
     .attr("height", heightBay)
     .append("g");
 
-var researchVaccineButton = d3.superformula()
-    .type("ellipse")
-    .size(12000)
-    .segments(360)
 
-var researchLegend = d3.select("div0").select("svg").append("text")
-    .text("Research Vaccine")
-    .attr("class", "ResearchText")
-    .attr("x", 17)
-    .attr("y", -5)
-    .style("font-size", 14);
+// main box that displays text of currently selected policy option
+var policyBox = d3.select(".svgBay").append("rect")
+    .attr("x", 15).attr("y", 25)
+    .attr("height", 100).attr("width", 150)
+    .attr("class", "policyBox")
+    .style("fill", "red");
 
-svgBay.append("path")
-    .attr("class", "researchVaccineButton")
-    .attr("d", researchVaccineButton)
-    .style("fill", "red")
-    .style("stroke", 10)
-    .attr("transform", "translate(85,-7)")
-    .on("click", researchVaccineButtonAttributes);
+var policyText = d3.select(".svgBay").append("text")
+    .attr("x", 68).attr("y", 20)
+    .attr("class", "policyText")
+    .text("Policy")
+    .style("font-weight", "bold");
 
+var selectedPolicyText1 = d3.select(".svgBay").append("text")
+    .attr("x", 35).attr("y", 45)
+    .attr("class", "selectedPolicyText1")
+    .text("A new virus has")
 
+var selectedPolicyText2 = d3.select(".svgBay").append("text")
+    .attr("x", 39).attr("y", 65)
+    .attr("class", "selectedPolicyText2")
+    .text("been detected.")
 
-function researchVaccineButtonAttributes() {
-    vaccineResearched = true;
-    vaccineSupply = 5;
+var selectedPolicyText3 = d3.select(".svgBay").append("text")
+    .attr("x", 62).attr("y", 95)
+    .attr("class", "selectedPolicyText3")
+    .text("Click to")
+    .on("click", researchVaccine)
 
-    d3.select("text.SupplyText")
-        .text(vaccineSupplyTextReturn());
-
-
-    d3.select("div0").select("svg").select("text.ResearchText")
-        .text("Vaccine Researched")
-
-    d3.select(this)
-        .transition()
-        .duration(500)
-        .style("fill", "lightgrey")
-        .attr("d", researchVaccineButton.type("rectangle"))
-        .attr("d", researchVaccineButton.size(13000));
-
-}
+var selectedPolicyText4 = d3.select(".svgBay").append("text")
+    .attr("x", 28).attr("y", 115)
+    .attr("class", "selectedPolicyText4")
+    .text("Research Vaccine.")
+    .on("click", researchVaccine)
 
 
-// user interface / interactive legend
+// main box that displays text of currently selected medical option
+var medicineBox = d3.select(".svgBay").append("rect")
+    .attr("x", 185).attr("y", 25)
+    .attr("height", 100).attr("width", 150)
+    .attr("class", "medicineBox")
+    .style("fill", "orange");
 
-// medical mode toggle button
-var shape = d3.superformula()
-    .type("gear")
-    .size(1400)
-    .segments(360)
+var medicineText = d3.select(".svgBay").append("text")
+    .attr("x", 222).attr("y", 20)
+    .attr("class", "medicineText")
+    .text("Treatment")
+    .style("font-weight", "bold");
 
-var svgToggle = d3.select("body").select("svg")
-    .attr("width", 800)
-    .attr("heigth", 100)
-    .append("g");
+var selectedMedicineText1 = d3.select(".svgBay").append("text")
+    .attr("x", 200).attr("y", 50)
+    .attr("class", "selectedMedicineText1")
+    .text("")
 
-svgToggle.append("path")
-    .attr("class", "shape")
-    .attr("d", shape)
-    .style("fill", "yellow")
-    .style("stroke", 10)
-    .on("click", transitionShape)
-    .attr("transform", "translate(50,25)");
+var selectedMedicineText2 = d3.select(".svgBay").append("text")
+    .attr("x", 250).attr("y", 80)
+    .attr("class", "selectedMedicineText2")
+    .text("")
 
-var medicalModeLegend = d3.select("body").select("svg")
-    .append("text")
-    .text(medicalModeTextReturn())
-    .attr("x", 15)
-    .attr("y", -10)
-    .style("font-size", 14);
-
-function medicalModeTextReturn() {
-    if (vaccinateMode) return "Vaccinate";
-    if (quarantineMode) return "Quarantine";
-    if (treatMode) return "Treat";
-}
-
-var vaccineSupplyLegend = d3.select("body").select("svg")
-    .append("text")
-    .attr("class", "SupplyText")
-    .text(vaccineSupplyTextReturn)
-    .attr("x", 45)
-    .attr("y", 30)
-    .style("font-size", 14);
-
-function vaccineSupplyTextReturn() {
-    if (vaccinateMode) return vaccineSupply;
-    if (quarantineMode) return "";
-    if (treatMode) return "";
-}
+var selectedMedicineText3 = d3.select(".svgBay").append("text")
+    .attr("x", 235).attr("y", 110)
+    .attr("class", "selectedMedicineText3")
+    .text("")
 
 
-function transitionShape() {
-    updateMedicalMode();
+// main box that displays text of currently selected intel option
+var intelBox = d3.select(".svgBay").append("rect")
+    .attr("x", 355).attr("y", 25)
+    .attr("height", 100).attr("width", 150)
+    .attr("class", "intelBox")
+    .style("fill", "lightblue");
 
-    d3.select("text")
-        .text(medicalModeTextReturn());
+var intelText = d3.select(".svgBay").append("text")
+    .attr("x", 383).attr("y", 20)
+    .attr("class", "intelText")
+    .text("Visualization")
+    .style("font-weight", "bold");
 
-    d3.select(this)
-        .transition()
-        .duration(500)
-        .style("fill", chooseColor)
-        .attr("d", shape.type(chooseShape));
+var selectedIntelText1 = d3.select(".svgBay").append("text")
+    .attr("x", 365).attr("y", 45)
+    .attr("class", "selectedIntelText1")
+    .text("Individual Size By:")
 
-    updateNodeAttributes();
+var selectedIntelText2 = d3.select(".svgBay").append("text")
+    .attr("x", 393).attr("y", 65)
+    .attr("class", "selectedIntelText2")
+    .attr("opacity", 0)
+    .text("Popularity")
 
-//    console.log(vaccinateMode + "\t" + quarantineMode + "\t" + treatMode);
-}
+var selectedIntelText3 = d3.select(".svgBay").append("text")
+    .attr("x", 420).attr("y", 85)
+    .attr("class", "selectedIntelText3")
+    .attr("opacity", 0)
+    .text("&")
 
-function chooseColor() {
-    if (vaccinateMode) return "yellow";
-    if (quarantineMode) return "green";
-    if (treatMode) return "red";
-}
+var selectedIntelText4 = d3.select(".svgBay").append("text")
+    .attr("x", 393).attr("y", 105)
+    .attr("class", "selectedIntelText4")
+    .attr("opacity", 0)
+    .text("Centrality")
 
-function chooseShape() {
-    if (vaccinateMode) return "gear";
-    if (quarantineMode) return "clover";
-    if (treatMode) return "cross";
-}
+// policy option text selectors
 
-function updateMedicalMode() {
-
-
-    if (vaccinateMode == true) {
-        if (!diseaseIsSpreading) return;
-        vaccinateMode = false;
-        quarantineMode = true;
-        treatMode = false;
-
-        d3.select("text.SupplyText")
-            .text(vaccineSupplyTextReturn());
-
-        return;
-    }
-
-    if (quarantineMode == true) {
-        vaccinateMode = false;
-        quarantineMode = false;
-        treatMode = true;
-
-        d3.select("text.SupplyText")
-            .text(vaccineSupplyTextReturn());
-
-        return;
-    }
-
-    if (treatMode == true) {
-        vaccinateMode = true;
-        quarantineMode = false;
-        treatMode = false;
-
-        if (vaccineSupply <= 0) {
-            vaccinateMode = false;
-            quarantineMode = true;
-        }
-
-        d3.select("text.SupplyText")
-            .text(vaccineSupplyTextReturn());
-
-
-        return;
-    }
-}
-
-var toggleDegreeShapes = d3.superformula()
-    .type("circle")
-    .size(500)
-    .segments(360)
-
-svgToggle.append("path")
-    .attr("class", "toggleDegreeShapes")
-    .attr("d", toggleDegreeShapes)
-    .style("fill", "black")
-    .style("stroke", 10)
-    .on("click", toggleDegreeAttributes)
-    .attr("transform", "translate(50,450)");
-
-function toggleDegreeAttributes() {
-
-    toggleDegree = !toggleDegree;
-
-    if (toggleDegree) {
-        d3.select(this)
-            .transition()
-            .duration(500)
-            .style("fill", "blue")
-            .attr("d", toggleDegreeShapes.type("asterisk"));
-
-
-    }
-    else {
-        d3.select(this)
-            .transition()
-            .duration(500)
-            .style("fill", "black")
-            .attr("d", toggleDegreeShapes.type("circle"));
-
-    }
-    updateNodeAttributes();
-
-
-}
-
-var toggleCentralityShapes = d3.superformula()
-    .type("circle")
-    .size(500)
-    .segments(360)
-
-svgToggle.append("path")
-    .attr("class", "toggleCentralityShapes")
-    .attr("d", toggleCentralityShapes)
-    .style("fill", "black")
-    .style("stroke", 10)
-    .on("click", toggleCentralityAttributes)
-    .attr("transform", "translate(750,450)");
-
-function toggleCentralityAttributes() {
-    toggleCentrality = !toggleCentrality;
-
-    if (toggleCentrality) {
-        d3.select(this)
-            .transition()
-            .duration(500)
-            .style("fill", "purple")
-            .attr("d", toggleCentralityShapes.type("asterisk"));
-
-
-    }
-    else {
-        d3.select(this)
-            .transition()
-            .duration(500)
-            .style("fill", "black")
-            .attr("d", toggleCentralityShapes.type("circle"));
-
-    }
-    updateNodeAttributes();
-}
-
-var detectOutbreakShape = d3.superformula()
-    .type("circle")
-    .size(1400)
-    .segments(360)
-
-var detectLegend = d3.select("body").select("svg").append("text")
-    .attr("class", "textDetect")
+var detectOutbreakSelect = d3.select(".svgBay").append("text")
+    .attr("x", 33).attr("y", 155)
+    .attr("class", "detectOutbreakSelect")
     .text("Detect Outbreak")
-    .attr("x", 660)
-    .attr("y", -5)
-    .style("font-size", 14);
+    .attr("opacity", 0.35)
+    .on("click", detectOutbreakActions)
 
-svgToggle.append("path")
-    .attr("class", "detectShape")
-    .attr("d", detectOutbreakShape)
-    .style("fill", "black")
-    .style("stroke", 10)
-    .attr("transform", "translate(725,35)")
-    .on("click", detectOutbreakAttributes);
+var detectOutbreakGear = d3.superformula()
+    .type("gear")
+    .size(0)
+    .segments(360)
 
+var detectOutbreakStar = d3.superformula()
+    .type("star")
+    .size(70)
+    .segments(360)
 
-function detectOutbreakAttributes() {
-    d3.select(".SupplyText")
-        .text(vaccineSupplyTextReturn());
+d3.select(".svgBay").append("path")
+    .attr("class", "detectOutbreakStar")
+    .attr("d", detectOutbreakStar)
+    .attr("opacity", 0)
+    .style("fill", "yellow")
+    .style("stroke", 2)
+    .attr("transform", "translate(12,149)")
 
-    d3.select(this)
+d3.select(".networkSVG").append("path")
+    .attr("class", "detectOutbreakGear")
+    .attr("d", detectOutbreakGear)
+    .attr("opacity", 0)
+    .style("fill", "yellow")
+    .style("stroke", 25)
+    .attr("transform", "translate(250,250)")
+
+function detectOutbreakActions() {
+    d3.select(".detectOutbreakGear")
         .transition()
-        .duration(300)
-        .style("fill", "yellow")
-        .style("opacity", 0.35)
-    .attr("d", detectOutbreakShape.size(10000000));
+        .duration(800)
+        .attr("opacity", 0.75)
+        .attr("d", detectOutbreakGear.size(10000000));
 
-    window.setTimeout(waitToShrink, 300);
+    window.setTimeout(waitToShrinkDetectionButton, 600);
 
     if (diseaseIsSpreading) {
-            if (Math.random() < 0.75) {
-                outbreakDetected = true;
-                d3.select(".textDetect")
-                    .text("Outbreak Detected!");
-            }
+        if (Math.random() > 0.25) {
+            outbreakDetected = true;
+
+            d3.select(".selectedPolicyText1")
+                .attr("x", 17).attr("y", 78)
+                .style("font-weight", "bold")
+                .text("Outbreak Detected!")
+
+            d3.select(".selectedPolicyText2")
+                .attr("x", 23).attr("y", 75)
+                .text("")
+
+            d3.select(".selectedPolicyText3")
+                .attr("x", 20).attr("y", 100)
+                .text("")
+
+            d3.select(".selectedPolicyText4").text("");
+
+            selectQuarantineMode();
+
+            d3.select(".detectOutbreakSelect")
+                .attr("font-weight", "bold")
+                .attr("x", 22)
+                .text("Outbreak Detected")
+
+            d3.select(".detectOutbreakStar")
+                .attr("opacity", 1)
+
+            d3.select(".announceOutbreakSelect")
+                .attr("opacity", 1)
+
+            d3.select(".martialLawSelect")
+                .attr("opacity", 1)
+
+
         }
+    }
     runTimesteps();
+    updateGraph();
+}
+
+function waitToShrinkDetectionButton() {
+    d3.select(".detectOutbreakGear")
+        .transition()
+        .duration(350)
+        .attr("d", detectOutbreakGear.size(0));
+
+}
+
+
+function researchVaccine() {
+    if (vaccineResearched) return;
+    vaccineResearched = true;
+    vaccineSupply = numberOfIndividuals * 0.10;
+
+    d3.select(this)
+        .attr("font-weight", "bold")
+        .attr("x", 22)
+        .text("Vaccine Researched")
+
+    d3.select(".researchStar")
+        .attr("opacity", 1)
+
+    d3.select(".selectedPolicyText1")
+        .attr("x", 17).attr("y", 45)
+        .style("font-weight", "bold")
+        .text("Vaccine Researched")
+
+    d3.select(".selectedPolicyText2")
+        .attr("x", 23).attr("y", 75)
+        .text("Vaccine Supply +5")
+
+    d3.select(".selectedPolicyText3")
+        .attr("x", 20).attr("y", 100)
+        .text("Production +0.5/day")
+
+    d3.select(".selectedPolicyText4").text("");
+
+    d3.select(".detectOutbreakSelect")
+        .attr("opacity", 1)
+
+
+
+    selectVaccinateMode();
+
+
+}
+
+var announceOutbreakSelect = d3.select(".svgBay").append("text")
+    .attr("x", 12).attr("y", 185)
+    .attr("class", "announceOutbreakSelect")
+    .text("Announce an Epidemic")
+    .attr("opacity", 0.35)
+    .on("click", announceOutbreak)
+
+var announceStar = d3.superformula()
+    .type("star")
+    .size(70)
+    .segments(360)
+
+svgBay.append("path")
+    .attr("class", "announceStar")
+    .attr("d", announceStar)
+    .attr("opacity", 0)
+    .style("fill", "yellow")
+    .style("stroke", 2)
+    .attr("transform", "translate(12,181)")
+
+function announceOutbreak() {
+    if (epidemicAnnounced) return;
+    if (!diseaseIsSpreading) {
+        window.alert("No Outbreak Detected")
+        return;
+    }
+    epidemicAnnounced = true;
+
+    d3.select(this)
+        .attr("font-weight", "bold")
+        .attr("x", 22)
+        .text("Epidemic Announced")
+
+    d3.select(".announceStar")
+        .attr("opacity", 1);
+
+    makePublicAnnouncement();
+
+    d3.select(".selectedPolicyText1").attr("x", 35).attr("y", 50).style("font-weight", "bold").text("Announcement")
+    d3.select(".selectedPolicyText2").attr("x", 26).attr("y", 75).text("Staying Indoors : " + newAdopters)
+    d3.select(".selectedPolicyText3").attr("x", 26).text("Refused Vaccine: " + newRefusers)
+    d3.select(".selectedPolicyText4").text("")
+
+    updateNodeAttributes();
+
+
+}
+
+
+
+
+
+// martial law selector, indicator, and function
+var martialLawSelect = d3.select(".svgBay").append("text")
+    .attr("x", 22).attr("y", 215)
+    .attr("class", "martialLawSelect")
+    .text("Declare Martial Law")
+    .attr("opacity", 0.35)
+    .on("click", clickMartial);
+
+var martialStar = d3.superformula()
+    .type("star")
+    .size(70)
+    .segments(360)
+
+svgBay.append("path")
+    .attr("class", "martialStar")
+    .attr("d", martialStar)
+    .style("fill", "yellow")
+    .style("stroke", 2)
+    .attr("opacity", 0)
+    .attr("transform", "translate(12,210)")
+
+function clickMartial() {
+    if (martialLawDeclared) return;
+    if (!diseaseIsSpreading) {
+        window.alert("No Outbreak Detected")
+        return;
+    }
+
+    martialLawDeclared = true;
+
+    d3.select(this)
+        .style("font-weight", "bold")
+        .text("Martial Law Declared")
+
+    d3.select(".martialStar")
+        .attr("opacity", 1);
+
+    declareMartialLaw();
+
+    d3.select(".selectedPolicyText1").attr("x", 47).style("font-weight", "bold").text("Martial Law")
+    d3.select(".selectedPolicyText2").attr("x", 35).attr("y", 85).text("Ties Broken: " + brokenTies)
+    d3.select(".selectedPolicyText3").text("")
+    d3.select(".selectedPolicyText4").text("")
+
     updateGraph();
 
 }
 
-function waitToShrink() {
+//treat option text selectors
 
-    if (outbreakDetected == true) {
-        d3.select(".detectShape")
-            .transition()
-            .duration(100)
-            .style("fill", "black")
-            .style("opacity", 1)
-            .attr("d", detectOutbreakShape.size(0));
+var vaccinateSelect = d3.select(".svgBay").append("text")
+    .attr("x", 225).attr("y", 155)
+    .attr("class", "vaccinateSelect")
+    .text("Vaccinate")
+    .attr("opacity", 0.35)
+    .on("click", selectVaccinateMode);
 
-    }
-    else {
-        d3.select(".detectShape")
-            .transition()
-            .duration(100)
-            .style("fill", "black")
-            .style("opacity", 1)
-            .attr("d", detectOutbreakShape.size(1400));
-    }
+function selectVaccinateMode() {
+    vaccinateMode = true;
+    quarantineMode = false;
+    treatMode = false;
+
+    d3.select(".selectedMedicineText1").text("Click an Individual");
+    d3.select(".selectedMedicineText2").text("to");
+    d3.select(".selectedMedicineText3").attr("x", 228).text("Vaccinate");
+
+    d3.select(".vaccinateSelect").attr("font-weight", "bold").attr("opacity", 1);
+    d3.select(".quarantineSelect").attr("font-weight", "normal")
+    d3.select(".treatSelect").attr("font-weight", "normal")
+
+}
+
+var quarantineSelect = d3.select(".svgBay").append("text")
+    .attr("x", 221).attr("y", 185)
+    .attr("class", "quarantineSelect")
+    .text("Quarantine")
+    .attr("opacity", 0.35)
+    .on("click", selectQuarantineMode);
+
+function selectQuarantineMode() {
+    vaccinateMode = false;
+    quarantineMode = true;
+    treatMode = false;
+
+
+    d3.select(".selectedMedicineText1").text("Click an Individual");
+    d3.select(".selectedMedicineText2").text("to");
+    d3.select(".selectedMedicineText3").attr("x", 221).text("Quarantine");
+
+    d3.select(".vaccinateSelect").attr("font-weight", "normal");
+    d3.select(".quarantineSelect").attr("font-weight", "bold").attr("opacity", 1);
+
+    d3.select(".treatSelect").attr("font-weight", "normal").attr("opacity", 1)
+
+
+
+
+}
+
+var treatSelect = d3.select(".svgBay").append("text")
+    .attr("x", 238).attr("y", 215)
+    .attr("class", "treatSelect")
+    .text("Treat")
+    .attr("opacity", 0.35)
+    .on("click", selectTreatMode);
+
+function selectTreatMode() {
+    vaccinateMode = false;
+    quarantineMode = false;
+    treatMode = true;
+
+    d3.select(".selectedMedicineText1").text("Click an Individual");
+    d3.select(".selectedMedicineText2").text("to");
+    d3.select(".selectedMedicineText3").attr("x", 240).text("Treat");
+
+    d3.select(".vaccinateSelect").attr("font-weight", "normal");
+    d3.select(".quarantineSelect").attr("font-weight", "normal")
+    d3.select(".treatSelect").attr("font-weight", "bold")
 
 }
 
 
-var centraltiyLegend = d3.select("body").select("svg")
-    .append("text")
-    .text("Size By Centrality")
-    .attr("x", 585)
-    .attr("y", 456)
-    .style("font-size", 14);
 
-var degreeLegend = d3.select("body").select("svg")
-    .append("text")
-    .text("Size By Popularity")
-    .attr("x", 80)
-    .attr("y", 456)
-    .style("font-size", 14);
+//intel option text selectors
+
+var popularitySelect = d3.select(".svgBay").append("text")
+    .attr("x", 392).attr("y", 165)
+    .attr("class", "popularitySelect")
+    .text("Popularity")
+    .on("click", selectPopularity);
+
+function selectPopularity() {
+    toggleDegree = !toggleDegree;
+
+    if (toggleDegree) {
+        d3.select(".popularitySelect")
+            .attr("font-weight", "bold")
+
+        if (toggleCentrality) {
+            d3.select(".selectedIntelText2").attr("opacity", 1)
+            d3.select(".selectedIntelText3").attr("opacity", 1)
+            d3.select(".selectedIntelText4").attr("opacity", 1)
+        }
+
+        if (!toggleCentrality) {
+            d3.select(".selectedIntelText2").attr("opacity", 1)
+            d3.select(".selectedIntelText3").attr("opacity", 0)
+            d3.select(".selectedIntelText4").attr("opacity", 0)
+        }
+
+    }
+    if (!toggleDegree) {
+        d3.select(".popularitySelect")
+            .attr("font-weight", "normal")
+
+        if (toggleCentrality) {
+            d3.select(".selectedIntelText2").attr("opacity", 0)
+            d3.select(".selectedIntelText3").attr("opacity", 0)
+            d3.select(".selectedIntelText4").attr("opacity", 1)
+        }
+
+        if (!toggleCentrality) {
+            d3.select(".selectedIntelText2").attr("opacity", 0)
+            d3.select(".selectedIntelText3").attr("opacity", 0)
+            d3.select(".selectedIntelText4").attr("opacity", 0)
+        }
+    }
+
+
+    updateNodeAttributes();
+
+}
+
+var centralitySelect = d3.select(".svgBay").append("text")
+    .attr("x", 392).attr("y", 200)
+    .attr("class", "centralitySelect")
+    .text("Centrality")
+    .on("click", selectCentrality);
+
+function selectCentrality() {
+    toggleCentrality = !toggleCentrality;
+
+    if (toggleCentrality) {
+        d3.select(".centralitySelect")
+            .attr("font-weight", "bold")
+
+        if (toggleDegree) {
+            d3.select(".selectedIntelText2").attr("opacity", 1)
+            d3.select(".selectedIntelText3").attr("opacity", 1)
+            d3.select(".selectedIntelText4").attr("opacity", 1)
+        }
+
+        if (!toggleDegree) {
+            d3.select(".selectedIntelText2").attr("opacity", 0)
+            d3.select(".selectedIntelText3").attr("opacity", 0)
+            d3.select(".selectedIntelText4").attr("opacity", 1)
+        }
+
+    }
+    if (!toggleCentrality) {
+        d3.select(".centralitySelect")
+            .attr("font-weight", "normal")
+
+        if (toggleDegree) {
+            d3.select(".selectedIntelText2").attr("opacity", 1)
+            d3.select(".selectedIntelText3").attr("opacity", 0)
+            d3.select(".selectedIntelText4").attr("opacity", 0)
+        }
+
+        if (!toggleDegree) {
+            d3.select(".selectedIntelText2").attr("opacity", 0)
+            d3.select(".selectedIntelText3").attr("opacity", 0)
+            d3.select(".selectedIntelText4").attr("opacity", 0)
+        }
+    }
+
+    updateNodeAttributes();
+
+
+}
+
+
+function bold_underline() {
+    d3.select(this)
+        .style("font-weight", "bold");
+}
+
 
 
 function makePublicAnnouncement() {
     for (var i = 0; i < graph.nodes.length; i++) {
         var individual = graph.nodes[i];
-        if (Math.random() < 0.10) voluntarilySegregateIndividual(individual);
-        if (Math.random() > (1.0 - rateOfRefusalAdoption)) makeRefuser(individual);
+        if (Math.random() < 0.10) {
+            voluntarilySegregateIndividual(individual);
+            newAdopters++;
+        }
+        if (Math.random() > (1.0 - rateOfRefusalAdoption)) {
+            makeRefuser(individual);
+            newRefusers++;
+        }
     }
 }
 
@@ -359,6 +568,7 @@ function makeRefuser(individual) {
 
 }
 
+
 function declareMartialLaw() {
     var links = graph.links;
 
@@ -368,6 +578,7 @@ function declareMartialLaw() {
 
             try {
                 linkToRemove.remove = true;
+                brokenTies++;
             }
             catch(e) {
                 //catch and just suppress errors
@@ -377,6 +588,7 @@ function declareMartialLaw() {
 
     graph.links = links;
 }
+
 
 function click(node) {
     if (vaccinateMode && vaccineSupply > 0)  {

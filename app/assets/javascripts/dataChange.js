@@ -33,7 +33,7 @@ function color(node) {
         if (node.status == "I") color = "#37FDFC";
         if (node.status == "R") color = "#37FDFC";
         if (node.status == "Q") color = "#37F000";
-        if (node.status == "VOL") color = "#37FDFC";
+        if (node.status == "VOL") color = "#37F000";
         if (node.status == "REF") color = "#37FDFC";
         return color;
     }

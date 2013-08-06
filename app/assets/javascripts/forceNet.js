@@ -1,7 +1,7 @@
-var numberOfIndividuals = 100;
+var numberOfIndividuals = 50;
 var rewire = 0.10;
 var meanDegree = 3;
-var charge = -100;
+var charge = -50;
 var outbreakGame = angular.module('outbreakGame', []);
 var currentColorBC = "black";
 var currentColorDeg = "black";
@@ -11,13 +11,14 @@ var originalGraph = owl.deepCopy(graph);
 
 
 // select "body" section, and append an empty SVG with height and width values
-var width = 700,
-    height = 600,
+var width = 500,
+    height = 500,
     svg;
 
 svg = d3.select("body").append("svg")
     .attr("width", width)
-    .attr("weight", height)
+    .attr("height", height)
+    .attr("class", "networkSVG")
     .attr("pointer-events", "all")
     .call(d3.behavior.zoom().on("zoom", redraw))
     .append('svg:g');
@@ -26,7 +27,7 @@ svg = d3.select("body").append("svg")
 var force = d3.layout.force()
     .nodes(graph.nodes)
     .links(graph.links)
-    .size([width, 450])
+    .size([width, height])
     .charge(charge)
     .on("tick", tick)
     .start();
@@ -70,27 +71,18 @@ function tick() {
     node.attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
 
-    try{
-        texts.attr("transform", function(d) {
-            return "translate(" + (d.x-9) + "," + (d.y+5) + ")"
-        });
-    }
-    catch(e){
-        //catch and just suppress error
-    }
-
 }
 
 
 function updateNodeAttributes() {
     var charge = null;
     if (toggleDegree == false) {
-        if (toggleCentrality == false) charge = -150;   // both false, basic
-        if (toggleCentrality == true) charge = -200;  // only bc
+        if (toggleCentrality == false) charge = -50;   // both false, basic
+        if (toggleCentrality == true) charge = -50;  // only bc
     }
     else {
-        if (toggleCentrality == true) charge = -300; // both true, composite
-        if (toggleCentrality == false) charge =  -200; // only degree
+        if (toggleCentrality == true) charge = -75; // both true, composite
+        if (toggleCentrality == false) charge =  -50; // only degree
     }
 
     force
