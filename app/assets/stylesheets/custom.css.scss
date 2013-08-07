@@ -57,7 +57,7 @@ aside {
 /* universal */
 
 svg {
-  padding-top: 60px;
+  padding-top: 0px;
 }
 
 html {
@@ -137,6 +137,8 @@ p {
 footer {
   margin-top: 45px;
   padding-top: 5px;
+  padding-left: 10px;
+  width: 1050px;
   border-top: 1px solid #eaeaea;
   color: #999;
 }

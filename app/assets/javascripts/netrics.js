@@ -4,6 +4,7 @@ var numberOfCommunities = null;
 var largestCommunity = null;
 var communities = [];
 var groupCounter = 1;
+var bcScores = [];
 
 
 function generateSmallWorld(n, p, k) {
@@ -250,18 +251,14 @@ function pacMan(node) {
 
 function findLargestCommunity() {
     communities = [];
-
     for (var i = 0; i < groupCounter; i++) {
         communities[i] = 0;
     }
-
     for (var ii = 0; ii < groupCounter; ii++) {
         for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
             if (graph.nodes[nodeIndex].group == ii) communities[ii]++;
-
         }
     }
-
     largestCommunity = Array.max(communities);
 }
 
@@ -269,10 +266,7 @@ Array.max = function( array ){
     return Math.max.apply( Math, array );
 };
 
-
-
-
-function convertGraphForNetX() {
+function convertGraphForNetX(graph) {
     var vertices = [];
     var edges = [];
     var G = jsnx.Graph();
@@ -280,7 +274,6 @@ function convertGraphForNetX() {
     for (var node = 0; node < graph.nodes.length; node++) {
         vertices.push(graph.nodes[node].id);
     }
-
     for (var edge = 0; edge < graph.links.length; edge++) {
         var formatted = [];
         formatted.push(graph.links[edge].source.id);
@@ -291,7 +284,7 @@ function convertGraphForNetX() {
     G.add_nodes_from(vertices);
     G.add_edges_from(edges);
 
-    this.G = G;
+    return G;
 }
 
 function assignDegree() {
@@ -301,16 +294,20 @@ function assignDegree() {
 }
 
 function computeBetweennessCentrality() {
+    G = convertGraphForNetX(graph);
     var bc = jsnx.betweenness_centrality(G);
-    var bcScores = [];
     for (var i = 0; i < graph.nodes.length; i++) {
-        bcScores[i] = bc[i];
+        if (bc[i] == 0) bc[i] = 0.0001;
         graph.nodes[i].bcScore = bc[i];
-        originalGraph.nodes[i].bcScore = bc[i];
     }
 
-    return bcScores;
-
+    return bc;
 }
+
+
+function shuffle(o){ //v1.0
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+};
 
 

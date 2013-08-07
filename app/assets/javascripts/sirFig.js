@@ -10,7 +10,7 @@ var n = series[0].length;
 var colorLines = d3.scale.category10();
 
 // canvas margins
-var marginFig = {top: 5, right: 10, bottom: 20, left: 35},
+var marginFig = {top: 70, right: 10, bottom: 20, left: 90},
     widthFig = 500 - marginFig.left - marginFig.right,
     heightFig = 230 - marginFig.top - marginFig.bottom;
 
@@ -35,8 +35,43 @@ var lineFig = d3.svg.line()
 var svgFig = d3.select("div1").append("svg")
     .attr("width", widthFig + marginFig.left + marginFig.right)
     .attr("height", heightFig + marginFig.top + marginFig.bottom)
+    .attr("class", "svgFig")
     .append("g")
     .attr("transform", "translate(" + marginFig.left + "," + marginFig.top + ")");
+
+
+var yLabel = d3.select(".svgFig").append("text")
+    .attr("x", 5).attr("y", 115)
+    .attr("font-weight", "bold")
+    .attr("transform", "rotate(320 55,125)")
+    .text("Infected");
+
+var xLabel = d3.select(".svgFig").append("text")
+    .attr("x", 276).attr("y", 250)
+    .attr("font-weight", "bold")
+    .text("Day");
+
+
+var simLegend = d3.select(".svgFig").append("line")
+    .attr("x1", 176).attr("y1", 20)
+    .attr("x2", 226).attr("y2", 20)
+    .style("stroke", "ff7f0e")
+    .style("stroke-width", 5)
+
+var simLabel = d3.select(".svgFig").append("text")
+    .attr("x", 150).attr("y", 40)
+    .text("No Intervention")
+
+var gameLegend = d3.select(".svgFig").append("line")
+    .attr("x1", 350).attr("y1", 20)
+    .attr("x2", 400).attr("y2", 20)
+    .style("stroke", "#1f77b4")
+    .style("stroke-width", 5)
+
+var gameLabel = d3.select(".svgFig").append("text")
+    .attr("x", 320).attr("y", 40)
+    .text("Current Outbreak")
+
 
 // append lines to canvas
 svgFig.selectAll(".line")
@@ -50,13 +85,13 @@ svgFig.selectAll(".line")
 
 //x-axis
 svgFig.append("g")
-    .attr("class", "x axis")
+    .attr("class", "x-axis")
     .attr("transform", "translate(0," + heightFig + ")")
     .call(d3.svg.axis().scale(xFig).orient("bottom"))
 
 //y-axis
 svgFig.append("g")
-    .attr("class", "y axis")
+    .attr("class", "y-axis")
     .call(d3.svg.axis().scale(yFig).orient("left"));
 
 function updateSIRfig() {

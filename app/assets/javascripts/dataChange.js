@@ -1,13 +1,18 @@
 function metric(node) {
     var metric = null;
+    if (node.bcScore == 0) node.bcScore = 0.00001;
     if (toggleDegree == false) {
         if (toggleCentrality == false) metric = 8;   // both false, basic
         if (toggleCentrality == true) metric = (node.bcScore / 0.025) + 6;  // only bc
     }
     else {
-        if (toggleCentrality == true) metric = ((node.bcScore / 0.01) + 1) + ((node.degree + 2) * 2) / 2; // both true, composite
+        if (toggleCentrality == true) metric = (((node.bcScore / 0.01) + 1) + ((node.degree + 2) * 2)) / 2; // both true, composite
         if (toggleCentrality == false) metric =  (node.degree + 2) * 2; // only degree
     }
+    if (metric < 6) metric = 3;
+    if (isNaN(metric)) metric = 3;
+
+
     return metric;
 }
 
@@ -22,7 +27,7 @@ function color(node) {
         if (node.status == "R") color = "#9400D3";
         if (node.status == "Q") color = "#37F000";
         if (node.status == "VOL") color = "#ffff00";
-        if (node.status == "REF") color = "#37FDFC";
+        if (node.status == "REF") color = "#000000";
         return color;
     }
 
@@ -34,7 +39,7 @@ function color(node) {
         if (node.status == "R") color = "#37FDFC";
         if (node.status == "Q") color = "#37F000";
         if (node.status == "VOL") color = "#37F000";
-        if (node.status == "REF") color = "#37FDFC";
+        if (node.status == "REF") color = "#000000";
         return color;
     }
 

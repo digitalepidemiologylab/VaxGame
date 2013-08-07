@@ -125,6 +125,7 @@ function runTimesteps() {
     }
 
     if (diseaseIsSpreading) {
+        bcScores = computeBetweennessCentrality();
         updateExposures();
         infection();
         stateChanges();
@@ -138,6 +139,7 @@ function runTimesteps() {
         updateSIRfig();
     }
     else {
+        bcScores = computeBetweennessCentrality();
         this.timestep++;
         getStatuses();
         updateSIRfig();
@@ -246,7 +248,6 @@ function detectEndGame() {
         if (numberOfInfectedPerGroup > 0) {
             if (numberOfSusceptiblesPerGroup > 0) {
                 numberOf_AtRisk_communities++;
-                console.log(numberOfSusceptiblesPerGroup + "\t" + numberOfInfectedPerGroup + "\t" + numberOf_AtRisk_communities);
 
             }
         }
@@ -255,7 +256,7 @@ function detectEndGame() {
     if (numberOf_AtRisk_communities == 0 && diseaseIsSpreading) {
         endGame = true;
 
-        while (timestep < 30) {
+        while (timestep < 31) {
             updateExposures();
             infection();
             stateChanges();

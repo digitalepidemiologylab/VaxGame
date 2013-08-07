@@ -313,8 +313,8 @@ function announceOutbreak() {
     makePublicAnnouncement();
 
     d3.select(".selectedPolicyText1").attr("x", 35).attr("y", 50).style("font-weight", "bold").text("Announcement")
-    d3.select(".selectedPolicyText2").attr("x", 26).attr("y", 75).text("Staying Indoors : " + newAdopters)
-    d3.select(".selectedPolicyText3").attr("x", 26).text("Refused Vaccine: " + newRefusers)
+    d3.select(".selectedPolicyText2").attr("x", 26).attr("y", 75).style("font-weight", "normal").text("Staying Indoors : " + newAdopters)
+    d3.select(".selectedPolicyText3").attr("x", 26).attr("y", 100).style("font-weight", "normal").text("Refused Vaccine: " + newRefusers)
     d3.select(".selectedPolicyText4").text("")
 
     updateNodeAttributes();
@@ -359,7 +359,7 @@ function clickMartial() {
 
     declareMartialLaw();
 
-    d3.select(".selectedPolicyText1").attr("x", 47).style("font-weight", "bold").text("Martial Law")
+    d3.select(".selectedPolicyText1").attr("x", 47).attr("y",50).style("font-weight", "bold").text("Martial Law")
     d3.select(".selectedPolicyText2").attr("x", 35).attr("y", 85).text("Ties Broken: " + brokenTies)
     d3.select(".selectedPolicyText3").text("")
     d3.select(".selectedPolicyText4").text("")
@@ -542,23 +542,22 @@ function selectCentrality() {
 }
 
 
-function bold_underline() {
-    d3.select(this)
-        .style("font-weight", "bold");
-}
-
-
-
 function makePublicAnnouncement() {
     for (var i = 0; i < graph.nodes.length; i++) {
         var individual = graph.nodes[i];
         if (Math.random() < 0.10) {
-            voluntarilySegregateIndividual(individual);
-            newAdopters++;
+            if (individual.status == "S") {
+                voluntarilySegregateIndividual(individual);
+                newAdopters++;
+            }
+
         }
         if (Math.random() > (1.0 - rateOfRefusalAdoption)) {
-            makeRefuser(individual);
-            newRefusers++;
+            if (individual.status == "S") {
+                makeRefuser(individual);
+                newRefusers++;
+            }
+
         }
     }
 }
@@ -615,6 +614,10 @@ function click(node) {
 
 function vaccinateAction(node) {
     if (node.status == "V" || node.status == "I" || node.status == "R") return;
+    if (node.status == "REF") {
+        window.alert("Individual refuses vaccination.");
+        return;
+    }
     if (node.status == "S") {
         vaccineSupply--;
         d3.select(".vaccineSupplyHUD")
@@ -624,7 +627,7 @@ function vaccinateAction(node) {
 }
 
 function quarantineAction(node) {
-    if (node.status == "V" || node.status == "I" || node.status == "R" || node.status == "REF") return;
+    if (node.status == "V" || node.status == "I" || node.status == "R") return;
     if (node.status == "S") node.status = "Q";
 }
 
@@ -634,20 +637,26 @@ function treatAction(node) {
 }
 
 
-//function mouseOver(node) {
-//    div.transition()
-//        .duration(200)
-//        .style("opacity", .9);
-//    div.html("NodeID:\t" + node.id + "<br/>" + "Neighbors:\t" +  degree(node) + "<br/>"  + "Centrality:\t" + parseFloat(Math.round(node.bcScore * 100) / 100).toFixed(2))
-//        .style("left", 500 + "px")
-//        .style("top", 200 + "px");
-//}
-//
-//
-//function mouseOut(node) {
-//    div.transition()
-//        .duration(400)
-//        .style("opacity", 0)
-//
-//}
 
+function chainVaccination(node) {
+   vaccinateAction(node);
+    var neighbors = shuffle(findNeighbors(node));
+
+    //first neighbor
+    for (var firstNeighborIndex = 0; firstNeighborIndex < neighbors.length; firstNeighborIndex++) {
+        if (neighbors[firstNeighborIndex].status == "S") break;
+    }
+
+    vaccinateAction(neighbors[firstNeighborIndex]);
+
+    //second neighbor
+    var nextNeighbors = shuffle(findNeighbors(neighbors[firstNeighborIndex]));
+    for (var nextNeighborIndex = 0; nextNeighborIndex < nextNeighbors.length; nextNeighborIndex++) {
+        if (nextNeighbors[nextNeighborIndex].status == "S") break;
+    }
+
+    vaccinateAction(nextNeighbors[nextNeighborIndex]);
+
+    updateNodeAttributes();
+
+}

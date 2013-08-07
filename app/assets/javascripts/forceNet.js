@@ -2,9 +2,7 @@ var numberOfIndividuals = 50;
 var rewire = 0.10;
 var meanDegree = 3;
 var charge = -100;
-var outbreakGame = angular.module('outbreakGame', []);
-var currentColorBC = "black";
-var currentColorDeg = "black";
+var G;
 
 var graph = generateSmallWorld(numberOfIndividuals,rewire,meanDegree);
 var originalGraph = owl.deepCopy(graph);
@@ -233,9 +231,9 @@ initGraphMeasures();
 function initGraphMeasures() {
     assignEdgeListsToNodes();
     updateCommunities();
-    convertGraphForNetX();
+    G = convertGraphForNetX(graph);
     assignDegree();
-    this.bcScores = computeBetweennessCentrality();
+    bcScores = computeBetweennessCentrality();
     findLargestCommunity();
 }
 
