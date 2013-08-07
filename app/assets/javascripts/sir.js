@@ -15,6 +15,7 @@ var r_series = [];
 var simulation = true;
 var diseaseIsSpreading = false;
 var sim_series = [];
+var endGame = false;
 
 
 
@@ -56,7 +57,7 @@ function selectIndexCase() {
 
     this.indexCase = indexCase;
     infectIndividual(this.indexCase);
-    console.log(this.indexCase);
+    //console.log(this.indexCase);
 }
 
 function infectIndividual(individual) {
@@ -128,21 +129,26 @@ function runTimesteps() {
         infection();
         stateChanges();
         this.timestep++;
-        if (this.timestep%5 == 0) {
+        if (this.timestep%2 == 0) {
             vaccineSupply++;
+            d3.select(".vaccineSupplyHUD")
+                .text("Vaccines: " + vaccineSupply);
         }
         getStatuses();
         updateSIRfig();
     }
     else {
-        if (this.timestep%5 == 0) {
-            vaccineSupply++;
-        }
-
         this.timestep++;
         getStatuses();
         updateSIRfig();
     }
+
+    updateCommunities();
+
+    if (!simulation && diseaseIsSpreading) {
+        detectEndGame();
+    }
+
 
 }
 
@@ -214,10 +220,52 @@ function runSimulation() {
         graph.nodes[i].exposureTimestep = null;
 
     }
-
+    vaccineSupply=0;
     timestep = 0;
     updateGraph();
+}
 
+
+
+function detectEndGame() {
+    var numberOf_AtRisk_communities = 0;
+
+    for (var groupIndex = 1; groupIndex < numberOfCommunities+1; groupIndex++) {
+        var numberOfSusceptiblesPerGroup = 0;
+        var numberOfInfectedPerGroup = 0;
+
+        for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
+            var node = graph.nodes[nodeIndex];
+            if (parseFloat(node.group) != groupIndex); //do nothing
+            else {
+                if (node.status == "S") numberOfSusceptiblesPerGroup++;
+                if (node.status == "I") numberOfInfectedPerGroup++;
+                if (node.status == "E") numberOfInfectedPerGroup++;
+            }
+        }
+        if (numberOfInfectedPerGroup > 0) {
+            if (numberOfSusceptiblesPerGroup > 0) {
+                numberOf_AtRisk_communities++;
+                console.log(numberOfSusceptiblesPerGroup + "\t" + numberOfInfectedPerGroup + "\t" + numberOf_AtRisk_communities);
+
+            }
+        }
+    }
+
+    if (numberOf_AtRisk_communities == 0 && diseaseIsSpreading) {
+        endGame = true;
+
+        while (timestep < 30) {
+            updateExposures();
+            infection();
+            stateChanges();
+            updateGraph();
+            this.timestep++;
+            getStatuses();
+            updateSIRfig();
+        }
+
+    }
 
 }
 

@@ -263,6 +263,11 @@ function researchVaccine() {
         .attr("opacity", 1)
 
 
+    d3.select(".vaccineSupplyHUD")
+        .text("Vaccines: " + vaccineSupply);
+
+    d3.select(".dayTickerHUD")
+        .text("Day: " + timestep);
 
     selectVaccinateMode();
 
@@ -612,6 +617,8 @@ function vaccinateAction(node) {
     if (node.status == "V" || node.status == "I" || node.status == "R") return;
     if (node.status == "S") {
         vaccineSupply--;
+        d3.select(".vaccineSupplyHUD")
+            .text("Vaccines: " + vaccineSupply);
         node.status = "V";
     }
 }

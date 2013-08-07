@@ -23,65 +23,79 @@ svg = d3.select("body").append("svg")
     .call(d3.behavior.zoom().on("zoom", redraw))
     .append('svg:g');
 
+//draw "HUD"
+var vaccineSupplyHUD = d3.select(".networkSVG").append("text")
+    .attr("class", "vaccineSupplyHUD")
+    .attr("x",20).attr("y",25)
+    .text("");
+
+var dayTickerHUD = d3.select(".networkSVG").append("text")
+    .attr("class", "dayTickerHUD")
+    .attr("x",435).attr("y",25)
+    .text("Day: " + timestep);
+
+
 // draw the legend
+var nodeY = 550;
+var textY = 554;
 var susceptibleNode = d3.select(".networkSVG").append("circle")
     .attr("class", "susceptibleNode")
-    .attr("cx",30).attr("cy",25)
+    .attr("cx",30).attr("cy",nodeY)
     .style("stroke", 10)
     .attr("r", 8)
     .attr("fill", "#37FDFC")
 
 var susceptibleText = d3.select(".networkSVG").append("text")
     .attr("class", "susceptibleText")
-    .attr("x",40).attr("y",30)
+    .attr("x",40).attr("y",textY)
     .text("Susceptible")
 
 var exposedNode = d3.select(".networkSVG").append("circle")
     .attr("class", "exposedNode")
-    .attr("cx",135).attr("cy",25)
+    .attr("cx",135).attr("cy",nodeY)
     .attr("r", 8)
     .style("stroke", 10)
     .attr("fill", "#DB3248")
 
 var exposedText = d3.select(".networkSVG").append("text")
     .attr("class", "exposedText")
-    .attr("x",145).attr("y",30)
+    .attr("x",145).attr("y",textY)
     .text("Exposed")
 
 var infectedNode = d3.select(".networkSVG").append("circle")
     .attr("class", "infectedNode")
-    .attr("cx",220).attr("cy",25)
+    .attr("cx",220).attr("cy",nodeY)
     .attr("r", 8)
     .style("stroke", 10)
     .attr("fill", "#FF0000")
 
 var infectedText = d3.select(".networkSVG").append("text")
     .attr("class", "infectedText")
-    .attr("x",230).attr("y",30)
+    .attr("x",230).attr("y",textY)
     .text("Infected")
 
 var recoveredNode = d3.select(".networkSVG").append("circle")
     .attr("class", "recoveredNode")
-    .attr("cx",305).attr("cy",25)
+    .attr("cx",305).attr("cy",nodeY)
     .attr("r", 8)
     .style("stroke", 10)
     .attr("fill", "#9400D3")
 
 var recoveredText = d3.select(".networkSVG").append("text")
     .attr("class", "recoveredText")
-    .attr("x",315).attr("y",30)
+    .attr("x",315).attr("y",textY)
     .text("Recovered")
 
 var vaccinatedNode = d3.select(".networkSVG").append("circle")
     .attr("class", "vaccinatedNode")
-    .attr("cx",405).attr("cy",25)
+    .attr("cx",405).attr("cy",nodeY)
     .attr("r", 8)
     .style("stroke", 10)
     .attr("fill", "#FFFF00")
 
 var vaccinatedText = d3.select(".networkSVG").append("text")
     .attr("class", "vaccinatedText")
-    .attr("x",415).attr("y",30)
+    .attr("x",415).attr("y",textY)
     .text("Vaccinated")
 
 
@@ -206,6 +220,12 @@ function updateGraph() {
     node.exit().remove();
     graph.nodes = nodes;
     graph.links = links;
+
+    d3.select(".vaccineSupplyHUD")
+        .text("Vaccines: " + vaccineSupply);
+
+    d3.select(".dayTickerHUD")
+        .text("Day: " + timestep);
 }
 
 initGraphMeasures();
