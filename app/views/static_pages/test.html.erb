@@ -2,77 +2,79 @@
 <meta charset="utf-8">
 <body>
 <%= javascript_include_tag "d3.v3" %>
-<%= javascript_include_tag "superformula" %>
 
-
+<body>
 
 <script>
 
+    d3.csv("edgelist.csv", function(error, data) {
 
+        //set up graph in same style as original example but empty
+        var graph = {"nodes" : [], "links" : []};
 
-    var shape = d3.superformula()
-            .type("square")
-            .size(1400)
-            .segments(360)
+        data.forEach(function (d) {
+            graph.nodes.push({ "id": d.source });
+            graph.nodes.push({ "id": d.target });
+            graph.links.push({ "source": d.source,
+                "target": d.target,
+                "value": +d.value });
+        });
 
+        // return only the distinct / unique nodes
+        graph.nodes = d3.keys(d3.nest()
+                .key(function (d) { return d.name; })
+                .map(graph.nodes));
 
-    svg.append("path")
-            .attr("class", "shape")
-            .attr("transform", "translate(450,250)")
-            .attr("d", shape)
-            .style("fill", "yellow")
+        // loop through each link replacing the text with its index from node
+        graph.links.forEach(function (d, i) {
+            graph.links[i].source = graph.nodes.indexOf(graph.links[i].source);
+            graph.links[i].target = graph.nodes.indexOf(graph.links[i].target);
+        });
+
+        //now loop through each nodes to make nodes an array of objects
+        // rather than an array of strings
+        graph.nodes.forEach(function (d, i) {
+            graph.nodes[i] = { "id": d };
+        })
+    });
+
+    var width = 500,
+            height = 500,
+            svg;
+
+    svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("class", "networkSVG")
+            .attr("pointer-events", "all")
+            .call(d3.behavior.zoom().on("zoom", redraw))
+            .append('svg:g');
+
+    // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
+    var force = d3.layout.force()
+            .nodes(graph.nodes)
+            .links(graph.links)
+            .size([width, height])
+            .charge(charge)
+            .on("tick", tick)
+            .start();
+
+    // associate empty SVGs with link data. assign attributes.
+    var link = svg.selectAll(".link")
+            .data(graph.links)
+            .enter().append("line")
+            .attr("class", "link");
+
+    // associate empty SVGs with node data. assign attributes. call force.drag to make them moveable.
+    var node = svg.selectAll(".node")
+            .data(graph.nodes)
+            .enter().append("circle")
+            .attr("class", "node")
+            .attr("r", metric)
             .style("stroke", 10)
-            .on("click", transitionShape)
-
-    function transitionShape() {
-        updateMedicalMode();
-
-        d3.select(this)
-                .transition()
-                .duration(500)
-                .style("fill", chooseColor)
-                .attr("d", shape.type(chooseShape));
-
-
-        console.log(vaccinateMode + "\t" + quarantineMode + "\t" + treatMode);
-    }
-
-    function chooseColor() {
-        if (vaccinateMode) return "yellow";
-        if (quarantineMode) return "green";
-        if (treatMode) return "red";
-    }
-
-    function chooseShape() {
-        if (vaccinateMode) return "square";
-        if (quarantineMode) return "circle";
-        if (treatMode) return "cross";
-    }
-
-    function updateMedicalMode() {
-        if (vaccinateMode == true) {
-            vaccinateMode = false;
-            quarantineMode = true;
-            treatMode = false;
-            return;
-        }
-
-        if (quarantineMode == true) {
-            vaccinateMode = false;
-            quarantineMode = false;
-            treatMode = true;
-            return;
-        }
-
-        if (treatMode == true) {
-            vaccinateMode = true;
-            quarantineMode = false;
-            treatMode = false;
-            return;
-        }
-    }
-
-
+            .style("fill", color)
+            .call(force.drag)
+            .on("click", click);
 
 
 
@@ -81,4 +83,3 @@
 
 
 </script>
-

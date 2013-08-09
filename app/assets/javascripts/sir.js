@@ -1,21 +1,21 @@
-
-var timestep = 0;
-var transmissionRate = .25;
-var recoveryRate = .03;
-var maxRecoveryTime = 4;
-var indexCase = null;
-var treatmentEfficacy = 0.25;               // likelihood that treatment will result in immediate cure
-var hospitalQuarantineEfficacy = 0.50;      // proportion of edges, per individual, that are severed upon treatment
-var martialLaw_edgeRemovalFrequency = 0.25; // proportion of edges, in entire graph, that are severed upon martial law
-var rateOfVoluntarySegregation = 0.10;
-var rateOfRefusalAdoption = 0.10;
-var s_series = [];
-var i_series = [];
-var r_series = [];
-var simulation = true;
-var diseaseIsSpreading = false;
-var sim_series = [];
-var endGame = false;
+//
+//var timestep = 0;
+//var transmissionRate = .25;
+//var recoveryRate = .03;
+//var maxRecoveryTime = 4;
+//var indexCase = null;
+//var treatmentEfficacy = 0.25;               // likelihood that treatment will result in immediate cure
+//var hospitalQuarantineEfficacy = 0.50;      // proportion of edges, per individual, that are severed upon treatment
+//var martialLaw_edgeRemovalFrequency = 0.25; // proportion of edges, in entire graph, that are severed upon martial law
+//var rateOfVoluntarySegregation = 0.10;
+//var rateOfRefusalAdoption = 0.10;
+//var s_series = [];
+//var i_series = [];
+//var r_series = [];
+//var simulation = true;
+//var diseaseIsSpreading = false;
+//var sim_series = [];
+//var endGame = false;
 
 
 

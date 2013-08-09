@@ -1,8 +1,52 @@
+var widthBay = 500;
+var heightBay = 250;
 var numberOfIndividuals = 50;
 var rewire = 0.10;
 var meanDegree = 3;
 var charge = -100;
 var G;
+var outbreakDetected = false;
+
+var vaccineResearched = false;
+var vaccineSupply = 0;
+
+var epidemicAnnounced = false;
+var newRefusers = 0;
+var newAdopters = 0;
+
+var martialLawDeclared = false;
+var brokenTies = 0;
+
+var vaccinateMode = true;
+var treatMode = false;
+var quarantineMode = false;
+
+var toggleDegree = false;
+var toggleCentrality = false;
+
+var timestep = 0;
+var transmissionRate = .25;
+var recoveryRate = .03;
+var maxRecoveryTime = 4;
+var indexCase = null;
+var treatmentEfficacy = 0.25;               // likelihood that treatment will result in immediate cure
+var hospitalQuarantineEfficacy = 0.50;      // proportion of edges, per individual, that are severed upon treatment
+var martialLaw_edgeRemovalFrequency = 0.25; // proportion of edges, in entire graph, that are severed upon martial law
+var rateOfVoluntarySegregation = 0.10;
+var rateOfRefusalAdoption = 0.10;
+var s_series = [];
+var i_series = [];
+var r_series = [];
+var simulation = true;
+var diseaseIsSpreading = false;
+var sim_series = [];
+var endGame = false;
+
+
+
+d3.select("body").append("div0")
+
+
 
 var graph = generateSmallWorld(numberOfIndividuals,rewire,meanDegree);
 var originalGraph = owl.deepCopy(graph);
@@ -126,9 +170,6 @@ var node = svg.selectAll(".node")
     .call(force.drag)
     .on("click", click);
 
-//var div = d3.select("body").append("div")
-//    .attr("class", "tooltip")
-//    .style("opacity", 0);
 
 
 // necessary for drag & zoom

@@ -11,14 +11,11 @@ function metric(node) {
     }
     if (metric < 6) metric = 3;
     if (isNaN(metric)) metric = 3;
-
-
     return metric;
 }
 
 function color(node) {
     var color = null;
-
     if (outbreakDetected && diseaseIsSpreading) {
         if (node.status == "S") color = "#37FDFC";
         if (node.status == "V") color = "#ffff00";
@@ -30,7 +27,6 @@ function color(node) {
         if (node.status == "REF") color = "#000000";
         return color;
     }
-
     else {
         if (node.status == "S") color = "#37FDFC";
         if (node.status == "V") color = "#ffff00";
@@ -42,5 +38,4 @@ function color(node) {
         if (node.status == "REF") color = "#000000";
         return color;
     }
-
 }

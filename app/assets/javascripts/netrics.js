@@ -6,7 +6,6 @@ var communities = [];
 var groupCounter = 1;
 var bcScores = [];
 
-
 function generateSmallWorld(n, p, k) {
     var vertices = [];
     var edges = [];

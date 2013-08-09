@@ -10,8 +10,17 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require bootstrap
 //= require jquery
+//= require deepCopy
+//= require d3.v3
+//= require jsnetworkx
+//= require superformula
+//= require netrics
+//= require dataChange
+// = require userInteraction
+//= require forceNet
+//= require sirFig
+//= require sir
 //= require jquery-ui
 //= require jquery_ujs
 //= require_tree .
