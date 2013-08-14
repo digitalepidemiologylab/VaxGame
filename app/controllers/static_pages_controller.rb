@@ -15,7 +15,7 @@ class StaticPagesController < ApplicationController
   def game
   end
 
-  def outbreak
+  def intervention
   end
 
 end

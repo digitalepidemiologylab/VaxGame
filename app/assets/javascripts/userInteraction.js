@@ -1,22 +1,25 @@
-//var outbreakDetected = false;
-//
-//var vaccineResearched = false;
-//var vaccineSupply = 0;
-//
-//var epidemicAnnounced = false;
-//var newRefusers = 0;
-//var newAdopters = 0;
-//
-//var martialLawDeclared = false;
-//var brokenTies = 0;
-//
-//var vaccinateMode = true;
-//var treatMode = false;
-//var quarantineMode = false;
-//
-//var toggleDegree = false;
-//var toggleCentrality = false;
-//
+var outbreakDetected = false;
+
+var vaccineResearched = false;
+var vaccineSupply = 0;
+
+var epidemicAnnounced = false;
+var newRefusers = 0;
+var newAdopters = 0;
+
+var martialLawDeclared = false;
+var brokenTies = 0;
+
+var vaccinateMode = true;
+var treatMode = false;
+var quarantineMode = false;
+
+var toggleDegree = false;
+var toggleCentrality = false;
+
+
+
+
 //d3.select("body").append("div0")
 //
 var widthBay = 500;
@@ -35,7 +38,7 @@ var policyBox = d3.select(".svgBay").append("rect")
     .attr("x", 15).attr("y", 25)
     .attr("height", 100).attr("width", 150)
     .attr("class", "policyBox")
-    .style("fill", "red");
+    .style("fill", "#ffaa00")
 
 var policyText = d3.select(".svgBay").append("text")
     .attr("x", 68).attr("y", 20)
@@ -71,7 +74,7 @@ var medicineBox = d3.select(".svgBay").append("rect")
     .attr("x", 185).attr("y", 25)
     .attr("height", 100).attr("width", 150)
     .attr("class", "medicineBox")
-    .style("fill", "orange");
+    .style("fill", "#ff4040");
 
 var medicineText = d3.select(".svgBay").append("text")
     .attr("x", 222).attr("y", 20)
@@ -100,7 +103,7 @@ var intelBox = d3.select(".svgBay").append("rect")
     .attr("x", 355).attr("y", 25)
     .attr("height", 100).attr("width", 150)
     .attr("class", "intelBox")
-    .style("fill", "lightblue");
+    .style("fill", "#ff7340");
 
 var intelText = d3.select(".svgBay").append("text")
     .attr("x", 383).attr("y", 20)

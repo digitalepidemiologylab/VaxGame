@@ -1,5 +1,6 @@
 d3.select("body").append("div1");
 
+
 var series = [
                [{group: "I", time: 0, value: 0}],
                [{group: "predicted_I", time: 0, value: 0}]
@@ -106,15 +107,33 @@ function updateSIRfig() {
 }
 
 function updateSeries() {
-    series = [
-             [{group: "I", time: 0, value: 0}],
-             [{group: "predicted_I", time:0, value:0}]
-             ];
 
-    for (var time = 0; time < timestep-1; time++) {
-        series[0].push(i_series[time]);
-        series[1].push(sim_series[time]);
-    }
+//    if (tutorial && intervention) {
+//        series = [
+//            [{group: "nonIntervention", time: 0, value: 0}],
+//            [{group: "Intervention", time:0, value:0}]
+//        ];
+//
+//        for (var time = 0; time < timestep-1; time++) {
+//            series[0].push(nonIntervention_series[time]);
+//            series[1].push(intervention_series[time]);
+//        }
+//        console.log(series);
+//
+//    }
+//    else {
+        series = [
+            [{group: "I", time: 0, value: 0}],
+            [{group: "predicted_I", time:0, value:0}]
+        ];
+
+        for (var time = 0; time < timestep-1; time++) {
+            series[0].push(i_series[time]);
+            series[1].push(sim_series[time]);
+        }
+
+//    }
+
 }
 
 

@@ -1,24 +1,21 @@
-//
-//var timestep = 0;
-//var transmissionRate = .25;
-//var recoveryRate = .03;
-//var maxRecoveryTime = 4;
-//var indexCase = null;
-//var treatmentEfficacy = 0.25;               // likelihood that treatment will result in immediate cure
-//var hospitalQuarantineEfficacy = 0.50;      // proportion of edges, per individual, that are severed upon treatment
-//var martialLaw_edgeRemovalFrequency = 0.25; // proportion of edges, in entire graph, that are severed upon martial law
-//var rateOfVoluntarySegregation = 0.10;
-//var rateOfRefusalAdoption = 0.10;
-//var s_series = [];
-//var i_series = [];
-//var r_series = [];
-//var simulation = true;
-//var diseaseIsSpreading = false;
-//var sim_series = [];
-//var endGame = false;
 
-
-
+var timestep = 0;
+var transmissionRate = .25;
+var recoveryRate = .03;
+var maxRecoveryTime = 4;
+var indexCase = null;
+var treatmentEfficacy = 0.25;               // likelihood that treatment will result in immediate cure
+var hospitalQuarantineEfficacy = 0.50;      // proportion of edges, per individual, that are severed upon treatment
+var martialLaw_edgeRemovalFrequency = 0.25; // proportion of edges, in entire graph, that are severed upon martial law
+var rateOfVoluntarySegregation = 0.10;
+var rateOfRefusalAdoption = 0.10;
+var s_series = [];
+var i_series = [];
+var r_series = [];
+var simulation = true;
+var diseaseIsSpreading = false;
+var sim_series = [];
+var endGame = false;
 
 function treatInfected(individual) {
     if (Math.random() < treatmentEfficacy) {
@@ -145,16 +142,16 @@ function runTimesteps() {
         updateSIRfig();
     }
 
-    updateCommunities();
+    updateCommunities(graph);
 
     if (!simulation && diseaseIsSpreading) {
-        detectEndGame();
+        detectEndGame(graph);
     }
 
 
 }
 
-function getStatuses() {
+function getStatuses(infectedClass) {
     var S = 0;
     var I = 0;
     var R = 0;
@@ -171,6 +168,9 @@ function getStatuses() {
     i_series.push({group:"I", time:timestep, value:I});
     r_series.push({group:"R", time:timestep, value:R});
 
+    if (infectedClass == "S") return S;
+    if (infectedClass == "I") return I;
+    if (infectedClass == "R") return R;
 }
 
 
@@ -256,7 +256,11 @@ function detectEndGame() {
     if (numberOf_AtRisk_communities == 0 && diseaseIsSpreading) {
         endGame = true;
 
+        if (finalStop) return;
+
+
         while (timestep < 31) {
+
             updateExposures();
             infection();
             stateChanges();

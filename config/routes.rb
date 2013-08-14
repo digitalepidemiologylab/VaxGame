@@ -15,6 +15,9 @@ VaxGame::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
 
   match '/test', to: 'static_pages#test'
+  match '/intervention', to: 'static_pages#intervention'
+  match '/tutorial', to: 'static_pages#tutorial'
+
   match '/game',       to: 'scores#game'
 
 

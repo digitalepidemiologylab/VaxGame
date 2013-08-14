@@ -1,0 +1,42 @@
+path {
+  stroke-width: 1.5px;
+}
+
+body {
+  font: 13px sans-serif;
+  position: absolute;
+  left: 50px;
+  width: 960px;
+  height: 500px;
+}
+
+.hintBox {
+  cursor: pointer ;
+}
+
+.hint {
+  cursor: pointer;
+}
+
+.node {
+  cursor: pointer;
+}
+.link {
+  stroke: #000;
+  stroke-width: 1;
+}
+
+div3 {
+  position: absolute;
+  left: 850px;
+  top: 75px;
+  text-align:left;
+  margin:0px;
+  margin-bottom:25px;
+  padding:px;
+  background:#fff;
+  height:250px;
+  width:400px;
+  border:1px solid #ACD8F0;
+  overflow:auto;
+}

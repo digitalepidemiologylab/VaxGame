@@ -119,24 +119,19 @@ function findLink(source, target) {
 }
 
 
-function removeVaccinatedNodes() {
+function removeVaccinatedNodes(graph) {
 
     var nodes = [];
     for (var i = 0; i < graph.nodes.length; i++) {
         if (graph.nodes[i].status != "V" && graph.nodes[i].status != "Q" && graph.nodes[i].status != "VOL") {
             nodes.push(graph.nodes[i]);
         }
-        else {
-            if (graph.nodes[i].status == "V") originalGraph.nodes[i].status = "V";
-            if (graph.nodes[i].status == "Q") originalGraph.nodes[i].status = "Q";
-            if (graph.nodes[i].status == "VOL") originalGraph.nodes[i].status = "VOL";
-        }
 
     }
     return nodes;
 }
 
-function removeOldLinks() {
+function removeOldLinks(graph) {
     var links = [];
     for (var i = 0; i < graph.links.length; i++) {
 
@@ -158,7 +153,7 @@ function removeOldLinks() {
 //****
 
 
-function assignEdgeListsToNodes() {
+function assignEdgeListsToNodes(graph) {
 
     for (var ii = 0; ii < graph.nodes.length; ii++) {
         var node = graph.nodes[ii];
@@ -167,11 +162,11 @@ function assignEdgeListsToNodes() {
 
             if (link.source == node || link.target == node) node.edges.push(link);
 
-
-
         }
 
     }
+
+    return graph;
 
 
 

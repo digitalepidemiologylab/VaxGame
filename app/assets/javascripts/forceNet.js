@@ -42,11 +42,11 @@ var diseaseIsSpreading = false;
 var sim_series = [];
 var endGame = false;
 
+// necessary hack to stop interference from tutorial
+guideRailsPosition = 100;
 
 
 d3.select("body").append("div0")
-
-
 
 var graph = generateSmallWorld(numberOfIndividuals,rewire,meanDegree);
 var originalGraph = owl.deepCopy(graph);
@@ -78,8 +78,8 @@ var dayTickerHUD = d3.select(".networkSVG").append("text")
 
 
 // draw the legend
-var nodeY = 550;
-var textY = 554;
+var nodeY = 490;
+var textY = 495;
 var susceptibleNode = d3.select(".networkSVG").append("circle")
     .attr("class", "susceptibleNode")
     .attr("cx",30).attr("cy",nodeY)
@@ -192,13 +192,6 @@ function tick() {
 
 
 function updateNodeAttributes() {
-    if (toggleDegree == false) {
-        if (toggleCentrality == true) charge -= 50;  // only bc
-    }
-    else {
-        if (toggleCentrality == true) charge -= 100; // both true, composite
-    }
-
     force
         .nodes(graph.nodes)
         .charge(charge)
@@ -217,8 +210,8 @@ function updateNodeAttributes() {
 
 
 function updateGraph() {
-    var nodes = removeVaccinatedNodes();
-    var links = removeOldLinks();
+    var nodes = removeVaccinatedNodes(graph);
+    var links = removeOldLinks(graph);
 
     force
         .nodes(nodes)
@@ -270,8 +263,9 @@ function updateGraph() {
 initGraphMeasures();
 
 function initGraphMeasures() {
-    assignEdgeListsToNodes();
-    updateCommunities();
+    console.log(graph);
+    graph = assignEdgeListsToNodes(graph);
+    updateCommunities(graph);
     G = convertGraphForNetX(graph);
     assignDegree();
     bcScores = computeBetweennessCentrality();

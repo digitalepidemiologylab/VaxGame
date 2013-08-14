@@ -242,10 +242,6 @@ body {
 }
 
 /* tell the SVG path to be a thin blue line without any area fill */
-path {
-  stroke-width: 1;
-  fill: none;
-}
 
 .data1 {
   stroke: green;
