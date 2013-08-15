@@ -16,7 +16,7 @@ var nonIntervention_series = [];
 var intervention_series = [];
 var intervention = false;
 var tutorial = false;
-var charge = -150;
+var charge = -500;
 
 var vaccinatedBayStartYCoord = 50;
 
@@ -226,19 +226,133 @@ function tutorialUpdate() {
 
 function buildGraph() {
     tutorial = true;
-    for (var nodeIndex = 1; nodeIndex < graph.nodes.length; nodeIndex++) {
-        var node = graph.nodes[nodeIndex];
-        trivialGraph.nodes.push(node);
-        tutorialUpdate();
+
+    // add player neighbors
+    for (var i = 0; i < graph.nodes.length; i++) {
+        if (edgeExists(graph.nodes[i], trivialGraph.nodes[0], graph)) {
+            trivialGraph.nodes.push(graph.nodes[i]);
+        }
     }
 
-    for (var linkIndex = 0; linkIndex < graph.links.length; linkIndex++) {
-        var link = graph.links[linkIndex];
-        trivialGraph.links.push(link);
-        tutorialUpdate();
+    // add relevant links
+    for (var ii = 0; ii < trivialGraph.nodes.length; ii++) {
+        for (var iii = 0; iii < trivialGraph.nodes.length; iii++) {
+            if (edgeExists(trivialGraph.nodes[ii], trivialGraph.nodes[iii], graph)) {
+                var linkString = {source:trivialGraph.nodes[ii],target:trivialGraph.nodes[iii],remove:false};
+                if (testDuplicate(trivialGraph.links, linkString)) continue;
+                trivialGraph.links.push(linkString);
+            }
+        }
     }
 
-    graph = trivialGraph;
+    stepWiseUpdate();
+}
+
+
+function stepWiseUpdate() {
+
+    var links = trivialGraph.links;
+    var nodes = trivialGraph.nodes;
+
+    updateCommunities();
+
+    force
+        .nodes(nodes)
+        .charge(charge)
+        .links(links)
+        .start();
+
+    link = svg.selectAll("line.link")
+        .data(links, function(d) { return d.source.id + "-" + d.target.id;});
+
+
+    link.enter().insert("svg:line", ".node")
+        .attr("class", "link")
+        .attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    // Exit any old links.
+    link.exit().remove();
+
+    // Update the nodes…
+    node = svg.selectAll("circle.node")
+        .data(nodes, function(d) { return d.id; })
+        .style("fill", function(d) {
+            var color = null;
+            if (d.status == "S") color = "#37FDFC";
+            if (d.status == "E") color = "#ff0000";
+            if (d.status == "I") color = "#ff0000";
+            if (d.status == "R") color = "#9400D3";
+            if (d.status == "V") color = "#ffff00";
+
+            return color;});
+
+    // Enter any new nodes.
+    node.enter().append("svg:circle")
+        .attr("class", "node")
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; })
+        .attr("r", 8)
+        .style("stroke", 10)
+        .style("fill", function(d) {
+            var color = null;
+            if (d.status == "S") color = "#37FDFC";
+            if (d.status == "E") color = "#ff0000";
+            if (d.status == "I") color = "#ff0000";
+            if (d.status == "R") color = "#9400D3";
+            if (d.status == "V") color = "#ffff00";
+
+            return color;
+
+        })
+        .on("click", function(d) {
+            if (vaccinateMode) {
+                if (vaccineSupply <= 0) {
+                    window.alert("Out of Vaccines!")
+                    return;
+                }
+                d.status = "V";
+                d.fixed = true;
+                d3.select(this)
+                    .attr("class", "vaxNode")
+                    .style("fill", "yellow")
+                vaccinatedBayStartYCoord += 25;
+                vaccineSupply--;
+                tutorialUpdate();
+            }
+            else {
+                if (diseaseIsSpreading==true) return;   // prevent secondary introductions
+                d.status = "I";
+                tutorialUpdate();
+                tutorialTimesteps();
+                diseaseIsSpreading=true;
+                spreadingText();
+
+            }
+
+        })
+        .call(force.drag);
+
+    // Exit any old nodes.
+    node.exit().remove();
+
+    d3.select(".vaccineSupply")
+        .text("Vaccines Remaining: " + vaccineSupply)
+
+    if (vaccineSupply == 0 && postInitialOutbreak == true) {
+        vaccinateMode = false;
+        window.setTimeout(advanceTutorial, 500)
+    }
+
+    d3.select(".vaxNode")
+        .transition()
+        .duration(500)
+        .attr("cx", 25)
+        .attr("cy", vaccinatedBayStartYCoord)
+        .attr("class", "fixedVaxNode")
+
 }
 
 function tutorialTimesteps() {
@@ -293,7 +407,7 @@ function tutorialTimesteps() {
 
 function detectCompletion() {
     var numberOfInfecteds = 0;
-    for (var nodeIndex = 0; nodeIndex < trivialGraph.nodes.length; nodeIndex++) {
+    for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
         var node = graph.nodes[nodeIndex];
         if (node.status == "I") numberOfInfecteds++;
     }
@@ -433,13 +547,13 @@ function guideRails() {
         d3.select(".guide")
             .transition()
             .duration(500)
-            .attr("x", 250).attr("y", 15)
-            .text("and this is your contact network")
+            .attr("x", 200).attr("y", 15)
+            .text("and this is your immediate contact network")
 
         d3.select(".nextArrow")
             .transition()
             .duration(500)
-            .attr("x", 375)
+            .attr("x", 400)
             .attr("y", 55)
             .text("next >>")
 
@@ -452,11 +566,32 @@ function guideRails() {
             .duration(500)
             .attr("x",242).attr("y",35)
             .attr("font-size", 12)
-            .text("e.g., everyone you've come in close contact with recently")
+            .text("e.g., everyone you've come in close contact with")
 
     }
 
     if (guideRailsPosition == 4) {
+        charge = -175;
+        tutorialUpdate();
+
+        d3.select(".guide")
+            .transition()
+            .duration(500)
+            .attr("x", 160).attr("y", 15)
+            .text("and this is a 'big picture' view of a complete contact network")
+
+        d3.select(".microGuide")
+            .transition()
+            .duration(500)
+            .attr("x",245).attr("y",35)
+            .attr("font-size", 12)
+            .text("e.g., the network on which infectious diseases can spread")
+
+
+
+    }
+
+    if (guideRailsPosition == 5) {
         d3.select(".guide")
             .transition()
             .duration(500)
@@ -481,7 +616,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 5) {
+    if (guideRailsPosition == 6) {
 
         d3.select(".nextArrow")
             .attr("y", 500)
@@ -507,7 +642,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 6) {
+    if (guideRailsPosition == 7) {
 
         d3.select(".microGuide")
             .transition()
@@ -528,7 +663,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 7) {
+    if (guideRailsPosition == 8) {
         d3.select(".guide")
             .transition()
             .duration(500)
@@ -553,7 +688,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 8) {
+    if (guideRailsPosition == 9) {
 
         for (var i = 0; i < graph.nodes.length; i++) {
             graph.nodes[i].status = "S";
@@ -564,7 +699,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 9) {
+    if (guideRailsPosition == 10) {
         d3.select(".guide")
             .transition()
             .duration(500)
@@ -587,7 +722,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 10) {
+    if (guideRailsPosition == 11) {
         intervention = true;
         intervention_series = [];
 
@@ -631,7 +766,7 @@ function guideRails() {
             .text("Vaccines Remaining: " + vaccineSupply)
     }
 
-    if (guideRailsPosition == 11) {
+    if (guideRailsPosition == 12) {
         d3.select(".guide").text("")
         d3.select(".microGuide").text("")
 
@@ -763,7 +898,7 @@ function initFigure() {
     nonInterventionLegend = d3.select(".svgTutorial").append("line")
         .attr("x1", 116).attr("y1", 20)
         .attr("x2", 166).attr("y2", 20)
-        .style("stroke", "ff7f0e")
+        .style("stroke", "#1f77b4")
         .style("stroke-width", 5)
 
     nonInterventionLab = d3.select(".svgTutorial").append("text")
@@ -773,7 +908,7 @@ function initFigure() {
     interventionLegend = d3.select(".svgTutorial").append("line")
         .attr("x1", 260).attr("y1", 20)
         .attr("x2", 310).attr("y2", 20)
-        .style("stroke", "#1f77b4")
+        .style("stroke", "#ff7f0e")
         .style("stroke-width", 5)
 
     interventionLab = d3.select(".svgTutorial").append("text")

@@ -119,6 +119,30 @@ function findLink(source, target) {
 }
 
 
+function edgeExists(source,target, graph) {
+    var edgeExists = false;
+
+    for (var i = 0; i < graph.links.length; i++) {
+        var link = graph.links[i];
+
+        if (link.source == source.id) {
+            if (link.target == target.id) {
+                edgeExists = true;
+            }
+        }
+
+        else {
+            if (link.target == source.id) {
+                if (link.source == target.id) {
+                    edgeExists = true;
+                }
+            }
+        }
+    }
+
+    return edgeExists;
+}
+
 function removeVaccinatedNodes(graph) {
 
     var nodes = [];
