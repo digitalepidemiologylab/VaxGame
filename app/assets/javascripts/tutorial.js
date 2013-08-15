@@ -16,7 +16,11 @@ var nonIntervention_series = [];
 var intervention_series = [];
 var intervention = false;
 var tutorial = false;
-var charge = -500;
+var charge = -150;
+
+var vaccinatedBayStartYCoord = 50;
+
+var start = false;
 
 
 var colorScale;
@@ -47,6 +51,8 @@ var width = 800,
     height = 700,
     svg;
 
+var force, link, node;
+
 svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
@@ -55,66 +61,42 @@ svg = d3.select("body").append("svg")
     .call(d3.behavior.zoom().on("zoom", redraw))
     .append('svg:g');
 
-// initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
-var force = d3.layout.force()
-    .nodes(trivialGraph.nodes)
-    .links(trivialGraph.links)
-    .size([width, height])
-    .charge(charge)
-    .on("tick", tick)
-    .start();
-
-// associate empty SVGs with link data. assign attributes.
-var link = svg.selectAll(".link")
-    .data(trivialGraph.links)
-    .enter().append("line")
-    .attr("class", "link");
-
-// associate empty SVGs with node data. assign attributes. call force.drag to make them moveable.
-var node = svg.selectAll(".node")
-    .data(trivialGraph.nodes)
-    .enter().append("circle")
-    .attr("class", "node")
-    .attr("r", 15)
-    .style("stroke", 10)
-    .style("fill", "#37FDFC")
-    .call(force.drag)
-    .on("click", function(d) {
-        if (vaccinateMode) {
-            if (vaccineSupply <= 0) {
-                window.alert("Out of Vaccines!")
-                return;
-            }
-            d.status = "V";
-            vaccineSupply--;
-            tutorialUpdate();
-        }
-        else {
-            if (diseaseIsSpreading==true) return;
-            d.status = "I";
-            tutorialUpdate();
-            tutorialTimesteps();
-            diseaseIsSpreading=true;
-            spreadingText();
-        }
-
-    });
-
-var guide = d3.select(".svg").append("text")
+guide = d3.select(".svg").append("text")
     .attr("class", "guide")
     .attr("x",300).attr("y",200)
     .attr("font-size", 20)
     .text("")
 
-var microGuide = d3.select(".svg").append("text")
+microGuide = d3.select(".svg").append("text")
     .attr("class", "microGuide")
     .attr("x",250).attr("y",-10)
     .attr("font-size", 12)
     .text("")
 
 
+var nextArrow = d3.select(".svg").append("text")
+    .attr("class", "nextArrow")
+    .attr("x", 325)
+    .attr("y", 218)
+    .attr("font-size", 20)
+    .text("Click to Begin...")
+    .on("click", advanceTutorial);
 
-window.setTimeout(guideStart, 1200);
+function advanceTutorial() {
+    if (start) {
+        guideRails();
+
+
+    }
+    else {
+        start = true;
+        initTutorial()
+    };
+}
+
+
+
+//window.setTimeout(initTutorial, 1200);
 
 // necessary for drag & zoom
 function redraw() {
@@ -137,7 +119,7 @@ function tick() {
 
 
 function tutorialUpdate() {
-    var nodes = graph.nodes;
+    var nodes = removeVaccinatedNodes(graph);
     var links = removeOldLinks(graph);
 
     graph.links = links;
@@ -202,6 +184,11 @@ function tutorialUpdate() {
                     return;
                 }
                 d.status = "V";
+                d.fixed = true;
+                d3.select(this)
+                    .attr("class", "vaxNode")
+                    .style("fill", "yellow")
+                vaccinatedBayStartYCoord += 25;
                 vaccineSupply--;
                 tutorialUpdate();
             }
@@ -226,8 +213,15 @@ function tutorialUpdate() {
 
     if (vaccineSupply == 0 && postInitialOutbreak == true) {
         vaccinateMode = false;
-        window.setTimeout(postVaccinationGuideRails, 1000)
+        window.setTimeout(advanceTutorial, 500)
     }
+
+    d3.select(".vaxNode")
+        .transition()
+        .duration(500)
+        .attr("cx", 25)
+        .attr("cy", vaccinatedBayStartYCoord)
+        .attr("class", "fixedVaxNode")
 }
 
 function buildGraph() {
@@ -277,8 +271,17 @@ function tutorialTimesteps() {
 
     if (timeToStop == true) {
         if (finalStop == true) return;
-        guideRailsPosition = 0;
-        window.setTimeout(guideRails_postOutbreak(), 1500);
+
+        d3.select(".nextArrow")
+            .transition()
+            .duration(1000)
+            .attr("opacity", 1)
+            .attr("x", 397)
+            .attr("y", 52)
+            .attr("font-size", 12)
+            .text("next >>")
+
+        //window.setTimeout(guideRails_postOutbreak(), 1500);
     }
 
 
@@ -334,22 +337,81 @@ function completeSeries() {
             tutorialSeries[0].push(nonIntervention_series[nonIntervention_series.length-1])
 
         }
-
-
     }
-
-
-
-
 }
 
-function guideStart() {
+function initTutorial() {
+    // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
+    force = d3.layout.force()
+        .nodes(trivialGraph.nodes)
+        .links(trivialGraph.links)
+        .size([width, height])
+        .charge(charge)
+        .on("tick", tick)
+        .start();
+
+// associate empty SVGs with link data. assign attributes.
+    link = svg.selectAll(".link")
+        .data(trivialGraph.links)
+        .enter().append("line")
+        .attr("class", "link");
+
+// associate empty SVGs with node data. assign attributes. call force.drag to make them moveable.
+    node = svg.selectAll(".node")
+        .data(trivialGraph.nodes)
+        .enter().append("circle")
+        .attr("class", "node")
+        .attr("r", 15)
+        .style("stroke", 10)
+        .style("fill", "#37FDFC")
+        .call(force.drag)
+        .on("click", function(d) {
+            if (vaccinateMode) {
+                if (vaccineSupply <= 0) {
+                    window.alert("Out of Vaccines!")
+                    return;
+                }
+                d.status = "V";
+                d.fixed = true;
+                d3.select(this)
+                    .attr("class", "vaxNode")
+                    .style("fill", "yellow")
+
+                vaccinatedBayStartYCoord += 25;
+                vaccineSupply--;
+                tutorialUpdate();
+
+
+            }
+            else {
+                if (diseaseIsSpreading==true) return;
+                d.status = "I";
+                tutorialUpdate();
+                tutorialTimesteps();
+                diseaseIsSpreading=true;
+                spreadingText();
+            }
+
+        });
+
+
+
     d3.select(".guide")
         .attr("x",300).attr("y",200)
         .attr("font-size", 20)
         .text("Suppose this is you")
 
-    window.setTimeout(guideRails, 1000);
+    d3.select(".nextArrow")
+        .transition()
+        .duration(1500)
+        .attr("font-size", 12)
+        .attr("x", 420+42.0-(4.20*3))     //ent
+        .text("next >>")
+
+    // this adds the ellipsis to ".guide" text
+    window.setTimeout(guideRails, 1200);
+
+
 }
 
 
@@ -360,43 +422,12 @@ function guideRails() {
         d3.select(".guide")
             .transition()
             .duration(500)
-            .text("Suppose this is you")
+            .text("Suppose this is you...");
 
-        window.setTimeout(guideRails, 500)
-
+        //window.setTimeout(guideRails, 500)
     }
 
     if (guideRailsPosition == 2) {
-        d3.select(".guide")
-            .transition()
-            .duration(500)
-            .text("Suppose this is you.")
-
-        window.setTimeout(guideRails, 500)
-
-    }
-
-    if (guideRailsPosition == 3) {
-        d3.select(".guide")
-            .transition()
-            .duration(500)
-            .text("Suppose this is you..")
-
-        window.setTimeout(guideRails, 500)
-
-    }
-
-    if (guideRailsPosition == 4) {
-        d3.select(".guide")
-            .transition()
-            .duration(500)
-            .text("Suppose this is you...");
-
-        window.setTimeout(guideRails, 500)
-
-    }
-
-    if (guideRailsPosition == 5) {
         buildGraph();
 
         d3.select(".guide")
@@ -405,10 +436,17 @@ function guideRails() {
             .attr("x", 250).attr("y", 15)
             .text("and this is your contact network")
 
+        d3.select(".nextArrow")
+            .transition()
+            .duration(500)
+            .attr("x", 375)
+            .attr("y", 55)
+            .text("next >>")
+
         window.setTimeout(guideRails, 500)
     }
 
-    if (guideRailsPosition == 6) {
+    if (guideRailsPosition == 3) {
         d3.select(".microGuide")
             .transition()
             .duration(500)
@@ -416,54 +454,39 @@ function guideRails() {
             .attr("font-size", 12)
             .text("e.g., everyone you've come in close contact with recently")
 
-        window.setTimeout(outbreakText, 5000);
     }
 
-}
+    if (guideRailsPosition == 4) {
+        d3.select(".guide")
+            .transition()
+            .duration(500)
+            .attr("x", 185).attr("y", 15)
+            .text("Now, suppose someone is bitten by a zombie...")
 
-function outbreakText() {
-    d3.select(".guide")
-        .transition()
-        .duration(500)
-        .attr("x", 185).attr("y", 15)
-        .text("Now, suppose someone is bitten by a zombie...")
+        d3.select(".microGuide")
+            .transition()
+            .duration(500)
+            .attr("x",312).attr("y",35)
+            .attr("font-size", 12)
+            .text("(click any circle below to continue)")
 
-    d3.select(".microGuide")
-        .transition()
-        .duration(500)
-        .attr("x",312).attr("y",35)
-        .attr("font-size", 12)
-        .text("(click any circle below to continue)")
+        d3.select(".nextArrow")
+            .transition()
+            .duration(500)
+            .attr("font-size", 100)
+            .attr("x", 1000)
+            .attr("y", 300)
+            .attr("opacity", 0)
+            .text("next >>")
 
-}
+    }
 
-function spreadingText() {
-    d3.select(".guide")
-        .transition()
-        .duration(500)
-        .attr("x", 225).attr("y", 15)
-        .text("Within weeks, everyone will be infected.")
+    if (guideRailsPosition == 5) {
 
-    d3.select(".microGuide")
-        .transition()
-        .duration(500)
-        .attr("x",275).attr("y",35)
-        .attr("font-size", 12)
-        .text("(zombies don't recover...because they're zombies)")
-
-    var timestepTicker = d3.select(".svg").append("text")
-        .attr("class", "timestepTicker")
-        .attr("x",380).attr("y",65)
-        .attr("font-size", 20)
-        .text("Day: " + timestep);
-
-}
-
-function guideRails_postOutbreak() {
-
-    guideRailsPosition++;
-
-    if (guideRailsPosition == 1) {
+        d3.select(".nextArrow")
+            .attr("y", 500)
+            .attr("y", -10)
+            .text("")
 
         d3.select(".timestepTicker").text("")
 
@@ -480,25 +503,32 @@ function guideRails_postOutbreak() {
             .attr("font-size", 12)
             .text("")
 
-        window.setTimeout(guideRails_postOutbreak, 2000)
+        window.setTimeout(advanceTutorial, 2000)
 
     }
 
-    if (guideRailsPosition == 2) {
+    if (guideRailsPosition == 6) {
 
         d3.select(".microGuide")
             .transition()
             .duration(500)
-            .attr("x",345).attr("y",40)
+            .attr("x",360).attr("y",35 )
             .attr("font-size", 12)
             .text("So let's start over...")
 
+        d3.select(".nextArrow")
+            .transition()
+            .duration(500)
+            .attr("x", 387)
+            .attr("y", 55)
+            .text("next >>")
 
-        window.setTimeout(guideRails_postOutbreak, 2000)
+
+
 
     }
 
-    if (guideRailsPosition == 3) {
+    if (guideRailsPosition == 7) {
         d3.select(".guide")
             .transition()
             .duration(500)
@@ -513,40 +543,51 @@ function guideRails_postOutbreak() {
             .attr("font-size", 12)
             .text("So let's start over...")
 
-        window.setTimeout(guideRails_postOutbreak, 500)
+        d3.select(".nextArrow")
+            .transition()
+            .duration(500).attr("opacity", 0).text("next >>")
+
+
+        window.setTimeout(advanceTutorial, 500)
 
 
     }
 
-    if (guideRailsPosition == 4) {
+    if (guideRailsPosition == 8) {
+
         for (var i = 0; i < graph.nodes.length; i++) {
             graph.nodes[i].status = "S";
         }
 
         tutorialUpdate();
-        window.setTimeout(guideRails_postOutbreak, 1000)
+        window.setTimeout(advanceTutorial, 1000)
 
     }
 
-    if (guideRailsPosition == 5) {
+    if (guideRailsPosition == 9) {
         d3.select(".guide")
             .transition()
-            .duration(1000)
+            .duration(500)
             .attr("x",125).attr("y",25)
             .text("Efficient distribution of vaccines can 'fragment' the network")
 
         d3.select(".microGuide")
             .transition()
-            .duration(5000)
-            .attr("x",300).attr("y",50)
+            .duration(1000)
+            .attr("x",300).attr("y",42)
             .text("(making it harder for diseases to spread)")
 
+        d3.select(".nextArrow")
+            .transition()
+            .duration(4500)
+            .attr("opacity", 1)
+            .text("next >>")
 
-        window.setTimeout(guideRails_postOutbreak, 7000)
+
 
     }
 
-    if (guideRailsPosition == 6) {
+    if (guideRailsPosition == 10) {
         intervention = true;
         intervention_series = [];
 
@@ -564,8 +605,17 @@ function guideRails_postOutbreak() {
             .attr("x",250).attr("y",50)
             .text("(click circles below to vaccinate, vaccines are limited)")
 
+        d3.select(".nextArrow")
+            .transition()
+            .duration(500)
+            .attr("font-size", 100)
+            .attr("x", 1000)
+            .attr("y", 300)
+            .attr("opacity", 0)
+            .text("next >>")
 
-        window.setTimeout(guideRails_postOutbreak, 1000);
+
+//        window.setTimeout(guideRails_postOutbreak, 1000);
 
         vaccineResearched = true;
         vaccineSupply = numberOfIndividuals * 0.20;
@@ -580,46 +630,82 @@ function guideRails_postOutbreak() {
             .attr("font-size", 17)
             .text("Vaccines Remaining: " + vaccineSupply)
     }
+
+    if (guideRailsPosition == 11) {
+        d3.select(".guide").text("")
+        d3.select(".microGuide").text("")
+
+        d3.select(".nextArrow")
+            .transition()
+            .duration(500)
+            .attr("x", 387)
+            .attr("y", 55)
+            .text("next >>")
+
+
+        d3.select(".vaccineSupply")
+            .transition()
+            .duration(500)
+            .attr("y", -20)
+            .attr("font-size", 17)
+            .text("Vaccines Remaining: " + vaccineSupply)
+
+
+        var numberOfPeople = graph.nodes.length;
+
+        do{
+            var randomIndex = Math.floor(Math.random() * numberOfPeople);
+            var indexCase = graph.nodes[randomIndex];
+        }
+        while (indexCase.status == "V");
+
+        indexCase.status = "I";
+        diseaseIsSpreading = true;
+        timestep = 0;
+        timeToStop = false;
+        postInitialOutbreak = false;
+        finalStop = true;
+
+
+        d3.select(".timestepTicker")
+            .attr("x",380).attr("y", 75)
+            .attr("font-size", 20)
+            .text("Day: " + timestep);
+
+        initFigure();
+        tutorialTimesteps();
+
+    }
+
+
+
 }
 
-function postVaccinationGuideRails() {
 
+function spreadingText() {
 
-    d3.select(".vaccineSupply")
+    d3.select(".guide")
         .transition()
         .duration(500)
-        .attr("y", -20)
-        .attr("font-size", 17)
-        .text("Vaccines Remaining: " + vaccineSupply)
+        .attr("x", 225).attr("y", 15)
+        .text("Within weeks, everyone will be infected.")
 
+    d3.select(".microGuide")
+        .transition()
+        .duration(500)
+        .attr("x",275).attr("y",35)
+        .attr("font-size", 12)
+        .text("(zombies don't recover...because they're zombies)")
 
-    var numberOfPeople = graph.nodes.length;
-
-    do{
-        var randomIndex = Math.floor(Math.random() * numberOfPeople);
-        var indexCase = graph.nodes[randomIndex];
-    }
-    while (indexCase.status == "V");
-
-    indexCase.status = "I";
-    diseaseIsSpreading = true;
-    timestep = 0;
-    timeToStop = false;
-    postInitialOutbreak = false;
-    finalStop = true;
-
-
-    d3.select(".timestepTicker")
-        .attr("x",380).attr("y", 75)
+    var timestepTicker = d3.select(".svg").append("text")
+        .attr("class", "timestepTicker")
+        .attr("x",380).attr("y",75)
         .attr("font-size", 20)
         .text("Day: " + timestep);
 
-    initFigure();
-    tutorialTimesteps();
-
-
-
 }
+
+
 
 function initFigure() {
     tutorialSeries = [
@@ -634,11 +720,11 @@ function initFigure() {
 // canvas margins
     figMargin = {top: 70, right: 10, bottom: 20, left: 90},
         figWidth = 400 - figMargin.left - figMargin.right,
-        figHeight = 230 - figMargin.top - figMargin.bottom;
+        figHeight = 250 - figMargin.top - figMargin.bottom;
 
 // x scale
     figX = d3.scale.linear()
-        .domain([0, 20])
+        .domain([0, nonIntervention_series.length])
         .range([0, figWidth]);
 
 // y scale
@@ -668,10 +754,10 @@ function initFigure() {
         .attr("transform", "rotate(320 55,125)")
         .text("Infected");
 
-    xLab = d3.select(".svgTutorial").append("text")
-        .attr("x", 276).attr("y", 250)
-        .attr("font-weight", "bold")
-        .text("Day");
+//    xLab = d3.select(".svgTutorial").append("text")
+//        .attr("x", 220).attr("y", 240)
+//        .attr("font-weight", "bold")
+//        .text("Day");
 
 
     nonInterventionLegend = d3.select(".svgTutorial").append("line")
@@ -709,7 +795,7 @@ function initFigure() {
     svgTutorial.append("g")
         .attr("class", "x-axis")
         .attr("transform", "translate(0," + figHeight + ")")
-        .call(d3.svg.axis().scale(xFig).orient("bottom"))
+        .call(d3.svg.axis().scale(figX).orient("bottom"))
 
 //y-axis
     svgTutorial.append("g")
