@@ -355,20 +355,21 @@ function stepWiseUpdate() {
 
 }
 
-function getRecentTransmitters(newInfections) {
+function getPathogen_xyCoords(newInfections) {
+    var xyCoords = [];
     var recentTransmitters = [];
     for (var i = 0; i < newInfections.length; i++) {
         recentTransmitters.push(newInfections[i].infectedBy);
+        var coordString = {receiverX: newInfections[i].x, receiverY: newInfections[i].y, transmitterX: newInfections[i].infectedBy.x, transmitterY: newInfections[i].infectedBy.y}
+        xyCoords.push(coordString);
     }
-    return recentTransmitters;
+    return xyCoords;
 }
 
 function tutorialTimesteps() {
     var newInfections = updateExposures();
     infection();
     stateChanges();
-
-    console.log(getRecentTransmitters(newInfections));
 
     var I;
     if (intervention) {
