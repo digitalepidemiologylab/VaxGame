@@ -355,10 +355,20 @@ function stepWiseUpdate() {
 
 }
 
+function getRecentTransmitters(newInfections) {
+    var recentTransmitters = [];
+    for (var i = 0; i < newInfections.length; i++) {
+        recentTransmitters.push(newInfections[i].infectedBy);
+    }
+    return recentTransmitters;
+}
+
 function tutorialTimesteps() {
-    updateExposures();
+    var newInfections = updateExposures();
     infection();
     stateChanges();
+
+    console.log(getRecentTransmitters(newInfections));
 
     var I;
     if (intervention) {
@@ -371,6 +381,17 @@ function tutorialTimesteps() {
         nonIntervention_series.push({group:"nonIntervention", time:timestep, value:I});
         intervention_series.push({group:"Intervention", time:timestep, value:0});
     }
+
+    // freeze nodes
+    // create pathogen "circle" svg elements at position (cx, cy) of transmitting node
+    //  --> need to setup infrastructure for identifying transmitter!  !!!DONE!!!
+    // update SVG for those elements only
+    // pause for a split second
+    // transition those circles to the newly infectious node
+    // update svg for those elements only
+    // fade out opacity
+    // unfreeze nodes
+    // update full graph (transition colors)
 
 
     tutorialUpdate();

@@ -13,7 +13,7 @@ function generateSmallWorld(n, p, k) {
 
     for (var nodeCreateID = 0; nodeCreateID < n; nodeCreateID++) {
         vertices.push(nodeCreateID);
-        var nodeString = {id:vertices[nodeCreateID], status:"S", group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null};
+        var nodeString = {id:vertices[nodeCreateID], status:"S", group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null, infectedBy:null};
         nodes.push(nodeString);
 
     }
@@ -318,10 +318,8 @@ function computeBetweennessCentrality() {
         if (bc[i] == 0) bc[i] = 0.0001;
         graph.nodes[i].bcScore = bc[i];
     }
-
     return bc;
 }
-
 
 function shuffle(o){ //v1.0
     for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);

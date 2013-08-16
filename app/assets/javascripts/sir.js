@@ -64,19 +64,23 @@ function infectIndividual(individual) {
     }
 }
 
-function exposeIndividual(individual) {
+function exposeIndividual(individual, exposer) {
     if (individual.status == "S" || individual.status == "REF") {
         individual.status = "E";
+        individual.infectedBy = exposer;
     }
 }
 
 function updateExposures() {
+    var newInfections = [];
     for (var i = 0; i < graph.nodes.length; i++) {
         if (graph.nodes[i].status == "E") {
             graph.nodes[i].status = "I";
+            newInfections.push(graph.nodes[i]);
             graph.nodes[i].exposureTimestep = this.timestep;
         }
     }
+    return newInfections;
 }
 
 function infectedToRecovered(individual) {
@@ -102,15 +106,21 @@ function infection() {
         if (graph.nodes[index].status != "S") continue;
         var susceptible = graph.nodes[index];
         var neighbors = findNeighbors(susceptible);
+        var infectedNeighborArray = [];
         var numberOfInfectedNeighbors = 0;
         for (var neighborIndex = 0; neighborIndex < neighbors.length; neighborIndex++) {
             var neighbor = neighbors[neighborIndex];
             if (neighbor.status == "I") {
+                infectedNeighborArray.push(neighbors[neighborIndex]);
                 numberOfInfectedNeighbors++;
             }
         }
         var probabilityOfInfection = 1.0 - Math.pow(1.0 - transmissionRate,numberOfInfectedNeighbors);
-        if (Math.random() < probabilityOfInfection) exposeIndividual(susceptible);
+        if (Math.random() < probabilityOfInfection) {
+            var shuffledInfectedNeighborArray = shuffle(infectedNeighborArray);
+            var exposer = shuffledInfectedNeighborArray[0];
+            exposeIndividual(susceptible, exposer);
+        }
     }
 }
 
