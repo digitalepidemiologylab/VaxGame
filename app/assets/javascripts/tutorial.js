@@ -417,9 +417,6 @@ function toggleNodeFixation() {
 
 
 function tutorialTimesteps() {
-    for (var i = 0; i < graph.nodes.length; i++) {
-        graph.nodes[i].fixed = true;
-    }
 
     // run exposure process & consider all potential state changes (recovery, in this case
     infection();
@@ -455,7 +452,6 @@ function tutorialTimesteps() {
 
     if (timeToStop == true) {
         animatePathogens_thenUpdate();
-        toggleNodeFixation();
         if (finalStop == true) return;
 
         d3.select(".nextArrow")
@@ -890,7 +886,7 @@ function guideRails() {
         }
         while (indexCase.status == "V");
 
-        toggleNodeFixation();
+//        toggleNodeFixation();
 
         indexCase.status = "I";
         diseaseIsSpreading = true;
