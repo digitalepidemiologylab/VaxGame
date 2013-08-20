@@ -67,6 +67,7 @@ function infectIndividual(individual) {
 function exposeIndividual(individual, exposer) {
     if (individual.status == "S" || individual.status == "REF") {
         individual.status = "E";
+        console.log(exposer.id + "\tinfected " + individual.id)
         individual.infectedBy = exposer;
     }
 }

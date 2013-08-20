@@ -17,6 +17,8 @@ var intervention_series = [];
 var intervention = false;
 var tutorial = false;
 var charge = -500;
+var newInfections = [];
+var xyCoords = [];
 
 var vaccinatedBayStartYCoord = 50;
 
@@ -360,16 +362,74 @@ function getPathogen_xyCoords(newInfections) {
     var recentTransmitters = [];
     for (var i = 0; i < newInfections.length; i++) {
         recentTransmitters.push(newInfections[i].infectedBy);
-        var coordString = {receiverX: newInfections[i].x, receiverY: newInfections[i].y, transmitterX: newInfections[i].infectedBy.x, transmitterY: newInfections[i].infectedBy.y}
+        var coordString = {id: i, receiverX: newInfections[i].x, receiverY: newInfections[i].y, transmitterX: newInfections[i].infectedBy.x, transmitterY: newInfections[i].infectedBy.y}
         xyCoords.push(coordString);
     }
     return xyCoords;
 }
 
+function movePathogens() {
+    d3.selectAll(".pathogen")
+        .sort()
+        .transition()
+        .duration(600)
+        .attr("cx", function(d) { return d.receiverX} )
+        .attr("cy", function(d) { return d.receiverY} );
+
+
+}
+
+
+function createPathogens() {
+    var pathogen = svg.selectAll(".pathogen")
+        .data(xyCoords)
+        .enter()
+        .append("circle")
+        .attr("class", "pathogen")
+        .attr("cx", function(d) { return d.transmitterX })
+        .attr("cy", function(d) { return d.transmitterY })
+        .attr("r", 4)
+        .style("fill", "green")
+
+    // remove old pathogens, may not be useful here...
+}
+
+function removePathogens() {
+    d3.selectAll(".pathogen")
+        .transition()
+        .duration(200)
+        .style("opacity", 0)
+
+    d3.selectAll(".node")
+        .transition()
+        .duration(200)
+        .attr("r", 8)
+
+    d3.selectAll(".pathogen").remove();
+}
+
+
+function toggleNodeFixation() {
+    for (var i = 0; i < graph.nodes.length; i++) {
+        graph.nodes[i].fixed = !graph.nodes[i].fixed;
+    }
+}
+
+
 function tutorialTimesteps() {
-    var newInfections = updateExposures();
+    for (var i = 0; i < graph.nodes.length; i++) {
+        graph.nodes[i].fixed = true;
+    }
+
+    // run exposure process & consider all potential state changes (recovery, in this case
     infection();
     stateChanges();
+
+    // move all newly exposed individuals to the infected state, record individuals
+    newInfections = [];
+    newInfections = updateExposures();
+    xyCoords = getPathogen_xyCoords(newInfections);
+
 
     var I;
     if (intervention) {
@@ -383,29 +443,19 @@ function tutorialTimesteps() {
         intervention_series.push({group:"Intervention", time:timestep, value:0});
     }
 
-    // freeze nodes
-    // create pathogen "circle" svg elements at position (cx, cy) of transmitting node
-    //  --> need to setup infrastructure for identifying transmitter!  !!!DONE!!!
-    // update SVG for those elements only
-    // pause for a split second
-    // transition those circles to the newly infectious node
-    // update svg for those elements only
-    // fade out opacity
-    // unfreeze nodes
-    // update full graph (transition colors)
-
-
-    tutorialUpdate();
     this.timestep++;
     d3.select(".timestepTicker")
         .text("Day: " + timestep);
     detectCompletion();
 
     if (timeToStop == false) {
+        animatePathogens_thenUpdate();
         window.setTimeout(tutorialTimesteps, 600);
     }
 
     if (timeToStop == true) {
+        animatePathogens_thenUpdate();
+        toggleNodeFixation();
         if (finalStop == true) return;
 
         d3.select(".nextArrow")
@@ -416,12 +466,35 @@ function tutorialTimesteps() {
             .attr("y", 52)
             .attr("font-size", 12)
             .text("next >>")
-
-        //window.setTimeout(guideRails_postOutbreak(), 1500);
     }
+}
 
+function animatePathogens_thenUpdate() {
 
+    window.setTimeout(createPathogens, 0)
 
+    window.setTimeout(movePathogens, 100)
+
+    window.setTimeout(popNewInfection, 250)
+
+    window.setTimeout(tutorialUpdate, 350)
+
+    window.setTimeout(removePathogens, 400)
+
+}
+
+function popNewInfection() {
+    d3.selectAll(".node")
+        .transition()
+        .duration(100)
+        .attr("r", function(d) {
+            var size = 8;
+            if (d.status == "I") {
+                if (timestep - d.exposureTimestep == 1) size = 12;
+
+            }
+            return size;
+        })
 
 }
 
@@ -448,6 +521,7 @@ function detectCompletion() {
               this.timestep++;
               intervention_series.push({group:"Intervention", time:timestep, value:getStatuses("I")});
               updateTutorialFig();
+              animatePathogens_thenUpdate();
           }
 
       }
@@ -815,6 +889,8 @@ function guideRails() {
             var indexCase = graph.nodes[randomIndex];
         }
         while (indexCase.status == "V");
+
+        toggleNodeFixation();
 
         indexCase.status = "I";
         diseaseIsSpreading = true;
