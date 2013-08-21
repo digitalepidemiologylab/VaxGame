@@ -83,12 +83,16 @@ guide = d3.select(".guideTextSVG").append("text")
     .attr("class", "guide")
     .attr("x",guideXCoord).attr("y",guideYCoord)
     .attr("font-size", 60)
+    .style("font-family", "Nunito")
+    .style("font-weight", 300)
     .text("")
 
 microGuide = d3.select(".guideTextSVG").append("text")
     .attr("class", "microGuide")
     .attr("x",guideXCoord).attr("y", guideYCoord + 20)
     .attr("font-size", 60)
+    .style("font-family", "Nunito")
+    .style("font-weight", 300)
     .text("")
 
 
@@ -97,6 +101,8 @@ var nextArrow = d3.select(".guideTextSVG").append("text")
     .attr("x", 350)
     .attr("y", 100)
     .attr("font-size", 40)
+    .style("font-family", "Nunito")
+    .style("font-weight", 300)
     .text("Click to Begin")
     .on("click", advanceTutorial);
 
@@ -118,10 +124,11 @@ var vaxBox = d3.select(".menuBoxSVG").append("rect")
 
 var vaxText = d3.select(".menuBoxSVG").append("text")
     .attr("class", "vaxText")
-    .attr("x", 20)
+    .attr("x", 23)
     .attr("y", 70)
-    .style("font-size", 36)
-    .style("stroke", "white")
+    .style("font-size", 30)
+    .style("font-family", "Nunito")
+    .style("font-weight", 400)
     .style("fill", "white")
     .text("VAX!")
 
@@ -147,7 +154,8 @@ var menuHeaderLeft = d3.select(".menuBoxSVG").append("text")
     .attr("x", 210)
     .attr("y", 40)
     .style("font-size", 10)
-    .style("stroke", "white")
+    .style("font-family", "Nunito")
+    .style("font-weight", 300)
     .style("fill", "white")
     .text("LESSONS")
 
@@ -156,7 +164,8 @@ var menuHeaderRight = d3.select(".menuBoxSVG").append("text")
     .attr("x", 750)
     .attr("y", 40)
     .style("font-size", 10)
-    .style("stroke", "white")
+    .style("font-family", "Nunito")
+    .style("font-weight", 300)
     .style("fill", "white")
     .text("GAMING")
 
@@ -165,7 +174,8 @@ var moduleOne = d3.select(".menuBoxSVG").append("text")
     .attr("x", 235)
     .attr("y", 68)
     .style("font-size", 14)
-    .style("stroke", "white")
+    .style("font-family", "Nunito")
+    .style("font-weight", 300)
     .style("fill", "white")
     .text("Epidemics")
 
@@ -174,7 +184,8 @@ var moduleTwo = d3.select(".menuBoxSVG").append("text")
     .attr("x", 360)
     .attr("y", 68)
     .style("font-size", 14)
-    .style("stroke", "white")
+    .style("font-family", "Nunito")
+    .style("font-weight", 300)
     .style("fill", "white")
     .text("Vaccines")
 
@@ -183,7 +194,8 @@ var moduleThree = d3.select(".menuBoxSVG").append("text")
     .attr("x", 485)
     .attr("y", 68)
     .style("font-size", 14)
-    .style("stroke", "white")
+    .style("font-family", "Nunito")
+    .style("font-weight", 300)
     .style("fill", "white")
     .text("Networks")
 
@@ -193,22 +205,47 @@ var moduleFour = d3.select(".menuBoxSVG").append("text")
     .attr("x", 610)
     .attr("y", 68)
     .style("font-size", 14)
-    .style("stroke", "white")
+    .style("font-family", "Nunito")
+    .style("font-weight", 300)
     .style("fill", "white")
     .text("Herd Immunity")
 
 var gameModule = d3.select(".menuBoxSVG").append("text")
     .attr("class", "gameModule")
-    .attr("x", 775)
+    .attr("x", 765)
     .attr("y", 68)
     .style("font-size", 14)
-    .style("stroke", "white")
+    .style("font-family", "Nunito")
+    .style("font-weight", 300)
     .style("fill", "white")
     .text("Play the Full Game")
 
+var navShadow = d3.select(".menuBoxSVG").append("rect")
+    .attr("class", "navShadow")
+    .attr("x", 753)
+    .attr("y", 119)
+    .attr("width", 220)
+    .attr("height", 30)
+    .style("fill", "#838383")
 
+var navBox = d3.select(".menuBoxSVG").append("rect")
+    .attr("class", "navBox")
+    .attr("x", 750)
+    .attr("y", 115)
+    .attr("width", 220)
+    .attr("height", 30)
+    .style("fill", "#85bc99")
 
-
+var groupText = d3.select(".menuBoxSVG").append("text")
+    .attr("class", "groupText")
+    .attr("x", 765)
+    .attr("y", 135)
+    .style("font-size", 14)
+    .style("font-weight", 300)
+    .style("font-family", "Nunito")
+    .style("font-weight", 300)
+    .style("fill", "white")
+    .text("Salathé Group @ Penn State")
 
 function advanceTutorial() {
     if (start) {
@@ -569,8 +606,12 @@ function tutorialTimesteps() {
     }
 
     this.timestep++;
+
+
     d3.select(".timestepTicker")
-        .text("Day: " + timestep);
+        .text(timestep);
+
+
     detectCompletion();
 
     if (timeToStop == false) {
@@ -844,7 +885,16 @@ function guideRails() {
         d3.select(".nextArrow")
             .text("")
 
-        d3.select(".timestepTicker").text("")
+        d3.select(".timestepText")
+            .transition()
+            .duration(500)
+            .attr("opacity", 0)
+
+        d3.select(".timestepTicker")
+            .transition()
+            .duration(500)
+            .attr("opacity", 0)
+            .text(timestep)
 
         d3.select(".guide")
             .transition()
@@ -1026,10 +1076,17 @@ function guideRails() {
         finalStop = true;
 
 
+
+        d3.select(".timestepText")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1)
+
         d3.select(".timestepTicker")
-            .attr("x",25).attr("y", 25)
-            .attr("font-size", 20)
-            .text("Day: " + timestep);
+            .transition()
+            .duration(500)
+            .attr("opacity", 1)
+            .text(timestep)
 
         //initFigure();
         tutorialTimesteps();
@@ -1054,11 +1111,24 @@ function spreadingText() {
         .attr("font-size", 12)
         .text("(zombies don't recover...because they're zombies)")
 
+    var timestepText = d3.select(".svg").append("text")
+        .attr("class", "timestepText")
+        .style("font-size", 30)
+        .style("font-family", "Nunito")
+        .style("font-weight", 700)
+        .style("fill", "#707070")
+        .attr("x",35).attr("y",80)
+        .text("Day:");
+
     var timestepTicker = d3.select(".svg").append("text")
         .attr("class", "timestepTicker")
-        .attr("x",25).attr("y",25)
-        .attr("font-size", 20)
-        .text("Day: " + timestep);
+        .style("font-size", 45)
+        .style("font-family", "Nunito")
+        .style("font-weight", 700)
+        .style("fill", "#707070")
+        .attr("x",102).attr("y",81)
+        .text(timestep);
+
 
 }
 

@@ -1,4 +1,6 @@
 @import "bootstrap";
+@import url(http://fonts.googleapis.com/css?family=Nunito:300,400,700);
+
 
 /* mixins, variables, etc. */
 
@@ -50,8 +52,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 3em;
-  letter-spacing: -2px;
+  letter-spacing: 2px;
   margin-bottom: 30px;
   text-align: center;
   background-color: $grayMediumLight;
@@ -59,8 +60,6 @@ h1 {
 }
 
 h2 {
-  font-size: 1.7em;
-  font-style: italic;
   letter-spacing: -1px;
   margin-bottom: 30px;
   text-align: center;
@@ -69,7 +68,6 @@ h2 {
 }
 
 p {
-  font-size: 1.1em;
   line-height: 1.7em;
   background-color: $grayMediumLight;
 }
