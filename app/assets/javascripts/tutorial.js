@@ -1,4 +1,4 @@
-var numberOfIndividuals = 75;
+var numberOfIndividuals = 25;
 var rewire = 0.10;
 var meanDegree = 3;
 var diseaseIsSpreading = false;
@@ -16,7 +16,7 @@ var nonIntervention_series = [];
 var intervention_series = [];
 var intervention = false;
 var tutorial = false;
-var charge = -500;
+var charge = -1000;
 var newInfections = [];
 var xyCoords = [];
 
@@ -49,11 +49,17 @@ trivialGraph.links = [];
 
 trivialGraph.nodes.push(player);
 
-var width = 800,
-    height = 700,
+var width = 960,
+    height = 475,
     svg;
 
+var guideBoxDiv;
+
 var force, link, node;
+
+guideBoxDiv = d3.select("body").append("svg")
+    .attr("class", "guideTextSVG")
+
 
 svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -63,24 +69,24 @@ svg = d3.select("body").append("svg")
     .call(d3.behavior.zoom().on("zoom", redraw))
     .append('svg:g');
 
-guide = d3.select(".svg").append("text")
+guide = d3.select(".guideTextSVG").append("text")
     .attr("class", "guide")
-    .attr("x",300).attr("y",200)
-    .attr("font-size", 20)
+    .attr("x",400).attr("y",50)
+    .attr("font-size", 60)
     .text("")
 
-microGuide = d3.select(".svg").append("text")
+microGuide = d3.select(".guideTextSVG").append("text")
     .attr("class", "microGuide")
-    .attr("x",250).attr("y",-10)
-    .attr("font-size", 12)
+    .attr("x",0).attr("y",0)
+    .attr("font-size", 60)
     .text("")
 
 
-var nextArrow = d3.select(".svg").append("text")
+var nextArrow = d3.select(".guideTextSVG").append("text")
     .attr("class", "nextArrow")
-    .attr("x", 325)
-    .attr("y", 218)
-    .attr("font-size", 20)
+    .attr("x", 400)
+    .attr("y", 50)
+    .attr("font-size", 40)
     .text("Click to Begin...")
     .on("click", advanceTutorial);
 
@@ -96,9 +102,6 @@ function advanceTutorial() {
     };
 }
 
-
-
-//window.setTimeout(initTutorial, 1200);
 
 // necessary for drag & zoom
 function redraw() {
@@ -153,11 +156,13 @@ function tutorialUpdate() {
         .data(nodes, function(d) { return d.id; })
         .style("fill", function(d) {
             var color = null;
-            if (d.status == "S") color = "#37FDFC";
-            if (d.status == "E") color = "#ff0000";
-            if (d.status == "I") color = "#ff0000";
+            if (d.status == "S") color = "#b7b7b7";
+            if (d.status == "E") color = "#ef5555";
+            if (d.status == "I") color = "#ef5555";
             if (d.status == "R") color = "#9400D3";
             if (d.status == "V") color = "#ffff00";
+            if (d.id == player.id && d.status != "I") color = "#2fa0ef";
+
 
             return color;});
 
@@ -167,14 +172,15 @@ function tutorialUpdate() {
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; })
         .attr("r", 8)
-        .style("stroke", 10)
         .style("fill", function(d) {
             var color = null;
-            if (d.status == "S") color = "#37FDFC";
-            if (d.status == "E") color = "#ff0000";
-            if (d.status == "I") color = "#ff0000";
+            if (d.status == "S") color = "#b7b7b7";
+            if (d.status == "E") color = "#ef5555";
+            if (d.status == "I") color = "#ef5555";
             if (d.status == "R") color = "#9400D3";
             if (d.status == "V") color = "#ffff00";
+            if (d.id == player.id && d.status != "I") color = "#2fa0ef";
+
 
             return color;
 
@@ -283,11 +289,12 @@ function stepWiseUpdate() {
         .data(nodes, function(d) { return d.id; })
         .style("fill", function(d) {
             var color = null;
-            if (d.status == "S") color = "#37FDFC";
-            if (d.status == "E") color = "#ff0000";
-            if (d.status == "I") color = "#ff0000";
+            if (d.status == "S") color = "#b7b7b7";
+            if (d.status == "E") color = "#ef5555";
+            if (d.status == "I") color = "#ef5555";
             if (d.status == "R") color = "#9400D3";
             if (d.status == "V") color = "#ffff00";
+            if (d.id == player.id && d.status != "I") color = "#2fa0ef";
 
             return color;});
 
@@ -297,14 +304,15 @@ function stepWiseUpdate() {
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; })
         .attr("r", 8)
-        .style("stroke", 10)
         .style("fill", function(d) {
             var color = null;
-            if (d.status == "S") color = "#37FDFC";
-            if (d.status == "E") color = "#ff0000";
-            if (d.status == "I") color = "#ff0000";
+            if (d.status == "S") color = "#b7b7b7";
+            if (d.status == "E") color = "#ef5555";
+            if (d.status == "I") color = "#ef5555";
             if (d.status == "R") color = "#9400D3";
             if (d.status == "V") color = "#ffff00";
+
+            if (d.id == player.id && d.status != "I") color = "#2fa0ef";
 
             return color;
 
@@ -568,9 +576,9 @@ function initTutorial() {
         .enter().append("circle")
         .attr("class", "node")
         .attr("r", 15)
-        .style("stroke", 10)
-        .style("fill", "#37FDFC")
-        .call(force.drag)
+        .style("fill", "#2fa0ef")
+
+.call(force.drag)
         .on("click", function(d) {
             if (vaccinateMode) {
                 if (vaccineSupply <= 0) {
@@ -581,6 +589,8 @@ function initTutorial() {
                 d.fixed = true;
                 d3.select(this)
                     .attr("class", "vaxNode")
+                    .style("stroke", "#636363")
+                    .style("stroke-width", 2)
                     .style("fill", "yellow")
 
                 vaccinatedBayStartYCoord += 25;
@@ -1016,7 +1026,7 @@ function initFigure() {
         .enter().append("path")
         .attr("class", "line")
         .attr("d", figLines)
-        .style("stroke-width", 5)
+        .style("stroke-width", 8)
         .style("stroke", function(d) {return colorScale(d[0].group)});
 
 

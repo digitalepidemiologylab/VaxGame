@@ -2,9 +2,10 @@
 body {
   font: 13px sans-serif;
   position: absolute;
-  left: 50px;
+  left: 0px;
   width: 960px;
   height: 500px;
+  background-color: #f1f1f1;
 }
 
 .hintBox {
@@ -15,13 +16,33 @@ body {
   cursor: pointer;
 }
 
-.node {
+.guideTextSVG {
+  background-color: #ffffff;
+  position: absolute;
+  top: 450px;
+  width: 1500px;
+  height: 175px;
+  background: #f1f1f1; /* Old browsers */
+  background: -moz-linear-gradient(top, #f1f1f1 3%, #ffffff 13%, #ffffff 89%, #f1f1f1 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(3%,#f1f1f1), color-stop(13%,#ffffff), color-stop(89%,#ffffff), color-stop(100%,#f1f1f1)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #f1f1f1 3%,#ffffff 13%,#ffffff 89%,#f1f1f1 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #f1f1f1 3%,#ffffff 13%,#ffffff 89%,#f1f1f1 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #f1f1f1 3%,#ffffff 13%,#ffffff 89%,#f1f1f1 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #f1f1f1 3%,#ffffff 13%,#ffffff 89%,#f1f1f1 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1f1f1', endColorstr='#f1f1f1',GradientType=0 ); /* IE6-9 */
+}
+
+.node, .fixedVaxNode{
   cursor: pointer;
+  stroke: #636363;
+  stroke-width: 2px;
 }
+
 .link {
-  stroke: #000;
-  stroke-width: 1;
+  stroke: #636363;
+  stroke-width: 2px;
 }
+
 
 .nextArrow {
   cursor: pointer;
@@ -40,3 +61,35 @@ div3 {
   border:1px solid #ACD8F0;
   overflow:auto;
 }
+
+div0 {
+  position: absolute;
+  left: 520px;
+  top: 60px;
+  text-align: left;
+  margin: 1px ;
+  padding: 1px ;
+  background-color: #f1f1f1;
+  height: 254px;
+  width: 525px;
+  border: 1px solid #ACD8F0;
+  overflow:auto;
+}
+
+div1 {
+  position: absolute;
+  left: 521px;
+  top: 320px;
+  text-align:left;
+  margin:0px;
+  margin-bottom:25px;
+  padding:px;
+  background-color:#f1f1f1;
+  height:250px;
+  width:527px;
+  border:1px solid #ACD8F0;
+  overflow:auto;
+}
+
+
+
