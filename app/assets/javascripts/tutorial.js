@@ -84,6 +84,7 @@ guide = d3.select(".guideTextSVG").append("text")
     .attr("x",guideXCoord).attr("y",guideYCoord)
     .attr("font-size", 60)
     .style("font-family", "Nunito")
+    .style("fill", "#707070")
     .style("font-weight", 300)
     .text("")
 
@@ -92,6 +93,7 @@ microGuide = d3.select(".guideTextSVG").append("text")
     .attr("x",guideXCoord).attr("y", guideYCoord + 20)
     .attr("font-size", 60)
     .style("font-family", "Nunito")
+    .style("fill", "#707070")
     .style("font-weight", 300)
     .text("")
 
@@ -102,6 +104,7 @@ var nextArrow = d3.select(".guideTextSVG").append("text")
     .attr("y", 100)
     .attr("font-size", 40)
     .style("font-family", "Nunito")
+    .style("fill", "#707070")
     .style("font-weight", 300)
     .text("Click to Begin")
     .on("click", advanceTutorial);
@@ -389,11 +392,24 @@ function tutorialUpdate() {
         .attr("class", "fixedVaxNode")
 }
 
+function addOneFriend() {
+
+    trivialGraph.nodes.push(graph.nodes[1]);
+    trivialGraph.links.push({source:trivialGraph.nodes[0],target:trivialGraph.nodes[1],remove:false})
+
+
+}
+
 function buildGraph() {
+    //remove friend, it will be added again below
+    trivialGraph.nodes.splice(1,1);
+    trivialGraph.links = [];
+
     tutorial = true;
 
     // add player neighbors
     for (var i = 0; i < graph.nodes.length; i++) {
+
         if (edgeExists(graph.nodes[i], trivialGraph.nodes[0], graph)) {
             trivialGraph.nodes.push(graph.nodes[i]);
         }
@@ -798,6 +814,8 @@ function guideRails() {
     guideRailsPosition++;
 
     if (guideRailsPosition == 1) {
+
+
         d3.select(".guide")
             .transition()
             .duration(500)
@@ -807,13 +825,14 @@ function guideRails() {
     }
 
     if (guideRailsPosition == 2) {
-        buildGraph();
+        addOneFriend();
+        stepWiseUpdate();
 
         d3.select(".guide")
             .transition()
             .duration(500)
             .attr("x", guideXCoord).attr("y", guideYCoord)
-            .text("and this is your immediate contact network")
+            .text("and this is you and one friend, an edge represents BLAH")
 
         d3.select(".nextArrow")
             .transition()
@@ -822,10 +841,23 @@ function guideRails() {
             .attr("y", nextY)
             .text("next >")
 
-        window.setTimeout(guideRails, 500)
+
     }
 
     if (guideRailsPosition == 3) {
+        buildGraph();
+
+        d3.select(".guide")
+            .transition()
+            .duration(500)
+            .attr("x", guideXCoord).attr("y", guideYCoord)
+            .text("and this is your immediate contact network")
+
+
+        window.setTimeout(guideRails, 500)
+    }
+
+    if (guideRailsPosition == 4) {
         d3.select(".microGuide")
             .transition()
             .duration(500)
@@ -835,7 +867,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 4) {
+    if (guideRailsPosition == 5) {
         charge = -175;
         tutorialUpdate();
 
@@ -856,7 +888,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 5) {
+    if (guideRailsPosition == 6) {
         d3.select(".guide")
             .transition()
             .duration(500)
@@ -880,7 +912,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 6) {
+    if (guideRailsPosition == 7) {
 
         d3.select(".nextArrow")
             .text("")
@@ -913,7 +945,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 7) {
+    if (guideRailsPosition == 8) {
 
         d3.select(".microGuide")
             .transition()
@@ -934,7 +966,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 8) {
+    if (guideRailsPosition == 9) {
         d3.select(".guide")
             .transition()
             .duration(500)
@@ -961,7 +993,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 9) {
+    if (guideRailsPosition == 10) {
 
         for (var i = 0; i < graph.nodes.length; i++) {
             graph.nodes[i].status = "S";
@@ -972,7 +1004,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 10) {
+    if (guideRailsPosition == 11) {
         d3.select(".guide")
             .transition()
             .duration(500)
@@ -996,7 +1028,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 11) {
+    if (guideRailsPosition == 12) {
         intervention = true;
         intervention_series = [];
 
@@ -1038,7 +1070,7 @@ function guideRails() {
             .text("Vaccines Remaining: " + vaccineSupply)
     }
 
-    if (guideRailsPosition == 12) {
+    if (guideRailsPosition == 13) {
         d3.select(".guide").text("")
         d3.select(".microGuide").text("")
 
