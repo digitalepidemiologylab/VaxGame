@@ -1,12 +1,4 @@
 
-body {
-  font: 13px sans-serif;
-  position: absolute;
-  left: 0px;
-  width: 960px;
-  height: 500px;
-  background-color: #f1f1f1;
-}
 
 .hintBox {
   cursor: pointer ;
@@ -17,10 +9,9 @@ body {
 }
 
 .guideTextSVG {
-  background-color: #ffffff;
   position: absolute;
   top: 450px;
-  width: 1500px;
+  width: auto;
   height: 175px;
   background: #f1f1f1; /* Old browsers */
   background: -moz-linear-gradient(top, #f1f1f1 3%, #ffffff 13%, #ffffff 89%, #f1f1f1 100%); /* FF3.6+ */
@@ -30,6 +21,14 @@ body {
   background: -ms-linear-gradient(top, #f1f1f1 3%,#ffffff 13%,#ffffff 89%,#f1f1f1 100%); /* IE10+ */
   background: linear-gradient(to bottom, #f1f1f1 3%,#ffffff 13%,#ffffff 89%,#f1f1f1 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1f1f1', endColorstr='#f1f1f1',GradientType=0 ); /* IE6-9 */
+}
+
+.menuBoxSVG {
+  background-color: #f1f1f1;
+  position: absolute;
+  top: 450px + 175px;
+  width: auto;
+  height: 175px;
 }
 
 .node, .fixedVaxNode{

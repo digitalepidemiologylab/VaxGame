@@ -24,6 +24,11 @@ var vaccinatedBayStartYCoord = 50;
 
 var start = false;
 
+var nextX = 800;
+var nextY = 150;
+
+var guideXCoord = 400;
+var guideYCoord = 80;
 
 var colorScale;
 var figMargin;
@@ -50,15 +55,20 @@ trivialGraph.links = [];
 trivialGraph.nodes.push(player);
 
 var width = 960,
-    height = 475,
+    height = 450,
     svg;
 
-var guideBoxDiv;
+var guideTextSVG;
+
+var menuBoxSVG;
 
 var force, link, node;
 
-guideBoxDiv = d3.select("body").append("svg")
+guideTextSVG = d3.select("body").append("svg")
     .attr("class", "guideTextSVG")
+
+menuBoxSVG = d3.select("body").append("svg")
+    .attr("class", "menuBoxSVG")
 
 
 svg = d3.select("body").append("svg")
@@ -71,24 +81,134 @@ svg = d3.select("body").append("svg")
 
 guide = d3.select(".guideTextSVG").append("text")
     .attr("class", "guide")
-    .attr("x",400).attr("y",50)
+    .attr("x",guideXCoord).attr("y",guideYCoord)
     .attr("font-size", 60)
     .text("")
 
 microGuide = d3.select(".guideTextSVG").append("text")
     .attr("class", "microGuide")
-    .attr("x",0).attr("y",0)
+    .attr("x",guideXCoord).attr("y", guideYCoord + 20)
     .attr("font-size", 60)
     .text("")
 
 
 var nextArrow = d3.select(".guideTextSVG").append("text")
     .attr("class", "nextArrow")
-    .attr("x", 400)
-    .attr("y", 50)
+    .attr("x", 350)
+    .attr("y", 100)
     .attr("font-size", 40)
-    .text("Click to Begin...")
+    .text("Click to Begin")
     .on("click", advanceTutorial);
+
+var vaxShadow = d3.select(".menuBoxSVG").append("rect")
+    .attr("class", "vaxShadow")
+    .attr("x", 0)
+    .attr("y", 27)
+    .attr("width", 125)
+    .attr("height", 75)
+    .style("fill", "#838383")
+
+var vaxBox = d3.select(".menuBoxSVG").append("rect")
+    .attr("class", "vaxBox")
+    .attr("x", 0)
+    .attr("y", 20)
+    .attr("width", 120)
+    .attr("height", 75)
+    .style("fill", "#85bc99")
+
+var vaxText = d3.select(".menuBoxSVG").append("text")
+    .attr("class", "vaxText")
+    .attr("x", 20)
+    .attr("y", 70)
+    .style("font-size", 36)
+    .style("stroke", "white")
+    .style("fill", "white")
+    .text("VAX!")
+
+var menuShadow = d3.select(".menuBoxSVG").append("rect")
+    .attr("class", "menuShadow")
+    .attr("x", 200)
+    .attr("y", 27)
+    .attr("width", 800)
+    .attr("height", 75)
+    .style("fill", "#838383")
+
+var menuBox = d3.select(".menuBoxSVG").append("rect")
+    .attr("class", "menuBox")
+    .attr("x", 195)
+    .attr("y", 20)
+    .attr("width", 800)
+    .attr("height", 75)
+    .style("fill", "#85bc99")
+
+
+var menuHeaderLeft = d3.select(".menuBoxSVG").append("text")
+    .attr("class", "menuHeaderLeft")
+    .attr("x", 210)
+    .attr("y", 40)
+    .style("font-size", 10)
+    .style("stroke", "white")
+    .style("fill", "white")
+    .text("LESSONS")
+
+var menuHeaderRight = d3.select(".menuBoxSVG").append("text")
+    .attr("class", "menuHeaderRight")
+    .attr("x", 750)
+    .attr("y", 40)
+    .style("font-size", 10)
+    .style("stroke", "white")
+    .style("fill", "white")
+    .text("GAMING")
+
+var moduleOne = d3.select(".menuBoxSVG").append("text")
+    .attr("class", "moduleOne")
+    .attr("x", 235)
+    .attr("y", 68)
+    .style("font-size", 14)
+    .style("stroke", "white")
+    .style("fill", "white")
+    .text("Epidemics")
+
+var moduleTwo = d3.select(".menuBoxSVG").append("text")
+    .attr("class", "moduleTwo")
+    .attr("x", 360)
+    .attr("y", 68)
+    .style("font-size", 14)
+    .style("stroke", "white")
+    .style("fill", "white")
+    .text("Vaccines")
+
+var moduleThree = d3.select(".menuBoxSVG").append("text")
+    .attr("class", "moduleThree")
+    .attr("x", 485)
+    .attr("y", 68)
+    .style("font-size", 14)
+    .style("stroke", "white")
+    .style("fill", "white")
+    .text("Networks")
+
+
+var moduleFour = d3.select(".menuBoxSVG").append("text")
+    .attr("class", "moduleFour")
+    .attr("x", 610)
+    .attr("y", 68)
+    .style("font-size", 14)
+    .style("stroke", "white")
+    .style("fill", "white")
+    .text("Herd Immunity")
+
+var gameModule = d3.select(".menuBoxSVG").append("text")
+    .attr("class", "gameModule")
+    .attr("x", 775)
+    .attr("y", 68)
+    .style("font-size", 14)
+    .style("stroke", "white")
+    .style("fill", "white")
+    .text("Play the Full Game")
+
+
+
+
 
 function advanceTutorial() {
     if (start) {
@@ -466,10 +586,10 @@ function tutorialTimesteps() {
             .transition()
             .duration(1000)
             .attr("opacity", 1)
-            .attr("x", 397)
-            .attr("y", 52)
-            .attr("font-size", 12)
-            .text("next >>")
+            .attr("x", nextX)
+            .attr("y", nextY)
+            .attr("font-size", 24)
+            .text("next >")
     }
 }
 
@@ -613,16 +733,18 @@ function initTutorial() {
 
 
     d3.select(".guide")
-        .attr("x",300).attr("y",200)
+        .attr("x",guideXCoord)
+        .attr("y",guideYCoord)
         .attr("font-size", 20)
         .text("Suppose this is you")
 
     d3.select(".nextArrow")
         .transition()
-        .duration(1500)
-        .attr("font-size", 12)
-        .attr("x", 420+42.0-(4.20*3))     //ent
-        .text("next >>")
+        .duration(500)
+        .attr("font-size", 24)
+        .attr("x", nextX)
+        .attr("y", nextY)
+        .text("next >")
 
     // this adds the ellipsis to ".guide" text
     window.setTimeout(guideRails, 1200);
@@ -649,15 +771,15 @@ function guideRails() {
         d3.select(".guide")
             .transition()
             .duration(500)
-            .attr("x", 200).attr("y", 15)
+            .attr("x", guideXCoord).attr("y", guideYCoord)
             .text("and this is your immediate contact network")
 
         d3.select(".nextArrow")
             .transition()
             .duration(500)
-            .attr("x", 400)
-            .attr("y", 55)
-            .text("next >>")
+            .attr("x", nextX)
+            .attr("y", nextY)
+            .text("next >")
 
         window.setTimeout(guideRails, 500)
     }
@@ -679,7 +801,7 @@ function guideRails() {
         d3.select(".guide")
             .transition()
             .duration(500)
-            .attr("x", 160).attr("y", 15)
+            .attr("x", guideXCoord).attr("y", guideYCoord)
             .text("and this is a 'big picture' view of a complete contact network")
 
         d3.select(".microGuide")
@@ -697,7 +819,7 @@ function guideRails() {
         d3.select(".guide")
             .transition()
             .duration(500)
-            .attr("x", 185).attr("y", 15)
+            .attr("x", guideXCoord).attr("y", guideYCoord)
             .text("Now, suppose someone is bitten by a zombie...")
 
         d3.select(".microGuide")
@@ -710,19 +832,16 @@ function guideRails() {
         d3.select(".nextArrow")
             .transition()
             .duration(500)
-            .attr("font-size", 100)
-            .attr("x", 1000)
-            .attr("y", 300)
+            .attr("x", nextX)
+            .attr("y", nextY)
             .attr("opacity", 0)
-            .text("next >>")
+            .text("next >")
 
     }
 
     if (guideRailsPosition == 6) {
 
         d3.select(".nextArrow")
-            .attr("y", 500)
-            .attr("y", -10)
             .text("")
 
         d3.select(".timestepTicker").text("")
@@ -730,7 +849,7 @@ function guideRails() {
         d3.select(".guide")
             .transition()
             .duration(500)
-            .attr("x",150).attr("y",15)
+            .attr("x",guideXCoord).attr("y",guideYCoord)
             .text("But, if we had a 'zombie vaccine' we could prepare...")
 
         d3.select(".microGuide")
@@ -756,9 +875,9 @@ function guideRails() {
         d3.select(".nextArrow")
             .transition()
             .duration(500)
-            .attr("x", 387)
-            .attr("y", 55)
-            .text("next >>")
+            .attr("x", nextX)
+            .attr("y", nextY)
+            .text("next >")
 
 
 
@@ -769,20 +888,22 @@ function guideRails() {
         d3.select(".guide")
             .transition()
             .duration(500)
-            .attr("x",150).attr("y",-30)
+            .attr("opacity", 0)
             .text("But, if we had a 'zombie vaccine' we could prepare...")
 
 
         d3.select(".microGuide")
             .transition()
             .duration(500)
-            .attr("x",345).attr("y",-50)
+            .attr("opacity", 0)
             .attr("font-size", 12)
             .text("So let's start over...")
 
         d3.select(".nextArrow")
             .transition()
-            .duration(500).attr("opacity", 0).text("next >>")
+            .duration(500)
+            .attr("opacity", 0)
+            .text("next >")
 
 
         window.setTimeout(advanceTutorial, 500)
@@ -805,20 +926,21 @@ function guideRails() {
         d3.select(".guide")
             .transition()
             .duration(500)
-            .attr("x",125).attr("y",25)
+            .attr("opacity", 1)
             .text("Efficient distribution of vaccines can 'fragment' the network")
 
         d3.select(".microGuide")
             .transition()
             .duration(1000)
+            .attr("opacity", 1)
             .attr("x",300).attr("y",42)
             .text("(making it harder for diseases to spread)")
 
         d3.select(".nextArrow")
             .transition()
-            .duration(4500)
+            .duration(500)
             .attr("opacity", 1)
-            .text("next >>")
+            .text("next >")
 
 
 
@@ -833,7 +955,6 @@ function guideRails() {
         d3.select(".guide")
             .transition()
             .duration(500)
-            .attr("x",85).attr("y",25)
             .text("Vaccinate people to break this network up into smaller 'communities'")
 
         d3.select(".microGuide")
@@ -845,11 +966,10 @@ function guideRails() {
         d3.select(".nextArrow")
             .transition()
             .duration(500)
-            .attr("font-size", 100)
-            .attr("x", 1000)
-            .attr("y", 300)
+            .attr("x", nextX)
+            .attr("y", nextY)
             .attr("opacity", 0)
-            .text("next >>")
+            .text("next >")
 
 
 //        window.setTimeout(guideRails_postOutbreak, 1000);
@@ -875,9 +995,9 @@ function guideRails() {
         d3.select(".nextArrow")
             .transition()
             .duration(500)
-            .attr("x", 387)
-            .attr("y", 55)
-            .text("next >>")
+            .attr("x", nextX)
+            .attr("y", nextY)
+            .text("next >")
 
 
         d3.select(".vaccineSupply")
@@ -907,11 +1027,11 @@ function guideRails() {
 
 
         d3.select(".timestepTicker")
-            .attr("x",380).attr("y", 75)
+            .attr("x",25).attr("y", 25)
             .attr("font-size", 20)
             .text("Day: " + timestep);
 
-        initFigure();
+        //initFigure();
         tutorialTimesteps();
 
     }
@@ -926,19 +1046,17 @@ function spreadingText() {
     d3.select(".guide")
         .transition()
         .duration(500)
-        .attr("x", 225).attr("y", 15)
         .text("Within weeks, everyone will be infected.")
 
     d3.select(".microGuide")
         .transition()
         .duration(500)
-        .attr("x",275).attr("y",35)
         .attr("font-size", 12)
         .text("(zombies don't recover...because they're zombies)")
 
     var timestepTicker = d3.select(".svg").append("text")
         .attr("class", "timestepTicker")
-        .attr("x",380).attr("y",75)
+        .attr("x",25).attr("y",25)
         .attr("font-size", 20)
         .text("Day: " + timestep);
 

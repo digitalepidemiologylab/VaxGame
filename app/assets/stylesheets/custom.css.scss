@@ -2,7 +2,7 @@
 
 /* mixins, variables, etc. */
 
-$grayMediumLight: #eaeaea;
+$grayMediumLight: #f1f1f1;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box;
@@ -15,24 +15,37 @@ $grayMediumLight: #eaeaea;
 
 svg {
   padding-top: 0px;
-  background-color: #f1f1f1;
+  background-color: $grayMediumLight;
+  left: 0%;
+
 }
 
 html {
   overflow-y: scroll;
-  background-color: #f1f1f1;
+  background-color: $grayMediumLight;
+  left: 0%;
+
 }
 
 body {
-  padding-top: 0px;
-  background-color: #f1f1f1;
+  left: 0%;
+
+
+  background-color: $grayMediumLight;
+}
+
+div {
+  left: 0%;
+
+  background-color: $grayMediumLight;
+
 }
 
 
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
-  background-color: #f1f1f1;
+  background-color: $grayMediumLight;
   line-height: 1;
 }
 
@@ -41,7 +54,7 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
-  background-color: #f1f1f1;
+  background-color: $grayMediumLight;
 
 }
 
@@ -52,11 +65,11 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  background-color: #f1f1f1;
+  background-color: $grayMediumLight;
 }
 
 p {
   font-size: 1.1em;
   line-height: 1.7em;
-  background-color: #f1f1f1;
+  background-color: $grayMediumLight;
 }
