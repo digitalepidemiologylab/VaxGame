@@ -88,15 +88,6 @@ guide = d3.select(".guideTextSVG").append("text")
     .style("font-weight", 300)
     .text("")
 
-microGuide = d3.select(".guideTextSVG").append("text")
-    .attr("class", "microGuide")
-    .attr("x",guideXCoord).attr("y", guideYCoord + 20)
-    .attr("font-size", 60)
-    .style("font-family", "Nunito")
-    .style("fill", "#707070")
-    .style("font-weight", 300)
-    .text("")
-
 
 var nextArrow = d3.select(".guideTextSVG").append("text")
     .attr("class", "nextArrow")
@@ -253,8 +244,6 @@ var groupText = d3.select(".menuBoxSVG").append("text")
 function advanceTutorial() {
     if (start) {
         guideRails();
-
-
     }
     else {
         start = true;
@@ -397,6 +386,7 @@ function addOneFriend() {
     trivialGraph.nodes.push(graph.nodes[1]);
     trivialGraph.links.push({source:trivialGraph.nodes[0],target:trivialGraph.nodes[1],remove:false})
 
+    stepWiseUpdate();
 
 }
 
@@ -521,20 +511,6 @@ function stepWiseUpdate() {
     // Exit any old nodes.
     node.exit().remove();
 
-    d3.select(".vaccineSupply")
-        .text("Vaccines Remaining: " + vaccineSupply)
-
-    if (vaccineSupply == 0 && postInitialOutbreak == true) {
-        vaccinateMode = false;
-        window.setTimeout(advanceTutorial, 500)
-    }
-
-    d3.select(".vaxNode")
-        .transition()
-        .duration(500)
-        .attr("cx", 25)
-        .attr("cy", vaccinatedBayStartYCoord)
-        .attr("class", "fixedVaxNode")
 
 }
 
@@ -641,12 +617,8 @@ function tutorialTimesteps() {
 
         d3.select(".nextArrow")
             .transition()
-            .duration(1000)
+            .duration(500)
             .attr("opacity", 1)
-            .attr("x", nextX)
-            .attr("y", nextY)
-            .attr("font-size", 24)
-            .text("next >")
     }
 }
 
@@ -754,8 +726,7 @@ function initTutorial() {
         .attr("class", "node")
         .attr("r", 15)
         .style("fill", "#2fa0ef")
-
-.call(force.drag)
+        .call(force.drag)
         .on("click", function(d) {
             if (vaccinateMode) {
                 if (vaccineSupply <= 0) {
@@ -763,7 +734,6 @@ function initTutorial() {
                     return;
                 }
                 d.status = "V";
-                d.fixed = true;
                 d3.select(this)
                     .attr("class", "vaxNode")
                     .style("stroke", "#636363")
@@ -773,18 +743,7 @@ function initTutorial() {
                 vaccinatedBayStartYCoord += 25;
                 vaccineSupply--;
                 tutorialUpdate();
-
-
             }
-            else {
-                if (diseaseIsSpreading==true) return;
-                d.status = "I";
-                tutorialUpdate();
-                tutorialTimesteps();
-                diseaseIsSpreading=true;
-                spreadingText();
-            }
-
         });
 
 
@@ -803,8 +762,6 @@ function initTutorial() {
         .attr("y", nextY)
         .text("next >")
 
-    // this adds the ellipsis to ".guide" text
-    window.setTimeout(guideRails, 1200);
 
 
 }
@@ -814,37 +771,23 @@ function guideRails() {
     guideRailsPosition++;
 
     if (guideRailsPosition == 1) {
+        console.log(guideRailsPosition)
 
-
-        d3.select(".guide")
-            .transition()
-            .duration(500)
-            .text("Suppose this is you...");
-
-        //window.setTimeout(guideRails, 500)
-    }
-
-    if (guideRailsPosition == 2) {
         addOneFriend();
-        stepWiseUpdate();
+        console.log(guideRailsPosition)
 
         d3.select(".guide")
             .transition()
             .duration(500)
             .attr("x", guideXCoord).attr("y", guideYCoord)
-            .text("and this is you and one friend, an edge represents BLAH")
+            .text("and this is you connected to one friend")
 
-        d3.select(".nextArrow")
-            .transition()
-            .duration(500)
-            .attr("x", nextX)
-            .attr("y", nextY)
-            .text("next >")
 
+        console.log(guideRailsPosition)
 
     }
 
-    if (guideRailsPosition == 3) {
+    if (guideRailsPosition == 2) {
         buildGraph();
 
         d3.select(".guide")
@@ -853,21 +796,10 @@ function guideRails() {
             .attr("x", guideXCoord).attr("y", guideYCoord)
             .text("and this is your immediate contact network")
 
-
-        window.setTimeout(guideRails, 500)
     }
 
-    if (guideRailsPosition == 4) {
-        d3.select(".microGuide")
-            .transition()
-            .duration(500)
-            .attr("x",242).attr("y",35)
-            .attr("font-size", 12)
-            .text("e.g., everyone you've come in close contact with")
 
-    }
-
-    if (guideRailsPosition == 5) {
+    if (guideRailsPosition == 3) {
         charge = -175;
         tutorialUpdate();
 
@@ -877,45 +809,37 @@ function guideRails() {
             .attr("x", guideXCoord).attr("y", guideYCoord)
             .text("and this is a 'big picture' view of a complete contact network")
 
-        d3.select(".microGuide")
-            .transition()
-            .duration(500)
-            .attr("x",245).attr("y",35)
-            .attr("font-size", 12)
-            .text("e.g., the network on which infectious diseases can spread")
-
-
 
     }
 
-    if (guideRailsPosition == 6) {
+    if (guideRailsPosition == 4) {
         d3.select(".guide")
             .transition()
             .duration(500)
             .attr("x", guideXCoord).attr("y", guideYCoord)
             .text("Now, suppose someone is bitten by a zombie...")
 
-        d3.select(".microGuide")
-            .transition()
-            .duration(500)
-            .attr("x",312).attr("y",35)
-            .attr("font-size", 12)
-            .text("(click any circle below to continue)")
+        var indexPatientID = Math.floor(Math.random() * numberOfIndividuals);
+        graph.nodes[indexPatientID].status = "I";
+        tutorialUpdate();
+        tutorialTimesteps();
+        diseaseIsSpreading=true;
+        spreadingText();
 
         d3.select(".nextArrow")
             .transition()
             .duration(500)
-            .attr("x", nextX)
-            .attr("y", nextY)
             .attr("opacity", 0)
-            .text("next >")
+
 
     }
 
-    if (guideRailsPosition == 7) {
-
+    if (guideRailsPosition == 5) {
         d3.select(".nextArrow")
-            .text("")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1)
+
 
         d3.select(".timestepText")
             .transition()
@@ -934,39 +858,20 @@ function guideRails() {
             .attr("x",guideXCoord).attr("y",guideYCoord)
             .text("But, if we had a 'zombie vaccine' we could prepare...")
 
-        d3.select(".microGuide")
-            .transition()
-            .duration(500)
-            .attr("x",275).attr("y",-10)
-            .attr("font-size", 12)
-            .text("")
-
-        window.setTimeout(advanceTutorial, 2000)
 
     }
 
-    if (guideRailsPosition == 8) {
-
-        d3.select(".microGuide")
-            .transition()
-            .duration(500)
-            .attr("x",360).attr("y",35 )
-            .attr("font-size", 12)
-            .text("So let's start over...")
+    if (guideRailsPosition == 6) {
 
         d3.select(".nextArrow")
             .transition()
             .duration(500)
-            .attr("x", nextX)
-            .attr("y", nextY)
-            .text("next >")
-
-
+            .attr("opacity", 1)
 
 
     }
 
-    if (guideRailsPosition == 9) {
+    if (guideRailsPosition == 7) {
         d3.select(".guide")
             .transition()
             .duration(500)
@@ -974,18 +879,10 @@ function guideRails() {
             .text("But, if we had a 'zombie vaccine' we could prepare...")
 
 
-        d3.select(".microGuide")
-            .transition()
-            .duration(500)
-            .attr("opacity", 0)
-            .attr("font-size", 12)
-            .text("So let's start over...")
-
         d3.select(".nextArrow")
             .transition()
             .duration(500)
             .attr("opacity", 0)
-            .text("next >")
 
 
         window.setTimeout(advanceTutorial, 500)
@@ -993,7 +890,7 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 10) {
+    if (guideRailsPosition == 8) {
 
         for (var i = 0; i < graph.nodes.length; i++) {
             graph.nodes[i].status = "S";
@@ -1004,31 +901,23 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 11) {
+    if (guideRailsPosition == 9) {
         d3.select(".guide")
             .transition()
             .duration(500)
             .attr("opacity", 1)
             .text("Efficient distribution of vaccines can 'fragment' the network")
 
-        d3.select(".microGuide")
-            .transition()
-            .duration(1000)
-            .attr("opacity", 1)
-            .attr("x",300).attr("y",42)
-            .text("(making it harder for diseases to spread)")
-
         d3.select(".nextArrow")
             .transition()
             .duration(500)
             .attr("opacity", 1)
-            .text("next >")
 
 
 
     }
 
-    if (guideRailsPosition == 12) {
+    if (guideRailsPosition == 10) {
         intervention = true;
         intervention_series = [];
 
@@ -1039,12 +928,6 @@ function guideRails() {
             .duration(500)
             .text("Vaccinate people to break this network up into smaller 'communities'")
 
-        d3.select(".microGuide")
-            .transition()
-            .duration(500)
-            .attr("x",250).attr("y",50)
-            .text("(click circles below to vaccinate, vaccines are limited)")
-
         d3.select(".nextArrow")
             .transition()
             .duration(500)
@@ -1052,9 +935,6 @@ function guideRails() {
             .attr("y", nextY)
             .attr("opacity", 0)
             .text("next >")
-
-
-//        window.setTimeout(guideRails_postOutbreak, 1000);
 
         vaccineResearched = true;
         vaccineSupply = numberOfIndividuals * 0.20;
@@ -1070,9 +950,8 @@ function guideRails() {
             .text("Vaccines Remaining: " + vaccineSupply)
     }
 
-    if (guideRailsPosition == 13) {
+    if (guideRailsPosition == 11) {
         d3.select(".guide").text("")
-        d3.select(".microGuide").text("")
 
         d3.select(".nextArrow")
             .transition()
@@ -1136,12 +1015,6 @@ function spreadingText() {
         .transition()
         .duration(500)
         .text("Within weeks, everyone will be infected.")
-
-    d3.select(".microGuide")
-        .transition()
-        .duration(500)
-        .attr("font-size", 12)
-        .text("(zombies don't recover...because they're zombies)")
 
     var timestepText = d3.select(".svg").append("text")
         .attr("class", "timestepText")
