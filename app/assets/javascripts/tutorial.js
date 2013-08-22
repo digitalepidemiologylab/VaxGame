@@ -25,7 +25,7 @@ var vaccinatedBayStartYCoord = 80;
 var start = false;
 
 var nextX = 800;
-var nextY = 150;
+var nextY = 140;
 
 var guideXCoord = 400;
 var guideYCoord = 70;
@@ -131,7 +131,7 @@ var vaxText = d3.select(".menuBoxSVG").append("text")
     .attr("class", "vaxText")
     .attr("x", 23)
     .attr("y", 70)
-    .style("font-size", 30)
+    .style("font-size", 28)
     .style("font-family", "Nunito")
     .style("font-weight", 400)
     .style("fill", "white")
@@ -178,7 +178,7 @@ var moduleOne = d3.select(".menuBoxSVG").append("text")
     .attr("class", "moduleOne")
     .attr("x", 235)
     .attr("y", 68)
-    .style("font-size", 14)
+    .style("font-size", 15)
     .style("font-family", "Nunito")
     .style("font-weight", 300)
     .style("fill", "white")
@@ -188,7 +188,7 @@ var moduleTwo = d3.select(".menuBoxSVG").append("text")
     .attr("class", "moduleTwo")
     .attr("x", 360)
     .attr("y", 68)
-    .style("font-size", 14)
+    .style("font-size", 15)
     .style("font-family", "Nunito")
     .style("font-weight", 300)
     .style("fill", "white")
@@ -198,7 +198,7 @@ var moduleThree = d3.select(".menuBoxSVG").append("text")
     .attr("class", "moduleThree")
     .attr("x", 485)
     .attr("y", 68)
-    .style("font-size", 14)
+    .style("font-size", 15)
     .style("font-family", "Nunito")
     .style("font-weight", 300)
     .style("fill", "white")
@@ -209,7 +209,7 @@ var moduleFour = d3.select(".menuBoxSVG").append("text")
     .attr("class", "moduleFour")
     .attr("x", 610)
     .attr("y", 68)
-    .style("font-size", 14)
+    .style("font-size", 15)
     .style("font-family", "Nunito")
     .style("font-weight", 300)
     .style("fill", "white")
@@ -219,7 +219,7 @@ var gameModule = d3.select(".menuBoxSVG").append("text")
     .attr("class", "gameModule")
     .attr("x", 765)
     .attr("y", 68)
-    .style("font-size", 14)
+    .style("font-size", 15)
     .style("font-family", "Nunito")
     .style("font-weight", 300)
     .style("fill", "white")
@@ -806,7 +806,7 @@ function initTutorial() {
     d3.select(".nextArrow")
         .transition()
         .duration(500)
-        .attr("font-size", 24)
+        .attr("font-size", 15)
         .attr("x", nextX)
         .attr("y", nextY)
         .text("next >")
@@ -1056,7 +1056,9 @@ function guideRails() {
             .attr("opacity", 1);
 
         actionBay = d3.select(".svg").append("svg")
-            .attr("class", "actionBay");
+            .attr("class", "actionBay")
+
+
 
 
     }
@@ -1387,9 +1389,13 @@ function updateTutorialSeries() {
 
 
 function loadSyringe() {
-d3.select(".actionBay").append("rect")
+
+    var shadowX = 845;
+    var contX = 841;
+
+    d3.select(".actionBay").append("rect")
         .attr("class", "vaccineShadow")
-        .attr("x", 845)
+        .attr("x", 1000)
         .attr("y", 26)
         .attr("width", 125)
         .attr("height", 75)
@@ -1398,7 +1404,7 @@ d3.select(".actionBay").append("rect")
 
     d3.select(".actionBay").append("rect")
         .attr("class", "vaccineBox")
-        .attr("x", 841)
+        .attr("x", 1000)
         .attr("y", 20)
         .attr("width", 125)
         .attr("height", 75)
@@ -1413,6 +1419,7 @@ d3.select(".actionBay").append("rect")
         .attr("y", "34")
         .attr("width", "85")
         .attr("height", "45")
+        .attr("opacity", 0)
         .attr("class", "syringe")
         .on("click", activateVaccinationMode)
 
@@ -1420,6 +1427,7 @@ d3.select(".actionBay").append("rect")
         .attr("class", "vaccineToggleText")
         .attr("x", 875)
         .attr("y", 38)
+        .attr("opacity", 0)
         .style("font-size", 10)
         .style("font-family", "Nunito")
         .style("font-weight", 300)
@@ -1431,13 +1439,37 @@ d3.select(".actionBay").append("rect")
         .attr("class", "vaccineCounterText")
         .attr("x", 885)
         .attr("y", 85)
-        .style("font-size", 16)
+       .attr("opacity", 0)
+       .style("font-size", 16)
         .style("font-family", "Nunito")
         .style("font-weight", 300)
         .style("fill", "white")
         .text(vaccineSupply + " / " + Math.round(0.20 * numberOfIndividuals))
-       .on("click", activateVaccinationMode)
+        .on("click", activateVaccinationMode)
 
+    d3.select(".vaccineShadow")
+        .transition()
+        .duration(500)
+        .attr("x", shadowX);
+
+    d3.select(".vaccineBox")
+        .transition()
+        .duration(500)
+        .attr("x", contX);
+
+    d3.selectAll("image")
+        .transition()
+        .duration(1200).attr("opacity", 1)
+
+    d3.select(".vaccineToggleText")
+        .transition()
+        .duration(1200)
+        .attr("opacity", 1)
+
+    d3.select(".vaccineCounterText")
+        .transition()
+        .duration(1200)
+        .attr("opacity", 1)
 
 
 
