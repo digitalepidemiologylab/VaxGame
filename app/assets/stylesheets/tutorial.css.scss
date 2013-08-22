@@ -1,13 +1,4 @@
 
-
-.hintBox {
-  cursor: pointer ;
-}
-
-.hint {
-  cursor: pointer;
-}
-
 .guideTextSVG {
   position: absolute;
   top: 450px;
@@ -21,6 +12,10 @@
   background: -ms-linear-gradient(top, #f1f1f1 3%,#ffffff 13%,#ffffff 89%,#f1f1f1 100%); /* IE10+ */
   background: linear-gradient(to bottom, #f1f1f1 3%,#ffffff 13%,#ffffff 89%,#f1f1f1 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1f1f1', endColorstr='#f1f1f1',GradientType=0 ); /* IE6-9 */
+}
+
+.syringe{
+  cursor: pointer;
 }
 
 .menuBoxSVG {

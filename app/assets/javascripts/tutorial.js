@@ -63,6 +63,8 @@ var guideTextSVG;
 
 var menuBoxSVG;
 
+var actionBay;
+
 var force, link, node;
 
 guideTextSVG = d3.select("body").append("svg")
@@ -70,7 +72,6 @@ guideTextSVG = d3.select("body").append("svg")
 
 menuBoxSVG = d3.select("body").append("svg")
     .attr("class", "menuBoxSVG")
-
 
 svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -384,13 +385,9 @@ function tutorialUpdate() {
     // Exit any old nodes.
     node.exit().remove();
 
-    d3.select(".vaccineSupply")
-        .text("Vaccines Remaining: " + vaccineSupply)
+    d3.select(".vaccineCounterText")
+        .text(vaccineSupply + " / " + (0.20 * numberOfIndividuals));
 
-    if (vaccineSupply == 0 && postInitialOutbreak == true) {
-        vaccinateMode = false;
-        window.setTimeout(advanceTutorial, 500)
-    }
 
     d3.select(".vaxNode")
         .transition()
@@ -754,6 +751,7 @@ function completeSeries() {
     }
 }
 
+
 function initTutorial() {
     // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
     force = d3.layout.force()
@@ -1056,9 +1054,16 @@ function guideRails() {
             .transition()
             .duration(500)
             .attr("opacity", 1);
+
+        actionBay = d3.select(".svg").append("svg")
+            .attr("class", "actionBay");
+
+
     }
 
     if (guideRailsPosition == 7) {
+        loadSyringe();
+
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -1066,13 +1071,9 @@ function guideRails() {
             .attr("opacity", 0)
             .text("Select the 'Vaccinate' tool in the upper right and select")
 
-        vaccineResearched = true;
         vaccineSupply = numberOfIndividuals * 0.20;
-        intervention = true;
         intervention_series = [];
-
         diseaseIsSpreading = false;
-        vaccinateMode = true;
         postInitialOutbreak = true;
 
         d3.select(".guide2")
@@ -1138,9 +1139,6 @@ function guideRails() {
             .attr("y", guideYCoord)
             .attr("opacity", 0)
             .text("Vaccinating breaks the network into smaller pieces")
-
-        vaccineResearched = true;
-        vaccineSupply = numberOfIndividuals * 0.20;
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
@@ -1384,3 +1382,73 @@ function updateTutorialSeries() {
     console.log(tutorialSeries);
 
 }
+
+
+
+
+function loadSyringe() {
+d3.select(".actionBay").append("rect")
+        .attr("class", "vaccineShadow")
+        .attr("x", 845)
+        .attr("y", 26)
+        .attr("width", 125)
+        .attr("height", 75)
+        .style("fill", "#838383")
+        .on("click", activateVaccinationMode)
+
+    d3.select(".actionBay").append("rect")
+        .attr("class", "vaccineBox")
+        .attr("x", 841)
+        .attr("y", 20)
+        .attr("width", 125)
+        .attr("height", 75)
+        .style("fill", "#85bc99")
+        .on("click", activateVaccinationMode)
+
+    var img = actionBay.selectAll("image").data([0]);
+    img.enter()
+        .append("image")
+        .attr("xlink:href", "/assets/syringe.png")
+        .attr("x", "853")
+        .attr("y", "34")
+        .attr("width", "85")
+        .attr("height", "45")
+        .attr("class", "syringe")
+        .on("click", activateVaccinationMode)
+
+    d3.select(".actionBay").append("text")
+        .attr("class", "vaccineToggleText")
+        .attr("x", 875)
+        .attr("y", 38)
+        .style("font-size", 10)
+        .style("font-family", "Nunito")
+        .style("font-weight", 300)
+        .style("fill", "white")
+        .text("VACCINES")
+        .on("click", activateVaccinationMode)
+
+   d3.select(".actionBay").append("text")
+        .attr("class", "vaccineCounterText")
+        .attr("x", 885)
+        .attr("y", 85)
+        .style("font-size", 16)
+        .style("font-family", "Nunito")
+        .style("font-weight", 300)
+        .style("fill", "white")
+        .text(vaccineSupply + " / " + Math.round(0.20 * numberOfIndividuals))
+       .on("click", activateVaccinationMode)
+
+
+
+
+}
+
+function activateVaccinationMode() {
+    vaccinateMode = true;
+    intervention = true;
+    vaccineResearched = true;
+    d3.select(".vaccineCounterText")
+        .text(vaccineSupply + " / " + (0.20 * numberOfIndividuals));
+
+}
+
