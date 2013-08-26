@@ -367,7 +367,7 @@ var startText = d3.select(".guideTextSVG").append("text")
 
 var backArrow = d3.select(".guideTextSVG").append("text")
     .attr("class", "backArrow")
-    .attr("x", 160)
+    .attr("x", 100)
     .attr("y", nextY)
     .style("font-family", "Nunito")
     .style("fill", "#707070")
@@ -1435,8 +1435,8 @@ function guideRails(back) {
         var indexPatientID = Math.floor(Math.random() * numberOfIndividuals);
         graph.nodes[indexPatientID].status = "I";
         tutorialUpdate();
-        tutorialTimesteps();
         diseaseIsSpreading=true;
+        window.setTimeout(tutorialTimesteps, 2000);
 
         d3.select(".timestepText").text("Day: ")
         d3.select(".timestepTicker").text(timestep)
