@@ -267,8 +267,7 @@ trivialGraph.links = [];
 
 trivialGraph.nodes.push(player);
 
-
-var vaccinatedBayStartYCoord = 80;
+var vaccinatedBayStartYCoord = 125;
 
 var start = false;
 
@@ -305,6 +304,8 @@ var menuBoxSVG;
 
 var actionBay;
 
+var lessonText;
+
 var force, link, node;
 
 guideTextSVG = d3.select("body").append("svg")
@@ -329,6 +330,17 @@ guide = d3.select(".guideTextSVG").append("text")
     .style("fill", "#707070")
     .style("font-weight", 300)
     .text("")
+
+lessonText = d3.select(".svg").append("text")
+    .attr("class", "lessonText")
+    .attr("x", 35)
+    .attr("y", 30)
+    .style("font-size", 28)
+    .style("font-family", "Nunito")
+    .style("fill", "#707070")
+    .style("font-weight", 700)
+    .attr("opacity", 0)
+    .text("LESSON 1: NETWORKS")
 
 guide2 = d3.select(".guideTextSVG").append("text")
     .attr("class", "guide2")
@@ -374,7 +386,7 @@ var timestepText = d3.select(".svg").append("text")
     .style("font-family", "Nunito")
     .style("font-weight", 700)
     .style("fill", "#707070")
-    .attr("x",35).attr("y",50)
+    .attr("x",35).attr("y",90)
     .text("");
 
 var timestepTicker = d3.select(".svg").append("text")
@@ -383,7 +395,7 @@ var timestepTicker = d3.select(".svg").append("text")
     .style("font-family", "Nunito")
     .style("font-weight", 700)
     .style("fill", "#707070")
-    .attr("x",102).attr("y",51)
+    .attr("x",102).attr("y",91)
     .text("");
 
 function guideRailsReverse() {
@@ -1192,6 +1204,9 @@ function completeSeries() {
 
 
 function initTutorial() {
+    d3.select(".lessonText")
+        .attr("opacity", 1)
+
     // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
     force = d3.layout.force()
         .nodes(trivialGraph.nodes)
@@ -1279,6 +1294,11 @@ function initTutorial() {
 function guideRails(back) {
 
     if (guideRailsPosition == 1) {
+
+        d3.select(".lessonText")
+            .transition()
+            .duration(2000)
+            .attr("opacity", 0)
 
         if (!back) addOneFriend();
 
@@ -1380,6 +1400,9 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 4) {
+        d3.select(".lessonText").attr("opacity", 1)
+            .text("LESSON 2: EPIDEMICS")
+
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -1423,6 +1446,12 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 0)
             .text("")
+
+        d3.select(".lessonText")
+            .transition()
+            .duration(3000)
+            .attr("opacity", 0)
+            .text("LESSON 2: EPIDEMICS")
 
 
 
@@ -1585,6 +1614,12 @@ function guideRails(back) {
 
 
     if (guideRailsPosition == 8) {
+        d3.select(".lessonText")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1)
+            .text("LESSON 3: VACCINES")
+
         graph.nodes = [];
         graph.links = [];
 
@@ -1654,6 +1689,11 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 9) {
+        d3.select(".lessonText")
+            .transition()
+            .duration(1000)
+            .attr("opacity", 0)
+            .text("LESSON 3: VACCINES")
 
         loadSyringe();
 
@@ -1695,8 +1735,6 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 10) {
-
-
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
@@ -1717,21 +1755,13 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-
         d3.select(".guide2")
             .transition()
             .duration(500)
             .attr("opacity", 1);
-
-
-
     }
 
     if (guideRailsPosition == 11) {
-
-
-
-
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
