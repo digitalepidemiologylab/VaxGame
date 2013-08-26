@@ -125,15 +125,15 @@ function edgeExists(source,target, graph) {
     for (var i = 0; i < graph.links.length; i++) {
         var link = graph.links[i];
 
-        if (link.source == source.id) {
-            if (link.target == target.id) {
+        if (link.source.id == source.id) {
+            if (link.target.id == target.id) {
                 edgeExists = true;
             }
         }
 
         else {
-            if (link.target == source.id) {
-                if (link.source == target.id) {
+            if (link.target.id == source.id) {
+                if (link.source.id == target.id) {
                     edgeExists = true;
                 }
             }

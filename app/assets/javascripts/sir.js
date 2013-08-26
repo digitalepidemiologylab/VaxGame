@@ -204,7 +204,7 @@ function copyGraphByElement(element) {
     }
 }
 
-runSimulation();
+//runSimulation();
 
 function runSimulation() {
     startDay = Math.floor(Math.random() * 5);

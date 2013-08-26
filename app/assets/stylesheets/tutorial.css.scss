@@ -18,6 +18,10 @@
   cursor: pointer;
 }
 
+.startText{
+  cursor: pointer;
+}
+
 .menuBoxSVG {
   background-color: #f1f1f1;
   position: absolute;
@@ -38,7 +42,7 @@
 }
 
 
-.nextArrow {
+.nextArrow, .backArrow{
   cursor: pointer;
 }
 

@@ -1,4 +1,3 @@
-var numberOfIndividuals = 25;
 var rewire = 0.10;
 var meanDegree = 3;
 var diseaseIsSpreading = false;
@@ -6,7 +5,7 @@ var transmissionRate = .25;
 var recoveryRate = 0;
 var maxRecoveryTime = 1000;
 var vaccinateMode = false;
-var graph = generateSmallWorld(numberOfIndividuals,rewire,meanDegree);
+var numberVaccinated = 0;
 var timeToStop = false;
 var guideRailsPosition = 0;
 var postInitialOutbreak = false;
@@ -19,6 +18,255 @@ var tutorial = false;
 var charge = -1000;
 var newInfections = [];
 var xyCoords = [];
+
+
+var graph = {};
+var tailoredGraph = {};
+var tailoredNodes= [];
+var tailoredLinks = [];
+
+for (var ii = 0; ii < 13; ii++) {
+    var nodeString = {id:ii+13, status:"S", group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null, infectedBy:null};
+    tailoredNodes.push(nodeString);
+}
+var numberOfIndividuals = tailoredNodes.length;
+
+
+tailoredLinks = [
+    {
+        source:tailoredNodes[13-13],
+        target:tailoredNodes[14-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[13-13],
+        target:tailoredNodes[17-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[13-13],
+        target:tailoredNodes[18-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[13-13],
+        target:tailoredNodes[25-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[14-13],
+        target:tailoredNodes[13-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[14-13],
+        target:tailoredNodes[25-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[14-13],
+        target:tailoredNodes[15-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[14-13],
+        target:tailoredNodes[20-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[14-13],
+        target:tailoredNodes[23-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[17-13],
+        target:tailoredNodes[13-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[17-13],
+        target:tailoredNodes[18-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[17-13],
+        target:tailoredNodes[19-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[18-13],
+        target:tailoredNodes[13-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[18-13],
+        target:tailoredNodes[17-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[18-13],
+        target:tailoredNodes[19-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[25-13],
+        target:tailoredNodes[13-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[25-13],
+        target:tailoredNodes[14-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[25-13],
+        target:tailoredNodes[15-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[25-13],
+        target:tailoredNodes[16-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[15-13],
+        target:tailoredNodes[14-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[15-13],
+        target:tailoredNodes[25-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[15-13],
+        target:tailoredNodes[23-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[15-13],
+        target:tailoredNodes[16-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[15-13],
+        target:tailoredNodes[21-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[15-13],
+        target:tailoredNodes[22-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[15-13],
+        target:tailoredNodes[24-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[20-13],
+        target:tailoredNodes[14-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[23-13],
+        target:tailoredNodes[14-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[23-13],
+        target:tailoredNodes[15-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[23-13],
+        target:tailoredNodes[21-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[16-13],
+        target:tailoredNodes[25-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[16-13],
+        target:tailoredNodes[15-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[16-13],
+        target:tailoredNodes[21-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[16-13],
+        target:tailoredNodes[19-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[21-13],
+        target:tailoredNodes[15-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[21-13],
+        target:tailoredNodes[23-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[21-13],
+        target:tailoredNodes[16-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[21-13],
+        target:tailoredNodes[22-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[22-13],
+        target:tailoredNodes[15-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[22-13],
+        target:tailoredNodes[21-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[24-13],
+        target:tailoredNodes[15-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[19-13],
+        target:tailoredNodes[17-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[19-13],
+        target:tailoredNodes[18-13],
+        remove:false
+    },
+    {
+        source:tailoredNodes[19-13],
+        target:tailoredNodes[16-13],
+        remove:false
+    }
+]
+
+tailoredGraph.nodes = tailoredNodes;
+tailoredGraph.links = tailoredLinks;
+
+graph.nodes = tailoredNodes;
+graph.links = tailoredLinks;
+var player = graph.nodes[0];
+trivialGraph = {};
+trivialGraph.nodes = [];
+trivialGraph.links = [];
+
+trivialGraph.nodes.push(player);
+
 
 var vaccinatedBayStartYCoord = 80;
 
@@ -46,14 +294,6 @@ var interventionLegend;
 var nonInterventionLab;
 var interventionLab;
 var tutorialSeries;
-
-var player = graph.nodes[0];
-
-trivialGraph = {};
-trivialGraph.nodes = [];
-trivialGraph.links = [];
-
-trivialGraph.nodes.push(player);
 
 var width = 960,
     height = 450,
@@ -99,17 +339,164 @@ guide2 = d3.select(".guideTextSVG").append("text")
     .style("font-weight", 300)
     .text("")
 
-
-var nextArrow = d3.select(".guideTextSVG").append("text")
-    .attr("class", "nextArrow")
-    .attr("x", 350)
+var startText = d3.select(".guideTextSVG").append("text")
+    .attr("class", "startText")
+    .attr("x", 363)
     .attr("y", 100)
-    .attr("font-size", 40)
+    .text("Click to Begin")
+    .attr("font-size", 36)
     .style("font-family", "Nunito")
     .style("fill", "#707070")
     .style("font-weight", 300)
-    .text("Click to Begin")
-    .on("click", advanceTutorial);
+    .on("click", function() {
+        d3.select(this).attr("opacity", 0).attr("x", -50)
+        advanceTutorial();
+    });
+
+var backArrow = d3.select(".guideTextSVG").append("text")
+    .attr("class", "backArrow")
+    .attr("x", 160)
+    .attr("y", nextY)
+    .style("font-family", "Nunito")
+    .style("fill", "#707070")
+    .attr("opacity", 0)
+    .style("font-weight", 300)
+    .attr("font-size", 15)
+    .text('< back')
+    .on("click", function() {
+        guideRailsPosition--;
+        guideRailsReverse();
+    })
+
+var timestepText = d3.select(".svg").append("text")
+    .attr("class", "timestepText")
+    .style("font-size", 30)
+    .style("font-family", "Nunito")
+    .style("font-weight", 700)
+    .style("fill", "#707070")
+    .attr("x",35).attr("y",50)
+    .text("");
+
+var timestepTicker = d3.select(".svg").append("text")
+    .attr("class", "timestepTicker")
+    .style("font-size", 45)
+    .style("font-family", "Nunito")
+    .style("font-weight", 700)
+    .style("fill", "#707070")
+    .attr("x",102).attr("y",51)
+    .text("");
+
+function guideRailsReverse() {
+
+    if (guideRailsPosition == 0) {
+        trivialGraph.nodes = [];
+        trivialGraph.links = [];
+        trivialGraph.nodes.push(tailoredNodes[0]);
+        stepWiseUpdate();
+
+    }
+
+    if (guideRailsPosition == 1) {
+
+        trivialGraph.nodes = [];
+        trivialGraph.links = [];
+        trivialGraph.nodes.push(tailoredNodes[0])
+        trivialGraph.nodes.push(tailoredNodes[1])
+
+
+        for (var i = 0; i < tailoredLinks.length; i++) {
+            var link = tailoredLinks[i];
+            if (link.source.id == tailoredNodes[0].id && link.target.id == tailoredNodes[1].id ||
+                link.source.id == tailoredNodes[1].id && link.target.id == tailoredNodes[0].id) {
+
+                    trivialGraph.links.push(link);
+            }
+        }
+
+        stepWiseUpdate();
+
+    }
+
+    if (guideRailsPosition == 2) {
+        trivialGraph.nodes = [];
+        trivialGraph.links = [];
+
+        trivialGraph.nodes.push(tailoredNodes[0]);
+        trivialGraph.nodes.push(tailoredNodes[1]);
+        trivialGraph.nodes.push(tailoredNodes[4]);
+        trivialGraph.nodes.push(tailoredNodes[5]);
+        trivialGraph.nodes.push(tailoredNodes[12]);
+
+        for (var ii = 0; ii < trivialGraph.nodes.length; ii++) {
+            for (var iii = 0; iii < trivialGraph.nodes.length; iii++) {
+                if (edgeExists(trivialGraph.nodes[ii], trivialGraph.nodes[iii], tailoredGraph)) {
+                    var linkString = {source:trivialGraph.nodes[ii],target:trivialGraph.nodes[iii],remove:false};
+                    if (testDuplicate(trivialGraph.links, linkString)) continue;
+                    trivialGraph.links.push(linkString);
+                }
+            }
+        }
+
+        stepWiseUpdate();
+    }
+
+    if (guideRailsPosition == 3) {
+
+        //return to pre-outbreak from post-outbreak
+
+        d3.select(".timestepText").text("")
+        d3.select(".timestepTicker").text("")
+
+        graph.nodes = [];
+        graph.links = [];
+        timestep = 0;
+        diseaseIsSpreading = false;
+        timeToStop = false;
+
+
+        for (var i = 0; i < tailoredNodes.length; i++) {
+            tailoredNodes[i].status = "S";
+            tailoredNodes[i].infectedBy = null;
+            tailoredNodes[i].exposureTimestep = null;
+            graph.nodes.push(tailoredNodes[i]);
+
+        }
+
+        for (var ii = 0; ii < tailoredLinks.length; ii++) {
+            graph.links.push(tailoredLinks[ii]);
+        }
+
+
+
+        tutorialUpdate();
+
+    }
+
+    var back = true;
+    guideRails(back);
+
+
+
+
+
+
+}
+
+
+var nextArrow = d3.select(".guideTextSVG").append("text")
+    .attr("class", "nextArrow")
+    .attr("x", nextX)
+    .attr("y", nextY)
+    .style("font-family", "Nunito")
+    .style("fill", "#707070")
+    .attr("opacity", 0)
+    .style("font-weight", 300)
+    .attr("font-size", 15)
+    .text("next >")
+    .on("click", function() {
+        guideRailsPosition++;
+        guideRails();
+    })
 
 var vaxShadow = d3.select(".menuBoxSVG").append("rect")
     .attr("class", "vaxShadow")
@@ -284,13 +671,8 @@ function tick() {
 
 
 function tutorialUpdate() {
-
-    if (vaccineSupply == 4) {
-        advanceTutorial();
-    }
-
-    if (vaccineSupply == 0 && intervention) {
-        advanceTutorial();
+    if (guideRailsPosition == 3) {
+        d3.selectAll(".node").transition().duration(300).attr("r", 8)
     }
 
     var nodes = removeVaccinatedNodes(graph);
@@ -323,6 +705,7 @@ function tutorialUpdate() {
     // Update the nodes…
     node = svg.selectAll("circle.node")
         .data(nodes, function(d) { return d.id; })
+        .attr("r", 8)
         .style("fill", function(d) {
             var color = null;
             if (d.status == "S") color = "#b7b7b7";
@@ -330,7 +713,7 @@ function tutorialUpdate() {
             if (d.status == "I") color = "#ef5555";
             if (d.status == "R") color = "#9400D3";
             if (d.status == "V") color = "#d9d678";
-            if (d.id == player.id && d.status != "I") color = "#2fa0ef";
+            if (d.id == player.id && d.status != "I" && guideRailsPosition<6) color = "#2fa0ef";
 
 
             return color;});
@@ -348,7 +731,7 @@ function tutorialUpdate() {
             if (d.status == "I") color = "#ef5555";
             if (d.status == "R") color = "#9400D3";
             if (d.status == "V") color = "#d9d678";
-            if (d.id == player.id && d.status != "I") color = "#2fa0ef";
+            if (d.id == player.id && d.status != "I" && guideRailsPosition<6) color = "#2fa0ef";
 
 
             return color;
@@ -367,18 +750,20 @@ function tutorialUpdate() {
                     .style("fill", "#d9d678")
                 vaccinatedBayStartYCoord += 25;
                 vaccineSupply--;
+                numberVaccinated++;
+
+                if (vaccineSupply == (Math.round(0.20 * numberOfIndividuals) - 1)) {
+                    guideRailsPosition++;
+                    guideRails();
+                }
+
+                if (vaccineSupply == 0 && intervention) {
+                    guideRailsPosition++;
+                    guideRails();
+                }
+
                 tutorialUpdate();
             }
-            else {
-                if (diseaseIsSpreading==true) return;   // prevent secondary introductions
-                d.status = "I";
-                tutorialUpdate();
-                tutorialTimesteps();
-                diseaseIsSpreading=true;
-                spreadingText();
-
-            }
-
         })
         .call(force.drag);
 
@@ -386,7 +771,7 @@ function tutorialUpdate() {
     node.exit().remove();
 
     d3.select(".vaccineCounterText")
-        .text(vaccineSupply + " / " + (0.20 * numberOfIndividuals));
+        .text(vaccineSupply + " / " + Math.round(0.20 * numberOfIndividuals));
 
 
     d3.select(".vaxNode")
@@ -395,6 +780,7 @@ function tutorialUpdate() {
         .attr("cx", 93)
         .attr("cy", vaccinatedBayStartYCoord)
         .attr("class", "fixedVaxNode")
+
 }
 
 function addOneFriend() {
@@ -407,6 +793,7 @@ function addOneFriend() {
 }
 
 function centerElement(element, classString) {
+    console.log(element + "\t" + classString)
 
     var leftSide = element.node().getBBox().x;
     var width = element.node().getBBox().width;
@@ -440,6 +827,8 @@ function buildGraph() {
     //remove friend, it will be added again below
     trivialGraph.nodes.splice(1,1);
     trivialGraph.links = [];
+
+    console.log(trivialGraph)
 
     tutorial = true;
 
@@ -504,8 +893,36 @@ function stepWiseUpdate() {
             if (d.status == "R") color = "#9400D3";
             if (d.status == "V") color = "#d9d678";
             if (d.id == player.id && d.status != "I") color = "#2fa0ef";
+            return color;})
+            .on("click", function(d) {
+                if (vaccinateMode) {
+                    if (vaccineSupply <= 0) {
+                        window.alert("Out of Vaccines!")
+                        return;
+                    }
+                    d.status = "V";
+                    d3.select(this)
+                        .attr("class", "vaxNode")
+                        .style("stroke", "#636363")
+                        .style("stroke-width", 2)
+                        .style("fill", "#d9d678")
 
-            return color;});
+                    vaccinatedBayStartYCoord += 25;
+                    vaccineSupply--;
+                    numberVaccinated++;
+
+                    if (vaccineSupply == (Math.round(0.20 * numberOfIndividuals) - 1)) {
+                        guideRailsPosition++;
+                        guideRails();
+                    }
+
+                    if (vaccineSupply == 0 && intervention) {
+                        guideRailsPosition++;
+                        guideRails();
+                    }
+
+                    tutorialUpdate();
+                }});
 
     // Enter any new nodes.
     node.enter().append("svg:circle")
@@ -526,6 +943,7 @@ function stepWiseUpdate() {
             return color;
 
         })
+        .call(force.drag)
         .on("click", function(d) {
             if (vaccinateMode) {
                 if (vaccineSupply <= 0) {
@@ -533,26 +951,28 @@ function stepWiseUpdate() {
                     return;
                 }
                 d.status = "V";
-                d.fixed = true;
                 d3.select(this)
                     .attr("class", "vaxNode")
+                    .style("stroke", "#636363")
+                    .style("stroke-width", 2)
                     .style("fill", "#d9d678")
+
                 vaccinatedBayStartYCoord += 25;
                 vaccineSupply--;
-                tutorialUpdate();
-            }
-            else {
-                if (diseaseIsSpreading==true) return;   // prevent secondary introductions
-                d.status = "I";
-                tutorialUpdate();
-                tutorialTimesteps();
-                diseaseIsSpreading=true;
-                spreadingText();
+                numberVaccinated++;
 
-            }
+                if (vaccineSupply == (Math.round(0.20 * numberOfIndividuals) - 1)) {
+                    guideRailsPosition++;
+                    guideRails();
+                }
 
-        })
-        .call(force.drag);
+                if (vaccineSupply == 0 && intervention) {
+                    guideRailsPosition++;
+                    guideRails();
+                }
+
+                tutorialUpdate();
+            }});
 
     // Exit any old nodes.
     node.exit().remove();
@@ -621,7 +1041,8 @@ function toggleNodeFixation() {
 
 function tutorialTimesteps() {
 
-    d3.select(".nextArrow").attr("opacity", 0);
+    d3.select(".nextArrow").attr("opacity", 0).text("");
+    d3.select(".backArrow").attr("opacity", 0).text("");
 
     // run exposure process & consider all potential state changes (recovery, in this case
     infection();
@@ -632,18 +1053,18 @@ function tutorialTimesteps() {
     newInfections = updateExposures();
     xyCoords = getPathogen_xyCoords(newInfections);
 
-
-    var I;
-    if (intervention) {
-        I = getStatuses("I");
-        intervention_series.push({group:"Intervention", time:timestep, value:I});
-        updateTutorialFig();
-    }
-    else {
-        I = getStatuses("I");
-        nonIntervention_series.push({group:"nonIntervention", time:timestep, value:I});
-        intervention_series.push({group:"Intervention", time:timestep, value:0});
-    }
+//
+//    var I;
+//    if (intervention) {
+//        I = getStatuses("I");
+//        intervention_series.push({group:"Intervention", time:timestep, value:I});
+//        updateTutorialFig();
+//    }
+//    else {
+//        I = getStatuses("I");
+//        nonIntervention_series.push({group:"nonIntervention", time:timestep, value:I});
+//        intervention_series.push({group:"Intervention", time:timestep, value:0});
+//    }
 
     this.timestep++;
 
@@ -661,12 +1082,28 @@ function tutorialTimesteps() {
 
     if (timeToStop == true) {
         animatePathogens_thenUpdate();
-        if (finalStop == true) return;
+        if (finalStop == true) {
+            d3.select(".backArrow")
+                .attr("opacity", 1)
+                .text("< Start Over")
+                .on("click", function() {
+                    window.setTimeout(location.reload(), 1000);
+                });
+            return;
+        }
+
+        d3.select(".backArrow")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1)
+            .text("< Restart Outbreak")
+
 
         d3.select(".nextArrow")
             .transition()
             .duration(500)
             .attr("opacity", 1)
+            .text("next >")
     }
 }
 
@@ -692,7 +1129,6 @@ function popNewInfection() {
             var size = 8;
             if (d.status == "I") {
                 if (timestep - d.exposureTimestep == 1) size = 12;
-
             }
             return size;
         })
@@ -707,25 +1143,28 @@ function detectCompletion() {
         var node = graph.nodes[nodeIndex];
         if (node.status == "I") numberOfInfecteds++;
     }
-    if (numberOfInfecteds == numberOfIndividuals) timeToStop = true;
+    if (numberOfInfecteds == numberOfIndividuals) {
+        timeToStop = true;
+
+    }
 
 
     if (finalStop) {
-      detectEndGame();
-      if (endGame) {
-          timeToStop = true;
-          while (timestep < nonIntervention_series.length) {
+        detectEndGame();
+        if (endGame) {
+            timeToStop = true;
+            while (timestep < nonIntervention_series.length) {
 
-              updateExposures();
-              infection();
-              stateChanges();
-              this.timestep++;
-              intervention_series.push({group:"Intervention", time:timestep, value:getStatuses("I")});
-              updateTutorialFig();
-              animatePathogens_thenUpdate();
-          }
+                updateExposures();
+                infection();
+                stateChanges();
+                this.timestep++;
+                intervention_series.push({group:"Intervention", time:timestep, value:getStatuses("I")});
+                updateTutorialFig();
+                animatePathogens_thenUpdate();
+            }
 
-      }
+        }
     }
 }
 
@@ -791,6 +1230,18 @@ function initTutorial() {
 
                 vaccinatedBayStartYCoord += 25;
                 vaccineSupply--;
+                numberVaccinated++;
+
+                if (vaccineSupply == (Math.round(0.20 * numberOfIndividuals) - 1)) {
+                    guideRailsPosition++;
+                    guideRails();
+                }
+
+                if (vaccineSupply == 0 && intervention) {
+                    guideRailsPosition++;
+                    guideRails();
+                }
+
                 tutorialUpdate();
             }
         });
@@ -801,27 +1252,35 @@ function initTutorial() {
         .attr("x",guideXCoord)
         .attr("y",guideYCoord)
         .attr("font-size", 28)
-        .text("Suppose this is you...")
+        .attr("opacity", 0)
+        .text("Suppose this is you")
+
+    centerElement(guide, "guide");
+
+    d3.select(".guide")
+        .transition()
+        .duration(500)
+        .attr("opacity", 1)
+
+    d3.select(".backArrow")
+        .transition()
+        .duration(500)
+        .attr("opacity", 1)
 
     d3.select(".nextArrow")
         .transition()
         .duration(500)
-        .attr("font-size", 15)
-        .attr("x", nextX)
-        .attr("y", nextY)
-        .text("next >")
-
+        .attr("opacity", 1)
 
 
 }
 
 
-function guideRails() {
-    guideRailsPosition++;
+function guideRails(back) {
 
     if (guideRailsPosition == 1) {
 
-        addOneFriend();
+        if (!back) addOneFriend();
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -851,11 +1310,12 @@ function guideRails() {
 
 
 
-
     }
 
     if (guideRailsPosition == 2) {
-        buildGraph();
+
+
+        if (!back) buildGraph();
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -872,8 +1332,6 @@ function guideRails() {
         centerElement(guide, "guide");
         centerElement(guide2, "guide2");
 
-
-
         d3.select(".guide")
             .transition()
             .duration(500)
@@ -885,12 +1343,15 @@ function guideRails() {
             .duration(500)
             .attr("opacity", 1);
 
+
+
     }
 
 
     if (guideRailsPosition == 3) {
-        charge = -175;
-        tutorialUpdate();
+
+        charge = -1000;
+        if (!back) tutorialUpdate();
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -907,26 +1368,19 @@ function guideRails() {
         centerElement(guide, "guide");
         centerElement(guide2, "guide2");
 
-
-
         d3.select(".guide")
             .transition()
             .duration(500)
             .attr("opacity", 1);
 
-
         d3.select(".guide2")
             .transition()
             .duration(500)
             .attr("opacity", 1);
-
     }
 
-
-
-
-
     if (guideRailsPosition == 4) {
+
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
@@ -960,21 +1414,28 @@ function guideRails() {
         tutorialUpdate();
         tutorialTimesteps();
         diseaseIsSpreading=true;
-        spreadingText();
+
+        d3.select(".timestepText").text("Day: ")
+        d3.select(".timestepTicker").text(timestep)
 
         d3.select(".nextArrow")
             .transition()
             .duration(500)
             .attr("opacity", 0)
+            .text("")
+
 
 
     }
 
     if (guideRailsPosition == 5) {
+        d3.select(".backArrow").attr("opacity", 0).text("")
+
         d3.select(".nextArrow")
             .transition()
             .duration(500)
             .attr("opacity", 1)
+            .text("next >")
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -1002,14 +1463,142 @@ function guideRails() {
             .duration(500)
             .attr("opacity", 1);
 
+    }
+
+    if (guideRailsPosition == 6) {
+
+        d3.select(".timestepText")
+            .transition()
+            .duration(500)
+            .attr("opacity", 0)
+
+        d3.select(".timestepTicker")
+            .transition()
+            .duration(500)
+            .attr("opacity", 0)
+            .text(timestep)
+
+        d3.select(".guide")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord)
+            .attr("opacity", 0)
+            .text("We can make it more difficult for diseases to spread")
+
+        d3.select(".guide2")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord + guide2YCoordChange)
+            .attr("opacity", 0)
+            .text("by cutting a network into smaller pieces.")
+
+        centerElement(guide, "guide");
+        centerElement(guide2, "guide2");
+
+        d3.select(".guide")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+
+        d3.select(".guide2")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+        graph.nodes = [];
+        graph.links = [];
+
+        // reset all node attributes after outbreak simulation
+        for (var i = 0; i < tailoredNodes.length; i++) {
+            tailoredNodes[i].status = "S";
+            tailoredNodes[i].infectedBy = null;
+            tailoredNodes[i].exposureTimestep = null;
+        }
+
+        // add the highest degree node only, to illustrate single vaccination
+        graph.nodes.push(tailoredNodes[2]);
+
+        // add its neighbors
+        graph.nodes.push(tailoredNodes[14-13])
+        graph.nodes.push(tailoredNodes[16-13])
+        graph.nodes.push(tailoredNodes[21-13])
+        graph.nodes.push(tailoredNodes[22-13])
+        graph.nodes.push(tailoredNodes[23-13])
+        graph.nodes.push(tailoredNodes[24-13])
+        graph.nodes.push(tailoredNodes[25-13])
+
+
+        // add only the links that are connected to the highest degree node
+        for (var i = 0; i < tailoredLinks.length; i++) {
+            var link = tailoredLinks[i];
+            if (link.source.id == tailoredNodes[2].id || link.target.id == tailoredNodes[2].id) {
+                graph.links.push(link);
+            }
+        }
+        tutorialUpdate();
+        graph.nodes[0].status = "V";
+        d3.selectAll(".node")
+            .transition()
+            .duration(500)
+            .attr("r", function(d) {
+                if (d.status == "S") return 8;
+                if (d.status == "V") return 15;
+            })
+            .style("fill", function(d) {
+                if (d.status == "S") return "#b7b7b7";
+                if (d.status == "V") return "#d9d678";
+            })
 
 
     }
 
-    if (guideRailsPosition == 6) {
-        for (var i = 0; i < graph.nodes.length; i++) {
+    if (guideRailsPosition == 7) {
+
+        d3.select(".guide")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord)
+            .attr("opacity", 0)
+            .text("When we vaccinate a node,")
+
+        d3.select(".guide2")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord + guide2YCoordChange)
+            .attr("opacity", 0)
+            .text("it is removed because it cannot be infected.")
+
+        centerElement(guide, "guide");
+        centerElement(guide2, "guide2");
+
+        d3.select(".guide")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+
+        d3.select(".guide2")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+        tutorialUpdate();
+    }
+
+
+
+    if (guideRailsPosition == 8) {
+        graph.nodes = [];
+        graph.links = [];
+
+        for (var i = 0; i < tailoredNodes.length; i++) {
+            graph.nodes.push(tailoredNodes[i]);
             graph.nodes[i].status = "S";
+            graph.nodes[i].infectedBy = null;
+            graph.nodes[i].exposureTimestep = null;
         }
+
+        for (var ii = 0; ii < tailoredLinks.length; ii++) {
+            graph.links.push(tailoredLinks[ii]);
+        }
+
 
         tutorialUpdate();
 
@@ -1028,12 +1617,13 @@ function guideRails() {
             .transition()
             .duration(500)
             .attr("opacity", 1)
+            .text("next >")
 
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("Now let's look at that same network again, but this time")
+            .text("Now let's look at the original network again, but this time")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
@@ -1063,7 +1653,8 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 7) {
+    if (guideRailsPosition == 9) {
+
         loadSyringe();
 
 
@@ -1073,7 +1664,7 @@ function guideRails() {
             .attr("opacity", 0)
             .text("Select the 'Vaccinate' tool in the upper right and select")
 
-        vaccineSupply = numberOfIndividuals * 0.20;
+        vaccineSupply = Math.round(numberOfIndividuals * 0.20);
         intervention_series = [];
         diseaseIsSpreading = false;
         postInitialOutbreak = true;
@@ -1098,12 +1689,13 @@ function guideRails() {
             .duration(500)
             .attr("opacity", 1);
 
-        d3.select(".nextArrow").attr("opacity", 0)
+        d3.select(".nextArrow").attr("opacity", 0).text("")
 
 
     }
 
-    if (guideRailsPosition == 8) {
+    if (guideRailsPosition == 10) {
+
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -1135,7 +1727,11 @@ function guideRails() {
 
     }
 
-    if (guideRailsPosition == 9) {
+    if (guideRailsPosition == 11) {
+
+
+
+
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
@@ -1165,12 +1761,14 @@ function guideRails() {
         d3.select(".nextArrow")
             .transition()
             .duration(500)
-            .attr("opacity", 1);
+            .attr("opacity", 1)
+            .text("next >")
 
 
     }
 
-    if (guideRailsPosition == 10) {
+    if (guideRailsPosition == 12) {
+
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -1236,28 +1834,6 @@ function guideRails() {
 }
 
 
-function spreadingText() {
-
-    var timestepText = d3.select(".svg").append("text")
-        .attr("class", "timestepText")
-        .style("font-size", 30)
-        .style("font-family", "Nunito")
-        .style("font-weight", 700)
-        .style("fill", "#707070")
-        .attr("x",35).attr("y",50)
-        .text("Day:");
-
-    var timestepTicker = d3.select(".svg").append("text")
-        .attr("class", "timestepTicker")
-        .style("font-size", 45)
-        .style("font-family", "Nunito")
-        .style("font-weight", 700)
-        .style("fill", "#707070")
-        .attr("x",102).attr("y",51)
-        .text(timestep);
-
-
-}
 
 
 
@@ -1372,15 +1948,15 @@ function updateTutorialFig() {
 
 function updateTutorialSeries() {
 
-        tutorialSeries = [
-            [{group: "nonIntervention", time: 0, value: 0}],
-            [{group: "Intervention", time:0, value:0}]
-        ];
+    tutorialSeries = [
+        [{group: "nonIntervention", time: 0, value: 0}],
+        [{group: "Intervention", time:0, value:0}]
+    ];
 
-        for (var time = 0; time < timestep-1; time++) {
-            tutorialSeries[0].push(nonIntervention_series[time]);
-            tutorialSeries[1].push(intervention_series[time]);
-        }
+    for (var time = 0; time < timestep-1; time++) {
+        tutorialSeries[0].push(nonIntervention_series[time]);
+        tutorialSeries[1].push(intervention_series[time]);
+    }
     console.log(tutorialSeries);
 
 }
@@ -1411,6 +1987,15 @@ function loadSyringe() {
         .style("fill", "#85bc99")
         .on("click", activateVaccinationMode)
 
+    d3.select(".actionBay").append("rect")
+        .attr("class", "vaccineDepressedState")
+        .attr("x", 860)
+        .attr("y", 20)
+        .attr("width", 80)
+        .attr("height", 75)
+        .style("fill","#77a989")
+        .attr("opacity", 0);
+
     var img = actionBay.selectAll("image").data([0]);
     img.enter()
         .append("image")
@@ -1435,16 +2020,16 @@ function loadSyringe() {
         .text("VACCINES")
         .on("click", activateVaccinationMode)
 
-   d3.select(".actionBay").append("text")
+    d3.select(".actionBay").append("text")
         .attr("class", "vaccineCounterText")
         .attr("x", 885)
         .attr("y", 85)
-       .attr("opacity", 0)
-       .style("font-size", 16)
+        .attr("opacity", 0)
+        .style("font-size", 16)
         .style("font-family", "Nunito")
         .style("font-weight", 300)
         .style("fill", "white")
-        .text(vaccineSupply + " / " + Math.round(0.20 * numberOfIndividuals))
+        .text(numberVaccinated + " / " + Math.round(0.20 * numberOfIndividuals))
         .on("click", activateVaccinationMode)
 
     d3.select(".vaccineShadow")
@@ -1480,7 +2065,9 @@ function activateVaccinationMode() {
     intervention = true;
     vaccineResearched = true;
     d3.select(".vaccineCounterText")
-        .text(vaccineSupply + " / " + (0.20 * numberOfIndividuals));
+        .text(vaccineSupply + " / " + Math.round(0.20 * numberOfIndividuals));
+
+    d3.select(".vaccineDepressedState").attr("opacity", 1)
 
 }
 
