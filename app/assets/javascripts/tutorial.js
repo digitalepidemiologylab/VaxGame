@@ -367,7 +367,7 @@ var startText = d3.select(".guideTextSVG").append("text")
 
 var backArrow = d3.select(".guideTextSVG").append("text")
     .attr("class", "backArrow")
-    .attr("x", 100)
+    .attr("x", 115)
     .attr("y", nextY)
     .style("font-family", "Nunito")
     .style("fill", "#707070")
@@ -452,7 +452,10 @@ function guideRailsReverse() {
         stepWiseUpdate();
     }
 
-    if (guideRailsPosition == 3) {
+    if (guideRailsPosition == 3 || guideRailsPosition == 4 || guideRailsPosition == 5) {
+        if (guideRailsPosition == 3 || guideRailsPosition == 4) {
+            d3.select(".backArrow").text("< Restart Outbreak")
+        }
 
         //return to pre-outbreak from post-outbreak
 
@@ -477,10 +480,37 @@ function guideRailsReverse() {
         for (var ii = 0; ii < tailoredLinks.length; ii++) {
             graph.links.push(tailoredLinks[ii]);
         }
-
-
-
         tutorialUpdate();
+
+    }
+
+    if (guideRailsPosition == 6) {
+        graph.links = [];
+        graph.nodes.push(tailoredNodes[2]);
+        graph.nodes[5].status = "V";
+
+
+        // add only the links that are connected to the highest degree node
+        for (var i = 0; i < tailoredLinks.length; i++) {
+            var link = tailoredLinks[i];
+            if (link.source.id == tailoredNodes[2].id || link.target.id == tailoredNodes[2].id) {
+                graph.links.push(link);
+            }
+        }
+        tutorialUpdate();
+        d3.selectAll(".node")
+            .transition()
+            .duration(500)
+            .attr("r", function(d) {
+                if (d.status == "S") return 8;
+                if (d.status == "V") return 15;
+            })
+            .style("fill", function(d) {
+                if (d.status == "S") return "#b7b7b7";
+                if (d.status == "V") return "#d9d678";
+            })
+
+
 
     }
 
@@ -1277,11 +1307,6 @@ function initTutorial() {
         .duration(500)
         .attr("opacity", 1)
 
-    d3.select(".backArrow")
-        .transition()
-        .duration(500)
-        .attr("opacity", 1)
-
     d3.select(".nextArrow")
         .transition()
         .duration(500)
@@ -1294,6 +1319,11 @@ function initTutorial() {
 function guideRails(back) {
 
     if (guideRailsPosition == 1) {
+        d3.select(".backArrow")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1)
+
 
         d3.select(".lessonText")
             .transition()
@@ -1370,7 +1400,10 @@ function guideRails(back) {
 
     if (guideRailsPosition == 3) {
 
-        charge = -1000;
+        d3.select(".backArrow").text("< back")
+
+
+        charge = -700;
         if (!back) tutorialUpdate();
 
         d3.select(".guide")
@@ -1458,8 +1491,6 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 5) {
-        d3.select(".backArrow").attr("opacity", 0).text("")
-
         d3.select(".nextArrow")
             .transition()
             .duration(500)
@@ -1495,6 +1526,8 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 6) {
+
+        d3.select(".backArrow").attr("opacity", 0).text("")
 
         d3.select(".timestepText")
             .transition()
@@ -1582,6 +1615,12 @@ function guideRails(back) {
 
     if (guideRailsPosition == 7) {
 
+        d3.select(".backArrow")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1)
+            .text("< Instant Replay!")
+
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
@@ -1614,6 +1653,14 @@ function guideRails(back) {
 
 
     if (guideRailsPosition == 8) {
+
+        d3.select(".backArrow")
+            .transition()
+            .duration(500)
+            .attr("opacity", 0)
+            .text("")
+
+
         d3.select(".lessonText")
             .transition()
             .duration(500)
