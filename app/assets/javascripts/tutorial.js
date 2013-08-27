@@ -18,6 +18,7 @@ var tutorial = false;
 var charge = -1000;
 var newInfections = [];
 var xyCoords = [];
+var vax = 1;
 
 
 var graph = {};
@@ -514,6 +515,30 @@ function guideRailsReverse() {
 
     }
 
+    if (guideRailsPosition == 9 || guideRailsPosition == 10 || guideRailsPosition == 11) {
+        guideRailsPosition = 9;
+        vaccineSupply = 3;
+        vax = 3;
+
+        d3.selectAll(".fixedVaxNode").remove();
+        vaccinatedBayStartYCoord = 125;
+
+        graph.nodes = [];
+        graph.links = [];
+
+        for (var i = 0; i < tailoredNodes.length; i++) {
+            tailoredNodes[i].status = "S";
+            tailoredNodes[i].fixed = false;
+            graph.nodes.push(tailoredNodes[i]);
+        }
+
+        for (var ii = 0; ii < tailoredLinks.length; ii++)  {
+            graph.links.push(tailoredLinks[ii]);
+        }
+
+        tutorialUpdate();
+    }
+
     var back = true;
     guideRails(back);
 
@@ -794,7 +819,7 @@ function tutorialUpdate() {
                 vaccineSupply--;
                 numberVaccinated++;
 
-                if (vaccineSupply == (Math.round(0.20 * numberOfIndividuals) - 1)) {
+                if (vaccineSupply == vax - 1) {
                     guideRailsPosition++;
                     guideRails();
                 }
@@ -813,7 +838,7 @@ function tutorialUpdate() {
     node.exit().remove();
 
     d3.select(".vaccineCounterText")
-        .text(vaccineSupply + " / " + Math.round(0.20 * numberOfIndividuals));
+        .text(vaccineSupply + " / " + vax);
 
 
     d3.select(".vaxNode")
@@ -953,7 +978,7 @@ function stepWiseUpdate() {
                     vaccineSupply--;
                     numberVaccinated++;
 
-                    if (vaccineSupply == (Math.round(0.20 * numberOfIndividuals) - 1)) {
+                    if (vaccineSupply == (vax - 1)) {
                         guideRailsPosition++;
                         guideRails();
                     }
@@ -1003,7 +1028,7 @@ function stepWiseUpdate() {
                 vaccineSupply--;
                 numberVaccinated++;
 
-                if (vaccineSupply == (Math.round(0.20 * numberOfIndividuals) - 1)) {
+                if (vaccineSupply == vax - 1) {
                     guideRailsPosition++;
                     guideRails();
                 }
@@ -1187,47 +1212,12 @@ function detectCompletion() {
     }
     if (numberOfInfecteds == numberOfIndividuals) {
         timeToStop = true;
-
     }
-
 
     if (finalStop) {
         detectEndGame();
         if (endGame) {
             timeToStop = true;
-            while (timestep < nonIntervention_series.length) {
-
-                updateExposures();
-                infection();
-                stateChanges();
-                this.timestep++;
-                intervention_series.push({group:"Intervention", time:timestep, value:getStatuses("I")});
-                updateTutorialFig();
-                animatePathogens_thenUpdate();
-            }
-
-        }
-    }
-}
-
-function completeSeries() {
-    var discrepancy;
-
-    if (nonIntervention_series.length > intervention_series.length) {
-        discrepancy = nonIntervention_series.length - intervention_series.length;
-
-        for (var i = intervention_series.length; i < discrepancy; i++) {
-            tutorialSeries[1].push(intervention_series[intervention_series.length-1])
-
-        }
-
-    }
-    else {
-        discrepancy = intervention_series.length - nonIntervention_series.length;
-
-        for (var i = intervention_series.length; i < discrepancy; i++) {
-            tutorialSeries[0].push(nonIntervention_series[nonIntervention_series.length-1])
-
         }
     }
 }
@@ -1277,7 +1267,7 @@ function initTutorial() {
                 vaccineSupply--;
                 numberVaccinated++;
 
-                if (vaccineSupply == (Math.round(0.20 * numberOfIndividuals) - 1)) {
+                if (vaccineSupply == vax - 1) {
                     guideRailsPosition++;
                     guideRails();
                 }
@@ -1392,20 +1382,13 @@ function guideRails(back) {
             .transition()
             .duration(500)
             .attr("opacity", 1);
-
-
-
     }
 
-
     if (guideRailsPosition == 3) {
-
         d3.select(".backArrow").text("< back")
-
-
-        charge = -700;
+        d3.select(".nextArrow").text("Next: Epidemics >")
+        charge = -600;
         if (!back) tutorialUpdate();
-
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
@@ -1435,6 +1418,8 @@ function guideRails(back) {
     if (guideRailsPosition == 4) {
         d3.select(".lessonText").attr("opacity", 1)
             .text("LESSON 2: EPIDEMICS")
+
+        d3.select(".nextArrow").text("next >")
 
 
         d3.select(".guide")
@@ -1495,7 +1480,7 @@ function guideRails(back) {
             .transition()
             .duration(500)
             .attr("opacity", 1)
-            .text("next >")
+            .text("Next: Vaccines >")
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -1526,6 +1511,15 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 6) {
+        d3.select(".nextArrow")
+            .transition()
+            .duration(500)
+            .attr("opacity", 0)
+            .text("next >")
+
+        loadSyringe();
+        vaccineSupply = 1;
+        numberVaccinated = 0;
 
         d3.select(".backArrow").attr("opacity", 0).text("")
 
@@ -1597,23 +1591,32 @@ function guideRails(back) {
             }
         }
         tutorialUpdate();
-        graph.nodes[0].status = "V";
+
         d3.selectAll(".node")
-            .transition()
-            .duration(500)
-            .attr("r", function(d) {
-                if (d.status == "S") return 8;
-                if (d.status == "V") return 15;
-            })
-            .style("fill", function(d) {
-                if (d.status == "S") return "#b7b7b7";
-                if (d.status == "V") return "#d9d678";
+            .on("click", function(d) {
+                if (d.id != 15) return;
+                else {
+                    d.status = "V";
+                    d3.select(".vaccineCounterText").text(vaccineSupply + " / " + vax)
+
+
+                    guideRailsPosition++;
+                    numberVaccinated++;
+                    guideRails();
+                    window.setTimeout(tutorialUpdate, 2000);
+                }
             })
 
 
     }
 
     if (guideRailsPosition == 7) {
+
+        d3.select(".nextArrow")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1)
+            .text("next >")
 
         d3.select(".backArrow")
             .transition()
@@ -1648,12 +1651,11 @@ function guideRails(back) {
             .attr("opacity", 1);
 
         tutorialUpdate();
+
+        hideSyringe();
     }
 
-
-
     if (guideRailsPosition == 8) {
-
         d3.select(".backArrow")
             .transition()
             .duration(500)
@@ -1680,6 +1682,35 @@ function guideRails(back) {
         for (var ii = 0; ii < tailoredLinks.length; ii++) {
             graph.links.push(tailoredLinks[ii]);
         }
+
+        d3.selectAll(".node")
+            .on("click", function(d) {
+                if (vaccinateMode) {
+                    if (vaccineSupply <= 0) {
+                        window.alert("Out of Vaccines!")
+                        return;
+                    }
+                    d.status = "V";
+                    d.fixed = true;
+                    d3.select(this)
+                        .attr("class", "vaxNode")
+                        .style("fill", "#d9d678")
+                    vaccinatedBayStartYCoord += 25;
+                    vaccineSupply--;
+                    numberVaccinated++;
+
+                    if (vaccineSupply == 2) {
+                        guideRailsPosition++;
+                        guideRails();
+                    }
+
+                    if (vaccineSupply == 0 && intervention) {
+                        guideRailsPosition++;
+                        guideRails();
+                    }
+
+                    tutorialUpdate();
+                }});
 
 
         tutorialUpdate();
@@ -1727,15 +1758,15 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-        actionBay = d3.select(".svg").append("svg")
-            .attr("class", "actionBay")
-
 
 
 
     }
 
     if (guideRailsPosition == 9) {
+        vaccineSupply = 3;
+        vax = 3;
+
         d3.select(".lessonText")
             .transition()
             .duration(1000)
@@ -1751,7 +1782,7 @@ function guideRails(back) {
             .attr("opacity", 0)
             .text("Select the 'Vaccinate' tool in the upper right and select")
 
-        vaccineSupply = Math.round(numberOfIndividuals * 0.20);
+        vaccineSupply = 3;
         intervention_series = [];
         diseaseIsSpreading = false;
         postInitialOutbreak = true;
@@ -1782,6 +1813,9 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 10) {
+        d3.select(".backArrow").attr("opacity", 1).text("< Clear Vaccinations")
+
+
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
@@ -1809,6 +1843,8 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 11) {
+        d3.select(".backArrow").attr("opacity", 1).text("< Clear Vaccinations")
+
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
@@ -1910,138 +1946,9 @@ function guideRails(back) {
 
 }
 
-
-
-
-
-function initFigure() {
-    tutorialSeries = [
-        [{group: "Intervention", time: 0, value: 0}],
-        [{group: "No Intervention", time: 0, value: 0}]
-    ];
-
-    d3.select("body").append("div3");
-
-    colorScale = d3.scale.category10();
-
-// canvas margins
-    figMargin = {top: 70, right: 10, bottom: 20, left: 90},
-        figWidth = 400 - figMargin.left - figMargin.right,
-        figHeight = 250 - figMargin.top - figMargin.bottom;
-
-// x scale
-    figX = d3.scale.linear()
-        .domain([0, nonIntervention_series.length])
-        .range([0, figWidth]);
-
-// y scale
-    figY = d3.scale.linear()
-        .domain([0, numberOfIndividuals])
-        .range([figHeight, 0]);
-
-// the lines
-    figLines = d3.svg.line()
-        .interpolate("basis")
-        .x(function(d) { return figX(d.time); })
-        .y(function(d) { return figY(d.value); });
-
-
-// the svg canvas
-    svgTutorial = d3.select("div3").append("svg")
-        .attr("width", figWidth + figMargin.left + figMargin.right)
-        .attr("height", figHeight + figMargin.top + figMargin.bottom)
-        .attr("class", "svgTutorial")
-        .append("g")
-        .attr("transform", "translate(" + figMargin.left + "," + figMargin.top + ")");
-
-
-    yLab = d3.select(".svgTutorial").append("text")
-        .attr("x", 5).attr("y", 115)
-        .attr("font-weight", "bold")
-        .attr("transform", "rotate(320 55,125)")
-        .text("Infected");
-
-//    xLab = d3.select(".svgTutorial").append("text")
-//        .attr("x", 220).attr("y", 240)
-//        .attr("font-weight", "bold")
-//        .text("Day");
-
-
-    nonInterventionLegend = d3.select(".svgTutorial").append("line")
-        .attr("x1", 116).attr("y1", 20)
-        .attr("x2", 166).attr("y2", 20)
-        .style("stroke", "#1f77b4")
-        .style("stroke-width", 5)
-
-    nonInterventionLab = d3.select(".svgTutorial").append("text")
-        .attr("x", 90).attr("y", 40)
-        .text("Without Vaccines")
-
-    interventionLegend = d3.select(".svgTutorial").append("line")
-        .attr("x1", 260).attr("y1", 20)
-        .attr("x2", 310).attr("y2", 20)
-        .style("stroke", "#ff7f0e")
-        .style("stroke-width", 5)
-
-    interventionLab = d3.select(".svgTutorial").append("text")
-        .attr("x", 245).attr("y", 40)
-        .text("With Vaccines")
-
-
-// append lines to canvas
-    svgTutorial.selectAll(".line")
-        .data(tutorialSeries)
-        .enter().append("path")
-        .attr("class", "line")
-        .attr("d", figLines)
-        .style("stroke-width", 8)
-        .style("stroke", function(d) {return colorScale(d[0].group)});
-
-
-//x-axis
-    svgTutorial.append("g")
-        .attr("class", "x-axis")
-        .attr("transform", "translate(0," + figHeight + ")")
-        .call(d3.svg.axis().scale(figX).orient("bottom"))
-
-//y-axis
-    svgTutorial.append("g")
-        .attr("class", "y-axis")
-        .call(d3.svg.axis().scale(figY).orient("left"));
-
-
-}
-
-function updateTutorialFig() {
-
-    updateTutorialSeries();
-
-    d3.selectAll("path")
-        .data(tutorialSeries) // set the new data
-        .transition()
-        .attr("d", figLines) // apply the new data values
-
-}
-
-function updateTutorialSeries() {
-
-    tutorialSeries = [
-        [{group: "nonIntervention", time: 0, value: 0}],
-        [{group: "Intervention", time:0, value:0}]
-    ];
-
-    for (var time = 0; time < timestep-1; time++) {
-        tutorialSeries[0].push(nonIntervention_series[time]);
-        tutorialSeries[1].push(intervention_series[time]);
-    }
-    console.log(tutorialSeries);
-
-}
-
-
-
-
 function loadSyringe() {
+    actionBay = d3.select(".svg").append("svg")
+        .attr("class", "actionBay")
 
     var shadowX = 845;
     var contX = 841;
@@ -2106,7 +2013,7 @@ function loadSyringe() {
         .style("font-family", "Nunito")
         .style("font-weight", 300)
         .style("fill", "white")
-        .text(numberVaccinated + " / " + Math.round(0.20 * numberOfIndividuals))
+        .text(vaccineSupply + " / " + vax)
         .on("click", activateVaccinationMode)
 
     d3.select(".vaccineShadow")
@@ -2137,12 +2044,16 @@ function loadSyringe() {
 
 }
 
+function hideSyringe() {
+    d3.select(".actionBay").remove();
+}
+
 function activateVaccinationMode() {
     vaccinateMode = true;
     intervention = true;
     vaccineResearched = true;
     d3.select(".vaccineCounterText")
-        .text(vaccineSupply + " / " + Math.round(0.20 * numberOfIndividuals));
+        .text(vaccineSupply + " / " + vax);
 
     d3.select(".vaccineDepressedState").attr("opacity", 1)
 
