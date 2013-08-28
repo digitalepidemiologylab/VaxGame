@@ -19,6 +19,9 @@ var charge = -1000;
 var newInfections = [];
 var xyCoords = [];
 var vax = 1;
+var exposureEdges = [];
+var currentFlash = 0;
+var keepFlashing = true;
 
 
 var graph = {};
@@ -268,6 +271,208 @@ trivialGraph.links = [];
 
 trivialGraph.nodes.push(player);
 
+
+//////////
+
+var weakTieNodes = [];
+
+for (var i = 0; i < 30; i++) {
+    var nodeString = {id:i, status:"S", group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null, infectedBy:null};
+    weakTieNodes.push(nodeString);
+}
+
+
+var weakTieLinks = [
+    {
+        source:weakTieNodes[1],
+        target:weakTieNodes[3],
+        remove:false
+    },
+    {
+        source:weakTieNodes[3],
+        target:weakTieNodes[6],
+        remove:false
+    },
+    {
+        source:weakTieNodes[4],
+        target:weakTieNodes[1],
+        remove:false
+    },
+    {
+        source:weakTieNodes[4],
+        target:weakTieNodes[2],
+        remove:false
+    },
+    {
+        source:weakTieNodes[4],
+        target:weakTieNodes[3],
+        remove:false
+    },
+    {
+        source:weakTieNodes[4],
+        target:weakTieNodes[8],
+        remove:false
+    },
+    {
+        source:weakTieNodes[4],
+        target:weakTieNodes[9],
+        remove:false
+    },
+    {
+        source:weakTieNodes[5],
+        target:weakTieNodes[16],
+        remove:false
+    },
+    {
+        source:weakTieNodes[6],
+        target:weakTieNodes[1],
+        remove:false
+    },
+    {
+        source:weakTieNodes[8],
+        target:weakTieNodes[12],
+        remove:false
+    },
+    {
+        source:weakTieNodes[8],
+        target:weakTieNodes[13],
+        remove:false
+    },
+    {
+        source:weakTieNodes[9],
+        target:weakTieNodes[15],
+        remove:false
+    },
+    {
+        source:weakTieNodes[10],
+        target:weakTieNodes[6],
+        remove:false
+    },
+    {
+        source:weakTieNodes[10],
+        target:weakTieNodes[18],
+        remove:false
+    },
+    {
+        source:weakTieNodes[12],
+        target:weakTieNodes[2],
+        remove:false
+    },
+    {
+        source:weakTieNodes[12],
+        target:weakTieNodes[9],
+        remove:false
+    },
+    {
+        source:weakTieNodes[13],
+        target:weakTieNodes[2],
+        remove:false
+    },
+    {
+        source:weakTieNodes[13],
+        target:weakTieNodes[17],
+        remove:false
+    },
+    {
+        source:weakTieNodes[14],
+        target:weakTieNodes[13],
+        remove:false
+    },
+    {
+        source:weakTieNodes[14],
+        target:weakTieNodes[15],
+        remove:false
+    },
+    {
+        source:weakTieNodes[15],
+        target:weakTieNodes[2],
+        remove:false
+    },
+    {
+        source:weakTieNodes[15],
+        target:weakTieNodes[5],
+        remove:false
+    },
+    {
+        source:weakTieNodes[16],
+        target:weakTieNodes[14],
+        remove:false
+    },
+    {
+        source:weakTieNodes[16],
+        target:weakTieNodes[17],
+        remove:false
+    },
+    {
+        source:weakTieNodes[18],
+        target:weakTieNodes[19],
+        remove:false
+    },
+    {
+        source:weakTieNodes[19],
+        target:weakTieNodes[10],
+        remove:false
+    },
+    {
+        source:weakTieNodes[19],
+        target:weakTieNodes[24],
+        remove:false
+    },
+    {
+        source:weakTieNodes[19],
+        target:weakTieNodes[28],
+        remove:false
+    },
+    {
+        source:weakTieNodes[21],
+        target:weakTieNodes[23],
+        remove:false
+    },
+    {
+        source:weakTieNodes[21],
+        target:weakTieNodes[28],
+        remove:false
+    },
+    {
+        source:weakTieNodes[22],
+        target:weakTieNodes[18],
+        remove:false
+    },
+    {
+        source:weakTieNodes[23],
+        target:weakTieNodes[19],
+        remove:false
+    },
+    {
+        source:weakTieNodes[23],
+        target:weakTieNodes[22],
+        remove:false
+    },
+    {
+        source:weakTieNodes[24],
+        target:weakTieNodes[26],
+        remove:false
+    },
+    {
+        source:weakTieNodes[28],
+        target:weakTieNodes[24],
+        remove:false
+    },
+    {
+        source:weakTieNodes[29],
+        target:weakTieNodes[26],
+        remove:false
+    },
+    {
+        source:weakTieNodes[29],
+        target:weakTieNodes[27],
+        remove:false
+    }
+]
+
+/////////
+
+
 var vaccinatedBayStartYCoord = 125;
 
 var start = false;
@@ -400,6 +605,8 @@ var timestepTicker = d3.select(".svg").append("text")
     .text("");
 
 function guideRailsReverse() {
+    var back = true;
+
 
     if (guideRailsPosition == 0) {
         trivialGraph.nodes = [];
@@ -490,7 +697,6 @@ function guideRailsReverse() {
         graph.nodes.push(tailoredNodes[2]);
         graph.nodes[5].status = "V";
 
-
         // add only the links that are connected to the highest degree node
         for (var i = 0; i < tailoredLinks.length; i++) {
             var link = tailoredLinks[i];
@@ -511,12 +717,12 @@ function guideRailsReverse() {
                 if (d.status == "V") return "#d9d678";
             })
 
-
+        keepFlashing = true;
 
     }
 
-    if (guideRailsPosition == 9 || guideRailsPosition == 10 || guideRailsPosition == 11) {
-        guideRailsPosition = 9;
+    if (guideRailsPosition == 10 || guideRailsPosition == 11 || guideRailsPosition == 12) {
+        guideRailsPosition = 10;
         vaccineSupply = 3;
         vax = 3;
 
@@ -539,13 +745,7 @@ function guideRailsReverse() {
         tutorialUpdate();
     }
 
-    var back = true;
     guideRails(back);
-
-
-
-
-
 
 }
 
@@ -1081,7 +1281,6 @@ function createPathogens() {
         .attr("r", 4)
         .style("fill", "green")
 
-    // remove old pathogens, may not be useful here...
 }
 
 function removePathogens() {
@@ -1108,6 +1307,8 @@ function toggleNodeFixation() {
 
 function tutorialTimesteps() {
 
+    exposureEdges = [];
+
     d3.select(".nextArrow").attr("opacity", 0).text("");
     d3.select(".backArrow").attr("opacity", 0).text("");
 
@@ -1119,19 +1320,6 @@ function tutorialTimesteps() {
     newInfections = [];
     newInfections = updateExposures();
     xyCoords = getPathogen_xyCoords(newInfections);
-
-//
-//    var I;
-//    if (intervention) {
-//        I = getStatuses("I");
-//        intervention_series.push({group:"Intervention", time:timestep, value:I});
-//        updateTutorialFig();
-//    }
-//    else {
-//        I = getStatuses("I");
-//        nonIntervention_series.push({group:"nonIntervention", time:timestep, value:I});
-//        intervention_series.push({group:"Intervention", time:timestep, value:0});
-//    }
 
     this.timestep++;
 
@@ -1199,10 +1387,7 @@ function popNewInfection() {
             }
             return size;
         })
-
 }
-
-
 
 function detectCompletion() {
     var numberOfInfecteds = 0;
@@ -1281,8 +1466,6 @@ function initTutorial() {
             }
         });
 
-
-
     d3.select(".guide")
         .attr("x",guideXCoord)
         .attr("y",guideYCoord)
@@ -1301,19 +1484,14 @@ function initTutorial() {
         .transition()
         .duration(500)
         .attr("opacity", 1)
-
-
 }
 
-
 function guideRails(back) {
-
     if (guideRailsPosition == 1) {
         d3.select(".backArrow")
             .transition()
             .duration(500)
             .attr("opacity", 1)
-
 
         d3.select(".lessonText")
             .transition()
@@ -1337,7 +1515,6 @@ function guideRails(back) {
         centerElement(guide, "guide");
         centerElement(guide2, "guide2");
 
-
         d3.select(".guide")
             .transition()
             .duration(500)
@@ -1347,14 +1524,9 @@ function guideRails(back) {
             .transition()
             .duration(500)
             .attr("opacity", 1);
-
-
-
     }
 
     if (guideRailsPosition == 2) {
-
-
         if (!back) buildGraph();
 
         d3.select(".guide")
@@ -1511,6 +1683,7 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 6) {
+
         d3.select(".nextArrow")
             .transition()
             .duration(500)
@@ -1538,13 +1711,13 @@ function guideRails(back) {
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("We can make it more difficult for diseases to spread")
+            .text("Select the 'Vaccinate' tool in the upper right")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord + guide2YCoordChange)
             .attr("opacity", 0)
-            .text("by cutting a network into smaller pieces.")
+            .text("then click the flashing node to vaccinate it.")
 
         centerElement(guide, "guide");
         centerElement(guide2, "guide2");
@@ -1592,25 +1765,15 @@ function guideRails(back) {
         }
         tutorialUpdate();
 
-        d3.selectAll(".node")
-            .on("click", function(d) {
-                if (d.id != 15) return;
-                else {
-                    d.status = "V";
-                    d3.select(".vaccineCounterText").text(vaccineSupply + " / " + vax)
+        flashNode();
 
 
-                    guideRailsPosition++;
-                    numberVaccinated++;
-                    guideRails();
-                    window.setTimeout(tutorialUpdate, 2000);
-                }
-            })
 
 
     }
 
     if (guideRailsPosition == 7) {
+        keepFlashing = false;
 
         d3.select(".nextArrow")
             .transition()
@@ -1656,6 +1819,106 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 8) {
+        d3.select(".backArrow").attr("opacity", 0).text("< back")
+
+        keepFlashing=true;
+        loadSyringe();
+        vaccineSupply = 1;
+        numberVaccinated = 0;
+
+        d3.select(".guide")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord)
+            .attr("opacity", 0)
+            .text("Now let's separate this network into two groups")
+
+        d3.select(".guide2")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord + guide2YCoordChange)
+            .attr("opacity", 0)
+            .text("by vaccinating any of the flashing nodes.")
+
+        centerElement(guide, "guide");
+        centerElement(guide2, "guide2");
+
+        d3.select(".guide")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+
+        d3.select(".guide2")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+        graph.nodes = [];
+        graph.links = [];
+
+        for (var i = 0; i < weakTieNodes.length; i++) {
+            graph.nodes.push(weakTieNodes[i]);
+        }
+
+        for (var ii = 0; ii < weakTieLinks.length; ii++) {
+            graph.links.push(weakTieLinks[ii]);
+        }
+
+        // remove nodes w/o edges
+        for (var iv = 0; iv < graph.nodes.length; iv++) {
+            var counter = 0;
+            var node = graph.nodes[iv];
+            for (var iii = 0; iii < graph.links.length; iii++) {
+                var link = graph.links[iii];
+                if (link.source.id == node.id || link.target.id == node.id) counter++;
+            }
+
+            if (counter == 0) graph.nodes.splice(iv, 1);
+
+        }
+
+        tutorialUpdate();
+
+        flashNodes();
+    }
+
+    if (guideRailsPosition == 9) {
+        d3.selectAll(".node").attr("fill", "#b7b7b7")
+
+        d3.select(".guide")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord)
+            .attr("opacity", 0)
+            .text("Now if an outbreak were to occur,")
+
+        d3.select(".guide2")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord + guide2YCoordChange)
+            .attr("opacity", 0)
+            .text("it would not spread to both groups.")
+
+        centerElement(guide, "guide");
+        centerElement(guide2, "guide2");
+
+        d3.select(".guide")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+
+        d3.select(".guide2")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+
+
+    }
+
+
+
+    if (guideRailsPosition == 10) {
+        hideSyringe();
+
         d3.select(".backArrow")
             .transition()
             .duration(500)
@@ -1763,7 +2026,7 @@ function guideRails(back) {
 
     }
 
-    if (guideRailsPosition == 9) {
+    if (guideRailsPosition == 11) {
         vaccineSupply = 3;
         vax = 3;
 
@@ -1812,7 +2075,7 @@ function guideRails(back) {
 
     }
 
-    if (guideRailsPosition == 10) {
+    if (guideRailsPosition == 12) {
         d3.select(".backArrow").attr("opacity", 1).text("< Clear Vaccinations")
 
 
@@ -1842,7 +2105,7 @@ function guideRails(back) {
             .attr("opacity", 1);
     }
 
-    if (guideRailsPosition == 11) {
+    if (guideRailsPosition == 12) {
         d3.select(".backArrow").attr("opacity", 1).text("< Clear Vaccinations")
 
         d3.select(".guide")
@@ -1880,7 +2143,7 @@ function guideRails(back) {
 
     }
 
-    if (guideRailsPosition == 12) {
+    if (guideRailsPosition == 13) {
 
 
         d3.select(".guide")
@@ -2047,6 +2310,83 @@ function loadSyringe() {
 function hideSyringe() {
     d3.select(".actionBay").remove();
 }
+
+function flashNode() {
+    var node = graph.nodes[0];
+    if (currentFlash == 0) currentFlash = 1;
+    else {
+        if (currentFlash == 1) currentFlash = 0;
+    }
+
+    var availableColors = ["#d9d678", "#b7b7b7"]
+
+    d3.selectAll(".node")
+        .transition()
+        .duration(500)
+        .style("fill", function(d) {
+            if (d.id == node.id) return availableColors[currentFlash];
+            else return availableColors[1];
+
+        })
+
+
+    d3.selectAll(".node")
+        .on("click", function(d) {
+            if (d.id == node.id) {
+                d.status = "V";
+                vaccineSupply--;
+                numberVaccinated++;
+                keepFlashing = false;
+                guideRailsPosition++;
+                guideRails();
+                tutorialUpdate();
+            }
+        });
+
+    if (keepFlashing) window.setTimeout(flashNode, 1000);
+}
+
+function flashNodes() {
+    var nodeA = graph.nodes[3];
+    var nodeB = graph.nodes[5];
+    var nodeC = graph.nodes[9];
+
+    if (currentFlash == 0) currentFlash = 1;
+    else {
+        if (currentFlash == 1) currentFlash = 0;
+    }
+
+    var availableColors = ["#d9d678", "#b7b7b7"]
+
+    d3.selectAll(".node")
+        .transition()
+        .duration(500)
+        .style("fill", function(d) {
+            if (d.id == 10 || d.id == 4 || d.id == 6) return availableColors[currentFlash];
+            else return availableColors[1];
+
+        })
+
+
+    d3.selectAll(".node")
+        .on("click", function(d) {
+            if (d.id == 10 || d.id == 4 || d.id == 6) {
+                d.status = "V";
+                vaccineSupply--;
+                numberVaccinated++;
+                keepFlashing = false;
+                tutorialUpdate();
+                guideRailsPosition++;
+                keepFlashing = false;
+                guideRails();
+            }
+        });
+
+    if (keepFlashing) window.setTimeout(flashNodes, 1000);
+}
+
+
+
 
 function activateVaccinationMode() {
     vaccinateMode = true;

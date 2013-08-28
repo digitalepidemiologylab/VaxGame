@@ -70,10 +70,16 @@ function exposeIndividual(individual, exposer) {
         console.log(exposer.id + "\tinfected " + individual.id)
         individual.infectedBy = exposer;
     }
+
+    for (var i = 0; i < graph.links.length; i++) {
+        if (graph.links[i].source.id == exposer.id && graph.links[i].target.id == individual.id) exposureEdges.push(graph.links[i]);
+        else {
+            if (graph.links[i].source.id == individual.id && graph.links[i].target.id == exposer.id) exposureEdges.push(graph.links[i]);
+        }
+    }
 }
 
 function updateExposures() {
-    var newInfections = [];
     for (var i = 0; i < graph.nodes.length; i++) {
         if (graph.nodes[i].status == "E") {
             graph.nodes[i].status = "I";
