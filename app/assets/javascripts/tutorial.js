@@ -15,13 +15,15 @@ var nonIntervention_series = [];
 var intervention_series = [];
 var intervention = false;
 var tutorial = false;
-var charge = -1000;
+var charge = -600;
 var newInfections = [];
 var xyCoords = [];
 var vax = 1;
 var exposureEdges = [];
 var currentFlash = 0;
 var keepFlashing = true;
+
+var opacityIndex = 0;
 
 
 var graph = {};
@@ -462,11 +464,6 @@ var weakTieLinks = [
         source:weakTieNodes[29],
         target:weakTieNodes[26],
         remove:false
-    },
-    {
-        source:weakTieNodes[29],
-        target:weakTieNodes[27],
-        remove:false
     }
 ]
 
@@ -661,6 +658,8 @@ function guideRailsReverse() {
     }
 
     if (guideRailsPosition == 3 || guideRailsPosition == 4 || guideRailsPosition == 5) {
+        d3.select(".redX").remove();
+
         if (guideRailsPosition == 3 || guideRailsPosition == 4) {
             d3.select(".backArrow").text("< Restart Outbreak")
         }
@@ -1559,7 +1558,7 @@ function guideRails(back) {
     if (guideRailsPosition == 3) {
         d3.select(".backArrow").text("< back")
         d3.select(".nextArrow").text("Next: Epidemics >")
-        charge = -600;
+        charge = -200;
         if (!back) tutorialUpdate();
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -1648,11 +1647,26 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 5) {
+        var img = svg.selectAll("image").data([0]);
+        img.enter()
+            .append("image")
+            .attr("xlink:href", "/assets/redX.png")
+            .transition()
+            .duration(500)
+            .attr("x", "300")
+            .attr("y", "50")
+            .attr("width", "350")
+            .attr("height", "350")
+            .attr("opacity", 0.6)
+            .attr("class", "redX")
+
+        flashRedX();
+
         d3.select(".nextArrow")
             .transition()
             .duration(500)
             .attr("opacity", 1)
-            .text("Next: Vaccines >")
+            .text("next >")
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -1683,6 +1697,8 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 6) {
+
+        d3.select(".redX").remove();
 
         d3.select(".nextArrow")
             .transition()
@@ -1820,6 +1836,8 @@ function guideRails(back) {
 
     if (guideRailsPosition == 8) {
         d3.select(".backArrow").attr("opacity", 0).text("< back")
+        d3.select(".nextArrow").attr("opacity", 0).text("next >")
+
 
         keepFlashing=true;
         loadSyringe();
@@ -1882,7 +1900,9 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 9) {
-        d3.selectAll(".node").attr("fill", "#b7b7b7")
+        d3.selectAll(".node")
+            .attr("r", 8)
+            .style("fill", "#b7b7b7")
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -1910,8 +1930,7 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-
-
+        d3.select(".nextArrow").attr("opacity", 1).text("Next: Vaccines >")
     }
 
 
@@ -2209,6 +2228,20 @@ function guideRails(back) {
 
 }
 
+function flashRedX() {
+    var opacities = [.15, 0.75];
+
+    if (opacityIndex == 0) opacityIndex = 1;
+    else { if (opacityIndex == 1) opacityIndex = 0;};
+
+    d3.selectAll(".redX")
+        .transition()
+        .duration(500)
+        .attr("opacity", opacities[opacityIndex]);
+
+    window.setTimeout(flashRedX, 500);
+}
+
 function loadSyringe() {
     actionBay = d3.select(".svg").append("svg")
         .attr("class", "actionBay")
@@ -2319,6 +2352,7 @@ function flashNode() {
     }
 
     var availableColors = ["#d9d678", "#b7b7b7"]
+    var availableSizes = [15, 8];
 
     d3.selectAll(".node")
         .transition()
@@ -2328,6 +2362,10 @@ function flashNode() {
             else return availableColors[1];
 
         })
+//        .attr("r", function(d) {
+//            if (d.id == node.id) return availableSizes[currentFlash];
+//            else return availableSizes[1];
+//        })
 
 
     d3.selectAll(".node")
@@ -2343,7 +2381,7 @@ function flashNode() {
             }
         });
 
-    if (keepFlashing) window.setTimeout(flashNode, 1000);
+    if (keepFlashing) window.setTimeout(flashNode, 500);
 }
 
 function flashNodes() {
@@ -2357,6 +2395,7 @@ function flashNodes() {
     }
 
     var availableColors = ["#d9d678", "#b7b7b7"]
+    var availableSizes = [15, 8];
 
     d3.selectAll(".node")
         .transition()
@@ -2366,7 +2405,10 @@ function flashNodes() {
             else return availableColors[1];
 
         })
-
+//        .attr("r", function(d) {
+//            if (d.id == 10 || d.id == 4 || d.id == 6) return availableSizes[currentFlash];
+//            else return availableSizes[1];
+//        })
 
     d3.selectAll(".node")
         .on("click", function(d) {
@@ -2375,14 +2417,15 @@ function flashNodes() {
                 vaccineSupply--;
                 numberVaccinated++;
                 keepFlashing = false;
-                tutorialUpdate();
                 guideRailsPosition++;
                 keepFlashing = false;
                 guideRails();
+                tutorialUpdate();
+
             }
         });
 
-    if (keepFlashing) window.setTimeout(flashNodes, 1000);
+    if (keepFlashing) window.setTimeout(flashNodes, 500);
 }
 
 
