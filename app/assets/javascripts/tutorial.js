@@ -15,15 +15,18 @@ var nonIntervention_series = [];
 var intervention_series = [];
 var intervention = false;
 var tutorial = false;
-var charge = -600;
+var charge = -800;
 var newInfections = [];
 var xyCoords = [];
 var vax = 1;
 var exposureEdges = [];
 var currentFlash = 0;
 var keepFlashing = true;
+var xFlashCounter = 0;
 
 var opacityIndex = 0;
+
+var activateVaxCursorForAll = false;
 
 
 var graph = {};
@@ -1647,16 +1650,16 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 5) {
-        var img = svg.selectAll("image").data([0]);
-        img.enter()
+        var img2 = svg.selectAll("image").data([0]);
+        img2.enter()
             .append("image")
-            .attr("xlink:href", "/assets/redX.png")
+            .attr("xlink:href", "/assets/redX.svg")
             .transition()
             .duration(500)
-            .attr("x", "300")
-            .attr("y", "50")
-            .attr("width", "350")
-            .attr("height", "350")
+            .attr("x", "280")
+            .attr("y", "20")
+            .attr("width", "450")
+            .attr("height", "450")
             .attr("opacity", 0.6)
             .attr("class", "redX")
 
@@ -1789,6 +1792,7 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 7) {
+        vaccinateMode = false;
         keepFlashing = false;
 
         d3.select(".nextArrow")
@@ -1841,6 +1845,7 @@ function guideRails(back) {
 
         keepFlashing=true;
         loadSyringe();
+        vaccinateMode = false;
         vaccineSupply = 1;
         numberVaccinated = 0;
 
@@ -1897,6 +1902,7 @@ function guideRails(back) {
         tutorialUpdate();
 
         flashNodes();
+        vaccinateMode = false;
     }
 
     if (guideRailsPosition == 9) {
@@ -1937,6 +1943,7 @@ function guideRails(back) {
 
     if (guideRailsPosition == 10) {
         hideSyringe();
+        vaccinateMode = false;
 
         d3.select(".backArrow")
             .transition()
@@ -2041,11 +2048,12 @@ function guideRails(back) {
             .attr("opacity", 1);
 
 
-
+        vaccinateMode = false;
 
     }
 
     if (guideRailsPosition == 11) {
+        activateVaxCursorForAll = true;
         vaccineSupply = 3;
         vax = 3;
 
@@ -2229,6 +2237,8 @@ function guideRails(back) {
 }
 
 function flashRedX() {
+    if (xFlashCounter > 2) return;
+
     var opacities = [.15, 0.75];
 
     if (opacityIndex == 0) opacityIndex = 1;
@@ -2236,10 +2246,12 @@ function flashRedX() {
 
     d3.selectAll(".redX")
         .transition()
-        .duration(500)
+        .duration(750)
         .attr("opacity", opacities[opacityIndex]);
 
-    window.setTimeout(flashRedX, 500);
+    xFlashCounter++;
+
+    window.setTimeout(flashRedX, 750);
 }
 
 function loadSyringe() {
@@ -2279,8 +2291,8 @@ function loadSyringe() {
     var img = actionBay.selectAll("image").data([0]);
     img.enter()
         .append("image")
-        .attr("xlink:href", "/assets/syringe.png")
-        .attr("x", "853")
+        .attr("xlink:href", "/assets/vaxShield.svg")
+        .attr("x", "857")
         .attr("y", "34")
         .attr("width", "85")
         .attr("height", "45")
@@ -2291,7 +2303,7 @@ function loadSyringe() {
     d3.select(".actionBay").append("text")
         .attr("class", "vaccineToggleText")
         .attr("x", 875)
-        .attr("y", 38)
+        .attr("y", 35)
         .attr("opacity", 0)
         .style("font-size", 10)
         .style("font-family", "Nunito")
@@ -2302,8 +2314,8 @@ function loadSyringe() {
 
     d3.select(".actionBay").append("text")
         .attr("class", "vaccineCounterText")
-        .attr("x", 885)
-        .attr("y", 85)
+        .attr("x", 883)
+        .attr("y", 87)
         .attr("opacity", 0)
         .style("font-size", 16)
         .style("font-family", "Nunito")
@@ -2342,6 +2354,9 @@ function loadSyringe() {
 
 function hideSyringe() {
     d3.select(".actionBay").remove();
+
+    d3.selectAll(".node").style("cursor", 'cursor');
+
 }
 
 function flashNode() {
@@ -2360,7 +2375,10 @@ function flashNode() {
         .style("fill", function(d) {
             if (d.id == node.id) return availableColors[currentFlash];
             else return availableColors[1];
-
+        })
+        .style("cursor", function(d) {
+            if (d.id == node.id && vaccinateMode) return 'url(/assets/vax_cursor.cur)'
+            else return "pointer"
         })
 //        .attr("r", function(d) {
 //            if (d.id == node.id) return availableSizes[currentFlash];
@@ -2371,13 +2389,16 @@ function flashNode() {
     d3.selectAll(".node")
         .on("click", function(d) {
             if (d.id == node.id) {
-                d.status = "V";
-                vaccineSupply--;
-                numberVaccinated++;
-                keepFlashing = false;
-                guideRailsPosition++;
-                guideRails();
-                tutorialUpdate();
+                if (vaccinateMode) {
+                    d.status = "V";
+                    vaccineSupply--;
+                    numberVaccinated++;
+                    keepFlashing = false;
+                    guideRailsPosition++;
+                    keepFlashing = false;
+                    guideRails();
+                    tutorialUpdate();
+                }
             }
         });
 
@@ -2403,6 +2424,10 @@ function flashNodes() {
         .style("fill", function(d) {
             if (d.id == 10 || d.id == 4 || d.id == 6) return availableColors[currentFlash];
             else return availableColors[1];
+        })
+        .style("cursor", function(d) {
+            if (d.id == 10 || d.id == 4 || d.id == 6 && vaccinateMode) return 'url(/assets/vax_cursor.cur)'
+            else return "pointer";
 
         })
 //        .attr("r", function(d) {
@@ -2413,14 +2438,17 @@ function flashNodes() {
     d3.selectAll(".node")
         .on("click", function(d) {
             if (d.id == 10 || d.id == 4 || d.id == 6) {
-                d.status = "V";
-                vaccineSupply--;
-                numberVaccinated++;
-                keepFlashing = false;
-                guideRailsPosition++;
-                keepFlashing = false;
-                guideRails();
-                tutorialUpdate();
+                if (vaccinateMode) {
+                    d.status = "V";
+                    vaccineSupply--;
+                    numberVaccinated++;
+                    keepFlashing = false;
+                    guideRailsPosition++;
+                    keepFlashing = false;
+                    guideRails();
+                    tutorialUpdate();
+                }
+
 
             }
         });
@@ -2433,6 +2461,12 @@ function flashNodes() {
 
 function activateVaccinationMode() {
     vaccinateMode = true;
+    if (activateVaxCursorForAll) {
+        d3.selectAll(".node").style("cursor", 'url(/assets/vax_cursor.cur)');
+    }
+    else d3.selectAll(".node").style("cursor", "pointer");
+
+
     intervention = true;
     vaccineResearched = true;
     d3.select(".vaccineCounterText")
