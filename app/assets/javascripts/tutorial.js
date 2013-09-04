@@ -1486,10 +1486,17 @@ function initTutorial() {
         .transition()
         .duration(500)
         .attr("opacity", 1)
+
+    d3.selectAll(".node").style("cursor", 'pointer');
+
 }
 
 function guideRails(back) {
+
     if (guideRailsPosition == 1) {
+
+
+
         d3.select(".backArrow")
             .transition()
             .duration(500)
@@ -1501,6 +1508,8 @@ function guideRails(back) {
             .attr("opacity", 0)
 
         if (!back) addOneFriend();
+        d3.selectAll(".node").style("cursor", 'pointer');
+
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -1530,6 +1539,9 @@ function guideRails(back) {
 
     if (guideRailsPosition == 2) {
         if (!back) buildGraph();
+
+        d3.selectAll(".node").style("cursor", 'pointer');
+
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -1587,6 +1599,9 @@ function guideRails(back) {
             .transition()
             .duration(500)
             .attr("opacity", 1);
+
+        d3.selectAll(".node").style("cursor", 'pointer');
+
     }
 
     if (guideRailsPosition == 4) {
@@ -2053,7 +2068,6 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 11) {
-        activateVaxCursorForAll = true;
         vaccineSupply = 3;
         vax = 3;
 
@@ -2354,9 +2368,8 @@ function loadSyringe() {
 
 function hideSyringe() {
     d3.select(".actionBay").remove();
-
-    d3.selectAll(".node").style("cursor", 'cursor');
-
+    d3.select(".svg").style("cursor", 'pointer');
+    d3.selectAll(".node").style("cursor", 'pointer');
 }
 
 function flashNode() {
@@ -2375,10 +2388,6 @@ function flashNode() {
         .style("fill", function(d) {
             if (d.id == node.id) return availableColors[currentFlash];
             else return availableColors[1];
-        })
-        .style("cursor", function(d) {
-            if (d.id == node.id && vaccinateMode) return 'url(/assets/vax_cursor.cur)'
-            else return "pointer"
         })
 //        .attr("r", function(d) {
 //            if (d.id == node.id) return availableSizes[currentFlash];
@@ -2425,11 +2434,6 @@ function flashNodes() {
             if (d.id == 10 || d.id == 4 || d.id == 6) return availableColors[currentFlash];
             else return availableColors[1];
         })
-        .style("cursor", function(d) {
-            if (d.id == 10 || d.id == 4 || d.id == 6 && vaccinateMode) return 'url(/assets/vax_cursor.cur)'
-            else return "pointer";
-
-        })
 //        .attr("r", function(d) {
 //            if (d.id == 10 || d.id == 4 || d.id == 6) return availableSizes[currentFlash];
 //            else return availableSizes[1];
@@ -2461,11 +2465,8 @@ function flashNodes() {
 
 function activateVaccinationMode() {
     vaccinateMode = true;
-    if (activateVaxCursorForAll) {
-        d3.selectAll(".node").style("cursor", 'url(/assets/vax_cursor.cur)');
-    }
-    else d3.selectAll(".node").style("cursor", "pointer");
-
+    d3.selectAll(".node").style("cursor", 'url(/assets/vax_cursor.cur)');
+    d3.select(".svg").style("cursor", 'url(/assets/vax_cursor.cur)');
 
     intervention = true;
     vaccineResearched = true;
