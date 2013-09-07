@@ -16,30 +16,25 @@ $grayMediumLight: #f1f1f1;
 
 
 svg {
-  padding-top: 0px;
   background-color: $grayMediumLight;
-  left: 0%;
+
 
 }
 
 html {
-  overflow-y: scroll;
   background-color: $grayMediumLight;
-  left: 0%;
 
 }
 
 body {
-  left: 0%;
 
 
   background-color: $grayMediumLight;
 }
 
 div {
-  left: 0%;
 
-  background-color: $grayMediumLight;
+  background-color: #77a989;
 
 }
 
@@ -48,26 +43,19 @@ div {
 
 h1, h2, h3, h4, h5, h6 {
   background-color: $grayMediumLight;
-  line-height: 1;
 }
 
 h1 {
-  letter-spacing: 2px;
-  margin-bottom: 30px;
-  text-align: center;
+
   background-color: $grayMediumLight;
 
 }
 
 h2 {
-  letter-spacing: -1px;
-  margin-bottom: 30px;
-  text-align: center;
-  font-weight: normal;
+
   background-color: $grayMediumLight;
 }
 
 p {
-  line-height: 1.7em;
   background-color: $grayMediumLight;
 }

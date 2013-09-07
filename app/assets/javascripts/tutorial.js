@@ -23,6 +23,7 @@ var exposureEdges = [];
 var currentFlash = 0;
 var keepFlashing = true;
 var xFlashCounter = 0;
+var numberQuarantined = 0;
 
 var opacityIndex = 0;
 
@@ -506,7 +507,6 @@ var width = 960,
 
 var guideTextSVG;
 
-var menuBoxSVG;
 
 var actionBay;
 
@@ -517,8 +517,6 @@ var force, link, node;
 guideTextSVG = d3.select("body").append("svg")
     .attr("class", "guideTextSVG")
 
-menuBoxSVG = d3.select("body").append("svg")
-    .attr("class", "menuBoxSVG")
 
 svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -603,6 +601,14 @@ var timestepTicker = d3.select(".svg").append("text")
     .style("fill", "#707070")
     .attr("x",102).attr("y",91)
     .text("");
+
+d3.select("body").append("div")
+    .attr("class", "vaxLogoDiv")
+    .text("VAX!")
+
+d3.select("body").append("div")
+    .attr("class", "menuBox");
+
 
 function guideRailsReverse() {
     var back = true;
@@ -767,146 +773,7 @@ var nextArrow = d3.select(".guideTextSVG").append("text")
         guideRails();
     })
 
-var vaxShadow = d3.select(".menuBoxSVG").append("rect")
-    .attr("class", "vaxShadow")
-    .attr("x", 0)
-    .attr("y", 27)
-    .attr("width", 125)
-    .attr("height", 75)
-    .style("fill", "#838383")
 
-var vaxBox = d3.select(".menuBoxSVG").append("rect")
-    .attr("class", "vaxBox")
-    .attr("x", 0)
-    .attr("y", 20)
-    .attr("width", 120)
-    .attr("height", 75)
-    .style("fill", "#85bc99")
-
-var vaxText = d3.select(".menuBoxSVG").append("text")
-    .attr("class", "vaxText")
-    .attr("x", 23)
-    .attr("y", 70)
-    .style("font-size", 28)
-    .style("font-family", "Nunito")
-    .style("font-weight", 400)
-    .style("fill", "white")
-    .text("VAX!")
-
-var menuShadow = d3.select(".menuBoxSVG").append("rect")
-    .attr("class", "menuShadow")
-    .attr("x", 200)
-    .attr("y", 27)
-    .attr("width", 800)
-    .attr("height", 75)
-    .style("fill", "#838383")
-
-var menuBox = d3.select(".menuBoxSVG").append("rect")
-    .attr("class", "menuBox")
-    .attr("x", 195)
-    .attr("y", 20)
-    .attr("width", 800)
-    .attr("height", 75)
-    .style("fill", "#85bc99")
-
-
-var menuHeaderLeft = d3.select(".menuBoxSVG").append("text")
-    .attr("class", "menuHeaderLeft")
-    .attr("x", 210)
-    .attr("y", 40)
-    .style("font-size", 10)
-    .style("font-family", "Nunito")
-    .style("font-weight", 300)
-    .style("fill", "white")
-    .text("LESSONS")
-
-var menuHeaderRight = d3.select(".menuBoxSVG").append("text")
-    .attr("class", "menuHeaderRight")
-    .attr("x", 750)
-    .attr("y", 40)
-    .style("font-size", 10)
-    .style("font-family", "Nunito")
-    .style("font-weight", 300)
-    .style("fill", "white")
-    .text("GAMING")
-
-var moduleOne = d3.select(".menuBoxSVG").append("text")
-    .attr("class", "moduleOne")
-    .attr("x", 235)
-    .attr("y", 68)
-    .style("font-size", 15)
-    .style("font-family", "Nunito")
-    .style("font-weight", 300)
-    .style("fill", "white")
-    .text("Epidemics")
-
-var moduleTwo = d3.select(".menuBoxSVG").append("text")
-    .attr("class", "moduleTwo")
-    .attr("x", 360)
-    .attr("y", 68)
-    .style("font-size", 15)
-    .style("font-family", "Nunito")
-    .style("font-weight", 300)
-    .style("fill", "white")
-    .text("Vaccines")
-
-var moduleThree = d3.select(".menuBoxSVG").append("text")
-    .attr("class", "moduleThree")
-    .attr("x", 485)
-    .attr("y", 68)
-    .style("font-size", 15)
-    .style("font-family", "Nunito")
-    .style("font-weight", 300)
-    .style("fill", "white")
-    .text("Networks")
-
-
-var moduleFour = d3.select(".menuBoxSVG").append("text")
-    .attr("class", "moduleFour")
-    .attr("x", 610)
-    .attr("y", 68)
-    .style("font-size", 15)
-    .style("font-family", "Nunito")
-    .style("font-weight", 300)
-    .style("fill", "white")
-    .text("Herd Immunity")
-
-var gameModule = d3.select(".menuBoxSVG").append("text")
-    .attr("class", "gameModule")
-    .attr("x", 765)
-    .attr("y", 68)
-    .style("font-size", 15)
-    .style("font-family", "Nunito")
-    .style("font-weight", 300)
-    .style("fill", "white")
-    .text("Play the Full Game")
-
-var navShadow = d3.select(".menuBoxSVG").append("rect")
-    .attr("class", "navShadow")
-    .attr("x", 753)
-    .attr("y", 119)
-    .attr("width", 220)
-    .attr("height", 30)
-    .style("fill", "#838383")
-
-var navBox = d3.select(".menuBoxSVG").append("rect")
-    .attr("class", "navBox")
-    .attr("x", 750)
-    .attr("y", 115)
-    .attr("width", 220)
-    .attr("height", 30)
-    .style("fill", "#85bc99")
-
-var groupText = d3.select(".menuBoxSVG").append("text")
-    .attr("class", "groupText")
-    .attr("x", 765)
-    .attr("y", 135)
-    .style("font-size", 14)
-    .style("font-weight", 300)
-    .style("font-family", "Nunito")
-    .style("font-weight", 300)
-    .style("fill", "white")
-    .text("Salathé Group @ Penn State")
 
 function advanceTutorial() {
     if (start) {
@@ -940,6 +807,9 @@ function tick() {
 
 
 function tutorialUpdate() {
+
+    if (guideRailsPosition == 7 || guideRailsPosition == 9) hideSyringe();
+
     if (guideRailsPosition == 3) {
         d3.selectAll(".node").transition().duration(300).attr("r", 8)
     }
@@ -1038,6 +908,8 @@ function tutorialUpdate() {
 
     // Exit any old nodes.
     node.exit().remove();
+
+    d3.select(".vaccineCounterText").text("")
 
     d3.select(".vaccineCounterText")
         .text(vaccineSupply + " / " + vax);
@@ -1599,7 +1471,6 @@ function guideRails(back) {
             .transition()
             .duration(500)
             .attr("opacity", 1);
-
         d3.selectAll(".node").style("cursor", 'pointer');
 
     }
@@ -1631,13 +1502,10 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-
         d3.select(".guide2")
             .transition()
             .duration(500)
             .attr("opacity", 1);
-
-
 
         var indexPatientID = Math.floor(Math.random() * numberOfIndividuals);
         graph.nodes[indexPatientID].status = "I";
@@ -1659,9 +1527,6 @@ function guideRails(back) {
             .duration(3000)
             .attr("opacity", 0)
             .text("LESSON 2: EPIDEMICS")
-
-
-
     }
 
     if (guideRailsPosition == 5) {
@@ -1706,18 +1571,14 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-
         d3.select(".guide2")
             .transition()
             .duration(500)
             .attr("opacity", 1);
-
     }
 
     if (guideRailsPosition == 6) {
-
         d3.select(".redX").remove();
-
         d3.select(".nextArrow")
             .transition()
             .duration(500)
@@ -1789,7 +1650,6 @@ function guideRails(back) {
         graph.nodes.push(tailoredNodes[24-13])
         graph.nodes.push(tailoredNodes[25-13])
 
-
         // add only the links that are connected to the highest degree node
         for (var i = 0; i < tailoredLinks.length; i++) {
             var link = tailoredLinks[i];
@@ -1798,18 +1658,11 @@ function guideRails(back) {
             }
         }
         tutorialUpdate();
-
         flashNode();
-
-
-
-
     }
 
     if (guideRailsPosition == 7) {
-        vaccinateMode = false;
         keepFlashing = false;
-
         d3.select(".nextArrow")
             .transition()
             .duration(500)
@@ -1842,25 +1695,19 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-
         d3.select(".guide2")
             .transition()
             .duration(500)
             .attr("opacity", 1);
-
         tutorialUpdate();
-
-        hideSyringe();
     }
 
     if (guideRailsPosition == 8) {
         d3.select(".backArrow").attr("opacity", 0).text("< back")
         d3.select(".nextArrow").attr("opacity", 0).text("next >")
 
-
         keepFlashing=true;
         loadSyringe();
-        vaccinateMode = false;
         vaccineSupply = 1;
         numberVaccinated = 0;
 
@@ -1909,15 +1756,10 @@ function guideRails(back) {
                 var link = graph.links[iii];
                 if (link.source.id == node.id || link.target.id == node.id) counter++;
             }
-
             if (counter == 0) graph.nodes.splice(iv, 1);
-
         }
-
         tutorialUpdate();
-
         flashNodes();
-        vaccinateMode = false;
     }
 
     if (guideRailsPosition == 9) {
@@ -1945,20 +1787,17 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-
         d3.select(".guide2")
             .transition()
             .duration(500)
             .attr("opacity", 1);
-
         d3.select(".nextArrow").attr("opacity", 1).text("Next: Vaccines >")
     }
-
-
 
     if (guideRailsPosition == 10) {
         hideSyringe();
         vaccinateMode = false;
+        d3.select(".vaccineDepressedState").style("visibility", "hidden")
 
         d3.select(".backArrow")
             .transition()
@@ -2012,11 +1851,8 @@ function guideRails(back) {
                         guideRailsPosition++;
                         guideRails();
                     }
-
                     tutorialUpdate();
                 }});
-
-
         tutorialUpdate();
 
         d3.select(".timestepText")
@@ -2056,15 +1892,12 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-
         d3.select(".guide2")
             .transition()
             .duration(500)
             .attr("opacity", 1);
 
-
         vaccinateMode = false;
-
     }
 
     if (guideRailsPosition == 11) {
@@ -2078,7 +1911,6 @@ function guideRails(back) {
             .text("LESSON 3: VACCINES")
 
         loadSyringe();
-
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -2105,20 +1937,16 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-
         d3.select(".guide2")
             .transition()
             .duration(500)
             .attr("opacity", 1);
 
         d3.select(".nextArrow").attr("opacity", 0).text("")
-
-
     }
 
     if (guideRailsPosition == 12) {
         d3.select(".backArrow").attr("opacity", 1).text("< Clear Vaccinations")
-
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -2169,7 +1997,6 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-
         d3.select(".guide2")
             .transition()
             .duration(500)
@@ -2180,12 +2007,10 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1)
             .text("next >")
-
-
     }
 
     if (guideRailsPosition == 13) {
-
+        hideSyringe();
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -2207,17 +2032,12 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-
         d3.select(".guide2")
             .transition()
             .duration(500)
             .attr("opacity", 1);
 
-
-
-
         var numberOfPeople = graph.nodes.length;
-
         do{
             var randomIndex = Math.floor(Math.random() * numberOfPeople);
             var indexCase = graph.nodes[randomIndex];
@@ -2243,133 +2063,74 @@ function guideRails(back) {
             .text(timestep)
 
         tutorialTimesteps();
-
     }
-
-
-
 }
 
 function flashRedX() {
     if (xFlashCounter > 2) return;
-
     var opacities = [.15, 0.75];
-
     if (opacityIndex == 0) opacityIndex = 1;
     else { if (opacityIndex == 1) opacityIndex = 0;};
-
     d3.selectAll(".redX")
         .transition()
         .duration(750)
         .attr("opacity", opacities[opacityIndex]);
-
     xFlashCounter++;
-
     window.setTimeout(flashRedX, 750);
 }
 
 function loadSyringe() {
-    actionBay = d3.select(".svg").append("svg")
-        .attr("class", "actionBay")
+    if (quarantineMode) hideQuarantine();
+    d3.select(".actionVax").style("visibility", "visible");
+    d3.select(".actionVax").style("right", 0);
 
-    var shadowX = 845;
-    var contX = 841;
+    d3.select(".vaccineCounterText").remove()
 
-    d3.select(".actionBay").append("rect")
-        .attr("class", "vaccineShadow")
-        .attr("x", 1000)
-        .attr("y", 26)
-        .attr("width", 125)
-        .attr("height", 75)
-        .style("fill", "#838383")
-        .on("click", activateVaccinationMode)
-
-    d3.select(".actionBay").append("rect")
-        .attr("class", "vaccineBox")
-        .attr("x", 1000)
-        .attr("y", 20)
-        .attr("width", 125)
-        .attr("height", 75)
-        .style("fill", "#85bc99")
-        .on("click", activateVaccinationMode)
-
-    d3.select(".actionBay").append("rect")
-        .attr("class", "vaccineDepressedState")
-        .attr("x", 860)
-        .attr("y", 20)
-        .attr("width", 80)
-        .attr("height", 75)
-        .style("fill","#77a989")
-        .attr("opacity", 0);
-
-    var img = actionBay.selectAll("image").data([0]);
-    img.enter()
-        .append("image")
-        .attr("xlink:href", "/assets/vaxShield.svg")
-        .attr("x", "857")
-        .attr("y", "34")
-        .attr("width", "85")
-        .attr("height", "45")
-        .attr("opacity", 0)
-        .attr("class", "syringe")
-        .on("click", activateVaccinationMode)
-
-    d3.select(".actionBay").append("text")
-        .attr("class", "vaccineToggleText")
-        .attr("x", 875)
-        .attr("y", 35)
-        .attr("opacity", 0)
-        .style("font-size", 10)
-        .style("font-family", "Nunito")
-        .style("font-weight", 300)
-        .style("fill", "white")
-        .text("VACCINES")
-        .on("click", activateVaccinationMode)
-
-    d3.select(".actionBay").append("text")
+    d3.select(".actionVax").append("text")
         .attr("class", "vaccineCounterText")
-        .attr("x", 883)
-        .attr("y", 87)
-        .attr("opacity", 0)
         .style("font-size", 16)
         .style("font-family", "Nunito")
         .style("font-weight", 300)
         .style("fill", "white")
-        .text(vaccineSupply + " / " + vax)
-        .on("click", activateVaccinationMode)
+        .text("")
 
-    d3.select(".vaccineShadow")
-        .transition()
-        .duration(500)
-        .attr("x", shadowX);
-
-    d3.select(".vaccineBox")
-        .transition()
-        .duration(500)
-        .attr("x", contX);
-
-    d3.selectAll("image")
-        .transition()
-        .duration(1200).attr("opacity", 1)
-
-    d3.select(".vaccineToggleText")
-        .transition()
-        .duration(1200)
-        .attr("opacity", 1)
-
-    d3.select(".vaccineCounterText")
-        .transition()
-        .duration(1200)
-        .attr("opacity", 1)
-
-
-
+    d3.select(".vaccineCounterText").text(vaccineSupply + " / " + vax)
 }
 
 function hideSyringe() {
-    d3.select(".actionBay").remove();
+    vaccinationMode = false;
+    d3.select(".actionVax").style("right", "-200px")
     d3.select(".svg").style("cursor", 'pointer');
     d3.selectAll(".node").style("cursor", 'pointer');
+    d3.select(".vaccineDepressedState").style("visibility", "hidden")
+}
+
+function loadQuarantine() {
+    if (vaccinateMode) hideSyringe();
+
+    quarantineMode = true;
+    d3.select(".actionQuarantine").style("visibility", "visible");
+    d3.select(".actionQuarantine").style("right", 0);
+
+    d3.select(".quarantineCounterText").remove()
+
+    d3.select(".actionQuarantine").append("text")
+        .attr("class", "quarantineCounterText")
+        .style("font-size", 16)
+        .style("font-family", "Nunito")
+        .style("font-weight", 300)
+        .style("fill", "white")
+        .text("")
+
+    d3.select(".quarantineCounterText").text("x" + numberQuarantined) //TODO still needs a value
+}
+
+function hideQuarantine() {
+    quarantineMode = false;
+    d3.select(".actionQuarantine").style("right", "-200px")
+    d3.select(".svg").style("cursor", 'pointer');
+    d3.selectAll(".node").style("cursor", 'pointer');
+    d3.select(".quarantineDepressedState").style("visibility", "hidden")
 }
 
 function flashNode() {
@@ -2378,9 +2139,7 @@ function flashNode() {
     else {
         if (currentFlash == 1) currentFlash = 0;
     }
-
     var availableColors = ["#d9d678", "#b7b7b7"]
-    var availableSizes = [15, 8];
 
     d3.selectAll(".node")
         .transition()
@@ -2389,12 +2148,6 @@ function flashNode() {
             if (d.id == node.id) return availableColors[currentFlash];
             else return availableColors[1];
         })
-//        .attr("r", function(d) {
-//            if (d.id == node.id) return availableSizes[currentFlash];
-//            else return availableSizes[1];
-//        })
-
-
     d3.selectAll(".node")
         .on("click", function(d) {
             if (d.id == node.id) {
@@ -2410,7 +2163,6 @@ function flashNode() {
                 }
             }
         });
-
     if (keepFlashing) window.setTimeout(flashNode, 500);
 }
 
@@ -2418,15 +2170,11 @@ function flashNodes() {
     var nodeA = graph.nodes[3];
     var nodeB = graph.nodes[5];
     var nodeC = graph.nodes[9];
-
     if (currentFlash == 0) currentFlash = 1;
     else {
         if (currentFlash == 1) currentFlash = 0;
     }
-
     var availableColors = ["#d9d678", "#b7b7b7"]
-    var availableSizes = [15, 8];
-
     d3.selectAll(".node")
         .transition()
         .duration(500)
@@ -2434,10 +2182,6 @@ function flashNodes() {
             if (d.id == 10 || d.id == 4 || d.id == 6) return availableColors[currentFlash];
             else return availableColors[1];
         })
-//        .attr("r", function(d) {
-//            if (d.id == 10 || d.id == 4 || d.id == 6) return availableSizes[currentFlash];
-//            else return availableSizes[1];
-//        })
 
     d3.selectAll(".node")
         .on("click", function(d) {
@@ -2452,16 +2196,10 @@ function flashNodes() {
                     guideRails();
                     tutorialUpdate();
                 }
-
-
             }
         });
-
     if (keepFlashing) window.setTimeout(flashNodes, 500);
 }
-
-
-
 
 function activateVaccinationMode() {
     vaccinateMode = true;
@@ -2473,7 +2211,7 @@ function activateVaccinationMode() {
     d3.select(".vaccineCounterText")
         .text(vaccineSupply + " / " + vax);
 
-    d3.select(".vaccineDepressedState").attr("opacity", 1)
+    d3.select(".vaccineDepressedState").style("visibility", "visible")
 
 }
 
