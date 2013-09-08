@@ -14,12 +14,7 @@
 //= require deepCopy
 //= require d3.v3
 //= require jsnetworkx
-//= require superformula
 //= require netrics
-//= require dataChange
-// = require userInteraction
-//= require forceNet
-//= require sirFig
 //= require sir
 //= require bootstrap
 //= require jquery-ui

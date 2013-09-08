@@ -4,15 +4,12 @@ var diseaseIsSpreading = false;
 var transmissionRate = .25;
 var recoveryRate = 0;
 var maxRecoveryTime = 1000;
-var vaccinateMode = false;
 var numberVaccinated = 0;
 var timeToStop = false;
 var guideRailsPosition = 0;
 var postInitialOutbreak = false;
 var finalStop = false;
 var endGame = false;
-var nonIntervention_series = [];
-var intervention_series = [];
 var intervention = false;
 var tutorial = false;
 var charge = -800;
@@ -24,499 +21,62 @@ var currentFlash = 0;
 var keepFlashing = true;
 var xFlashCounter = 0;
 var numberQuarantined = 0;
-
+var vaccineSupply = 0;
+var vaccineResearched = false;
+var vaccinateMode = false;
+var treatMode = false;
+var quarantineMode = false;
+var twine = [];
+var twineIndex = 0;
+var numberOfCommunities = null;
+var largestCommunity = null;
+var communities = [];
+var groupCounter = 1;
+var bcScores = [];
+var timestep = 0;
+var indexCase = null;
+var simulation = true;
 var opacityIndex = 0;
+var vaccinatedBayStartYCoord = 125;
+var start = false;
+var nextX = 800;
+var nextY = 140;
+var guideXCoord = 400;
+var guideYCoord = 70;
+var guide2YCoordChange = 35;
+var width = 960,
+    height = 450,
+    svg;
+var guideTextSVG;
+var actionBay;
+var lessonText;
+var force, link, node;
 
-var activateVaxCursorForAll = false;
-
-
-var graph = {};
+// this is the full graph, made by Ike
 var tailoredGraph = {};
-var tailoredNodes= [];
-var tailoredLinks = [];
+var tailoredNodes = getTailoredNodes();
+var tailoredLinks = getTailoredLinks();
 
-for (var ii = 0; ii < 13; ii++) {
-    var nodeString = {id:ii+13, status:"S", group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null, infectedBy:null};
-    tailoredNodes.push(nodeString);
-}
-var numberOfIndividuals = tailoredNodes.length;
-
-
-tailoredLinks = [
-    {
-        source:tailoredNodes[13-13],
-        target:tailoredNodes[14-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[13-13],
-        target:tailoredNodes[17-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[13-13],
-        target:tailoredNodes[18-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[13-13],
-        target:tailoredNodes[25-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[14-13],
-        target:tailoredNodes[13-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[14-13],
-        target:tailoredNodes[25-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[14-13],
-        target:tailoredNodes[15-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[14-13],
-        target:tailoredNodes[20-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[14-13],
-        target:tailoredNodes[23-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[17-13],
-        target:tailoredNodes[13-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[17-13],
-        target:tailoredNodes[18-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[17-13],
-        target:tailoredNodes[19-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[18-13],
-        target:tailoredNodes[13-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[18-13],
-        target:tailoredNodes[17-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[18-13],
-        target:tailoredNodes[19-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[25-13],
-        target:tailoredNodes[13-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[25-13],
-        target:tailoredNodes[14-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[25-13],
-        target:tailoredNodes[15-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[25-13],
-        target:tailoredNodes[16-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[15-13],
-        target:tailoredNodes[14-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[15-13],
-        target:tailoredNodes[25-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[15-13],
-        target:tailoredNodes[23-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[15-13],
-        target:tailoredNodes[16-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[15-13],
-        target:tailoredNodes[21-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[15-13],
-        target:tailoredNodes[22-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[15-13],
-        target:tailoredNodes[24-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[20-13],
-        target:tailoredNodes[14-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[23-13],
-        target:tailoredNodes[14-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[23-13],
-        target:tailoredNodes[15-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[23-13],
-        target:tailoredNodes[21-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[16-13],
-        target:tailoredNodes[25-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[16-13],
-        target:tailoredNodes[15-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[16-13],
-        target:tailoredNodes[21-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[16-13],
-        target:tailoredNodes[19-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[21-13],
-        target:tailoredNodes[15-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[21-13],
-        target:tailoredNodes[23-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[21-13],
-        target:tailoredNodes[16-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[21-13],
-        target:tailoredNodes[22-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[22-13],
-        target:tailoredNodes[15-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[22-13],
-        target:tailoredNodes[21-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[24-13],
-        target:tailoredNodes[15-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[19-13],
-        target:tailoredNodes[17-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[19-13],
-        target:tailoredNodes[18-13],
-        remove:false
-    },
-    {
-        source:tailoredNodes[19-13],
-        target:tailoredNodes[16-13],
-        remove:false
-    }
-]
-
-tailoredGraph.nodes = tailoredNodes;
-tailoredGraph.links = tailoredLinks;
-
+// this is the working graph
+var graph = {};
 graph.nodes = tailoredNodes;
 graph.links = tailoredLinks;
-var player = graph.nodes[0];
+
+// this is the graph that starts as trivial (one node, no edges) and is built to reflect tailoredGraph. At which point, we switch to working graph
 trivialGraph = {};
 trivialGraph.nodes = [];
 trivialGraph.links = [];
 
+var player = graph.nodes[0];
 trivialGraph.nodes.push(player);
+var numberOfIndividuals = tailoredNodes.length;
 
-
-//////////
-
-var weakTieNodes = [];
-
-for (var i = 0; i < 30; i++) {
-    var nodeString = {id:i, status:"S", group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null, infectedBy:null};
-    weakTieNodes.push(nodeString);
-}
-
-
-var weakTieLinks = [
-    {
-        source:weakTieNodes[1],
-        target:weakTieNodes[3],
-        remove:false
-    },
-    {
-        source:weakTieNodes[3],
-        target:weakTieNodes[6],
-        remove:false
-    },
-    {
-        source:weakTieNodes[4],
-        target:weakTieNodes[1],
-        remove:false
-    },
-    {
-        source:weakTieNodes[4],
-        target:weakTieNodes[2],
-        remove:false
-    },
-    {
-        source:weakTieNodes[4],
-        target:weakTieNodes[3],
-        remove:false
-    },
-    {
-        source:weakTieNodes[4],
-        target:weakTieNodes[8],
-        remove:false
-    },
-    {
-        source:weakTieNodes[4],
-        target:weakTieNodes[9],
-        remove:false
-    },
-    {
-        source:weakTieNodes[5],
-        target:weakTieNodes[16],
-        remove:false
-    },
-    {
-        source:weakTieNodes[6],
-        target:weakTieNodes[1],
-        remove:false
-    },
-    {
-        source:weakTieNodes[8],
-        target:weakTieNodes[12],
-        remove:false
-    },
-    {
-        source:weakTieNodes[8],
-        target:weakTieNodes[13],
-        remove:false
-    },
-    {
-        source:weakTieNodes[9],
-        target:weakTieNodes[15],
-        remove:false
-    },
-    {
-        source:weakTieNodes[10],
-        target:weakTieNodes[6],
-        remove:false
-    },
-    {
-        source:weakTieNodes[10],
-        target:weakTieNodes[18],
-        remove:false
-    },
-    {
-        source:weakTieNodes[12],
-        target:weakTieNodes[2],
-        remove:false
-    },
-    {
-        source:weakTieNodes[12],
-        target:weakTieNodes[9],
-        remove:false
-    },
-    {
-        source:weakTieNodes[13],
-        target:weakTieNodes[2],
-        remove:false
-    },
-    {
-        source:weakTieNodes[13],
-        target:weakTieNodes[17],
-        remove:false
-    },
-    {
-        source:weakTieNodes[14],
-        target:weakTieNodes[13],
-        remove:false
-    },
-    {
-        source:weakTieNodes[14],
-        target:weakTieNodes[15],
-        remove:false
-    },
-    {
-        source:weakTieNodes[15],
-        target:weakTieNodes[2],
-        remove:false
-    },
-    {
-        source:weakTieNodes[15],
-        target:weakTieNodes[5],
-        remove:false
-    },
-    {
-        source:weakTieNodes[16],
-        target:weakTieNodes[14],
-        remove:false
-    },
-    {
-        source:weakTieNodes[16],
-        target:weakTieNodes[17],
-        remove:false
-    },
-    {
-        source:weakTieNodes[18],
-        target:weakTieNodes[19],
-        remove:false
-    },
-    {
-        source:weakTieNodes[19],
-        target:weakTieNodes[10],
-        remove:false
-    },
-    {
-        source:weakTieNodes[19],
-        target:weakTieNodes[24],
-        remove:false
-    },
-    {
-        source:weakTieNodes[19],
-        target:weakTieNodes[28],
-        remove:false
-    },
-    {
-        source:weakTieNodes[21],
-        target:weakTieNodes[23],
-        remove:false
-    },
-    {
-        source:weakTieNodes[21],
-        target:weakTieNodes[28],
-        remove:false
-    },
-    {
-        source:weakTieNodes[22],
-        target:weakTieNodes[18],
-        remove:false
-    },
-    {
-        source:weakTieNodes[23],
-        target:weakTieNodes[19],
-        remove:false
-    },
-    {
-        source:weakTieNodes[23],
-        target:weakTieNodes[22],
-        remove:false
-    },
-    {
-        source:weakTieNodes[24],
-        target:weakTieNodes[26],
-        remove:false
-    },
-    {
-        source:weakTieNodes[28],
-        target:weakTieNodes[24],
-        remove:false
-    },
-    {
-        source:weakTieNodes[29],
-        target:weakTieNodes[26],
-        remove:false
-    }
-]
-
-/////////
-
-
-var vaccinatedBayStartYCoord = 125;
-
-var start = false;
-
-var nextX = 800;
-var nextY = 140;
-
-var guideXCoord = 400;
-var guideYCoord = 70;
-var guide2YCoordChange = 35;
-
-var colorScale;
-var figMargin;
-var figWidth;
-var figHeight;
-var figX;
-var figY;
-var figLines;
-var svgTutorial;
-var xLab;
-var yLab;
-var nonInterventionLegend;
-var interventionLegend;
-var nonInterventionLab;
-var interventionLab;
-var tutorialSeries;
-
-var width = 960,
-    height = 450,
-    svg;
-
-var guideTextSVG;
-
-
-var actionBay;
-
-var lessonText;
-
-var force, link, node;
+// this is the graph with a few weak ties between communities to illustrate segregation by vaccination
+var weakTieNodes = getWeakTieNodes();
+var weakTieLinks = getWeakTieLinks();
 
 guideTextSVG = d3.select("body").append("svg")
     .attr("class", "guideTextSVG")
-
 
 svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -623,7 +183,6 @@ function guideRailsReverse() {
     }
 
     if (guideRailsPosition == 1) {
-
         trivialGraph.nodes = [];
         trivialGraph.links = [];
         trivialGraph.nodes.push(tailoredNodes[0])
@@ -638,9 +197,7 @@ function guideRailsReverse() {
                     trivialGraph.links.push(link);
             }
         }
-
         stepWiseUpdate();
-
     }
 
     if (guideRailsPosition == 2) {
@@ -756,7 +313,6 @@ function guideRailsReverse() {
     guideRails(back);
 
 }
-
 
 var nextArrow = d3.select(".guideTextSVG").append("text")
     .attr("class", "nextArrow")
@@ -934,16 +490,12 @@ function addOneFriend() {
 }
 
 function centerElement(element, classString) {
-    console.log(element + "\t" + classString)
-
     var leftSide = element.node().getBBox().x;
     var width = element.node().getBBox().width;
     var rightSide = leftSide + width;
-
     var leftDistance = leftSide - 0;
     var rightDistance = 960 - rightSide;
     var delta = leftDistance - rightDistance;
-
     if (delta > 0) {
         var halfDelta = Math.round(0.5 * delta);
 
@@ -952,25 +504,18 @@ function centerElement(element, classString) {
         var selection = "." + classString;
         d3.select(selection).attr("x", newLeftSide);
     }
-
     if (delta < 0) {
         var halfDelta = Math.round(0.5 * delta);
-
         var newLeftSide = leftSide + halfDelta;
-
         var selection = "." + classString;
         d3.select(selection).attr("x", newLeftSide);
     }
-
 }
 
 function buildGraph() {
     //remove friend, it will be added again below
     trivialGraph.nodes.splice(1,1);
     trivialGraph.links = [];
-
-    console.log(trivialGraph)
-
     tutorial = true;
 
     // add player neighbors
@@ -1061,7 +606,6 @@ function stepWiseUpdate() {
                         guideRailsPosition++;
                         guideRails();
                     }
-
                     tutorialUpdate();
                 }});
 
@@ -1139,10 +683,7 @@ function movePathogens() {
         .duration(600)
         .attr("cx", function(d) { return d.receiverX} )
         .attr("cy", function(d) { return d.receiverY} );
-
-
 }
-
 
 function createPathogens() {
     var pathogen = svg.selectAll(".pathogen")
@@ -1153,8 +694,7 @@ function createPathogens() {
         .attr("cx", function(d) { return d.transmitterX })
         .attr("cy", function(d) { return d.transmitterY })
         .attr("r", 4)
-        .style("fill", "green")
-
+        .style("fill", "black")
 }
 
 function removePathogens() {
@@ -1206,7 +746,7 @@ function tutorialTimesteps() {
 
     if (timeToStop == false) {
         animatePathogens_thenUpdate();
-        window.setTimeout(tutorialTimesteps, 600);
+        window.setTimeout(tutorialTimesteps, 800);
     }
 
     if (timeToStop == true) {
@@ -1237,17 +777,11 @@ function tutorialTimesteps() {
 }
 
 function animatePathogens_thenUpdate() {
-
-    window.setTimeout(createPathogens, 0)
-
-    window.setTimeout(movePathogens, 100)
-
-    window.setTimeout(popNewInfection, 250)
-
-    window.setTimeout(tutorialUpdate, 350)
-
-    window.setTimeout(removePathogens, 400)
-
+    window.setTimeout(createPathogens, 100)
+    window.setTimeout(movePathogens  , 150)
+    window.setTimeout(popNewInfection, 400)
+    window.setTimeout(tutorialUpdate , 500)
+    window.setTimeout(removePathogens, 550)
 }
 
 function popNewInfection() {
@@ -2205,13 +1739,9 @@ function activateVaccinationMode() {
     vaccinateMode = true;
     d3.selectAll(".node").style("cursor", 'url(/assets/vax_cursor.cur)');
     d3.select(".svg").style("cursor", 'url(/assets/vax_cursor.cur)');
-
     intervention = true;
     vaccineResearched = true;
     d3.select(".vaccineCounterText")
         .text(vaccineSupply + " / " + vax);
-
     d3.select(".vaccineDepressedState").style("visibility", "visible")
-
 }
-

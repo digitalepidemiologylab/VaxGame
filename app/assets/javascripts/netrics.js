@@ -1,23 +1,12 @@
-var twine = [];
-var twineIndex = 0;
-var numberOfCommunities = null;
-var largestCommunity = null;
-var communities = [];
-var groupCounter = 1;
-var bcScores = [];
-
 function generateSmallWorld(n, p, k) {
     var vertices = [];
     var edges = [];
     var nodes = [];
-
     for (var nodeCreateID = 0; nodeCreateID < n; nodeCreateID++) {
         vertices.push(nodeCreateID);
         var nodeString = {id:vertices[nodeCreateID], status:"S", group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null, infectedBy:null};
         nodes.push(nodeString);
-
     }
-
     for (var nodeID = 0; nodeID < n; nodeID++) {
         for (var edgeID = 0; edgeID < k; edgeID++) {
             var diff = Math.floor((edgeID / 2) + 1);
@@ -37,57 +26,35 @@ function generateSmallWorld(n, p, k) {
             do {
                 var randomIndex = Math.floor(Math.random() * n);
                 var newDestination = vertices[randomIndex];
-
             }
             while(source == newDestination);  // at this stage, duplicate edges still possible, removed later
-
-
             edges[edgeIndex][1] = newDestination;
         }
     }
-
     var graph = {};
     var links = [];
     for (var i = 0; i < edges.length; i++) {
         var linkString = {source:edges[i][0],target:edges[i][1],remove:false};
-
         if (!testDuplicate(links, linkString)) links.push(linkString);    // here is where we get rid of duplicate edges
-
     }
-
-
-
     graph.nodes = nodes;
     graph.links = links;
-
-
     return graph;
-
 }
 
 function testDuplicate(links, linkString) {
     var testSource = linkString.source;
     var testTarget = linkString.target;
     var duplicate = false;
-
-
     for (var i = 0; i < links.length; i++) {
         var link = links[i];
         var source = link.source;
         var target = link.target;
-
-
         if (source == testSource && target == testTarget) duplicate = true;
         if (source == testTarget && target == testSource) duplicate = true;
-
-
     }
-
     return duplicate;
-
 }
-
-
 
 // basic functions
 
@@ -121,16 +88,13 @@ function findLink(source, target) {
 
 function edgeExists(source,target, graph) {
     var edgeExists = false;
-
     for (var i = 0; i < graph.links.length; i++) {
         var link = graph.links[i];
-
         if (link.source.id == source.id) {
             if (link.target.id == target.id) {
                 edgeExists = true;
             }
         }
-
         else {
             if (link.target.id == source.id) {
                 if (link.source.id == target.id) {
@@ -139,18 +103,15 @@ function edgeExists(source,target, graph) {
             }
         }
     }
-
     return edgeExists;
 }
 
 function removeVaccinatedNodes(graph) {
-
     var nodes = [];
     for (var i = 0; i < graph.nodes.length; i++) {
         if (graph.nodes[i].status != "V" && graph.nodes[i].status != "Q" && graph.nodes[i].status != "VOL") {
             nodes.push(graph.nodes[i]);
         }
-
     }
     return nodes;
 }
@@ -158,24 +119,18 @@ function removeVaccinatedNodes(graph) {
 function removeOldLinks(graph) {
     var links = [];
     for (var i = 0; i < graph.links.length; i++) {
-
         if (graph.links[i].source.status == "V") continue;
         if (graph.links[i].target.status == "V") continue;
         if (graph.links[i].source.status == "R") continue;
         if (graph.links[i].target.status == "R") continue;
         if (graph.links[i].source.status == "Q") continue;
         if (graph.links[i].target.status == "Q") continue;
-        if (graph.links[i].source.status == "VOL") continue;
-        if (graph.links[i].target.status == "VOL") continue;
         if (graph.links[i].remove == true) continue;
 
         links.push(graph.links[i]);
     }
     return links;
 }
-//
-//****
-
 
 function assignEdgeListsToNodes(graph) {
 
@@ -183,20 +138,11 @@ function assignEdgeListsToNodes(graph) {
         var node = graph.nodes[ii];
         for (var i = 0; i < graph.links.length; i++) {
             var link = graph.links[i];
-
             if (link.source == node || link.target == node) node.edges.push(link);
-
         }
-
     }
-
     return graph;
-
-
-
 }
-
-
 
 function updateCommunities() {
     twine = [];
@@ -216,16 +162,13 @@ function updateCommunities() {
 function assignGroups() {
     while(true) {
         var unassigned = getUnmarkedUngroupedNodes();
-
         if (unassigned.length == 0) {
             numberOfCommunities = groupCounter - 1;
             break;
         }
-
         if (pacMan(unassigned[0]) && unassigned.length != 0) {
             groupCounter++;
         }
-
     }
 }
 
@@ -233,12 +176,10 @@ function getUnmarkedUngroupedNodes() {
     var unmarkedNodes = [];
     for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
         var node = graph.nodes[nodeIndex];
-
         if (node.marked == false) unmarkedNodes.push(node);
     }
     return unmarkedNodes;
 }
-
 
 function pacMan(node) {
     node.group = groupCounter;
@@ -288,7 +229,6 @@ function convertGraphForNetX(graph) {
     var vertices = [];
     var edges = [];
     var G = jsnx.Graph();
-
     for (var node = 0; node < graph.nodes.length; node++) {
         vertices.push(graph.nodes[node].id);
     }
@@ -298,10 +238,8 @@ function convertGraphForNetX(graph) {
         formatted.push(graph.links[edge].target.id);
         edges.push(formatted);
     }
-
     G.add_nodes_from(vertices);
     G.add_edges_from(edges);
-
     return G;
 }
 
@@ -326,4 +264,436 @@ function shuffle(o){ //v1.0
     return o;
 };
 
+function getTailoredNodes() {
+    // make nodes
+    var tailoredNodes= [];
+    for (var ii = 0; ii < 13; ii++) {
+        var nodeString = {id:ii+13, status:"S", group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null, infectedBy:null};
+        tailoredNodes.push(nodeString);
+    }
+    return tailoredNodes;
+}
 
+function getTailoredLinks() {
+    // make links
+    var tailoredLinks = [];
+    tailoredLinks = [
+        {
+            source:tailoredNodes[13-13],
+            target:tailoredNodes[14-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[13-13],
+            target:tailoredNodes[17-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[13-13],
+            target:tailoredNodes[18-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[13-13],
+            target:tailoredNodes[25-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[14-13],
+            target:tailoredNodes[13-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[14-13],
+            target:tailoredNodes[25-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[14-13],
+            target:tailoredNodes[15-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[14-13],
+            target:tailoredNodes[20-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[14-13],
+            target:tailoredNodes[23-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[17-13],
+            target:tailoredNodes[13-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[17-13],
+            target:tailoredNodes[18-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[17-13],
+            target:tailoredNodes[19-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[18-13],
+            target:tailoredNodes[13-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[18-13],
+            target:tailoredNodes[17-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[18-13],
+            target:tailoredNodes[19-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[25-13],
+            target:tailoredNodes[13-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[25-13],
+            target:tailoredNodes[14-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[25-13],
+            target:tailoredNodes[15-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[25-13],
+            target:tailoredNodes[16-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[15-13],
+            target:tailoredNodes[14-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[15-13],
+            target:tailoredNodes[25-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[15-13],
+            target:tailoredNodes[23-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[15-13],
+            target:tailoredNodes[16-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[15-13],
+            target:tailoredNodes[21-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[15-13],
+            target:tailoredNodes[22-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[15-13],
+            target:tailoredNodes[24-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[20-13],
+            target:tailoredNodes[14-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[23-13],
+            target:tailoredNodes[14-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[23-13],
+            target:tailoredNodes[15-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[23-13],
+            target:tailoredNodes[21-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[16-13],
+            target:tailoredNodes[25-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[16-13],
+            target:tailoredNodes[15-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[16-13],
+            target:tailoredNodes[21-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[16-13],
+            target:tailoredNodes[19-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[21-13],
+            target:tailoredNodes[15-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[21-13],
+            target:tailoredNodes[23-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[21-13],
+            target:tailoredNodes[16-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[21-13],
+            target:tailoredNodes[22-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[22-13],
+            target:tailoredNodes[15-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[22-13],
+            target:tailoredNodes[21-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[24-13],
+            target:tailoredNodes[15-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[19-13],
+            target:tailoredNodes[17-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[19-13],
+            target:tailoredNodes[18-13],
+            remove:false
+        },
+        {
+            source:tailoredNodes[19-13],
+            target:tailoredNodes[16-13],
+            remove:false
+        }
+    ]
+
+    return tailoredLinks;
+}
+
+function getWeakTieNodes() {
+    var weakTieNodes = [];
+    for (var i = 0; i < 30; i++) {
+        var nodeString = {id:i, status:"S", group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null, infectedBy:null};
+        weakTieNodes.push(nodeString);
+    }
+    return weakTieNodes;
+}
+
+function getWeakTieLinks() {
+    var weakTieLinks = [
+        {
+            source:weakTieNodes[1],
+            target:weakTieNodes[3],
+            remove:false
+        },
+        {
+            source:weakTieNodes[3],
+            target:weakTieNodes[6],
+            remove:false
+        },
+        {
+            source:weakTieNodes[4],
+            target:weakTieNodes[1],
+            remove:false
+        },
+        {
+            source:weakTieNodes[4],
+            target:weakTieNodes[2],
+            remove:false
+        },
+        {
+            source:weakTieNodes[4],
+            target:weakTieNodes[3],
+            remove:false
+        },
+        {
+            source:weakTieNodes[4],
+            target:weakTieNodes[8],
+            remove:false
+        },
+        {
+            source:weakTieNodes[4],
+            target:weakTieNodes[9],
+            remove:false
+        },
+        {
+            source:weakTieNodes[5],
+            target:weakTieNodes[16],
+            remove:false
+        },
+        {
+            source:weakTieNodes[6],
+            target:weakTieNodes[1],
+            remove:false
+        },
+        {
+            source:weakTieNodes[8],
+            target:weakTieNodes[12],
+            remove:false
+        },
+        {
+            source:weakTieNodes[8],
+            target:weakTieNodes[13],
+            remove:false
+        },
+        {
+            source:weakTieNodes[9],
+            target:weakTieNodes[15],
+            remove:false
+        },
+        {
+            source:weakTieNodes[10],
+            target:weakTieNodes[6],
+            remove:false
+        },
+        {
+            source:weakTieNodes[10],
+            target:weakTieNodes[18],
+            remove:false
+        },
+        {
+            source:weakTieNodes[12],
+            target:weakTieNodes[2],
+            remove:false
+        },
+        {
+            source:weakTieNodes[12],
+            target:weakTieNodes[9],
+            remove:false
+        },
+        {
+            source:weakTieNodes[13],
+            target:weakTieNodes[2],
+            remove:false
+        },
+        {
+            source:weakTieNodes[13],
+            target:weakTieNodes[17],
+            remove:false
+        },
+        {
+            source:weakTieNodes[14],
+            target:weakTieNodes[13],
+            remove:false
+        },
+        {
+            source:weakTieNodes[14],
+            target:weakTieNodes[15],
+            remove:false
+        },
+        {
+            source:weakTieNodes[15],
+            target:weakTieNodes[2],
+            remove:false
+        },
+        {
+            source:weakTieNodes[15],
+            target:weakTieNodes[5],
+            remove:false
+        },
+        {
+            source:weakTieNodes[16],
+            target:weakTieNodes[14],
+            remove:false
+        },
+        {
+            source:weakTieNodes[16],
+            target:weakTieNodes[17],
+            remove:false
+        },
+        {
+            source:weakTieNodes[18],
+            target:weakTieNodes[19],
+            remove:false
+        },
+        {
+            source:weakTieNodes[19],
+            target:weakTieNodes[10],
+            remove:false
+        },
+        {
+            source:weakTieNodes[19],
+            target:weakTieNodes[24],
+            remove:false
+        },
+        {
+            source:weakTieNodes[19],
+            target:weakTieNodes[28],
+            remove:false
+        },
+        {
+            source:weakTieNodes[21],
+            target:weakTieNodes[23],
+            remove:false
+        },
+        {
+            source:weakTieNodes[21],
+            target:weakTieNodes[28],
+            remove:false
+        },
+        {
+            source:weakTieNodes[22],
+            target:weakTieNodes[18],
+            remove:false
+        },
+        {
+            source:weakTieNodes[23],
+            target:weakTieNodes[19],
+            remove:false
+        },
+        {
+            source:weakTieNodes[23],
+            target:weakTieNodes[22],
+            remove:false
+        },
+        {
+            source:weakTieNodes[24],
+            target:weakTieNodes[26],
+            remove:false
+        },
+        {
+            source:weakTieNodes[28],
+            target:weakTieNodes[24],
+            remove:false
+        },
+        {
+            source:weakTieNodes[29],
+            target:weakTieNodes[26],
+            remove:false
+        }
+    ]
+    return weakTieLinks;
+}
