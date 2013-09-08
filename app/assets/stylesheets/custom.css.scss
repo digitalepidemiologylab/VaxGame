@@ -27,35 +27,9 @@ html {
 }
 
 body {
-
-
+  min-width:850px;
   background-color: $grayMediumLight;
 }
 
-div {
-
-  background-color: #77a989;
-
-}
 
 
-/* typography */
-
-h1, h2, h3, h4, h5, h6 {
-  background-color: $grayMediumLight;
-}
-
-h1 {
-
-  background-color: $grayMediumLight;
-
-}
-
-h2 {
-
-  background-color: $grayMediumLight;
-}
-
-p {
-  background-color: $grayMediumLight;
-}

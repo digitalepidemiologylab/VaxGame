@@ -169,6 +169,39 @@ d3.select("body").append("div")
 d3.select("body").append("div")
     .attr("class", "menuBox")
 
+d3.select(".menuBox").append("div")
+    .attr("class", "menuItemNormal")
+    .attr("id", "networkSxn")
+    .text("Networks")
+
+d3.select(".menuBox").append("div")
+    .attr("class", "menuItemNormal")
+    .attr("id", "epidemicSxn")
+    .text("Epidemics")
+
+d3.select(".menuBox").append("div")
+    .attr("class", "menuItemNormal")
+    .attr("id", "vaccineSxn")
+    .text("Vaccines")
+
+d3.select(".menuBox").append("div")
+    .attr("class", "menuItemNormal")
+    .attr("id", "quarantineSxn")
+    .text("Quarantine")
+
+d3.select(".menuBox").append("div")
+    .attr("class", "menuItemNormal")
+    .attr("id", "gameLink")
+    .text("Play the Full Game!")
+
+d3.select(".menuBox").append("div")
+    .attr("class", "lessonHead")
+    .text("LESSONS")
+
+d3.select(".menuBox").append("div")
+    .attr("class", "gameHead")
+    .text("GAMING")
+
 function guideRailsReverse() {
     var back = true;
     if (guideRailsPosition == 0) {
@@ -815,6 +848,8 @@ function initTutorial() {
     d3.select(".lessonText")
         .attr("opacity", 1)
 
+    d3.select("#networkSxn").attr("class","menuItemBold")
+
     d3.select(".vaxLogoDiv")
         .style("left", "-12px")
 
@@ -901,8 +936,6 @@ function initTutorial() {
 function guideRails(back) {
 
     if (guideRailsPosition == 1) {
-
-
 
         d3.select(".backArrow")
             .transition()
@@ -1013,6 +1046,12 @@ function guideRails(back) {
     if (guideRailsPosition == 4) {
         d3.select(".lessonText").attr("opacity", 1)
             .text("LESSON 2: EPIDEMICS")
+
+        d3.select("#networkSxn").attr("class","menuItemNormal")
+
+        d3.select("#epidemicSxn").attr("class","menuItemBold")
+
+
 
         d3.select(".nextArrow").text("next >")
 
@@ -1346,6 +1385,10 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1)
             .text("LESSON 3: VACCINES")
+
+        d3.select("#epidemicSxn").attr("class","menuItemNormal")
+
+        d3.select("#vaccineSxn").attr("class","menuItemBold")
 
         graph.nodes = [];
         graph.links = [];

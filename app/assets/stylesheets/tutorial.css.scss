@@ -12,11 +12,10 @@
   position: absolute;
   top: 0px;
   right: 17px;
-  fill: #77a989;
+  background: #77a989;
   width: 75px;
   height: 75px;
   visibility:hidden;
-
 }
 
 .vaccineCounterText {
@@ -38,6 +37,7 @@
 }
 
 .actionVax {
+  cursor: pointer;
   background: #85bc99;
   position:fixed;
   float:right;
@@ -115,12 +115,60 @@
   top: -32px;
 }
 
+.menuItemNormal {
+  position: relative;
+  float: left;
+  font-size: 15px;
+  font-family: "Nunito";
+  font-weight: 300;
+  fill: #ffffff;
+  display: inline;
+  padding-top: 4px;
+  padding-right: 28px;
+  padding-left: 28px;
+}
 
-div.menuBox {
+.menuItemBold {
+  position: relative;
+  float: left;
+  font-size: 18px;
+  font-family: "Nunito";
+  font-weight: 700;
+  display: inline;
+  padding-top: 4px;
+  padding-right: 22px;
+  padding-left: 22px;
+}
+
+.lessonHead {
+  position: absolute;
+  background: none;
+  top: 12px;
+  float: left;
+  background: none;
+  font-size: 10px;
+  font-family: "Nunito";
+  font-weight: 300;
+  fill: #ffffff;
+}
+
+.gameHead {
+  position: absolute;
+  background: none;
+  top: 12px;
+  margin-left: 495px;
+  font-size: 10px;
+  font-family: "Nunito";
+  font-weight: 300;
+  fill: #ffffff;
+}
+
+
+.menuBox {
   background: #85bc99;
   float:right;
   color: white;
-  width:800px;
+  width:900px;
   height: 45px;
   position:relative;
   padding-top: 30px;
@@ -135,7 +183,7 @@ div.menuBox {
   transition-duration: 0.5s;
 }
 
-div.vaxLogoDiv {
+.vaxLogoDiv {
   background: #85bc99;
   font-family: "Nunito";
   font-weight: 400;

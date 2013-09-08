@@ -1,3 +1,4 @@
+
 function selectIndexCase() {
     var numberOfPeople = graph.nodes.length;
 
@@ -84,39 +85,6 @@ function infection() {
     }
 }
 
-function runTimesteps() {
-    if (timestep == startDay) {
-        diseaseIsSpreading = true;
-        selectIndexCase();
-        selectIndexCase();
-    }
-
-    if (diseaseIsSpreading) {
-        bcScores = computeBetweennessCentrality();
-        updateExposures();
-        infection();
-        stateChanges();
-        this.timestep++;
-        if (this.timestep%2 == 0) {
-            vaccineSupply++;
-            d3.select(".vaccineSupplyHUD")
-                .text("Vaccines: " + vaccineSupply);
-        }
-    }
-    else {
-        bcScores = computeBetweennessCentrality();
-        this.timestep++;
-    }
-
-    updateCommunities();
-
-    if (!simulation && diseaseIsSpreading) {
-        detectEndGame();
-    }
-
-
-}
-
 function getStatuses(infectedClass) {
     var S = 0;
     var I = 0;
@@ -138,6 +106,7 @@ function getStatuses(infectedClass) {
 
 
 function detectEndGame() {
+    updateCommunities();
     var numberOf_AtRisk_communities = 0;
 
     for (var groupIndex = 1; groupIndex < numberOfCommunities+1; groupIndex++) {
