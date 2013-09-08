@@ -167,19 +167,15 @@ d3.select("body").append("div")
     .text("VAX!")
 
 d3.select("body").append("div")
-    .attr("class", "menuBox");
-
+    .attr("class", "menuBox")
 
 function guideRailsReverse() {
     var back = true;
-
-
     if (guideRailsPosition == 0) {
         trivialGraph.nodes = [];
         trivialGraph.links = [];
         trivialGraph.nodes.push(tailoredNodes[0]);
         stepWiseUpdate();
-
     }
 
     if (guideRailsPosition == 1) {
@@ -767,7 +763,6 @@ function tutorialTimesteps() {
             .attr("opacity", 1)
             .text("< Restart Outbreak")
 
-
         d3.select(".nextArrow")
             .transition()
             .duration(500)
@@ -819,6 +814,12 @@ function detectCompletion() {
 function initTutorial() {
     d3.select(".lessonText")
         .attr("opacity", 1)
+
+    d3.select(".vaxLogoDiv")
+        .style("left", "-12px")
+
+    d3.select(".menuBox")
+        .style("right", "-200px")
 
     // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
     force = d3.layout.force()

@@ -127,8 +127,12 @@ div.menuBox {
   padding-left: 12px;
   text-align: center;
   top:125px;
-  right:-200px;
+  right:-1000px;
   box-shadow:5px 7px #838383;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
 }
 
 div.vaxLogoDiv {
@@ -144,8 +148,12 @@ div.vaxLogoDiv {
   padding-left: 12px;
   text-align: center;
   top:200px;
-  left:-12px;
+  left:-200px;
   box-shadow:5px 7px #838383;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
 }
 
 .guideTextSVG {
