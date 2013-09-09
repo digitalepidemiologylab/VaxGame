@@ -940,7 +940,7 @@ function initTutorial() {
         .style("left", "-12px")
 
     d3.select(".menuBox")
-        .style("right", "-200px")
+        .style("right", "0px")
 
 }
 
