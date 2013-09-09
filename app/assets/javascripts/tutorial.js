@@ -44,8 +44,8 @@ var nextY = 140;
 var guideXCoord = 400;
 var guideYCoord = 70;
 var guide2YCoordChange = 35;
-var width = 960,
-    height = 450,
+var width = 950,
+    height = 400,
     svg;
 var guideTextSVG;
 var actionBay;
