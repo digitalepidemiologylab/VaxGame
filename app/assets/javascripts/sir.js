@@ -129,6 +129,11 @@ function detectEndGame() {
             }
         }
     }
+
+    if (numberOf_AtRisk_communities == 0 && diseaseIsSpreading) {
+        endGame = true;
+      if (finalStop) return;
+    }
 }
 
 
