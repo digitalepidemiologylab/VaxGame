@@ -131,9 +131,10 @@
 .menuItemBold {
   position: relative;
   float: left;
-  font-size: 18px;
+  font-size: 15px;
+  color: #007138;
   font-family: "Nunito";
-  font-weight: 700;
+  font-weight: 300;
   display: inline;
   padding-top: 4px;
   padding-right: 22px;
@@ -167,15 +168,17 @@
 .menuBox {
   background: #85bc99;
   float:right;
-  color: white;
+  color: "white";
   width:900px;
+  overflow: hidden;
   height: 45px;
   position:relative;
   padding-top: 30px;
   padding-left: 12px;
   text-align: center;
-  top:125px;
+  top:105px;
   right:-1000px;
+  visibility: hidden;
   box-shadow:5px 7px #838383;
   -webkit-transition-duration: 0.5s;
   -moz-transition-duration: 0.5s;
@@ -195,18 +198,20 @@
   padding-top: 30px;
   padding-left: 12px;
   text-align: center;
-  top:200px;
+  visibility: hidden;
+  top:180px;
   left:-200px;
   box-shadow:5px 7px #838383;
   -webkit-transition-duration: 0.5s;
   -moz-transition-duration: 0.5s;
   -o-transition-duration: 0.5s;
   transition-duration: 0.5s;
+  overflow: hidden;
 }
 
 .guideTextSVG {
   position: absolute;
-  top: 475px;
+  top: 450px;
   width: auto;
   height: 175px;
   background: #f1f1f1; /* Old browsers */

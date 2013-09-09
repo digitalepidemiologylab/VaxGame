@@ -83,7 +83,7 @@ svg = d3.select("body").append("svg")
     .attr("height", height)
     .attr("class", "svg")
     .attr("pointer-events", "all")
-    .call(d3.behavior.zoom().on("zoom", redraw))
+//    .call(d3.behavior.zoom().on("zoom", redraw))
     .append('svg:g');
 
 guide = d3.select(".guideTextSVG").append("text")
@@ -162,45 +162,6 @@ var timestepTicker = d3.select(".svg").append("text")
     .attr("x",102).attr("y",91)
     .text("");
 
-d3.select("body").append("div")
-    .attr("class", "vaxLogoDiv")
-    .text("VAX!")
-
-d3.select("body").append("div")
-    .attr("class", "menuBox")
-
-d3.select(".menuBox").append("div")
-    .attr("class", "menuItemNormal")
-    .attr("id", "networkSxn")
-    .text("Networks")
-
-d3.select(".menuBox").append("div")
-    .attr("class", "menuItemNormal")
-    .attr("id", "epidemicSxn")
-    .text("Epidemics")
-
-d3.select(".menuBox").append("div")
-    .attr("class", "menuItemNormal")
-    .attr("id", "vaccineSxn")
-    .text("Vaccines")
-
-d3.select(".menuBox").append("div")
-    .attr("class", "menuItemNormal")
-    .attr("id", "quarantineSxn")
-    .text("Quarantine")
-
-d3.select(".menuBox").append("div")
-    .attr("class", "menuItemNormal")
-    .attr("id", "gameLink")
-    .text("Play the Full Game!")
-
-d3.select(".menuBox").append("div")
-    .attr("class", "lessonHead")
-    .text("LESSONS")
-
-d3.select(".menuBox").append("div")
-    .attr("class", "gameHead")
-    .text("GAMING")
 
 function guideRailsReverse() {
     var back = true;
@@ -843,18 +804,50 @@ function detectCompletion() {
     }
 }
 
+function initMenus() {
+
+}
 
 function initTutorial() {
-    d3.select(".lessonText")
-        .attr("opacity", 1)
+    d3.select("body").append("div")
+        .attr("class", "vaxLogoDiv")
+        .text("VAX!")
 
-    d3.select("#networkSxn").attr("class","menuItemBold")
+    d3.select("body").append("div")
+        .attr("class", "menuBox")
 
-    d3.select(".vaxLogoDiv")
-        .style("left", "-12px")
+    d3.select(".menuBox").append("div")
+        .attr("class", "menuItemNormal")
+        .attr("id", "networkSxn")
+        .text("Networks")
 
-    d3.select(".menuBox")
-        .style("right", "-200px")
+    d3.select(".menuBox").append("div")
+        .attr("class", "menuItemNormal")
+        .attr("id", "epidemicSxn")
+        .text("Epidemics")
+
+    d3.select(".menuBox").append("div")
+        .attr("class", "menuItemNormal")
+        .attr("id", "vaccineSxn")
+        .text("Vaccines")
+
+    d3.select(".menuBox").append("div")
+        .attr("class", "menuItemNormal")
+        .attr("id", "quarantineSxn")
+        .text("Quarantine")
+
+    d3.select(".menuBox").append("div")
+        .attr("class", "menuItemNormal")
+        .attr("id", "gameLink")
+        .text("Play the Full Game!")
+
+    d3.select(".menuBox").append("div")
+        .attr("class", "lessonHead")
+        .text("LESSONS")
+
+    d3.select(".menuBox").append("div")
+        .attr("class", "gameHead")
+        .text("GAMING")
 
     // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
     force = d3.layout.force()
@@ -930,6 +923,24 @@ function initTutorial() {
         .attr("opacity", 1)
 
     d3.selectAll(".node").style("cursor", 'pointer');
+
+    d3.select(".lessonText")
+        .attr("opacity", 1)
+
+    d3.select("#networkSxn").attr("class","menuItemBold")
+
+    d3.select(".vaxLogoDiv")
+        .style("visibility", "visible")
+
+    d3.select(".menuBox")
+        .style("visibility", "visible")
+
+
+    d3.select(".vaxLogoDiv")
+        .style("left", "-12px")
+
+    d3.select(".menuBox")
+        .style("right", "-200px")
 
 }
 
