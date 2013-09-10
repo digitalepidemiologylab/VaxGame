@@ -5,7 +5,7 @@ var transmissionRate = .25;
 var recoveryRate = 0;
 var maxRecoveryTime = 1000;
 var numberVaccinated = 0;
-var timeToStop = false;
+var timeToStop = true;
 var guideRailsPosition = 0;
 var postInitialOutbreak = false;
 var finalStop = false;
@@ -51,6 +51,7 @@ var guideTextSVG;
 var actionBay;
 var lessonText;
 var force, link, node;
+var pleaseWait = false;
 
 // this is the full graph, made by Ike
 var tailoredGraph = {};
@@ -166,6 +167,37 @@ var timestepTicker = d3.select(".svg").append("text")
 function guideRailsReverse() {
     var back = true;
     if (guideRailsPosition == 0) {
+
+        d3.select(".guide")
+            .attr("x",guideXCoord)
+            .attr("y",guideYCoord)
+            .attr("font-size", 28)
+            .attr("opacity", 0)
+            .text("Suppose this is you")
+
+        d3.select(".guide2").text("")
+
+        centerElement(guide, "guide");
+
+        d3.select(".guide")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1)
+
+        d3.select(".nextArrow")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1)
+
+        d3.selectAll(".node").style("cursor", 'pointer');
+
+        d3.select(".lessonText")
+            .text("LESSON 1: NETWORKS")
+            .attr("opacity", 1)
+
+        d3.select("#networkSxn").attr("class","menuItemBold")
+
+
         trivialGraph.nodes = [];
         trivialGraph.links = [];
         trivialGraph.nodes.push(tailoredNodes[0]);
@@ -794,6 +826,8 @@ function detectCompletion() {
     }
     if (numberOfInfecteds == numberOfIndividuals) {
         timeToStop = true;
+
+
     }
 
     if (finalStop) {
@@ -802,6 +836,15 @@ function detectCompletion() {
             timeToStop = true;
         }
     }
+
+    if (timeToStop) {
+        d3.select("#epidemicSxn").attr("class", "menuItemBold")
+            .text("Epidemics")
+        pleaseWait = false;
+
+    }
+
+
 }
 
 
@@ -819,14 +862,23 @@ function initTutorial() {
         .attr("id", "networkSxn")
         .text("Networks")
         .on("click", function() {
-            timeToStop = true;
-            guideRailsPosition = 1;
-            guideRailsReverse();
+            if (!timeToStop) {
+                pleaseWait = true;
+                d3.select("#epidemicSxn").attr("class", "menuItemBold")
+                    .text("Please Wait...")
+            }
+            else {
 
-            d3.select("#networkSxn").attr("class","menuItemBold");
-            d3.select("#epidemicSxn").attr("class", "menuItemNormal")
-            d3.select("#vaccineSxn").attr("class","menuItemNormal")
-            d3.select("#quarantineSxn").attr("class","menuItemNormal")
+                guideRailsPosition = 0;
+                guideRailsReverse();
+
+                d3.select("#networkSxn").attr("class","menuItemBold");
+                d3.select("#epidemicSxn").attr("class", "menuItemNormal")
+                d3.select("#vaccineSxn").attr("class","menuItemNormal")
+                d3.select("#quarantineSxn").attr("class","menuItemNormal")
+            }
+
+
         })
 
     d3.select(".menuBox").append("div")
@@ -834,6 +886,9 @@ function initTutorial() {
         .attr("id", "epidemicSxn")
         .text("Epidemics")
         .on("click", function() {
+            d3.select(".timestepText").text("Day: ").attr("opacity", 1)
+            d3.select(".timestepTicker").text(timestep).attr("opacity", 1)
+
             guideRailsPosition = 4;
             guideRailsReverse();
 
@@ -848,13 +903,20 @@ function initTutorial() {
         .attr("id", "vaccineSxn")
         .text("Vaccines")
         .on("click", function() {
-            timeToStop=true;
-            guideRailsPosition = 11;
-            guideRailsReverse();
-            d3.select("#networkSxn").attr("class","menuItemNormal");
-            d3.select("#epidemicSxn").attr("class", "menuItemNormal")
-            d3.select("#vaccineSxn").attr("class","menuItemBold")
-            d3.select("#quarantineSxn").attr("class","menuItemNormal")
+            if (!timeToStop) {
+                pleaseWait = true;
+                d3.select("#epidemicSxn").attr("class", "menuItemBold")
+                    .text("Please Wait...")
+            }
+            else {
+                guideRailsPosition = 11;
+                guideRailsReverse();
+                d3.select("#networkSxn").attr("class","menuItemNormal");
+                d3.select("#epidemicSxn").attr("class", "menuItemNormal")
+                d3.select("#vaccineSxn").attr("class","menuItemBold")
+                d3.select("#quarantineSxn").attr("class","menuItemNormal")
+            }
+
         })
 
     d3.select(".menuBox").append("div")
@@ -862,13 +924,20 @@ function initTutorial() {
         .attr("id", "quarantineSxn")
         .text("Quarantine")
         .on("click", function() {
-            timeToStop=true;
-//            guideRailsPosition = ;
+            if (!timeToStop) {
+                pleaseWait = true;
+                d3.select("#epidemicSxn").attr("class", "menuItemBold")
+                    .text("Please Wait...")
+            }
+            else {
+                //            guideRailsPosition = ;
 //            guideRailsReverse();
-            d3.select("#networkSxn").attr("class","menuItemNormal");
-            d3.select("#epidemicSxn").attr("class", "menuItemNormal")
-            d3.select("#vaccineSxn").attr("class","menuItemNormal")
-            d3.select("#quarantineSxn").attr("class","menuItemBold")
+                d3.select("#networkSxn").attr("class","menuItemNormal");
+                d3.select("#epidemicSxn").attr("class", "menuItemNormal")
+                d3.select("#vaccineSxn").attr("class","menuItemNormal")
+                d3.select("#quarantineSxn").attr("class","menuItemBold")
+            }
+
         })
 
 
@@ -1098,8 +1167,6 @@ function guideRails(back) {
 
         d3.select("#epidemicSxn").attr("class","menuItemBold")
 
-
-
         d3.select(".nextArrow").text("next >")
 
 
@@ -1131,6 +1198,7 @@ function guideRails(back) {
         var indexPatientID = Math.floor(Math.random() * numberOfIndividuals);
         graph.nodes[indexPatientID].status = "I";
         tutorialUpdate();
+
         diseaseIsSpreading=true;
         window.setTimeout(tutorialTimesteps, 2000);
 
