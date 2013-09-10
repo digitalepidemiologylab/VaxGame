@@ -804,9 +804,7 @@ function detectCompletion() {
     }
 }
 
-function initMenus() {
 
-}
 
 function initTutorial() {
     d3.select("body").append("div")
@@ -820,21 +818,59 @@ function initTutorial() {
         .attr("class", "menuItemNormal")
         .attr("id", "networkSxn")
         .text("Networks")
+        .on("click", function() {
+            timeToStop = true;
+            guideRailsPosition = 1;
+            guideRailsReverse();
+
+            d3.select("#networkSxn").attr("class","menuItemBold");
+            d3.select("#epidemicSxn").attr("class", "menuItemNormal")
+            d3.select("#vaccineSxn").attr("class","menuItemNormal")
+            d3.select("#quarantineSxn").attr("class","menuItemNormal")
+        })
 
     d3.select(".menuBox").append("div")
         .attr("class", "menuItemNormal")
         .attr("id", "epidemicSxn")
         .text("Epidemics")
+        .on("click", function() {
+            guideRailsPosition = 4;
+            guideRailsReverse();
+
+            d3.select("#networkSxn").attr("class","menuItemNormal");
+            d3.select("#epidemicSxn").attr("class", "menuItemBold")
+            d3.select("#vaccineSxn").attr("class","menuItemNormal")
+            d3.select("#quarantineSxn").attr("class","menuItemNormal")
+        })
 
     d3.select(".menuBox").append("div")
         .attr("class", "menuItemNormal")
         .attr("id", "vaccineSxn")
         .text("Vaccines")
+        .on("click", function() {
+            timeToStop=true;
+            guideRailsPosition = 11;
+            guideRailsReverse();
+            d3.select("#networkSxn").attr("class","menuItemNormal");
+            d3.select("#epidemicSxn").attr("class", "menuItemNormal")
+            d3.select("#vaccineSxn").attr("class","menuItemBold")
+            d3.select("#quarantineSxn").attr("class","menuItemNormal")
+        })
 
     d3.select(".menuBox").append("div")
         .attr("class", "menuItemNormal")
         .attr("id", "quarantineSxn")
         .text("Quarantine")
+        .on("click", function() {
+            timeToStop=true;
+//            guideRailsPosition = ;
+//            guideRailsReverse();
+            d3.select("#networkSxn").attr("class","menuItemNormal");
+            d3.select("#epidemicSxn").attr("class", "menuItemNormal")
+            d3.select("#vaccineSxn").attr("class","menuItemNormal")
+            d3.select("#quarantineSxn").attr("class","menuItemBold")
+        })
+
 
     d3.select(".menuBox").append("div")
         .attr("class", "menuItemNormal")
