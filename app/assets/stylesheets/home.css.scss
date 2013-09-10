@@ -1,0 +1,114 @@
+
+
+#homeBackground {
+  min-width: 1024px;
+  max-width: 1024px;
+
+  min-height: 768px;
+  max-height: 768px;
+}
+
+.homeTitle {
+  position: absolute;
+  color: #707070;
+  top: 240px;
+  left: 422px;
+  font-family: "Nunito";
+  font-size: 80px;
+  font-weight: 500;
+}
+
+
+.homeText {
+  position: absolute;
+  color: #707070;
+  font-family: "Nunito";
+  top: 315px;
+  left: 305px;
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.homeBegin {
+  position: absolute;
+  color: #707070;
+  font-family: "Nunito";
+  top: 505px;
+  left: 780px;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+
+.home_menuItemNormal {
+  position: relative;
+  float: left;
+  font-size: 15px;
+  font-family: "Nunito";
+  font-weight: 300;
+  fill: #ffffff;
+  display: inline;
+  padding-top: 4px;
+  padding-right: 28px;
+  padding-left: 28px;
+}
+
+
+
+.home_lessonHead {
+  position: absolute;
+  background: none;
+  top: 12px;
+  float: left;
+  background: none;
+  font-size: 10px;
+  font-family: "Nunito";
+  font-weight: 300;
+  fill: #ffffff;
+}
+
+.home_gameHead {
+  position: absolute;
+  background: none;
+  top: 12px;
+  margin-left: 495px;
+  font-size: 10px;
+  font-family: "Nunito";
+  font-weight: 300;
+  fill: #ffffff;
+}
+
+
+.home_menuBox {
+  position: absolute;
+  background: #85bc99;
+  float:right;
+  color: "white";
+  top: 600px;
+  right: 0px;
+  width:700px;
+  height: 45px;
+  padding-top: 30px;
+  padding-left: 12px;
+  text-align: center;
+  box-shadow:5px 7px #838383;
+}
+
+.home_vaxLogoDiv {
+  position: absolute;
+  background: #85bc99;
+  font-family: "Nunito";
+  font-weight: 400;
+  font-size: 28px;
+  color: white;
+  width:125px;
+  height: 45px;
+  padding-top: 30px;
+  padding-left: 12px;
+  text-align: center;
+  top:600px;
+  left:-15px;
+  box-shadow:5px 7px #838383;
+}
+
+
