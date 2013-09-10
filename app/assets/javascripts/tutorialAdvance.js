@@ -78,7 +78,7 @@ function guideRails(back) {
     if (guideRailsPosition == 3) {
         d3.select(".backArrow").text("< back")
         d3.select(".nextArrow").text("Next: Epidemics >")
-        charge = -300;
+        charge = -800;
         if (!back) tutorialUpdate();
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -106,12 +106,13 @@ function guideRails(back) {
             .attr("opacity", 1);
         d3.selectAll(".node").style("cursor", 'pointer');
         removeDuplicates(graph);
-        window.setTimeout(force.stop, 2400)
 
 
     }
 
     if (guideRailsPosition == 4) {
+
+
         removeDuplicates(graph);
         d3.select(".lessonText").attr("opacity", 1)
             .text("LESSON 2: EPIDEMICS")

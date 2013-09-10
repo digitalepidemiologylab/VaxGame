@@ -52,6 +52,7 @@ var actionBay;
 var lessonText;
 var force, link, node;
 var pleaseWait = false;
+var friction = 0.90;
 
 // this is the full graph, made by Ike
 var tailoredGraph = {};
@@ -215,6 +216,7 @@ function tutorialUpdate() {
     force
         .nodes(nodes)
         .charge(charge)
+        .friction(friction)
         .links(links)
         .start();
 
@@ -386,6 +388,7 @@ function stepWiseUpdate() {
     force
         .nodes(nodes)
         .charge(charge)
+        .friction(friction)
         .links(links)
         .start();
 
@@ -545,6 +548,7 @@ function removePathogens() {
 }
 
 function tutorialTimesteps() {
+    friction = 0.81;
     exposureEdges = [];
     d3.select(".nextArrow").attr("opacity", 0).text("");
     d3.select(".backArrow").attr("opacity", 0).text("");
@@ -753,6 +757,7 @@ function initTutorial() {
         .links(trivialGraph.links)
         .size([width, height])
         .charge(charge)
+        .friction(friction)
         .on("tick", tick)
         .start();
 
