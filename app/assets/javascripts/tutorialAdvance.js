@@ -78,7 +78,7 @@ function guideRails(back) {
     if (guideRailsPosition == 3) {
         d3.select(".backArrow").text("< back")
         d3.select(".nextArrow").text("Next: Epidemics >")
-        charge = -200;
+        charge = -500;
         if (!back) tutorialUpdate();
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -153,6 +153,7 @@ function guideRails(back) {
 
         diseaseIsSpreading=true;
         timeToStop = false;
+        window.setTimeout(force.stop, 1900)
         window.setTimeout(tutorialTimesteps, 2000);
 
         d3.select(".timestepText").text("Day: ")
