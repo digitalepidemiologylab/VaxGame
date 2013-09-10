@@ -682,7 +682,7 @@ function initTutorial() {
             d3.select(".timestepText").text("Day: ").attr("opacity", 1)
             d3.select(".timestepTicker").text(timestep).attr("opacity", 1)
 
-            guideRailsPosition = 4;
+            guideRailsPosition = 3;
             guideRailsReverse();
 
             d3.select("#networkSxn").attr("class","menuItemNormal");

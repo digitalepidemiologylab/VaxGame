@@ -106,6 +106,8 @@ function guideRails(back) {
             .attr("opacity", 1);
         d3.selectAll(".node").style("cursor", 'pointer');
         removeDuplicates(graph);
+        window.setTimeout(force.stop, 2400)
+
 
     }
 
@@ -153,7 +155,6 @@ function guideRails(back) {
 
         diseaseIsSpreading=true;
         timeToStop = false;
-        window.setTimeout(force.stop, 1900)
         window.setTimeout(tutorialTimesteps, 2000);
 
         d3.select(".timestepText").text("Day: ")
