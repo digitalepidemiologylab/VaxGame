@@ -78,7 +78,7 @@ function guideRails(back) {
     if (guideRailsPosition == 3) {
         d3.select(".backArrow").text("< back")
         d3.select(".nextArrow").text("Next: Epidemics >")
-        charge = -800;
+        charge = -400;
         if (!back) tutorialUpdate();
         d3.select(".guide")
             .attr("x", guideXCoord)

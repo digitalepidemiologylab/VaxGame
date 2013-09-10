@@ -12,7 +12,7 @@ var finalStop = false;
 var endGame = false;
 var intervention = false;
 var tutorial = false;
-var charge = -500;
+var charge = -400;
 var newInfections = [];
 var xyCoords = [];
 var vax = 1;
@@ -216,7 +216,7 @@ function tutorialUpdate() {
     force
         .nodes(nodes)
         .charge(charge)
-        .friction(friction)
+        .friction(0.60)
         .links(links)
         .start();
 
@@ -548,7 +548,6 @@ function removePathogens() {
 }
 
 function tutorialTimesteps() {
-    friction = 0.81;
     exposureEdges = [];
     d3.select(".nextArrow").attr("opacity", 0).text("");
     d3.select(".backArrow").attr("opacity", 0).text("");
