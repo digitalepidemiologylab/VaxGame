@@ -53,6 +53,7 @@ function guideRailsReverse() {
                 trivialGraph.links.push(link);
             }
         }
+        removeDuplicates(trivialGraph);
         stepWiseUpdate();
     }
 
@@ -76,6 +77,7 @@ function guideRailsReverse() {
             }
         }
 
+        removeDuplicates(trivialGraph);
         stepWiseUpdate();
     }
 
@@ -109,6 +111,8 @@ function guideRailsReverse() {
         for (var ii = 0; ii < tailoredLinks.length; ii++) {
             graph.links.push(tailoredLinks[ii]);
         }
+
+        removeDuplicates(graph);
         tutorialUpdate();
 
     }
@@ -125,6 +129,7 @@ function guideRailsReverse() {
                 graph.links.push(link);
             }
         }
+        removeDuplicates(graph);
         tutorialUpdate();
         d3.selectAll(".node")
             .transition()
@@ -163,8 +168,10 @@ function guideRailsReverse() {
             graph.links.push(tailoredLinks[ii]);
         }
 
+        removeDuplicates(graph);
         tutorialUpdate();
     }
+
 
     guideRails(back);
 

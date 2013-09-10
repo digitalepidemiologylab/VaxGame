@@ -106,6 +106,37 @@ function edgeExists(source,target, graph) {
     return edgeExists;
 }
 
+function spliceDuplicateEdges(source, target, graph) {
+    var edgeExists = 0;
+    for (var i = 0; i < graph.links.length; i++) {
+        var link = graph.links[i];
+
+        // test one direction
+        if (link.source.id == source.id) {
+            if (link.target.id == target.id) {
+                //this is one direction
+                edgeExists++;
+
+            }
+        }
+
+        // test the other direction
+        if (link.target.id == source.id) {
+            if (link.source.id == target.id) {
+                //this is another direction
+                edgeExists++;
+            }
+        }
+
+        // if a duplicate is found then splice it, and continue testing (knowing that any more duplicate edges should definitely be removed)
+        if (edgeExists > 1) {
+            edgeExists = 1;
+            graph.links.splice(i,1);
+        }
+    }
+    return edgeExists;
+}
+
 function removeVaccinatedNodes(graph) {
     var nodes = [];
     for (var i = 0; i < graph.nodes.length; i++) {

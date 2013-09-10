@@ -12,7 +12,7 @@ var finalStop = false;
 var endGame = false;
 var intervention = false;
 var tutorial = false;
-var charge = -800;
+var charge = -200;
 var newInfections = [];
 var xyCoords = [];
 var vax = 1;
@@ -75,6 +75,8 @@ var numberOfIndividuals = tailoredNodes.length;
 // this is the graph with a few weak ties between communities to illustrate segregation by vaccination
 var weakTieNodes = getWeakTieNodes();
 var weakTieLinks = getWeakTieLinks();
+
+
 
 guideTextSVG = d3.select("body").append("svg")
     .attr("class", "guideTextSVG")
@@ -630,11 +632,7 @@ function detectCompletion() {
         pleaseWait = false;
 
     }
-
-
 }
-
-
 
 function initTutorial() {
     d3.select("body").append("div")
@@ -673,7 +671,6 @@ function initTutorial() {
         .attr("id", "epidemicSxn")
         .text("Epidemics")
         .on("click", function() {
-
 
             timeToStop = false;
             endGame = false;
@@ -869,17 +866,13 @@ function unFixNodes(graph) {
 
 }
 
+
 function removeDuplicates(graph) {
-    var links = [];
     for (var ii = 0; ii < graph.nodes.length; ii++) {
         var node1 = graph.nodes[ii];
         for (var iii = 0; iii < graph.nodes.length; iii++) {
             var node2 = graph.nodes[iii];
-            if (edgeExists(node1, node2, graph)) {
-                var linkString = {source:node1,target:node2,remove:false};
-                if (testDuplicate(graph.links, linkString)) continue;
-                links.push(linkString);
-            }
+            spliceDuplicateEdges(node1, node2, graph)
         }
     }
 }

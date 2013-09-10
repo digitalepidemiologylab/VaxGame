@@ -105,10 +105,12 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
         d3.selectAll(".node").style("cursor", 'pointer');
+        removeDuplicates(graph);
 
     }
 
     if (guideRailsPosition == 4) {
+        removeDuplicates(graph);
         d3.select(".lessonText").attr("opacity", 1)
             .text("LESSON 2: EPIDEMICS")
 
@@ -146,6 +148,7 @@ function guideRails(back) {
 
         var indexPatientID = Math.floor(Math.random() * numberOfIndividuals);
         graph.nodes[indexPatientID].status = "I";
+        removeDuplicates(graph);
         tutorialUpdate();
 
         diseaseIsSpreading=true;
@@ -297,6 +300,7 @@ function guideRails(back) {
                 graph.links.push(link);
             }
         }
+        removeDuplicates(graph);
         tutorialUpdate();
         flashNode();
     }
@@ -339,6 +343,8 @@ function guideRails(back) {
             .transition()
             .duration(500)
             .attr("opacity", 1);
+
+        removeDuplicates(graph);
         tutorialUpdate();
     }
 
@@ -398,6 +404,7 @@ function guideRails(back) {
             }
             if (counter == 0) graph.nodes.splice(iv, 1);
         }
+        removeDuplicates(graph);
         tutorialUpdate();
         flashNodes();
     }
@@ -494,8 +501,11 @@ function guideRails(back) {
                         guideRailsPosition++;
                         guideRails();
                     }
+                    removeDuplicates(graph);
                     tutorialUpdate();
                 }});
+
+        removeDuplicates(graph);
         tutorialUpdate();
 
         d3.select(".timestepText")
