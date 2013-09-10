@@ -78,7 +78,7 @@ function guideRails(back) {
     if (guideRailsPosition == 3) {
         d3.select(".backArrow").text("< back")
         d3.select(".nextArrow").text("Next: Epidemics >")
-        charge = -500;
+        charge = -300;
         if (!back) tutorialUpdate();
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -357,6 +357,7 @@ function guideRails(back) {
         loadSyringe();
         vaccineSupply = 1;
         numberVaccinated = 0;
+        charge = -300;
 
         d3.select(".guide")
             .attr("x", guideXCoord)
