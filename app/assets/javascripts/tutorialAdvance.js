@@ -1,5 +1,7 @@
 var menuColorFlash = true;
 var colorIndex = 0;
+var menuColors = ["#007138","#ffffff"];
+
 function guideRails(back) {
 
     if (guideRailsPosition == 1) {
@@ -489,11 +491,11 @@ function guideRails(back) {
                         return;
                     }
                     d.status = "V";
-                    d.fixed = true;
+//                    d.fixed = true;
                     d3.select(this)
-                        .attr("class", "vaxNode")
+//                        .attr("class", "vaxNode")
                         .style("fill", "#d9d678")
-                    vaccinatedBayStartYCoord += 25;
+//                    vaccinatedBayStartYCoord += 25;
                     vaccineSupply--;
                     numberVaccinated++;
 
@@ -729,7 +731,7 @@ function guideRails(back) {
             .text("LESSON 3: QUARANTINE")
 
         finalStop = false;
-        d3.selectAll(".fixedVaxNode").remove()
+//        d3.selectAll(".fixedVaxNode").remove()
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
@@ -1002,15 +1004,16 @@ function guideRails(back) {
                 window.location.href = 'http://vax.herokuapp.com/'
             })
 
+        menuColors = ["#007138","#ffffff"];
         window.setInterval(flashFullGame, 300);
     }
 }
 
 function flashFullGame() {
+
     if (menuColorFlash) colorIndex = 0;
     else colorIndex = 1;
 
-    var menuColors = ["#007138","#ffffff"];
     d3.select("#gameLink").style("color", menuColors[colorIndex])
 
     menuColorFlash = !menuColorFlash;

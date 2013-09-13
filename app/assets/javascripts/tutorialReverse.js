@@ -151,10 +151,8 @@ function guideRailsReverse() {
         guideRailsPosition = 10;
         vaccineSupply = 3;
         vax = 3;
-
-        d3.selectAll(".fixedVaxNode").remove();
-        vaccinatedBayStartYCoord = 125;
-
+//        d3.selectAll(".fixedVaxNode").remove();
+//        vaccinatedBayStartYCoord = 125;
         graph.nodes = [];
         graph.links = [];
 
@@ -180,14 +178,8 @@ function guideRailsReverse() {
         d3.select(".nextArrow")
             .attr("opacity", 1)
             .text("next >")
-
         loadSyringe();
         hideQuarantine();
     }
-
-
-
-
     guideRails(back);
-
 }

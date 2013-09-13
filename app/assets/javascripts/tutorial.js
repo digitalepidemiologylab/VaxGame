@@ -314,11 +314,11 @@ function tutorialUpdate() {
                     return;
                 }
                 d.status = "V";
-                d.fixed = true;
+//                d.fixed = true;
                 d3.select(this)
-                    .attr("class", "vaxNode")
+//                    .attr("class", "vaxNode")
                     .style("fill", "#d9d678")
-                vaccinatedBayStartYCoord += 25;
+//                vaccinatedBayStartYCoord += 25;
                 vaccineSupply--;
                 numberVaccinated++;
 
@@ -344,14 +344,14 @@ function tutorialUpdate() {
 
     d3.select(".vaccineCounterText")
         .text(vaccineSupply + " / " + vax);
-
-
-    d3.select(".vaxNode")
-        .transition()
-        .duration(500)
-        .attr("cx", 93)
-        .attr("cy", vaccinatedBayStartYCoord)
-        .attr("class", "fixedVaxNode")
+//
+//
+//    d3.select(".vaxNode")
+//        .transition()
+//        .duration(500)
+//        .attr("cx", 93)
+//        .attr("cy", vaccinatedBayStartYCoord)
+//        .attr("class", "fixedVaxNode")
 
 }
 
@@ -464,12 +464,12 @@ function stepWiseUpdate() {
                     }
                     d.status = "V";
                     d3.select(this)
-                        .attr("class", "vaxNode")
-                        .style("stroke", "#636363")
-                        .style("stroke-width", 2)
+//                        .attr("class", "vaxNode")
+//                        .style("stroke", "#636363")
+//                        .style("stroke-width", 2)
                         .style("fill", "#d9d678")
 
-                    vaccinatedBayStartYCoord += 25;
+//                    vaccinatedBayStartYCoord += 25;
                     vaccineSupply--;
                     numberVaccinated++;
 
@@ -513,12 +513,12 @@ function stepWiseUpdate() {
                 }
                 d.status = "V";
                 d3.select(this)
-                    .attr("class", "vaxNode")
-                    .style("stroke", "#636363")
-                    .style("stroke-width", 2)
+//                    .attr("class", "vaxNode")
+//                    .style("stroke", "#636363")
+//                    .style("stroke-width", 2)
                     .style("fill", "#d9d678")
 
-                vaccinatedBayStartYCoord += 25;
+//                vaccinatedBayStartYCoord += 25;
                 vaccineSupply--;
                 numberVaccinated++;
 
@@ -724,6 +724,9 @@ function initTutorial() {
                 d3.select("#epidemicSxn").attr("class", "menuItemNormal")
                 d3.select("#vaccineSxn").attr("class","menuItemNormal")
                 d3.select("#quarantineSxn").attr("class","menuItemNormal")
+
+                menuColors = ["#ffffff","#ffffff"];
+
             }
 
 
@@ -755,6 +758,9 @@ function initTutorial() {
             d3.select("#epidemicSxn").attr("class", "menuItemBold")
             d3.select("#vaccineSxn").attr("class","menuItemNormal")
             d3.select("#quarantineSxn").attr("class","menuItemNormal")
+
+            menuColors = ["#ffffff","#ffffff"];
+
         })
 
     d3.select(".menuBox").append("div")
@@ -790,6 +796,8 @@ function initTutorial() {
                 d3.select("#epidemicSxn").attr("class", "menuItemNormal")
                 d3.select("#vaccineSxn").attr("class","menuItemBold")
                 d3.select("#quarantineSxn").attr("class","menuItemNormal")
+
+                menuColors = ["#ffffff","#ffffff"];
             }
 
         })
@@ -821,6 +829,8 @@ function initTutorial() {
                 d3.select("#epidemicSxn").attr("class", "menuItemNormal")
                 d3.select("#vaccineSxn").attr("class","menuItemNormal")
                 d3.select("#quarantineSxn").attr("class","menuItemBold")
+
+                menuColors = ["#ffffff","#ffffff"];
             }
 
         })
@@ -874,9 +884,9 @@ function initTutorial() {
                 }
                 d.status = "V";
                 d3.select(this)
-                    .attr("class", "vaxNode")
-                    .style("stroke", "#636363")
-                    .style("stroke-width", 2)
+//                    .attr("class", "vaxNode")
+//                    .style("stroke", "#636363")
+//                    .style("stroke-width", 2)
                     .style("fill", "#d9d678")
 
                 vaccinatedBayStartYCoord += 25;
@@ -958,7 +968,7 @@ function unFixNodes(graph) {
         if (graph.nodes[i].fixed == true) graph.nodes[i].fixed = false;
     }
 
-    d3.selectAll(".fixedVaxNode").remove()
+//    d3.selectAll(".fixedVaxNode").remove()
 
 }
 
