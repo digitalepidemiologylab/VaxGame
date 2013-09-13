@@ -176,6 +176,17 @@ function guideRailsReverse() {
         endGame=false;
     }
 
+    if (guideRailsPosition == 17) {
+        d3.select(".nextArrow")
+            .attr("opacity", 1)
+            .text("next >")
+
+        loadSyringe();
+        hideQuarantine();
+    }
+
+
+
 
     guideRails(back);
 

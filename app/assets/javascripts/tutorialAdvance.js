@@ -1,3 +1,5 @@
+var menuColorFlash = true;
+var colorIndex = 0;
 function guideRails(back) {
 
     if (guideRailsPosition == 1) {
@@ -576,7 +578,6 @@ function guideRails(back) {
             .text("Select the 'Vaccinate' tool in the upper right and select")
 
         vaccineSupply = 3;
-        intervention_series = [];
         diseaseIsSpreading = false;
         postInitialOutbreak = true;
 
@@ -760,6 +761,11 @@ function guideRails(back) {
 
         graph = generateSmallWorld(35, 0.12, 4)
         removeDuplicates(graph);
+
+        for (var i = 0; i < graph.nodes.length; i++) {
+            graph.nodes[i].status = "S";
+        }
+
         quarantineUpdate();
 
         d3.select(".timestepText").attr("opacity", 0)
@@ -767,16 +773,23 @@ function guideRails(back) {
         d3.select(".backArrow").text("").attr("opacity", 0)
 
         quarantineMode = true;
+        vax = 0;
+        vaccineSupply = 0;
 
 
     }
 
     if (guideRailsPosition == 16) {
+        d3.select(".backArrow")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1)
+            .text("< back")
+
         d3.select(".lessonText")
             .transition()
             .duration(2000)
             .attr("opacity", 0)
-        vax = 0;
         hideSyringe();
         loadSyringe();
 
@@ -823,13 +836,13 @@ function guideRails(back) {
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("Quarantining is a way to remove nodes that are likely")
+            .text("Quarantining is a way to immediately remove nodes that")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord + guide2YCoordChange)
             .attr("opacity", 0)
-            .text("to be infected during an epidemic outbreak.")
+            .text("are likely to be infected during an epidemic outbreak.")
 
         centerElement(guide, "guide");
         centerElement(guide2, "guide2");
@@ -878,11 +891,9 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-
     }
 
     if (guideRailsPosition == 19) {
-
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
@@ -909,7 +920,6 @@ function guideRails(back) {
             .attr("opacity", 1);
 
         d3.select(".nextArrow").attr("opacity", 1).text("next >")
-
     }
 
     if (guideRailsPosition == 20) {
@@ -936,12 +946,13 @@ function guideRails(back) {
         var graphExplainString = "This represents how effective you were at containing the outbreak.";
 
         if (numberSaved == 1) {
-            string = "You only saved one person... ಠ_ಠ";
-            graphExplainString = "";
+            string = "";
+            graphExplainString = "You only saved one person... ಠ_ಠ";
         }
 
         if (numberSaved >= totalNodes - 1) {
-            string = "Did you cheat? ಠ_ಠ"
+            graphExplainString = "Did you cheat? ಠ_ಠ";
+            string = "";
         }
 
         d3.select(".guide")
@@ -969,19 +980,39 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
+        d3.select("#quarantineSxn")
+            .attr("class","menuItemNormal")
+
         d3.select(".nextArrow")
             .attr("opacity", 1)
-            .transition()
-            .duration(1000)
-            .attr("x", nextX - 390)
-            .text("Next: Play the Game!")
-            .on("click", window.location.href = 'http://vax.herokuapp.com/game')
+            .attr("x", 575)
+            .text("Full Game >>")
+            .on("click", function() {
+                window.location.href = 'http://vax.herokuapp.com/game'
+            })
 
+        d3.select("#gameLink")
+            .attr("class","menuItemBold")
+
+        d3.select(".backArrow")
+            .attr("opacity", 1)
+            .text("<< Start Over")
+            .attr("x", 345)
+            .on("click", function() {
+                window.location.href = 'http://vax.herokuapp.com/'
+            })
+
+        window.setInterval(flashFullGame, 300);
     }
+}
 
+function flashFullGame() {
+    if (menuColorFlash) colorIndex = 0;
+    else colorIndex = 1;
 
+    var menuColors = ["#007138","#ffffff"];
+    d3.select("#gameLink").style("color", menuColors[colorIndex])
 
-
-
+    menuColorFlash = !menuColorFlash;
 
 }

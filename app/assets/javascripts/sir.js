@@ -140,8 +140,6 @@ function detectEndGame() {
         }
         if (quarantineMode && !vaccinateMode) {
             d3.select(".nextArrow").text("next >")
-            guideRailsPosition++;
-            guideRails();
         }
     }
 }

@@ -3,6 +3,7 @@
 <head>
   <% provide(:title, 'Vax') %>
   <%= javascript_include_tag "d3.v3" %>
+  <%= javascript_include_tag "tutorial" %>
   <%= csrf_meta_tags %>
 </head>
 
@@ -10,73 +11,19 @@
 
 <img id="homeBackground" src="/assets/Vax_home_background.png">
 
-<script>
 
-  d3.select("body").append("text")
-          .attr("class", "homeTitle")
-          .text("VAX!")
+<div class="actionVax" onclick=activateVaccinationMode()>
+  <div class="vaccineDepressedState"></div>
+  <text id = "vaxShieldText"> VACCINES </text>
+  <img id="vaxShieldIcon" src="/assets/vaxShield.svg" onclick=activateVaccinationMode()>
+</div>
 
-  d3.select("body").append("text")
-          .attr("class", "homeText")
-          .text("A game about epidemic prevention.")
-
-  d3.select("body").append("text")
-          .attr("class", "homeBegin")
-          .text("Begin >")
-          .style("cursor", "pointer")
-          .on("click", function() {window.location.href = 'http://vax.herokuapp.com/tutorial'})
-
-  d3.select("body").append("div")
-          .attr("class", "home_vaxLogoDiv")
-          .text("VAX!")
-          .style("cursor", "pointer")
-          .on("click", function() {window.location.href = 'http://vax.herokuapp.com'})
-
-  d3.select("body").append("div")
-          .attr("class", "home_menuBox")
-
-  d3.select(".home_menuBox").append("div")
-          .attr("class", "home_menuItemNormal")
-          .attr("id", "networkSxn")
-          .text("Networks")
-
-  d3.select(".home_menuBox").append("div")
-          .attr("class", "home_menuItemNormal")
-          .attr("id", "epidemicSxn")
-          .text("Epidemics")
-
-
-  d3.select(".home_menuBox").append("div")
-          .attr("class", "home_menuItemNormal")
-          .attr("id", "vaccineSxn")
-          .text("Vaccines")
-
-  d3.select(".home_menuBox").append("div")
-          .attr("class", "home_menuItemNormal")
-          .attr("id", "quarantineSxn")
-          .text("Quarantine")
-
-  d3.select(".home_menuBox").append("div")
-          .attr("class", "home_menuItemNormal")
-          .attr("id", "gameLink")
-          .text("Play the Full Game!")
-          .style("cursor", "pointer")
-          .on("click", function() {window.location.href = 'http://vax.herokuapp.com/game'})
-
-  d3.select(".home_menuBox").append("div")
-          .attr("class", "home_lessonHead")
-          .text("LESSONS")
-
-  d3.select(".home_menuBox").append("div")
-          .attr("class", "home_gameHead")
-          .text("GAMING")
-
-</script>
-
-
+<div class="actionQuarantine" onclick=activateQuarantineMode()>
+  <div class="quarantineDepressedState"></div>
+  <text id = "quarantineText"> QUARANTINE </text>
+  <img id="quarantineIcon" src="/assets/quarantine.svg" onclick=activateQuarantineMode()>
+</div>
 </body>
 
 </html>
-
-
 

@@ -62,7 +62,7 @@
   position:fixed;
   float:right;
   display: inline-block;
-  width:100px;
+  width:115px;
   height: 45px;
   padding-top: 30px;
   padding-left: 12px;
@@ -89,7 +89,7 @@
 .quarantineDepressedState {
   position: absolute;
   top: 0px;
-  right: 17px;
+  right: 31px;
   background: #77a989;
   width: 75px;
   height: 75px;
@@ -99,7 +99,7 @@
 .quarantineCounterText {
   position:absolute;
   top: 55px;
-  right: 7px;
+  right: 6px;
   font-family: "Nunito";
   font-size: 16px;
   font-weight: 300;
@@ -114,15 +114,13 @@
   top: -32px;
 }
 
-
-
 .menuItemNormal {
   position: relative;
   float: left;
   font-size: 15px;
   font-family: "Nunito";
   font-weight: 300;
-  fill: #ffffff;
+  color: #ffffff;
   display: inline;
   padding-top: 4px;
   padding-right: 28px;
@@ -232,7 +230,9 @@
 }
 
 .startText{
-  cursor: pointer;
+  top: 500px;
+  right: 200px;
+
 }
 
 .node, .fixedVaxNode{
@@ -249,5 +249,68 @@
   cursor: pointer;
 }
 
+
+#homeBackground {
+  min-width: 1024px;
+  max-width: 1024px;
+
+  min-height: 768px;
+  max-height: 768px;
+}
+
+
+.homeTitle {
+  position: absolute;
+  color: #707070;
+  top: 240px;
+  left: 422px;
+  font-family: "Nunito";
+  font-size: 80px;
+  font-weight: 500;
+}
+
+
+.homeText {
+  position: absolute;
+  color: #707070;
+  font-family: "Nunito";
+  top: 315px;
+  left: 305px;
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.homeTutorial {
+  position: absolute;
+  color: #707070;
+  font-family: "Nunito";
+  top: 505px;
+  left: 780px;
+  font-size: 23px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.homeModules {
+  position: absolute;
+  color: #707070;
+  font-family: "Nunito";
+  top: 536px;
+  left: 767px;
+  font-size: 23px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.homeGame {
+  position: absolute;
+  color: #707070;
+  font-family: "Nunito";
+  top: 568px;
+  left: 753px;
+  font-size: 23px;
+  font-weight: 500;
+  cursor: pointer;
+}
 
 

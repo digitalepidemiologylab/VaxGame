@@ -1,7 +1,7 @@
 var rewire = 0.10;
 var meanDegree = 3;
 var diseaseIsSpreading = false;
-var transmissionRate = .25;
+var transmissionRate = .35;
 var recoveryRate = 0;
 var maxRecoveryTime = 1000000;
 var numberVaccinated = 0;
@@ -77,111 +77,141 @@ var numberOfIndividuals = tailoredNodes.length;
 var weakTieNodes = getWeakTieNodes();
 var weakTieLinks = getWeakTieLinks();
 
+var backArrow, timestepTicker, timestepText, nextArrow;
 
+d3.select("body").append("text")
+    .attr("class", "homeTitle")
+    .text("VAX!")
 
-guideTextSVG = d3.select("body").append("svg")
-    .attr("class", "guideTextSVG")
+d3.select("body").append("text")
+    .attr("class", "homeText")
+    .text("A game about epidemic prevention.")
 
-svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .attr("class", "svg")
-    .attr("pointer-events", "all")
-    .call(d3.behavior.zoom().on("zoom", redraw))
-    .append('svg:g');
-
-guide = d3.select(".guideTextSVG").append("text")
-    .attr("class", "guide")
-    .attr("x",guideXCoord).attr("y",guideYCoord)
-    .attr("font-size", 28)
-    .style("font-family", "Nunito")
-    .style("fill", "#707070")
-    .style("font-weight", 300)
-    .text("")
-
-lessonText = d3.select(".svg").append("text")
-    .attr("class", "lessonText")
-    .attr("x", 35)
-    .attr("y", 30)
-    .style("font-size", 28)
-    .style("font-family", "Nunito")
-    .style("fill", "#707070")
-    .style("font-weight", 700)
-    .attr("opacity", 0)
-    .text("LESSON 1: NETWORKS")
-
-guide2 = d3.select(".guideTextSVG").append("text")
-    .attr("class", "guide2")
-    .attr("x",guideXCoord).attr("y",guideYCoord+guide2YCoordChange)
-    .attr("font-size", 28)
-    .style("font-family", "Nunito")
-    .style("fill", "#707070")
-    .style("font-weight", 300)
-    .text("")
-
-var startText = d3.select(".guideTextSVG").append("text")
-    .attr("class", "startText")
-    .attr("x", 363)
-    .attr("y", 100)
-    .text("Click to Begin")
-    .attr("font-size", 36)
-    .style("font-family", "Nunito")
-    .style("fill", "#707070")
-    .style("font-weight", 300)
+d3.select("body").append("text")
+    .attr("class", "homeTutorial")
+    .text("Tutorial >")
     .on("click", function() {
-        d3.select(this).attr("opacity", 0).attr("x", -50)
-        advanceTutorial();
-    });
-
-var backArrow = d3.select(".guideTextSVG").append("text")
-    .attr("class", "backArrow")
-    .attr("x", 115)
-    .attr("y", nextY)
-    .style("font-family", "Nunito")
-    .style("fill", "#707070")
-    .attr("opacity", 0)
-    .style("font-weight", 300)
-    .attr("font-size", 15)
-    .text('< back')
-    .on("click", function() {
-        guideRailsPosition--;
-        guideRailsReverse();
+        homeToTutorial();
     })
 
-var timestepText = d3.select(".svg").append("text")
-    .attr("class", "timestepText")
-    .style("font-size", 30)
-    .style("font-family", "Nunito")
-    .style("font-weight", 700)
-    .style("fill", "#707070")
-    .attr("x",35).attr("y",90)
-    .text("");
-
-var timestepTicker = d3.select(".svg").append("text")
-    .attr("class", "timestepTicker")
-    .style("font-size", 45)
-    .style("font-family", "Nunito")
-    .style("font-weight", 700)
-    .style("fill", "#707070")
-    .attr("x",102).attr("y",91)
-    .text("");
-
-var nextArrow = d3.select(".guideTextSVG").append("text")
-    .attr("class", "nextArrow")
-    .attr("x", nextX)
-    .attr("y", nextY)
-    .style("font-family", "Nunito")
-    .style("fill", "#707070")
-    .attr("opacity", 0)
-    .style("font-weight", 300)
-    .attr("font-size", 15)
-    .text("next >")
+d3.select("body").append("text")
+    .attr("class", "homeModules")
+    .text("Modules >")
     .on("click", function() {
-        guideRailsPosition++;
-        guideRails();
+        d3.select(this)
+            .text("Under Construction...")
+            .style("font-size", "15px")
     })
 
+d3.select("body").append("text")
+    .attr("class", "homeGame")
+    .text("Full Game >")
+    .on("click", function() {
+        d3.select(this)
+            .text("Under Construction...")
+            .style("font-size", "15px")
 
+
+    })
+
+function homeToTutorial() {
+    d3.select("#homeBackground").remove();
+    d3.select(".homeTitle").remove();
+    d3.select(".homeText").remove();
+    d3.select(".homeTutorial").remove();
+    d3.select(".homeGame").remove();
+    d3.select(".homeModules").remove();
+
+    guideTextSVG = d3.select("body").append("svg")
+        .attr("class", "guideTextSVG")
+
+    svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("class", "svg")
+        .attr("pointer-events", "all")
+//        .call(d3.behavior.zoom().on("zoom", redraw))
+        .append('svg:g');
+
+    guide = d3.select(".guideTextSVG").append("text")
+        .attr("class", "guide")
+        .attr("x",guideXCoord).attr("y",guideYCoord)
+        .attr("font-size", 28)
+        .style("font-family", "Nunito")
+        .style("fill", "#707070")
+        .style("font-weight", 300)
+        .text("")
+
+    lessonText = d3.select(".svg").append("text")
+        .attr("class", "lessonText")
+        .attr("x", 35)
+        .attr("y", 30)
+        .style("font-size", 28)
+        .style("font-family", "Nunito")
+        .style("fill", "#707070")
+        .style("font-weight", 700)
+        .attr("opacity", 0)
+        .text("LESSON 1: NETWORKS")
+
+    guide2 = d3.select(".guideTextSVG").append("text")
+        .attr("class", "guide2")
+        .attr("x",guideXCoord).attr("y",guideYCoord+guide2YCoordChange)
+        .attr("font-size", 28)
+        .style("font-family", "Nunito")
+        .style("fill", "#707070")
+        .style("font-weight", 300)
+        .text("")
+
+    backArrow = d3.select(".guideTextSVG").append("text")
+        .attr("class", "backArrow")
+        .attr("x", 115)
+        .attr("y", nextY)
+        .style("font-family", "Nunito")
+        .style("fill", "#707070")
+        .attr("opacity", 0)
+        .style("font-weight", 300)
+        .attr("font-size", 15)
+        .text('< back')
+        .on("click", function() {
+            guideRailsPosition--;
+            guideRailsReverse();
+        })
+
+    timestepText = d3.select(".svg").append("text")
+        .attr("class", "timestepText")
+        .style("font-size", 30)
+        .style("font-family", "Nunito")
+        .style("font-weight", 700)
+        .style("fill", "#707070")
+        .attr("x",35).attr("y",90)
+        .text("");
+
+    timestepTicker = d3.select(".svg").append("text")
+        .attr("class", "timestepTicker")
+        .style("font-size", 45)
+        .style("font-family", "Nunito")
+        .style("font-weight", 700)
+        .style("fill", "#707070")
+        .attr("x",102).attr("y",91)
+        .text("");
+
+    nextArrow = d3.select(".guideTextSVG").append("text")
+        .attr("class", "nextArrow")
+        .attr("x", nextX)
+        .attr("y", nextY)
+        .style("font-family", "Nunito")
+        .style("fill", "#707070")
+        .attr("opacity", 0)
+        .style("font-weight", 300)
+        .attr("font-size", 15)
+        .text("next >")
+        .on("click", function() {
+            guideRailsPosition++;
+            guideRails();
+        })
+
+    advanceTutorial()
+}
 
 function advanceTutorial() {
     if (start) {
@@ -564,13 +594,14 @@ function tutorialTimesteps() {
     newInfections = [];
     newInfections = updateExposures();
     xyCoords = getPathogen_xyCoords(newInfections);
-    this.timestep++;
     d3.select(".timestepTicker")
         .text(timestep);
     detectCompletion();
+    this.timestep++;
+
     if (!timeToStop) {
         animatePathogens_thenUpdate();
-       window.setTimeout(tutorialTimesteps, 800);
+        window.setTimeout(tutorialTimesteps, 890);
     }
     else{
         animatePathogens_thenUpdate();
@@ -581,32 +612,34 @@ function tutorialTimesteps() {
                 .on("click", function() {
                     guideRailsPosition = 11;
                     guideRailsReverse();
-                });
-            return;
+                })
+//        return
         }
-        d3.select(".backArrow")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1)
-            .text("< Restart Outbreak")
 
-        d3.select(".nextArrow")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1)
-            .text("next >")
+    d3.select(".backArrow")
+        .transition()
+        .duration(500)
+        .attr("opacity", 1)
+        .text("< Restart Outbreak")
+
+    d3.select(".nextArrow")
+        .transition()
+        .duration(500)
+        .attr("opacity", 1)
+        .text("next >")
     }
-    tutorialUpdate();
+
+
 
 }
 
 function animatePathogens_thenUpdate() {
 
-    window.setTimeout(createPathogens, 100)
-    window.setTimeout(movePathogens  , 150)
-    window.setTimeout(popNewInfection, 400)
-    window.setTimeout(tutorialUpdate , 500)
-    window.setTimeout(removePathogens, 550)
+    window.setTimeout(createPathogens, 150)
+    window.setTimeout(movePathogens  , 200)
+    window.setTimeout(popNewInfection, 450)
+    window.setTimeout(tutorialUpdate , 550)
+    window.setTimeout(removePathogens, 600)
 
 
 }
@@ -642,8 +675,6 @@ function detectCompletion() {
     }
     if (numberOfInfecteds == numberOfIndividuals) {
         timeToStop = true;
-        animatePathogens_thenUpdate();
-
     }
     else {
         detectEndGame();
@@ -776,9 +807,16 @@ function initTutorial() {
             }
             else {
                 d3.select(".lessonText").text("")
+
                 guideRailsPosition = 15;
                 guideRailsReverse();
-                d3.select(".nextArrow").text("Next: Quarantine >")
+                loadSyringe();
+
+                d3.select(".nextArrow")
+                    .transition()
+                    .duration(500)
+                    .attr("opacity", 1)
+                    .text("Next: Quarantine >")
                 d3.select("#networkSxn").attr("class","menuItemNormal");
                 d3.select("#epidemicSxn").attr("class", "menuItemNormal")
                 d3.select("#vaccineSxn").attr("class","menuItemNormal")
@@ -792,6 +830,9 @@ function initTutorial() {
         .attr("class", "menuItemNormal")
         .attr("id", "gameLink")
         .text("Play the Full Game!")
+        .on("click", function() {
+            window.location.href = 'http://vax.herokuapp.com/game'
+        })
 
     d3.select(".menuBox").append("div")
         .attr("class", "lessonHead")
@@ -963,7 +1004,7 @@ function loadQuarantine() {
 
     quarantineMode = true;
     d3.select(".actionQuarantine").style("visibility", "visible");
-    d3.select(".actionQuarantine").style("right", 0);
+    d3.select(".actionQuarantine").style("right", "0px");
 
     d3.select(".quarantineCounterText").remove()
 
@@ -1067,6 +1108,10 @@ function activateVaccinationMode() {
 }
 
 function activateQuarantineMode() {
+    d3.select(".backArrow")
+        .attr("opacity", 0)
+        .text("")
+
     friction = 0.9;
     vaccinateMode = false;
     quarantineMode = true;
@@ -1074,30 +1119,7 @@ function activateQuarantineMode() {
     d3.select(".svg").style("cursor", 'url(/assets/vax_cursor.cur)');
     d3.select(".quarantineDepressedState").style("visibility", "visible")
 
-
-    d3.select(".guide")
-        .attr("x", guideXCoord)
-        .attr("y", guideYCoord)
-        .attr("opacity", 0)
-        .text("Use your scroll wheel to zoom in and out.")
-
-    d3.select(".guide2")
-        .attr("x", guideXCoord)
-        .attr("y", guideYCoord + guide2YCoordChange)
-        .attr("opacity", 0)
-        .text("")
-
-    centerElement(guide, "guide");
-
-    d3.select(".guide")
-        .transition()
-        .duration(500)
-        .attr("opacity", 1);
-
-
     window.setTimeout(startQuarantineOutbreak, 500);
-
-
 }
 
 function startQuarantineOutbreak() {
@@ -1138,10 +1160,11 @@ function quarantineTimesteps() {
     }
     else {
         animateQuarantinePathogens_thenUpdate();
+        d3.select(".nextArrow")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1)
     }
-
-
-
 }
 
 function redraw() {
@@ -1209,13 +1232,14 @@ function quarantineUpdate() {
 
         })
         .on("click", function(d) {
+            console.log(d.id + "\t" + d.status)
             if (d.status == "S") {
+                console.log(d.id + "\t" + d.status)
                 d.status = "V";
                 quarantineUpdate();
                 numberQuarantined++;
                 d3.select(".quarantineCounterText").text("x" + numberQuarantined)
                 if (timestep == 0) quarantineTimesteps();
-
             }
         })
         .call(force.drag);
@@ -1236,3 +1260,8 @@ function quarantineUpdate() {
 
 }
 
+
+function initGraph() {
+
+
+}
