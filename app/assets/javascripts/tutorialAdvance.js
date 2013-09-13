@@ -969,7 +969,13 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-        d3.select(".nextArrow").attr("opacity", 1).text("next >")
+        d3.select(".nextArrow")
+            .attr("opacity", 1)
+            .transition()
+            .duration(1000)
+            .attr("x", nextX - 390)
+            .text("Next: Play the Game!")
+            .on("click", window.location.href('http://vax.herokuapp.com/game'))
 
     }
 
