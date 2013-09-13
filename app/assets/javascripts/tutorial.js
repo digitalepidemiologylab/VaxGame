@@ -53,6 +53,7 @@ var lessonText;
 var force, link, node;
 var pleaseWait = false;
 var friction = 0.90;
+var backX = 115;
 
 // this is the full graph, made by Ike
 var tailoredGraph = {};
@@ -164,7 +165,7 @@ function homeToTutorial() {
 
     backArrow = d3.select(".guideTextSVG").append("text")
         .attr("class", "backArrow")
-        .attr("x", 115)
+        .attr("x", backX)
         .attr("y", nextY)
         .style("font-family", "Nunito")
         .style("fill", "#707070")
@@ -727,6 +728,20 @@ function initTutorial() {
 
                 menuColors = ["#ffffff","#ffffff"];
 
+                d3.select(".nextArrow")
+                    .attr("x", nextX)
+                    .on("click", function() {
+                        guideRailsPosition++;
+                        guideRails();
+                    })
+
+                d3.select(".backArrow")
+                    .attr("x", backX)
+                    .on("click", function() {
+                        guideRailsPosition--;
+                        guideRailsReverse();
+                    })
+
             }
 
 
@@ -760,6 +775,20 @@ function initTutorial() {
             d3.select("#quarantineSxn").attr("class","menuItemNormal")
 
             menuColors = ["#ffffff","#ffffff"];
+
+            d3.select(".nextArrow")
+                .attr("x", nextX)
+                .on("click", function() {
+                    guideRailsPosition++;
+                    guideRails();
+                })
+
+            d3.select(".backArrow")
+                .attr("x", backX)
+                .on("click", function() {
+                    guideRailsPosition--;
+                    guideRailsReverse();
+                })
 
         })
 
@@ -798,6 +827,20 @@ function initTutorial() {
                 d3.select("#quarantineSxn").attr("class","menuItemNormal")
 
                 menuColors = ["#ffffff","#ffffff"];
+
+                d3.select(".nextArrow")
+                    .attr("x", nextX)
+                    .on("click", function() {
+                        guideRailsPosition++;
+                        guideRails();
+                    })
+
+                d3.select(".backArrow")
+                    .attr("x", backX)
+                    .on("click", function() {
+                        guideRailsPosition--;
+                        guideRailsReverse();
+                    })
             }
 
         })
@@ -831,6 +874,20 @@ function initTutorial() {
                 d3.select("#quarantineSxn").attr("class","menuItemBold")
 
                 menuColors = ["#ffffff","#ffffff"];
+
+                d3.select(".nextArrow")
+                    .attr("x", nextX)
+                    .on("click", function() {
+                        guideRailsPosition++;
+                        guideRails();
+                    })
+
+                d3.select(".backArrow")
+                    .attr("x", backX)
+                    .on("click", function() {
+                        guideRailsPosition--;
+                        guideRailsReverse();
+                    })
             }
 
         })
