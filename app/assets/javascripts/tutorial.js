@@ -3,7 +3,7 @@ var meanDegree = 3;
 var diseaseIsSpreading = false;
 var transmissionRate = .25;
 var recoveryRate = 0;
-var maxRecoveryTime = 1000;
+var maxRecoveryTime = 1000000;
 var numberVaccinated = 0;
 var timeToStop = true;
 var guideRailsPosition = 0;
@@ -87,7 +87,7 @@ svg = d3.select("body").append("svg")
     .attr("height", height)
     .attr("class", "svg")
     .attr("pointer-events", "all")
-//    .call(d3.behavior.zoom().on("zoom", redraw))
+    .call(d3.behavior.zoom().on("zoom", redraw))
     .append('svg:g');
 
 guide = d3.select(".guideTextSVG").append("text")
@@ -208,6 +208,7 @@ function tutorialUpdate() {
     if (guideRailsPosition == 3) {
         d3.selectAll(".node").transition().duration(300).attr("r", 8)
     }
+
     var nodes = removeVaccinatedNodes(graph);
     var links = removeOldLinks(graph);
     graph.links = links;
@@ -216,7 +217,7 @@ function tutorialUpdate() {
     force
         .nodes(nodes)
         .charge(charge)
-        .friction(0.60)
+        .friction(0.75)
         .links(links)
         .start();
 
@@ -270,7 +271,14 @@ function tutorialUpdate() {
 
         })
         .on("click", function(d) {
+            if (quarantineMode) {
+                vaccinateMode = false;
+
+                d3.select(this).status = "V"
+
+            }
             if (vaccinateMode) {
+                quarantineMode = false;
                 if (vaccineSupply <= 0) {
                     window.alert("Out of Vaccines!")
                     return;
@@ -562,16 +570,17 @@ function tutorialTimesteps() {
     detectCompletion();
     if (!timeToStop) {
         animatePathogens_thenUpdate();
-        window.setTimeout(tutorialTimesteps, 800);
+       window.setTimeout(tutorialTimesteps, 800);
     }
     else{
         animatePathogens_thenUpdate();
         if (finalStop == true) {
             d3.select(".backArrow")
                 .attr("opacity", 1)
-                .text("< Start Over")
+                .text("< back")
                 .on("click", function() {
-                    window.setTimeout(location.reload(), 1000);
+                    guideRailsPosition = 11;
+                    guideRailsReverse();
                 });
             return;
         }
@@ -587,14 +596,29 @@ function tutorialTimesteps() {
             .attr("opacity", 1)
             .text("next >")
     }
+    tutorialUpdate();
+
 }
 
 function animatePathogens_thenUpdate() {
+
     window.setTimeout(createPathogens, 100)
     window.setTimeout(movePathogens  , 150)
     window.setTimeout(popNewInfection, 400)
     window.setTimeout(tutorialUpdate , 500)
     window.setTimeout(removePathogens, 550)
+
+
+}
+
+function animateQuarantinePathogens_thenUpdate() {
+    window.setTimeout(createPathogens, 100)
+    window.setTimeout(movePathogens  , 150)
+    window.setTimeout(popNewInfection, 400)
+    window.setTimeout(tutorialUpdate , 500)
+    window.setTimeout(removePathogens, 550)
+
+
 }
 
 function popNewInfection() {
@@ -618,8 +642,11 @@ function detectCompletion() {
     }
     if (numberOfInfecteds == numberOfIndividuals) {
         timeToStop = true;
+        animatePathogens_thenUpdate();
 
-
+    }
+    else {
+        detectEndGame();
     }
 
     if (finalStop) {
@@ -646,6 +673,7 @@ function initTutorial() {
         .attr("class", "menuBox")
 
     d3.select(".menuBox").append("div")
+
         .attr("class", "menuItemNormal")
         .attr("id", "networkSxn")
         .text("Networks")
@@ -656,6 +684,7 @@ function initTutorial() {
                     .text("Please Wait...")
             }
             else {
+                d3.select(".lessonText").text("")
 
                 guideRailsPosition = 0;
                 guideRailsReverse();
@@ -670,10 +699,13 @@ function initTutorial() {
         })
 
     d3.select(".menuBox").append("div")
+
         .attr("class", "menuItemNormal")
         .attr("id", "epidemicSxn")
         .text("Epidemics")
         .on("click", function() {
+            d3.select(".lessonText").text("")
+
 
             timeToStop = false;
             endGame = false;
@@ -699,14 +731,30 @@ function initTutorial() {
         .attr("id", "vaccineSxn")
         .text("Vaccines")
         .on("click", function() {
+
+            if (guideRailsPosition == 10) {
+                return;
+            }
+
             if (!timeToStop) {
                 pleaseWait = true;
                 d3.select("#epidemicSxn").attr("class", "menuItemBold")
                     .text("Please Wait...")
             }
             else {
-                guideRailsPosition = 11;
+                d3.select(".lessonText").text("")
+
+                guideRailsPosition = 10;
                 guideRailsReverse();
+                d3.select(".svg").append("text")
+                    .attr("class", "timestepText")
+                    .style("font-size", 30)
+                    .style("font-family", "Nunito")
+                    .style("font-weight", 700)
+                    .style("fill", "#707070")
+                    .attr("x",35).attr("y",90)
+                    .text("");
+                d3.select(".timestepText").text("Day: ").attr("opacity", 1)
                 d3.select("#networkSxn").attr("class","menuItemNormal");
                 d3.select("#epidemicSxn").attr("class", "menuItemNormal")
                 d3.select("#vaccineSxn").attr("class","menuItemBold")
@@ -720,14 +768,17 @@ function initTutorial() {
         .attr("id", "quarantineSxn")
         .text("Quarantine")
         .on("click", function() {
+
             if (!timeToStop) {
                 pleaseWait = true;
                 d3.select("#epidemicSxn").attr("class", "menuItemBold")
                     .text("Please Wait...")
             }
             else {
-                //            guideRailsPosition = ;
-//            guideRailsReverse();
+                d3.select(".lessonText").text("")
+                guideRailsPosition = 15;
+                guideRailsReverse();
+                d3.select(".nextArrow").text("Next: Quarantine >")
                 d3.select("#networkSxn").attr("class","menuItemNormal");
                 d3.select("#epidemicSxn").attr("class", "menuItemNormal")
                 d3.select("#vaccineSxn").attr("class","menuItemNormal")
@@ -924,7 +975,8 @@ function loadQuarantine() {
         .style("fill", "white")
         .text("")
 
-    d3.select(".quarantineCounterText").text("x" + numberQuarantined) //TODO still needs a value
+    d3.select(".quarantineCounterText").text("x" + numberQuarantined)
+
 }
 
 function hideQuarantine() {
@@ -1007,9 +1059,180 @@ function activateVaccinationMode() {
     vaccinateMode = true;
     d3.selectAll(".node").style("cursor", 'url(/assets/vax_cursor.cur)');
     d3.select(".svg").style("cursor", 'url(/assets/vax_cursor.cur)');
-    intervention = true;
     vaccineResearched = true;
+    intervention = true;
     d3.select(".vaccineCounterText")
         .text(vaccineSupply + " / " + vax);
     d3.select(".vaccineDepressedState").style("visibility", "visible")
 }
+
+function activateQuarantineMode() {
+    friction = 0.9;
+    vaccinateMode = false;
+    quarantineMode = true;
+    d3.selectAll(".node").style("cursor", 'url(/assets/vax_cursor.cur)');
+    d3.select(".svg").style("cursor", 'url(/assets/vax_cursor.cur)');
+    d3.select(".quarantineDepressedState").style("visibility", "visible")
+
+
+    d3.select(".guide")
+        .attr("x", guideXCoord)
+        .attr("y", guideYCoord)
+        .attr("opacity", 0)
+        .text("Use your scroll wheel to zoom in and out.")
+
+    d3.select(".guide2")
+        .attr("x", guideXCoord)
+        .attr("y", guideYCoord + guide2YCoordChange)
+        .attr("opacity", 0)
+        .text("")
+
+    centerElement(guide, "guide");
+
+    d3.select(".guide")
+        .transition()
+        .duration(500)
+        .attr("opacity", 1);
+
+
+    window.setTimeout(startQuarantineOutbreak, 500);
+
+
+}
+
+function startQuarantineOutbreak() {
+    for (var i = 0; i < graph.nodes.length; i++) {
+        graph.nodes.status = "S";
+        graph.nodes.infectedBy = null;
+        graph.nodes.exposureTimestep = null;
+    }
+
+    graph.nodes[5].status = "I";
+    diseaseIsSpreading = true;
+    timestep = 0;
+    timeToStop = false;
+    postInitialOutbreak = true;
+    numberOfIndividuals = graph.nodes.length;
+    quarantineUpdate();
+
+
+}
+
+function quarantineTimesteps() {
+    console.log(timestep)
+    exposureEdges = [];
+    d3.select(".nextArrow").attr("opacity", 0).text("");
+    d3.select(".backArrow").attr("opacity", 0).text("");
+    infection();
+    stateChanges();
+    newInfections = [];
+    newInfections = updateExposures();
+    xyCoords = getPathogen_xyCoords(newInfections);
+    this.timestep++;
+    d3.select(".timestepTicker")
+        .text(timestep);
+    detectCompletion();
+    if (!timeToStop) {
+        animateQuarantinePathogens_thenUpdate();
+        window.setTimeout(quarantineTimesteps, 1500);
+    }
+    else {
+        animateQuarantinePathogens_thenUpdate();
+    }
+
+
+
+}
+
+function redraw() {
+    if (!quarantineMode) return;
+
+    svg.attr("transform",
+        "translate(" + d3.event.translate + ")"
+            + " scale(" + d3.event.scale + ")");
+}
+
+function quarantineUpdate() {
+    var nodes = removeVaccinatedNodes(graph);
+    var links = removeOldLinks(graph);
+    graph.links = links;
+    updateCommunities();
+
+
+    force
+        .nodes(nodes)
+        .charge(charge)
+        .friction(0.90)
+        .links(links)
+        .start();
+
+    link = svg.selectAll("line.link")
+        .data(links, function(d) { return d.source.id + "-" + d.target.id;});
+
+
+    link.enter().insert("svg:line", ".node")
+        .attr("class", "link")
+        .attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    // Exit any old links.
+    link.exit().remove();
+
+    // Update the nodes…
+    node = svg.selectAll("circle.node")
+        .data(nodes, function(d) { return d.id; })
+        .attr("r", 8)
+        .style("fill", function(d) {
+            var color = null;
+            if (d.status == "S") color = "#b7b7b7";
+            if (d.status == "E") color = "#ef5555";
+            if (d.status == "I") color = "#ef5555";
+            if (d.status == "V") color = "#d9d678";
+
+            return color;});
+
+    // Enter any new nodes.
+    node.enter().append("svg:circle")
+        .attr("class", "node")
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; })
+        .attr("r", 8)
+        .style("fill", function(d) {
+            var color = null;
+            if (d.status == "S") color = "#b7b7b7";
+            if (d.status == "E") color = "#ef5555";
+            if (d.status == "I") color = "#ef5555";
+            if (d.status == "V") color = "#d9d678";
+            return color;
+
+        })
+        .on("click", function(d) {
+            if (d.status == "S") {
+                d.status = "V";
+                quarantineUpdate();
+                numberQuarantined++;
+                d3.select(".quarantineCounterText").text("x" + numberQuarantined)
+                if (timestep == 0) quarantineTimesteps();
+
+            }
+        })
+        .call(force.drag);
+
+    // Exit any old nodes.
+    node.exit().remove();
+
+    d3.select(".quarantineCounterText").text("x" + numberQuarantined)
+
+
+    d3.select(".timestepText")
+        .text("Day: ")
+        .attr("opacity", 1)
+
+    d3.select(".timestepTicker")
+        .text(timestep)
+        .attr("opacity", 1);
+
+}
+

@@ -170,6 +170,10 @@ function guideRailsReverse() {
 
         removeDuplicates(graph);
         tutorialUpdate();
+        timeToStop = false;
+        diseaseIsSpreading = false;
+        finalStop = true;
+        endGame=false;
     }
 
 

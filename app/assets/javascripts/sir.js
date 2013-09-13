@@ -108,7 +108,6 @@ function getStatuses(infectedClass) {
 function detectEndGame() {
     updateCommunities();
     var numberOf_AtRisk_communities = 0;
-
     for (var groupIndex = 1; groupIndex < numberOfCommunities+1; groupIndex++) {
         var numberOfSusceptiblesPerGroup = 0;
         var numberOfInfectedPerGroup = 0;
@@ -125,14 +124,25 @@ function detectEndGame() {
         if (numberOfInfectedPerGroup > 0) {
             if (numberOfSusceptiblesPerGroup > 0) {
                 numberOf_AtRisk_communities++;
-
             }
         }
     }
-
     if (numberOf_AtRisk_communities == 0 && diseaseIsSpreading) {
         endGame = true;
-      if (finalStop) return;
+        diseaseIsSpreading = false;
+        timeToStop = true;
+        if (vaccinateMode && !quarantineMode) {
+            animatePathogens_thenUpdate();
+            tutorialUpdate();
+            d3.select(".nextArrow").attr("opacity", 1).text("Next: Quarantine >")
+            d3.select(".backArrow").attr("opacity", 0).text("");
+
+        }
+        if (quarantineMode && !vaccinateMode) {
+            d3.select(".nextArrow").text("next >")
+            guideRailsPosition++;
+            guideRails();
+        }
     }
 }
 
