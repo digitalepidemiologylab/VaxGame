@@ -160,8 +160,8 @@ function guideRails(back) {
         timeToStop = false;
         window.setTimeout(tutorialTimesteps, 2000);
 
-        d3.select(".timestepText").text("Day: ")
-        d3.select(".timestepTicker").text(timestep)
+//        d3.select(".timestepText").text("Day: ")
+//        d3.select(".timestepTicker").text(timestep)
 
         d3.select(".nextArrow")
             .transition()
@@ -184,7 +184,7 @@ function guideRails(back) {
             .transition()
             .duration(500)
             .attr("x", "280")
-            .attr("y", "20")
+            .attr("y", "85")
             .attr("width", "450")
             .attr("height", "450")
             .attr("opacity", 0.6)
@@ -238,17 +238,17 @@ function guideRails(back) {
         numberVaccinated = 0;
 
         d3.select(".backArrow").attr("opacity", 0).text("")
-
-        d3.select(".timestepText")
-            .transition()
-            .duration(500)
-            .attr("opacity", 0)
-
-        d3.select(".timestepTicker")
-            .transition()
-            .duration(500)
-            .attr("opacity", 0)
-            .text(timestep)
+//
+//        d3.select(".timestepText")
+//            .transition()
+//            .duration(500)
+//            .attr("opacity", 0)
+//
+//        d3.select(".timestepTicker")
+//            .transition()
+//            .duration(500)
+//            .attr("opacity", 0)
+//            .text(timestep)
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -416,6 +416,8 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 9) {
+        vaccinateMode = false;
+
         d3.selectAll(".node")
             .attr("r", 8)
             .style("fill", "#b7b7b7")
@@ -444,7 +446,11 @@ function guideRails(back) {
             .transition()
             .duration(500)
             .attr("opacity", 1);
+
         d3.select(".nextArrow").attr("opacity", 1).text("Next: Vaccines >")
+
+        d3.selectAll(".node").style("fill", "#b7b7b7")
+
     }
 
     if (guideRailsPosition == 10) {
@@ -515,16 +521,16 @@ function guideRails(back) {
         removeDuplicates(graph);
         tutorialUpdate();
 
-        d3.select(".timestepText")
-            .transition()
-            .duration(500)
-            .attr("opacity", 0)
-
-        d3.select(".timestepTicker")
-            .transition()
-            .duration(500)
-            .attr("opacity", 0)
-            .text(timestep)
+//        d3.select(".timestepText")
+//            .transition()
+//            .duration(500)
+//            .attr("opacity", 0)
+//
+//        d3.select(".timestepTicker")
+//            .transition()
+//            .duration(500)
+//            .attr("opacity", 0)
+//            .text(timestep)
 
         d3.select(".nextArrow")
             .transition()
@@ -708,17 +714,17 @@ function guideRails(back) {
         timeToStop = false;
         postInitialOutbreak = false;
         finalStop = true;
-
-        d3.select(".timestepText")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1)
-
-        d3.select(".timestepTicker")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1)
-            .text(timestep)
+//
+//        d3.select(".timestepText")
+//            .transition()
+//            .duration(500)
+//            .attr("opacity", 1)
+//
+//        d3.select(".timestepTicker")
+//            .transition()
+//            .duration(500)
+//            .attr("opacity", 1)
+//            .text(timestep)
 
         tutorialTimesteps();
     }
@@ -770,11 +776,10 @@ function guideRails(back) {
 
         quarantineUpdate();
 
-        d3.select(".timestepText").attr("opacity", 0)
-        d3.select(".timestepTicker").attr("opacity", 0)
+//        d3.select(".timestepText").attr("opacity", 0)
+//        d3.select(".timestepTicker").attr("opacity", 0)
         d3.select(".backArrow").text("").attr("opacity", 0)
 
-        quarantineMode = true;
         vax = 0;
         vaccineSupply = 0;
 
@@ -936,8 +941,8 @@ function guideRails(back) {
         graph.links = [];
         quarantineUpdate();
 
-        d3.select(".timestepTicker").attr("opacity", 0)
-        d3.select(".timestepText").attr("opacity", 0)
+//        d3.select(".timestepTicker").attr("opacity", 0)
+//        d3.select(".timestepText").attr("opacity", 0)
 
         var numberSaved = numberOfSusceptibles + numberQuarantined;
 

@@ -1,7 +1,7 @@
 var rewire = 0.10;
 var meanDegree = 3;
 var diseaseIsSpreading = false;
-var transmissionRate = .35;
+var transmissionRate = 1;
 var recoveryRate = 0;
 var maxRecoveryTime = 1000000;
 var numberVaccinated = 0;
@@ -44,8 +44,8 @@ var nextY = 140;
 var guideXCoord = 400;
 var guideYCoord = 70;
 var guide2YCoordChange = 35;
-var width = 950,
-    height = 400,
+var width = 1000,
+    height = 700,
     svg;
 var guideTextSVG;
 var actionBay;
@@ -123,20 +123,29 @@ function homeToTutorial() {
     d3.select(".homeGame").remove();
     d3.select(".homeModules").remove();
 
-    guideTextSVG = d3.select("body").append("svg")
-        .attr("class", "guideTextSVG")
-
     svg = d3.select("body").append("svg")
-        .attr("width", width)
-        .attr("height", height)
+//        .attr("width", width)
+//        .attr("height", height)
+        .attr({
+            "width": "100%",
+            "height": "85%"
+        })
+        .attr("viewBox", "0 0 " + width + " " + height )
+//        .attr("preserveAspectRatio", "xMidYMid meet")
         .attr("class", "svg")
         .attr("pointer-events", "all")
 //        .call(d3.behavior.zoom().on("zoom", redraw))
         .append('svg:g');
 
+
+    guideTextSVG = d3.select(".svg").append("svg:svg")
+        .attr("class", "guideTextSVG")
+        .attr("x", 0)
+        .attr("y", 500)
+
+
     guide = d3.select(".guideTextSVG").append("text")
         .attr("class", "guide")
-        .attr("x",guideXCoord).attr("y",guideYCoord)
         .attr("font-size", 28)
         .style("font-family", "Nunito")
         .style("fill", "#707070")
@@ -178,23 +187,23 @@ function homeToTutorial() {
             guideRailsReverse();
         })
 
-    timestepText = d3.select(".svg").append("text")
-        .attr("class", "timestepText")
-        .style("font-size", 30)
-        .style("font-family", "Nunito")
-        .style("font-weight", 700)
-        .style("fill", "#707070")
-        .attr("x",35).attr("y",90)
-        .text("");
+//    timestepText = d3.select(".svg").append("text")
+//        .attr("class", "timestepText")
+//        .style("font-size", 30)
+//        .style("font-family", "Nunito")
+//        .style("font-weight", 700)
+//        .style("fill", "#707070")
+//        .attr("x",35).attr("y",90)
+//        .text("");
 
-    timestepTicker = d3.select(".svg").append("text")
-        .attr("class", "timestepTicker")
-        .style("font-size", 45)
-        .style("font-family", "Nunito")
-        .style("font-weight", 700)
-        .style("fill", "#707070")
-        .attr("x",102).attr("y",91)
-        .text("");
+//    timestepTicker = d3.select(".svg").append("text")
+//        .attr("class", "timestepTicker")
+//        .style("font-size", 45)
+//        .style("font-family", "Nunito")
+//        .style("font-weight", 700)
+//        .style("fill", "#707070")
+//        .attr("x",102).attr("y",91)
+//        .text("");
 
     nextArrow = d3.select(".guideTextSVG").append("text")
         .attr("class", "nextArrow")
@@ -595,8 +604,8 @@ function tutorialTimesteps() {
     newInfections = [];
     newInfections = updateExposures();
     xyCoords = getPathogen_xyCoords(newInfections);
-    d3.select(".timestepTicker")
-        .text(timestep);
+//    d3.select(".timestepTicker")
+//        .text(timestep);
     detectCompletion();
     this.timestep++;
 
@@ -763,8 +772,8 @@ function initTutorial() {
             hideSyringe();
             unFixNodes(graph);
 
-            d3.select(".timestepText").text("Day: ").attr("opacity", 1)
-            d3.select(".timestepTicker").text(timestep).attr("opacity", 1)
+//            d3.select(".timestepText").text("Day: ").attr("opacity", 1)
+//            d3.select(".timestepTicker").text(timestep).attr("opacity", 1)
 
             guideRailsPosition = 3;
             guideRailsReverse();
@@ -812,15 +821,15 @@ function initTutorial() {
 
                 guideRailsPosition = 10;
                 guideRailsReverse();
-                d3.select(".svg").append("text")
-                    .attr("class", "timestepText")
-                    .style("font-size", 30)
-                    .style("font-family", "Nunito")
-                    .style("font-weight", 700)
-                    .style("fill", "#707070")
-                    .attr("x",35).attr("y",90)
-                    .text("");
-                d3.select(".timestepText").text("Day: ").attr("opacity", 1)
+//                d3.select(".svg").append("text")
+//                    .attr("class", "timestepText")
+//                    .style("font-size", 30)
+//                    .style("font-family", "Nunito")
+//                    .style("font-weight", 700)
+//                    .style("fill", "#707070")
+//                    .attr("x",35).attr("y",90)
+//                    .text("");
+//                d3.select(".timestepText").text("Day: ").attr("opacity", 1)
                 d3.select("#networkSxn").attr("class","menuItemNormal");
                 d3.select("#epidemicSxn").attr("class", "menuItemNormal")
                 d3.select("#vaccineSxn").attr("class","menuItemBold")
@@ -1218,8 +1227,8 @@ function quarantineTimesteps() {
     newInfections = updateExposures();
     xyCoords = getPathogen_xyCoords(newInfections);
     this.timestep++;
-    d3.select(".timestepTicker")
-        .text(timestep);
+//    d3.select(".timestepTicker")
+//        .text(timestep);
     detectCompletion();
     if (!timeToStop) {
         animateQuarantinePathogens_thenUpdate();
@@ -1299,9 +1308,9 @@ function quarantineUpdate() {
 
         })
         .on("click", function(d) {
-            console.log(d.id + "\t" + d.status)
+            if (!quarantineMode) return;
+
             if (d.status == "S") {
-                console.log(d.id + "\t" + d.status)
                 d.status = "V";
                 quarantineUpdate();
                 numberQuarantined++;
@@ -1317,13 +1326,13 @@ function quarantineUpdate() {
     d3.select(".quarantineCounterText").text("x" + numberQuarantined)
 
 
-    d3.select(".timestepText")
-        .text("Day: ")
-        .attr("opacity", 1)
-
-    d3.select(".timestepTicker")
-        .text(timestep)
-        .attr("opacity", 1);
+//    d3.select(".timestepText")
+//        .text("Day: ")
+//        .attr("opacity", 1)
+//
+//    d3.select(".timestepTicker")
+//        .text(timestep)
+//        .attr("opacity", 1);
 
 }
 

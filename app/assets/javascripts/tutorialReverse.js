@@ -90,8 +90,8 @@ function guideRailsReverse() {
 
         //return to pre-outbreak from post-outbreak
 
-        d3.select(".timestepText").text("")
-        d3.select(".timestepTicker").text("")
+//        d3.select(".timestepText").text("")
+//        d3.select(".timestepTicker").text("")
 
         graph.nodes = [];
         graph.links = [];
