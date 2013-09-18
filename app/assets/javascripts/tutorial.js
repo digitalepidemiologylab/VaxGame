@@ -697,9 +697,16 @@ function detectCompletion() {
         }
     }
 
-    if (timeToStop & pleaseWait) {
+    if (timeToStop & pleaseWait & !quarantineMode) {
         d3.select("#epidemicSxn").attr("class", "menuItemBold")
             .text("Epidemics")
+        pleaseWait = false;
+
+    }
+
+    if (timeToStop & pleaseWait & quarantineMode) {
+        d3.select("#quarantineMode").attr("class", "menuItemBold")
+            .text("Quarantine")
         pleaseWait = false;
 
     }
@@ -721,7 +728,14 @@ function initTutorial() {
         .on("click", function() {
             if (!timeToStop) {
                 pleaseWait = true;
-                d3.select("#epidemicSxn").attr("class", "menuItemBold")
+
+                if (quarantineMode==true) {
+                    d3.select("#quarantineSxn").attr("class", "menuItemBold")
+                        .text("Please Wait...")
+
+
+                }
+                else d3.select("#epidemicSxn").attr("class", "menuItemBold")
                     .text("Please Wait...")
             }
             else {
@@ -729,11 +743,6 @@ function initTutorial() {
 
                 guideRailsPosition = 0;
                 guideRailsReverse();
-
-                d3.select("#networkSxn").attr("class","menuItemBold");
-                d3.select("#epidemicSxn").attr("class", "menuItemNormal")
-                d3.select("#vaccineSxn").attr("class","menuItemNormal")
-                d3.select("#quarantineSxn").attr("class","menuItemNormal")
 
                 menuColors = ["#ffffff","#ffffff"];
 
@@ -764,6 +773,17 @@ function initTutorial() {
         .on("click", function() {
             d3.select(".lessonText").text("")
 
+            if (!timeToStop) {
+                pleaseWait = true;
+
+                if (quarantineMode==true) {
+                    d3.select("#quarantineSxn").attr("class", "menuItemBold")
+                        .text("Please Wait...")
+                    return;
+
+                }
+            }
+
 
             timeToStop = false;
             endGame = false;
@@ -777,11 +797,6 @@ function initTutorial() {
 
             guideRailsPosition = 3;
             guideRailsReverse();
-
-            d3.select("#networkSxn").attr("class","menuItemNormal");
-            d3.select("#epidemicSxn").attr("class", "menuItemBold")
-            d3.select("#vaccineSxn").attr("class","menuItemNormal")
-            d3.select("#quarantineSxn").attr("class","menuItemNormal")
 
             menuColors = ["#ffffff","#ffffff"];
 
@@ -813,7 +828,13 @@ function initTutorial() {
 
             if (!timeToStop) {
                 pleaseWait = true;
-                d3.select("#epidemicSxn").attr("class", "menuItemBold")
+
+                if (quarantineMode==true) {
+                    d3.select("#quarantineSxn").attr("class", "menuItemBold")
+                        .text("Please Wait...")
+
+                }
+                else d3.select("#epidemicSxn").attr("class", "menuItemBold")
                     .text("Please Wait...")
             }
             else {
@@ -862,7 +883,11 @@ function initTutorial() {
 
             if (!timeToStop) {
                 pleaseWait = true;
-                d3.select("#epidemicSxn").attr("class", "menuItemBold")
+                if (quarantineMode==true) {
+                    d3.select("#quarantineSxn").attr("class", "menuItemBold")
+                        .text("Please Wait...")
+
+                } else d3.select("#epidemicSxn").attr("class", "menuItemBold")
                     .text("Please Wait...")
             }
             else {

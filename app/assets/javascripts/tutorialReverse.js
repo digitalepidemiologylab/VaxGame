@@ -1,6 +1,14 @@
 function guideRailsReverse() {
+    d3.select("#networkSxn").text("Networks");
+    d3.select("#epidemicSxn").text("Epidemics");
+    d3.select("#vaccineSxn").text("Vaccines");
+    d3.select("#quarantineSxn").text("Quarantine");
+
+
     var back = true;
     if (guideRailsPosition == 0) {
+
+        quarantineMode = false;
 
         d3.select(".guide")
             .attr("x",guideXCoord)
@@ -29,8 +37,10 @@ function guideRailsReverse() {
             .text("LESSON 1: NETWORKS")
             .attr("opacity", 1)
 
-        d3.select("#networkSxn").attr("class","menuItemBold")
-
+        d3.select("#networkSxn").attr("class","menuItemBold");
+        d3.select("#epidemicSxn").attr("class", "menuItemNormal")
+        d3.select("#vaccineSxn").attr("class","menuItemNormal")
+        d3.select("#quarantineSxn").attr("class","menuItemNormal")
 
         trivialGraph.nodes = [];
         trivialGraph.links = [];
@@ -39,6 +49,8 @@ function guideRailsReverse() {
     }
 
     if (guideRailsPosition == 1) {
+        quarantineMode = false;
+
         trivialGraph.nodes = [];
         trivialGraph.links = [];
         trivialGraph.nodes.push(tailoredNodes[0])
@@ -58,6 +70,8 @@ function guideRailsReverse() {
     }
 
     if (guideRailsPosition == 2) {
+        quarantineMode = false;
+
         trivialGraph.nodes = [];
         trivialGraph.links = [];
 
@@ -82,6 +96,13 @@ function guideRailsReverse() {
     }
 
     if (guideRailsPosition == 3 || guideRailsPosition == 4 || guideRailsPosition == 5) {
+        quarantineMode = false;
+
+        d3.select("#networkSxn").attr("class","menuItemNormal");
+        d3.select("#epidemicSxn").attr("class", "menuItemBold")
+        d3.select("#vaccineSxn").attr("class","menuItemNormal")
+        d3.select("#quarantineSxn").attr("class","menuItemNormal")
+
         d3.select(".redX").remove();
 
         if (guideRailsPosition == 3 || guideRailsPosition == 4) {
@@ -118,6 +139,8 @@ function guideRailsReverse() {
     }
 
     if (guideRailsPosition == 6) {
+        quarantineMode = false;
+
         graph.links = [];
         graph.nodes.push(tailoredNodes[2]);
         graph.nodes[5].status = "V";
@@ -148,6 +171,8 @@ function guideRailsReverse() {
     }
 
     if (guideRailsPosition == 10 || guideRailsPosition == 11 || guideRailsPosition == 12) {
+        quarantineMode = false;
+
         guideRailsPosition = 10;
         vaccineSupply = 3;
         vax = 3;
@@ -174,7 +199,20 @@ function guideRailsReverse() {
         endGame=false;
     }
 
+    if (guideRailsPosition == 15) {
+        quarantineMode = false;
+
+        d3.select("#networkSxn").attr("class","menuItemNormal");
+        d3.select("#epidemicSxn").attr("class", "menuItemNormal")
+        d3.select("#vaccineSxn").attr("class","menuItemBold")
+        d3.select("#quarantineSxn").attr("class","menuItemNormal")
+    }
+
+
+
     if (guideRailsPosition == 17) {
+        quarantineMode = false;
+
         d3.select(".nextArrow")
             .attr("opacity", 1)
             .text("next >")
