@@ -930,11 +930,8 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 20) {
+        countSaved();
         var totalNodes = graph.nodes.length;
-        var numberOfSusceptibles = 0;
-        for (var i = 0; i < graph.nodes.length; i++) {
-            if (graph.nodes[i].status == "S") numberOfSusceptibles++;
-        }
 
         graph = {};
         graph.nodes = [];
@@ -944,7 +941,6 @@ function guideRails(back) {
 //        d3.select(".timestepTicker").attr("opacity", 0)
 //        d3.select(".timestepText").attr("opacity", 0)
 
-        var numberSaved = numberOfSusceptibles + numberQuarantined;
 
         var modifier = ".";
         if (((numberSaved/totalNodes)*100) > 50) modifier = "!";
@@ -1009,9 +1005,13 @@ function guideRails(back) {
                 window.location.href = 'http://vax.herokuapp.com/'
             })
 
+        initRecap();
+
+
         menuColors = ["#007138","#ffffff"];
         window.setInterval(flashFullGame, 300);
     }
+
 }
 
 function flashFullGame() {

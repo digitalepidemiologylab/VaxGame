@@ -1,7 +1,7 @@
 var rewire = 0.10;
 var meanDegree = 3;
 var diseaseIsSpreading = false;
-var transmissionRate = 1;
+var transmissionRate = .35;
 var recoveryRate = 0;
 var maxRecoveryTime = 1000000;
 var numberVaccinated = 0;
@@ -54,6 +54,11 @@ var force, link, node;
 var pleaseWait = false;
 var friction = 0.90;
 var backX = 115;
+var numberSaved = 0;
+var infectedBar;
+var uninfectedBar;
+var scoreMeter;
+
 
 // this is the full graph, made by Ike
 var tailoredGraph = {};
@@ -381,14 +386,14 @@ function centerElement(element, classString) {
     var leftDistance = leftSide - 0;
     var rightDistance = 960 - rightSide;
     var delta = leftDistance - rightDistance;
+
     if (delta > 0) {
         var halfDelta = Math.round(0.5 * delta);
-
         var newLeftSide = leftSide - halfDelta;
-
         var selection = "." + classString;
         d3.select(selection).attr("x", newLeftSide);
     }
+
     if (delta < 0) {
         var halfDelta = Math.round(0.5 * delta);
         var newLeftSide = leftSide + halfDelta;
@@ -1329,6 +1334,8 @@ function quarantineUpdate() {
             if (d.status == "E") color = "#ef5555";
             if (d.status == "I") color = "#ef5555";
             if (d.status == "V") color = "#d9d678";
+            if (d.status == "Q") color = "#d9d678";
+
             return color;
 
         })
@@ -1336,7 +1343,7 @@ function quarantineUpdate() {
             if (!quarantineMode) return;
 
             if (d.status == "S") {
-                d.status = "V";
+                d.status = "Q";
                 quarantineUpdate();
                 numberQuarantined++;
                 d3.select(".quarantineCounterText").text("x" + numberQuarantined)
@@ -1361,8 +1368,123 @@ function quarantineUpdate() {
 
 }
 
+function countSaved() {
+    numberSaved = 0;
+    for (var i = 0; i < graph.nodes.length; i++)  {
+        if (graph.nodes[i].status == "Q" || graph.nodes[i].status == "S") numberSaved++;
+    }
 
-function initGraph() {
+}
+
+
+function initRecap() {
+
+    // details - left
+    d3.select(".svg").append("text")
+        .attr("class", "networkSizeText")
+        .attr("x", backX)
+        .attr("y", 200)
+        .text("Network Size: " + numberOfIndividuals);
+
+    d3.select(".svg").append("text")
+        .attr("class", "numberQuarantinedText")
+        .attr("x", backX)
+        .attr("y", 235)
+        .text("Quarantined: " + numberQuarantined)
+
+    d3.select(".svg").append("text")
+        .attr("class", "numberVaccinatedText")
+        .attr("x", backX)
+        .attr("y", 270)
+        .attr("opacity", 0) // <-- for now...
+        .text("Vaccinated: " + numberVaccinated)
+
+
+    var realTop, realBottom;
+    var calcTop = 125;
+    var calcBottom = 375;
+    var calcSpace = calcBottom - calcTop;
+
+    var infectedHeight = (1.00 - (numberSaved/numberOfIndividuals).toFixed(2)) * (calcSpace);
+    var uninfectedHeight = (numberSaved/numberOfIndividuals).toFixed(2) * (calcSpace)
+
+
+    // figure - center
+    infectedBar = d3.select(".svg").append("rect")
+        .attr("class", "infectedBar")
+        .attr("x", 1200)
+        .attr("y", 280)
+        .attr("height", infectedHeight)
+        .attr("width", 85)
+        .attr("opacity", 0)
+        .attr("fill", "#ef5555")
+
+    centerElement(infectedBar, "infectedBar")
+    infectedBar.attr("opacity", 1)
+    infectedBar.attr("x", infectedBar.node().getBBox().x + 35)
+
+    uninfectedBar = d3.select(".svg").append("rect")
+        .attr("class", "uninfectedBar")
+        .attr("x", 1200)
+        .attr("y", 250)
+        .attr("height", uninfectedHeight)
+        .attr("width", 85)
+        .attr("opacity", 0)
+        .attr("fill", "#b7b7b7")
+
+
+    centerElement(uninfectedBar, "uninfectedBar")
+
+    uninfectedBar.attr("opacity", 1)
+    uninfectedBar.attr("y", infectedBar.node().getBBox().height + 45)
+    infectedBar.attr("y", infectedBar.node().getBBox().y + 25)
+
+    centerElement(uninfectedBar, "uninfectedBar")
+    uninfectedBar.attr("x", uninfectedBar.node().getBBox().x + 35)
+
+
+    uninfectedBar.attr("opacity", 1)
+
+
+
+    // legend - right
+    d3.select(".svg").append("text")
+        .attr("class", "uninfectedLegendText")
+        .attr("x", backX + 550)
+        .attr("y", 200)
+        .text("Uninfected")
+
+    d3.select(".svg").append("text")
+        .attr("class", "infectedLegendText")
+        .attr("x", backX + 550)
+        .attr("y", 250)
+        .text("Infected")
+
+    d3.select(".svg").append("text")
+        .attr("class", "uninfectedPercentage")
+        .attr("x", backX + 675)
+        .attr("y", 200)
+        .text(Math.round(((numberSaved/numberOfIndividuals)*100)).toFixed(0) + "%")
+
+    d3.select(".svg").append("rect")
+        .attr("class", "uninfectedLegendBox")
+        .attr("x", backX + 525)
+        .attr("y", 182)
+        .attr("height", 20)
+        .attr("width", 20)
+        .attr("fill", "#b7b7b7")
+
+    d3.select(".svg").append("rect")
+        .attr("class", "infectedLegendBox")
+        .attr("x", backX + 525)
+        .attr("y", 232)
+        .attr("height", 20)
+        .attr("width", 20)
+        .attr("fill", "#ef5555")
+
+
+
+
 
 
 }
