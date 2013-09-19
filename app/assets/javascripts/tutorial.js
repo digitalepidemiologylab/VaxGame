@@ -1383,26 +1383,26 @@ function initRecap() {
     d3.select(".svg").append("text")
         .attr("class", "networkSizeText")
         .attr("x", backX)
-        .attr("y", 200)
+        .attr("y", 195)
         .text("Network Size: " + numberOfIndividuals);
 
     d3.select(".svg").append("text")
         .attr("class", "numberQuarantinedText")
         .attr("x", backX)
-        .attr("y", 235)
+        .attr("y", 230)
         .text("Quarantined: " + numberQuarantined)
 
     d3.select(".svg").append("text")
         .attr("class", "numberVaccinatedText")
         .attr("x", backX)
-        .attr("y", 270)
+        .attr("y", 265)
         .attr("opacity", 0) // <-- for now...
         .text("Vaccinated: " + numberVaccinated)
 
 
     var realTop, realBottom;
-    var calcTop = 125;
-    var calcBottom = 375;
+    var calcTop = 100;
+    var calcBottom = 380;
     var calcSpace = calcBottom - calcTop;
 
     var infectedHeight = (1.00 - (numberSaved/numberOfIndividuals).toFixed(2)) * (calcSpace);
@@ -1413,7 +1413,7 @@ function initRecap() {
     infectedBar = d3.select(".svg").append("rect")
         .attr("class", "infectedBar")
         .attr("x", 1200)
-        .attr("y", 280)
+        .attr("y", 310)
         .attr("height", infectedHeight)
         .attr("width", 85)
         .attr("opacity", 0)
@@ -1426,7 +1426,7 @@ function initRecap() {
     uninfectedBar = d3.select(".svg").append("rect")
         .attr("class", "uninfectedBar")
         .attr("x", 1200)
-        .attr("y", 250)
+        .attr("y", 300)
         .attr("height", uninfectedHeight)
         .attr("width", 85)
         .attr("opacity", 0)
@@ -1436,8 +1436,8 @@ function initRecap() {
     centerElement(uninfectedBar, "uninfectedBar")
 
     uninfectedBar.attr("opacity", 1)
-    uninfectedBar.attr("y", infectedBar.node().getBBox().height + 45)
-    infectedBar.attr("y", infectedBar.node().getBBox().y + 25)
+    uninfectedBar.attr("y", infectedBar.node().getBBox().height + 15)
+    infectedBar.attr("y", infectedBar.node().getBBox().y + 10)
 
     centerElement(uninfectedBar, "uninfectedBar")
     uninfectedBar.attr("x", uninfectedBar.node().getBBox().x + 35)
@@ -1451,33 +1451,33 @@ function initRecap() {
     d3.select(".svg").append("text")
         .attr("class", "uninfectedLegendText")
         .attr("x", backX + 550)
-        .attr("y", 200)
+        .attr("y", 195)
         .text("Uninfected")
 
     d3.select(".svg").append("text")
         .attr("class", "infectedLegendText")
         .attr("x", backX + 550)
-        .attr("y", 250)
+        .attr("y", 245)
         .text("Infected")
 
     d3.select(".svg").append("text")
         .attr("class", "uninfectedPercentage")
         .attr("x", backX + 675)
-        .attr("y", 200)
+        .attr("y", 195)
         .text(Math.round(((numberSaved/numberOfIndividuals)*100)).toFixed(0) + "%")
 
     d3.select(".svg").append("rect")
         .attr("class", "uninfectedLegendBox")
-        .attr("x", backX + 525)
-        .attr("y", 182)
+        .attr("x", backX + 521)
+        .attr("y", 177)
         .attr("height", 20)
         .attr("width", 20)
         .attr("fill", "#b7b7b7")
 
     d3.select(".svg").append("rect")
         .attr("class", "infectedLegendBox")
-        .attr("x", backX + 525)
-        .attr("y", 232)
+        .attr("x", backX + 521)
+        .attr("y", 227)
         .attr("height", 20)
         .attr("width", 20)
         .attr("fill", "#ef5555")
