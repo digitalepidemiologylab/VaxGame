@@ -42,6 +42,16 @@ function generateSmallWorld(n, p, k) {
     return graph;
 }
 
+function removeDuplicateEdges(graph) {
+    for (var ii = 0; ii < graph.nodes.length; ii++) {
+        var node1 = graph.nodes[ii];
+        for (var iii = 0; iii < graph.nodes.length; iii++) {
+            var node2 = graph.nodes[iii];
+            spliceDuplicateEdges(node1, node2, graph)
+        }
+    }
+}
+
 function testDuplicate(links, linkString) {
     var testSource = linkString.source;
     var testTarget = linkString.target;

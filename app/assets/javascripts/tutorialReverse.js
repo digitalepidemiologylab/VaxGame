@@ -65,7 +65,7 @@ function guideRailsReverse() {
                 trivialGraph.links.push(link);
             }
         }
-        removeDuplicates(trivialGraph);
+        removeDuplicateEdges(trivialGraph);
         stepWiseUpdate();
     }
 
@@ -91,7 +91,7 @@ function guideRailsReverse() {
             }
         }
 
-        removeDuplicates(trivialGraph);
+        removeDuplicateEdges(trivialGraph);
         stepWiseUpdate();
     }
 
@@ -133,7 +133,7 @@ function guideRailsReverse() {
             graph.links.push(tailoredLinks[ii]);
         }
 
-        removeDuplicates(graph);
+        removeDuplicateEdges(graph);
         tutorialUpdate();
 
     }
@@ -152,7 +152,7 @@ function guideRailsReverse() {
                 graph.links.push(link);
             }
         }
-        removeDuplicates(graph);
+        removeDuplicateEdges(graph);
         tutorialUpdate();
         d3.selectAll(".node")
             .transition()
@@ -191,7 +191,7 @@ function guideRailsReverse() {
             graph.links.push(tailoredLinks[ii]);
         }
 
-        removeDuplicates(graph);
+        removeDuplicateEdges(graph);
         tutorialUpdate();
         timeToStop = false;
         diseaseIsSpreading = false;

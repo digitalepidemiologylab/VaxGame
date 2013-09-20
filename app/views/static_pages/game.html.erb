@@ -2,18 +2,23 @@
 <html>
 <head>
   <% provide(:title, 'Vax') %>
+
   <%= javascript_include_tag "d3.v3" %>
-  <%= javascript_include_tag "tutorial" %>
+  <%= javascript_include_tag "footerMenu.js" %>
+  <%= javascript_include_tag "gameMenu.js" %>
+  <%= javascript_include_tag "game.js" %>
+
+
+
   <%= csrf_meta_tags %>
 </head>
 
 <body>
 
-    <img id="homeBackground" src="/assets/Vax_home_background.png">
 
-    <%= render 'static_pages/actionBay' %>
 
 </body>
+
 
 </html>
 

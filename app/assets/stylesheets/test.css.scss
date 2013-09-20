@@ -1,0 +1,28 @@
+#customMenuDiv {
+  position:absolute;
+  left: 512px;
+  background: #85bc99;
+  float:right;
+  color: "white";
+  width:375px;
+  height: 500px;
+  top: 100px;
+  text-align: center;
+  visibility: visible;
+  box-shadow:5px 7px #838383;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+.customMenuItem {
+  font-size: 25px;
+  font-family: "Nunito";
+  font-weight: 300;
+  color: #ffffff;
+  padding-top: 4px;
+  padding-right: 28px;
+  padding-left: 28px;
+  cursor: pointer;
+}

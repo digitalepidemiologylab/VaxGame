@@ -109,13 +109,13 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
         d3.selectAll(".node").style("cursor", 'pointer');
-        removeDuplicates(graph);
+        removeDuplicateEdges(graph);
 
 
     }
 
     if (guideRailsPosition == 4) {
-        removeDuplicates(graph);
+        removeDuplicateEdges(graph);
         d3.select(".lessonText").attr("opacity", 1)
             .text("LESSON 2: EPIDEMICS")
 
@@ -153,7 +153,7 @@ function guideRails(back) {
 
         var indexPatientID = Math.floor(Math.random() * numberOfIndividuals);
         graph.nodes[indexPatientID].status = "I";
-        removeDuplicates(graph);
+        removeDuplicateEdges(graph);
         tutorialUpdate();
 
         diseaseIsSpreading=true;
@@ -305,7 +305,7 @@ function guideRails(back) {
                 graph.links.push(link);
             }
         }
-        removeDuplicates(graph);
+        removeDuplicateEdges(graph);
         tutorialUpdate();
         flashNode();
     }
@@ -349,7 +349,7 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-        removeDuplicates(graph);
+        removeDuplicateEdges(graph);
         tutorialUpdate();
     }
 
@@ -410,7 +410,7 @@ function guideRails(back) {
             }
             if (counter == 0) graph.nodes.splice(iv, 1);
         }
-        removeDuplicates(graph);
+        removeDuplicateEdges(graph);
         tutorialUpdate();
         flashNodes();
     }
@@ -514,11 +514,11 @@ function guideRails(back) {
                         guideRailsPosition++;
                         guideRails();
                     }
-                    removeDuplicates(graph);
+                    removeDuplicateEdges(graph);
                     tutorialUpdate();
                 }});
 
-        removeDuplicates(graph);
+        removeDuplicateEdges(graph);
         tutorialUpdate();
 
 //        d3.select(".timestepText")
@@ -768,7 +768,7 @@ function guideRails(back) {
         graph.links = [];
 
         graph = generateSmallWorld(35, 0.12, 4)
-        removeDuplicates(graph);
+        removeDuplicateEdges(graph);
 
         for (var i = 0; i < graph.nodes.length; i++) {
             graph.nodes[i].status = "S";

@@ -13,6 +13,7 @@
 //= require jquery
 //= require deepCopy
 //= require d3.v3
+//= require gameMenu
 //= require jsnetworkx
 //= require netrics
 //= require sir

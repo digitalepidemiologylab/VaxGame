@@ -246,8 +246,8 @@ function tick() {
         .attr("y2", function(d) { return d.target.y; });
     node.attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
-
 }
+
 function tutorialUpdate() {
     if (guideRailsPosition == 7 || guideRailsPosition == 9) hideSyringe();
     if (guideRailsPosition == 3) {
@@ -726,7 +726,6 @@ function initTutorial() {
         .attr("class", "menuBox")
 
     d3.select(".menuBox").append("div")
-
         .attr("class", "menuItemNormal")
         .attr("id", "networkSxn")
         .text("Networks")
@@ -1066,17 +1065,6 @@ function unFixNodes(graph) {
 
 //    d3.selectAll(".fixedVaxNode").remove()
 
-}
-
-
-function removeDuplicates(graph) {
-    for (var ii = 0; ii < graph.nodes.length; ii++) {
-        var node1 = graph.nodes[ii];
-        for (var iii = 0; iii < graph.nodes.length; iii++) {
-            var node2 = graph.nodes[iii];
-            spliceDuplicateEdges(node1, node2, graph)
-        }
-    }
 }
 
 function loadSyringe() {
