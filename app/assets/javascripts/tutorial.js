@@ -113,11 +113,7 @@ d3.select("body").append("text")
     .attr("class", "homeGame")
     .text("Full Game >")
     .on("click", function() {
-        d3.select(this)
-            .text("Under Construction...")
-            .style("font-size", "15px")
-
-
+        window.location.href = 'http://vax.herokuapp.com/game'
     })
 
 function homeToTutorial() {

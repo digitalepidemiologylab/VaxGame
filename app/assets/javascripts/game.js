@@ -137,10 +137,10 @@ function gameClick(node) {
         }
     }
     console.log(node)
-    gameUpdate();
+    gameVaccinationUpdate();
 }
 
-function gameUpdate() {
+function gameVaccinationUpdate() {
     var nodes = removeVaccinatedNodes(graph);
     var links = removeOldLinks(graph);
     graph.links = links;
