@@ -12,6 +12,19 @@
 <body>
 
 
+    <div class="actionVax" onclick=activateGameVaccinationMode()>
+      <div class="vaccineDepressedState"></div>
+      <text id = "vaxShieldText"> VACCINES </text>
+      <img id="vaxShieldIcon" src="/assets/vaxShield.svg" onclick=activateGameVaccinationMode()>
+    </div>
+
+    <div class="actionQuarantine" onclick=activateGameQuarantineMode()>
+      <div class="quarantineDepressedState"></div>
+      <text id = "quarantineText"> QUARANTINE </text>
+      <img id="quarantineIcon" src="/assets/quarantine.svg" onclick=activateGameQuarantineMode()>
+    </div>
+
+
     <div id = "customMenuDiv" >
 
       <div class = "customHeaderFooter" id = "customLevelHeader"> CUSTOM LEVEL </div>

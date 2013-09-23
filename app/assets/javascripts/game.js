@@ -27,6 +27,8 @@ var customNeighborChoice = 4;
 var customVaccineChoice = 15;
 var customOutbreakChoice = 2;
 
+var timestep;
+
 initFooter();
 initBasicMenu();
 
@@ -72,8 +74,6 @@ function initBasicGame(difficulty) {
 
 function initCustomGame() {
     d3.select(".newGameHeader").remove();
-
-
     graph             = {}    ;
     graph.nodes       = []    ;
     graph.links       = []    ;
@@ -91,15 +91,17 @@ function initCustomGame() {
     d3.select("#customMenuDiv").remove();
     d3.select(".difficultySelection").remove();
     d3.select(".difficultySelection").remove();
-
-
 }
 
 function initGameSpace() {
-    vaccinateMode   = true  ;
+    loadGameSyringe();
+
+    vaccinateMode     = false  ;
     quarantineMode    = false ;
     numberVaccinated  = 0     ;
     numberQuarantined = 0     ;
+
+
 
     gameSVG = d3.select("body").append("svg")
         .attr({
@@ -171,7 +173,68 @@ function gameClick(node) {
     gameVaccinationUpdate();
 }
 
+// tick function, which does the physics for each individual node & link.
+function tick() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+    node.attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+}
+
 function gameVaccinationUpdate() {
+    d3.select(".vaccineCounterText").text(numberOfVaccines)
+    var nodes = removeVaccinatedNodes(graph);
+    var links = removeOldLinks(graph);
+    graph.links = links;
+    updateCommunities();
+
+    force
+        .nodes(nodes)
+        .charge(charge)
+        .friction(friction)
+        .links(links)
+        .start();
+
+    link = gameSVG.selectAll("line.link")
+        .data(links, function(d) { return d.source.id + "-" + d.target.id;});
+
+    link.enter().insert("svg:line", ".node")
+        .attr("class", "link")
+        .attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    // Exit any old links.
+    link.exit().remove();
+
+    // Update the nodes…
+    node = gameSVG.selectAll("circle.node")
+        .data(nodes, function(d) { return d.id; })
+        .attr("r", 8)
+        .style("fill", nodeColor);
+
+    // Enter any new nodes.
+    node.enter().append("svg:circle")
+        .attr("class", "node")
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; })
+        .attr("r", 8)
+        .style("fill", nodeColor)
+        .on("click", gameClick)
+        .call(force.drag);
+
+    // Exit any old nodes.
+    node.exit().remove();
+
+    if (numberOfVaccines == 0) {
+        initGameQuarantine();
+    }
+}
+
+function gameQuarantineUpdate() {
     var nodes = removeVaccinatedNodes(graph);
     var links = removeOldLinks(graph);
     graph.links = links;
@@ -218,13 +281,111 @@ function gameVaccinationUpdate() {
 
 }
 
+function initGameQuarantine() {
+    timestep = 0;
 
-// tick function, which does the physics for each individual node & link.
-function tick() {
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
+    // Notify player that they are out of vaccines
+
+    // switch to quarantine tool
+    loadGameQuarantine();
+
+    // begin infection as in tutorial
+
+    // make & move pathogens each timestep
+
+    // quarantine update after each click & spread
+
+    // detect for completion
+
+    // upon completion, show stats
+
+}
+
+function gameIndexPatients() {
+    var indexPatientID = 0;
+    while(independentOutbreaks > 0) {
+        do {
+            indexPatientID = Math.floor(Math.random() * graph.nodes.length);
+        }
+        while (graph.nodes[indexPatientID].status != "S");
+
+        graph.nodes[indexPatientID].status = "I";
+        graph.nodes[indexPatientID].infectedBy = "indexPatient";
+        graph.nodes[indexPatientID].exposureTimestep = 0;
+        independentOutbreaks--;
+
+    }
+    gameVaccinationUpdate();
+}
+
+
+function loadGameSyringe() {
+    d3.select(".actionVax").style("visibility", "visible");
+    d3.select(".actionVax").style("right", 0);
+
+    d3.select(".actionVax").append("text")
+        .attr("class", "vaccineCounterText")
+        .style("font-size", 16)
+        .style("font-family", "Nunito")
+        .style("font-weight", 300)
+        .style("fill", "white")
+        .text("")
+        .style("right", "45px")
+
+    d3.select(".vaccineCounterText").text(numberOfVaccines)
+}
+
+function hideGameSyringe() {
+    vaccinationMode = false;
+    d3.select(".actionVax").style("right", "-200px")
+    d3.select(".gameSVG").style("cursor", 'pointer');
+    d3.selectAll(".node").style("cursor", 'pointer');
+    d3.select(".vaccineDepressedState").style("visibility", "hidden")
+}
+
+function loadGameQuarantine() {
+    if (vaccinateMode) hideGameSyringe();
+
+    quarantineMode = true;
+    d3.select(".actionQuarantine").style("visibility", "visible");
+    d3.select(".actionQuarantine").style("right", "0px");
+
+    d3.select(".quarantineCounterText").remove()
+
+    d3.select(".actionQuarantine").append("text")
+        .attr("class", "quarantineCounterText")
+        .style("font-size", 16)
+        .style("font-family", "Nunito")
+        .style("font-weight", 300)
+        .style("fill", "white")
+        .text("")
+
+    d3.select(".quarantineCounterText").text("x" + numberQuarantined)
+}
+
+function hideGameQuarantine() {
+    quarantineMode = false;
+    d3.select(".actionQuarantine").style("right", "-200px")
+    d3.select(".gameSVG").style("cursor", 'pointer');
+    d3.selectAll(".node").style("cursor", 'pointer');
+    d3.select(".quarantineDepressedState").style("visibility", "hidden")
+}
+
+function activateGameVaccinationMode() {
+    vaccinateMode = true;
+    d3.selectAll(".node").style("cursor", 'url(/assets/vax_cursor.cur)');
+    d3.select(".gameSVG").style("cursor", 'url(/assets/vax_cursor.cur)');
+    d3.select(".vaccineCounterText").text(numberOfVaccines);
+    d3.select(".vaccineDepressedState").style("visibility", "visible")
+}
+
+function activateGameQuarantineMode() {
+    vaccinateMode = false;
+    quarantineMode = true;
+    d3.selectAll(".node").style("cursor", 'url(/assets/vax_cursor.cur)');
+    d3.select(".gameSVG").style("cursor", 'url(/assets/vax_cursor.cur)');
+    d3.select(".quarantineDepressedState").style("visibility", "visible")
+
+    gameIndexPatients();
+
 }

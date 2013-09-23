@@ -1226,8 +1226,6 @@ function startQuarantineOutbreak() {
     postInitialOutbreak = true;
     numberOfIndividuals = graph.nodes.length;
     quarantineUpdate();
-
-
 }
 
 function quarantineTimesteps() {
