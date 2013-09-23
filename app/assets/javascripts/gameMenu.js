@@ -1,12 +1,8 @@
-var customLevelText;
-var customNodesText;
-var customConnectionsText;
-var customVaccinesText;
-var customIndependentInfections;
-var customConfirm;
-
 var difficultyString;
-
+var customNodeChoice;
+var customNeighborChoice;
+var customVaccineChoice;
+var customOutbreakChoice;
 
 function initBasicMenu() {
     // new game header at top-left
@@ -59,6 +55,7 @@ function initBasicMenu() {
         .attr("id", "difficultyCustom")
         .text("Custom")
         .on("click", function() {
+            d3.select(".difficultySelection").remove()
             initCustomMenu();
         })
 
@@ -66,51 +63,85 @@ function initBasicMenu() {
 
 
 function initCustomMenu() {
-    // remove previous menu's text
-    d3.select(".difficultySelection").style("visibility", "hidden")
 
+    d3.select(".difficultySelection").style("top", "40px")
 
+    d3.selectAll(".difficultyItem").remove()
+    d3.selectAll(".difficultyItemHighlight").remove()
+    d3.selectAll(".difficultyItemGrey").remove()
+    d3.selectAll(".difficultyCustom").remove()
+    d3.selectAll(".difficultyHeader").remove()
 
-    // make the custom menu div visible
     d3.select("#customMenuDiv").style("visibility", "visible")
 
-    customLevelText = d3.select("#customMenuDiv").append("text")
-        .attr("class", "customLevelText")
-        .attr("x", 400)
-        .attr("y", 100)
-        .text("CUSTOM LEVEL")
-
-    customNodesText = d3.select("#customMenuDiv").append("text")
-        .attr("class", "customNodeText")
-        .attr("x", 400)
-        .attr("y", 150)
-        .text("Nodes: ") //TODO
-
-    customConnectionsText = d3.select("#customMenuDiv").append("text")
-        .attr("class", "customConnectionsText")
-        .attr("x", 400)
-        .attr("y", 200)
-        .text("Connections per Node: ") //TODO
-
-    customVaccinesText = d3.select("#customMenuDiv").append("text")
-        .attr("class", "customeVaccinesText")
-        .attr("x", 400)
-        .attr("y", 250)
-        .text("Vaccines: ") //TODO
-
-    customIndependentInfections = d3.select("#customMenuDiv").append("text")
-        .attr("class", "customIndependentInfections")
-        .attr("x", 400)
-        .attr("y", 350)
-        .text("Outbreaks: ") //TODO
-
-    customConfirm = d3.select("#customMenuDiv").append("text")
-        .attr("class", "customConfirm")
-        .attr("x", 400)
-        .attr("y", 400)
-        .text("OKAY") //TODO
-
-
+    d3.select("#customMenuDiv").append("text")
+        .attr("class", "okayButton")
+        .text("OKAY")
+        .on("click", function() {
+            initCustomGame();
+        })
 
 
 }
+
+$(function() {
+    $( "#nodeSlider").slider({
+        range: "min",
+        min: 1,
+        max: 150,
+        value: 75,
+        slide: function (event, ui) {
+            $("#customNodes").text("Nodes: " + ui.value);
+            customNodeChoice = ui.value;
+        }
+    });
+    $( "#nodeSlider" ).slider( "value", 75);
+});
+
+$(function() {
+    $( "#degreeSlider").slider({
+        range: "min",
+        min: 1,
+        max: 10,
+        value: 4,
+        slide: function (event, ui) {
+            $("#customDegree").text("Neighbors: " + ui.value + "ea.");
+            customNeighborChoice = ui.value;
+
+        }
+    });
+    $( "#degreeSlider").slider( "value", 4)
+});
+
+$(function() {
+    $( "#vaccineSlider").slider({
+        range: "min",
+        min: 1,
+        max: 300,
+        value: 15,
+        slide: function (event, ui) {
+            $("#customVaccines").text("Vaccines: " + ui.value);
+            customVaccineChoice = ui.value;
+
+        }
+    });
+    $( "#vaccineSlider").slider( "value", 15)
+});
+
+$(function() {
+    $( "#outbreakSlider").slider({
+        range: "min",
+        min: 1,
+        max: 5,
+        value: 2,
+        slide: function (event, ui) {
+            $("#customOutbreaks").text("Outbreaks: " + ui.value);
+            customOutbreakChoice = ui.value;
+        }
+    });
+    $( "#outbreakSlider").slider( "value", 2)
+});
+
+
+
+

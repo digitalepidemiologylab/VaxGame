@@ -18,21 +18,27 @@ var height = 768 - 45 - 50; // standard height - footer:height - footer:bottomMa
 var charge = -400;
 var friction = 0.90;
 
+var numberOfVaccines = 0;
+var vaccineSupply = 0;
+
+var difficultyString;
+var customNodeChoice = 75;
+var customNeighborChoice = 4;
+var customVaccineChoice = 15;
+var customOutbreakChoice = 2;
+
 initFooter();
 initBasicMenu();
 
 function initBasicGame(difficulty) {
     d3.select(".difficultySelection").remove();
+    d3.select(".difficultySelection").remove();
     d3.select(".newGameHeader").remove();
-
+    d3.select("#customMenuDiv").remove();
 
     graph             = {}    ;
     graph.nodes       = []    ;
     graph.links       = []    ;
-    vaccinationMode   = true  ;
-    quarantineMode    = false ;
-    numberVaccinated  = 0     ;
-    numberQuarantined = 0     ;
 
     if (difficulty == "easy") {
         numberOfIndividuals = 30;
@@ -65,10 +71,36 @@ function initBasicGame(difficulty) {
 }
 
 function initCustomGame() {
+    d3.select(".newGameHeader").remove();
+
+
+    graph             = {}    ;
+    graph.nodes       = []    ;
+    graph.links       = []    ;
+
+    numberOfIndividuals = customNodeChoice;
+    meanDegree = customNeighborChoice;
+    numberOfVaccines = customVaccineChoice;
+    vaccineSupply = numberOfVaccines;
+    independentOutbreaks = customOutbreakChoice;
+
+    graph = generateSmallWorld(numberOfIndividuals, rewire, meanDegree);
+    removeDuplicateEdges(graph);
+    initGameSpace();
+
+    d3.select("#customMenuDiv").remove();
+    d3.select(".difficultySelection").remove();
+    d3.select(".difficultySelection").remove();
+
 
 }
 
 function initGameSpace() {
+    vaccinateMode   = true  ;
+    quarantineMode    = false ;
+    numberVaccinated  = 0     ;
+    numberQuarantined = 0     ;
+
     gameSVG = d3.select("body").append("svg")
         .attr({
             "width": "100%",
@@ -125,7 +157,7 @@ function nodeColor(node) {
 }
 
 function gameClick(node) {
-    if (vaccinationMode) {
+    if (vaccinateMode) {
         node.status = "V";
         numberOfVaccines--;
         numberVaccinated++;
@@ -136,7 +168,6 @@ function gameClick(node) {
             numberQuarantined++;
         }
     }
-    console.log(node)
     gameVaccinationUpdate();
 }
 
@@ -197,4 +228,3 @@ function tick() {
     node.attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
 }
-

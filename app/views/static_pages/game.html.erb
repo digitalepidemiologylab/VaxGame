@@ -2,19 +2,33 @@
 <html>
 <head>
   <% provide(:title, 'Vax') %>
-
   <%= javascript_include_tag "d3.v3" %>
+  <%= javascript_include_tag "jquery-ui-1.10.3.custom" %>
   <%= javascript_include_tag "footerMenu.js" %>
   <%= javascript_include_tag "gameMenu.js" %>
   <%= javascript_include_tag "game.js" %>
-
-
-
-  <%= csrf_meta_tags %>
 </head>
 
 <body>
 
+
+    <div id = "customMenuDiv" >
+
+      <div class = "customHeaderFooter" id = "customLevelHeader"> CUSTOM LEVEL </div>
+
+      <div class = "customMenuItem" id = "customNodes"> Nodes: 75 </div>
+      <div id = "nodeSlider">  </div>
+
+      <div class = "customMenuItem" id = "customDegree"> Neighbors: 4ea. </div>
+      <div id = "degreeSlider" >  </div>
+
+      <div class = "customMenuItem" id = "customVaccines"> Vaccines: 15 </div>
+      <div id = "vaccineSlider" >  </div>
+
+      <div class = "customMenuItem" id = "customOutbreaks"> Outbreaks: 2 </div>
+      <div id = "outbreakSlider" >  </div>
+
+    </div>
 
 
 </body>

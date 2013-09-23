@@ -107,7 +107,6 @@
 
 }
 
-
 .difficultyHeader {
   position: relative;
   font-size: 22px;
@@ -117,3 +116,72 @@
   padding-top: 30px;
 
 }
+
+// custom game menu
+#customMenuDiv {
+  position: relative;
+  top: 50px;
+  height: 525px;
+  width: 35%;
+  margin: 0 auto;
+  vertical-align: middle;
+  text-align: center;
+  background: #85bc99;
+  color: #ffffff;
+  box-shadow:5px 7px #838383;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  visibility: hidden;
+
+}
+
+.customMenuItem {
+  font-size: 35px;
+  font-family: "Nunito";
+  font-weight: 500;
+  color: #ffffff;
+  padding-top: 60px;
+  padding-right: 28px;
+  padding-left: 28px;
+}
+
+.customHeaderFooter {
+  font-size: 22px;
+  font-family: "Nunito";
+  font-weight: 700;
+  color: #ffffff;
+  padding-top: 20px;
+  padding-right: 28px;
+  padding-left: 28px;
+
+}
+
+.okayButton {
+  position:relative;
+  font-size: 24px;
+  font-family: "Nunito";
+  font-weight: 500;
+  color: #ffffff;
+  top: 60px;
+  cursor: pointer;
+}
+
+#nodeSlider, #degreeSlider, #vaccineSlider, #outbreakSlider {
+  position: relative;
+  margin: 20px;
+  margin-top: 30px;
+  left: 9%;
+  height: .3em;
+  width: 75%;
+  margin-bottom: -25px;
+
+  .ui-slider-handle {
+    width: 2em;
+    height: 2em;
+    margin-top: -9px;
+  }
+
+}
+
