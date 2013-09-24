@@ -497,7 +497,7 @@ function initScoreRecap() {
         .attr("x", 1200)
         .attr("y", 175)
         .attr("height", uninfectedHeight)
-        .attr("width", 85)
+        .attr("width", 100)
         .attr("opacity", 0)
         .attr("fill", "#b7b7b7")
 
@@ -511,7 +511,7 @@ function initScoreRecap() {
         .attr("x", 1200)
         .attr("y", bottomOfUninfected)
         .attr("height", infectedHeight)
-        .attr("width", 85)
+        .attr("width", 100)
         .attr("opacity", 0)
         .attr("fill", "#ef5555")
 
