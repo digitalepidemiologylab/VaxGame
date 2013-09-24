@@ -4,26 +4,36 @@
 <head>
   <meta charset="utf-8" />
   <%= javascript_include_tag "jquery-ui-1.10.3.custom" %>
-
-<div id = "customMenuDiv" >
-
-  <div class = "customHeaderFooter" id = "customLevelHeader"> CUSTOM MENU </div>
+  <%= javascript_include_tag "d3.v3" %>
+  <%= javascript_include_tag "test" %>
 
 
-  <div class = "customMenuItem" id = "customNodes"> Nodes: 75 </div>
-  <div id = "nodeSlider">  </div>
+</head>
 
-  <div class = "customMenuItem" id = "customDegree"> Neighbors: 4ea. </div>
-  <div id = "degreeSlider" >  </div>
+    <body>
 
-  <div class = "customMenuItem" id = "customVaccines"> Vaccines: 15 </div>
-  <div id = "vaccineSlider" >  </div>
+     <div id="scoreRecapDiv">
+       <div id="leftScoresDiv">
+         <div class="scoresLarge"> Network Size: 20 </div>
+         <div class="scoresSmall"> Vaccinated: 3 </div>
+         <div class="scoresSmall"> Quarantined: 5 </div>
+         <div class="scoresSmall"> Untreated: 1 </div>
+       </div>
 
-  <div class = "customMenuItem" id = "customOutbreaks"> Outbreaks: 2 </div>
-  <div id = "outbreakSlider" >  </div>
+       <svg id="scoreRecapSVG"> </svg>
 
 
-  <div class = "customHeaderFooter" id = "customSubmit"> OKAY </div>
+       <div id="rightScoresDiv">
+         <div class="scoresMedium" id="infectedLegend"> Uninfected </div>
+         <div class="scoresMedium" id="uninfectedLegend"> Infected </div>
+       </div>
 
 
-</div>
+
+
+     </div>
+
+
+    </body>
+
+</html>

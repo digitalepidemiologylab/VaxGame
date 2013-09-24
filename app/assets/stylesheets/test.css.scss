@@ -1,0 +1,66 @@
+.body {
+  min-width: 960px;
+}
+
+#scoreRecapDiv {
+  position: absolute;
+  top: 150px;
+  height: 500px;
+  width: 100%;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+#leftScoresDiv {
+  position: relative;
+  float: left;
+  margin-left: 100px;
+  display: inline-block;
+  min-width: 300px;
+
+}
+
+.scoresLarge {
+  color: #707070;
+  font-family: "Nunito";
+  font-size: 32px;
+  font-weight: 500;
+  margin: 25px;
+
+}
+
+.scoresMedium {
+  color: #707070;
+  font-family: "Nunito";
+  font-size: 26px;
+  font-weight: 500;
+  margin: 25px;
+
+
+}
+
+.scoresSmall {
+  color: #707070;
+  font-family: "Nunito";
+  font-size: 22px;
+  font-weight: 500;
+  margin: 25px;
+
+}
+
+#rightScoresDiv {
+  position: relative;
+  float: right;
+  margin-right: 150px;
+  display: inline-block;
+  min-width: 180px;
+}
+
+#scoreRecapSVG {
+  min-width: 325px;
+  position: relative;
+  display: inline-block;
+  width: 30%;
+}
+
+

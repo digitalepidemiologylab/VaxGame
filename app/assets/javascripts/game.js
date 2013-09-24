@@ -16,7 +16,7 @@ var gameSVG ;
 var width = 1024;
 var height = 768 - 45 - 50; // standard height - footer:height - footer:bottomMargin
 var charge = -400;
-var friction = 0.90;
+var friction = 0.80;
 
 var numberOfVaccines = 0;
 var vaccineSupply = 0;
@@ -28,11 +28,15 @@ var customVaccineChoice = 15;
 var customOutbreakChoice = 2;
 
 var timestep = 0;
-var exposureEdges;
 var newInfections;
 var xyCoords;
 var diseaseIsSpreading = false;
 var timeToStop = false;
+
+var infectedBar;
+var uninfectedBar;
+var infectedHeight;
+var uninfectedHeight;
 
 initFooter();
 initBasicMenu();
@@ -106,8 +110,6 @@ function initGameSpace() {
     numberVaccinated  = 0     ;
     numberQuarantined = 0     ;
 
-
-
     gameSVG = d3.select("body").append("svg")
         .attr({
             "width": "100%",
@@ -175,7 +177,10 @@ function gameClick(node) {
             numberQuarantined++;
         }
     }
-    gameVaccinationUpdate();
+
+    if (numberOfVaccines == 0 && !diseaseIsSpreading) loadGameQuarantine();
+
+    gameUpdate();
 }
 
 // tick function, which does the physics for each individual node & link.
@@ -188,8 +193,9 @@ function tick() {
         .attr("cy", function(d) { return d.y; });
 }
 
-function gameVaccinationUpdate() {
+function gameUpdate() {
     d3.select(".vaccineCounterText").text(numberOfVaccines)
+    d3.select(".quarantineCounterText").text("x" + numberQuarantined)
     var nodes = removeVaccinatedNodes(graph);
     var links = removeOldLinks(graph);
     graph.links = links;
@@ -234,56 +240,12 @@ function gameVaccinationUpdate() {
     // Exit any old nodes.
     node.exit().remove();
 
-    if (numberOfVaccines == 0 && !diseaseIsSpreading) {
-        loadGameQuarantine();
+
+
+    if (!diseaseIsSpreading && numberQuarantined == 1) {
+        diseaseIsSpreading = true;
+        gameTimesteps();
     }
-}
-
-function gameQuarantineUpdate() {
-    var nodes = removeVaccinatedNodes(graph);
-    var links = removeOldLinks(graph);
-    graph.links = links;
-    updateCommunities();
-
-    force
-        .nodes(nodes)
-        .charge(charge)
-        .friction(friction)
-        .links(links)
-        .start();
-
-    link = gameSVG.selectAll("line.link")
-        .data(links, function(d) { return d.source.id + "-" + d.target.id;});
-
-    link.enter().insert("svg:line", ".node")
-        .attr("class", "link")
-        .attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-    // Exit any old links.
-    link.exit().remove();
-
-    // Update the nodes…
-    node = gameSVG.selectAll("circle.node")
-        .data(nodes, function(d) { return d.id; })
-        .attr("r", 8)
-        .style("fill", nodeColor);
-
-    // Enter any new nodes.
-    node.enter().append("svg:circle")
-        .attr("class", "node")
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; })
-        .attr("r", 8)
-        .style("fill", nodeColor)
-        .on("click", gameClick)
-        .call(force.drag);
-
-    // Exit any old nodes.
-    node.exit().remove();
-
 }
 
 function gameTimesteps() {
@@ -296,15 +258,29 @@ function gameTimesteps() {
     detectGameCompletion();
     if (!timeToStop) {
         animateGamePathogens_thenUpdate();
-        window.setTimeout(gameTimesteps, 1000)
+        window.setTimeout(gameTimesteps, 1200)
     }
     else {
         animateGamePathogens_thenUpdate();
     }
 
+    if (timeToStop && !diseaseIsSpreading) {
+        tallySaved();
+        //d3.select(".gameSVG").select("g").style("visibility","hidden")
+
+    }
+}
+
+function tallySaved() {
+    for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
+        var node = graph.nodes[nodeIndex];
+        if (node.status == "S") numberSaved++;
+    }
 }
 
 function detectGameCompletion() {
+    if (timeToStop || !diseaseIsSpreading) return;
+
     updateCommunities();
     var numberOf_AtRisk_communities = 0;
     for (var groupIndex = 1; groupIndex < numberOfCommunities+1; groupIndex++) {
@@ -330,23 +306,32 @@ function detectGameCompletion() {
     if (numberOf_AtRisk_communities == 0 && diseaseIsSpreading) {
         diseaseIsSpreading = false;
         timeToStop = true;
-        animateGamePathogens_thenUpdate();
-        tutorialUpdate();
+        animateGamePathogens_thenUpdate()
+
     }
 
 }
 
 function animateGamePathogens_thenUpdate() {
-
-    window.setTimeout(createGamePathogens, 150)
-    window.setTimeout(moveGamePathogens  , 200)
-    window.setTimeout(popNewInfection, 450)
-    window.setTimeout(gameVaccinationUpdate , 550)
-    window.setTimeout(removeGamePathogens, 600)
-
-
+    window.setTimeout(createGamePathogens  , 50)
+    window.setTimeout(moveGamePathogens    , 100)
+    window.setTimeout(popNewGameInfection  , 300)
+    window.setTimeout(removeGamePathogens  , 800)
+    window.setTimeout(gameUpdate           , 850)
 }
 
+function popNewGameInfection() {
+    d3.selectAll(".node")
+        .transition()
+        .duration(500)
+        .attr("r", function(d) {
+            var size = 8;
+            if (d.status == "I") {
+                if (timestep - d.exposureTimestep == 1) size = 12;
+            }
+            return size;
+        })
+}
 
 function moveGamePathogens() {
     d3.selectAll(".pathogen")
@@ -370,21 +355,22 @@ function createGamePathogens() {
 }
 
 function removeGamePathogens() {
-    d3.selectAll(".pathogen")
-        .transition()
-        .duration(200)
-        .style("opacity", 0)
-
     d3.selectAll(".node")
         .transition()
         .duration(200)
         .attr("r", 8)
+
+    d3.selectAll(".pathogen")
+        .transition()
+        .duration(200)
+        .style("opacity", 0)
 
     d3.selectAll(".pathogen").remove();
 }
 
 
 function gameIndexPatients() {
+    quarantineMode = true;
     var indexPatientID = 0;
     while(independentOutbreaks > 0) {
         do {
@@ -398,8 +384,7 @@ function gameIndexPatients() {
         independentOutbreaks--;
 
     }
-    diseaseIsSpreading = true;
-    gameVaccinationUpdate();
+    gameUpdate();
 }
 
 
@@ -429,8 +414,7 @@ function hideGameSyringe() {
 
 function loadGameQuarantine() {
     if (vaccinateMode) hideGameSyringe();
-
-    quarantineMode = true;
+    vaccinateMode = false;
     d3.select(".actionQuarantine").style("visibility", "visible");
     d3.select(".actionQuarantine").style("right", "0px");
 
@@ -471,5 +455,105 @@ function activateGameQuarantineMode() {
     d3.select(".quarantineDepressedState").style("visibility", "visible")
 
     gameIndexPatients();
+
+}
+
+function initScoreRecap() {
+    d3.select(".gameSVG").select("g").style("visibility", "hidden")
+    hideGameQuarantine();
+
+    // details - left
+    d3.select(".gameSVG").append("text")
+        .attr("class", "networkSizeText")
+        .attr("x", backX)
+        .attr("y", 195)
+        .text("Network Size: " + numberOfIndividuals);
+
+    d3.select(".gameSVG").append("text")
+        .attr("class", "numberQuarantinedText")
+        .attr("x", backX)
+        .attr("y", 230)
+        .text("Quarantined: " + numberQuarantined)
+
+    d3.select(".gameSVG").append("text")
+        .attr("class", "numberVaccinatedText")
+        .attr("x", backX)
+        .attr("y", 265)
+        .attr("opacity", 1)
+        .text("Vaccinated: " + numberVaccinated)
+
+    d3.select(".gameSVG").append("text")
+        .attr("class", "numberUntreatedText")
+        .attr("x", backX)
+        .attr("y", 300)
+        .attr("opacity", 1)
+        .text("Untreated: " + numberSaved)
+
+    infectedHeight = (1.00 - ((numberVaccinated+numberQuarantined+numberSaved)/numberOfIndividuals).toFixed(2)) * (400);
+    uninfectedHeight = ((numberVaccinated+numberQuarantined+numberSaved)/numberOfIndividuals).toFixed(2) * (400)
+
+    uninfectedBar = d3.select(".gameSVG").append("rect")
+        .attr("class", "uninfectedBar")
+        .attr("x", 1200)
+        .attr("y", 175)
+        .attr("height", uninfectedHeight)
+        .attr("width", 85)
+        .attr("opacity", 0)
+        .attr("fill", "#b7b7b7")
+
+    centerElement(uninfectedBar, "uninfectedBar")
+    uninfectedBar.attr("opacity", 1)
+
+    var bottomOfUninfected = uninfectedBar.node().getBBox().y + uninfectedHeight + 20;
+
+    infectedBar = d3.select(".gameSVG").append("rect")
+        .attr("class", "infectedBar")
+        .attr("x", 1200)
+        .attr("y", bottomOfUninfected)
+        .attr("height", infectedHeight)
+        .attr("width", 85)
+        .attr("opacity", 0)
+        .attr("fill", "#ef5555")
+
+    centerElement(infectedBar, "infectedBar")
+    infectedBar.attr("opacity", 1)
+
+
+
+
+    // legend - right
+    d3.select(".gameSVG").append("text")
+        .attr("class", "uninfectedLegendText")
+        .attr("x", backX + 550)
+        .attr("y", 195)
+        .text("Uninfected")
+
+    d3.select(".gameSVG").append("text")
+        .attr("class", "infectedLegendText")
+        .attr("x", backX + 550)
+        .attr("y", 245)
+        .text("Infected")
+
+    d3.select(".gameSVG").append("text")
+        .attr("class", "uninfectedPercentage")
+        .attr("x", backX + 675)
+        .attr("y", 195)
+        .text(Math.round((((numberSaved + numberQuarantined + numberVaccinated)/numberOfIndividuals)*100)).toFixed(0) + "%")
+
+    d3.select(".gameSVG").append("rect")
+        .attr("class", "uninfectedLegendBox")
+        .attr("x", backX + 521)
+        .attr("y", 177)
+        .attr("height", 20)
+        .attr("width", 20)
+        .attr("fill", "#b7b7b7")
+
+    d3.select(".gameSVG").append("rect")
+        .attr("class", "infectedLegendBox")
+        .attr("x", backX + 521)
+        .attr("y", 227)
+        .attr("height", 20)
+        .attr("width", 20)
+        .attr("fill", "#ef5555")
 
 }
