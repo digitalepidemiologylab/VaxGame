@@ -27,7 +27,12 @@ var customNeighborChoice = 4;
 var customVaccineChoice = 15;
 var customOutbreakChoice = 2;
 
-var timestep;
+var timestep = 0;
+var exposureEdges;
+var newInfections;
+var xyCoords;
+var diseaseIsSpreading = false;
+var timeToStop = false;
 
 initFooter();
 initBasicMenu();
@@ -96,7 +101,7 @@ function initCustomGame() {
 function initGameSpace() {
     loadGameSyringe();
 
-    vaccinateMode     = false  ;
+    vaccinateMode     = false ;
     quarantineMode    = false ;
     numberVaccinated  = 0     ;
     numberQuarantined = 0     ;
@@ -229,8 +234,8 @@ function gameVaccinationUpdate() {
     // Exit any old nodes.
     node.exit().remove();
 
-    if (numberOfVaccines == 0) {
-        initGameQuarantine();
+    if (numberOfVaccines == 0 && !diseaseIsSpreading) {
+        loadGameQuarantine();
     }
 }
 
@@ -281,25 +286,103 @@ function gameQuarantineUpdate() {
 
 }
 
-function initGameQuarantine() {
-    timestep = 0;
-
-    // Notify player that they are out of vaccines
-
-    // switch to quarantine tool
-    loadGameQuarantine();
-
-    // begin infection as in tutorial
-
-    // make & move pathogens each timestep
-
-    // quarantine update after each click & spread
-
-    // detect for completion
-
-    // upon completion, show stats
+function gameTimesteps() {
+    infection();
+    stateChanges();
+    newInfections = [];
+    newInfections = updateExposures();
+    xyCoords = getPathogen_xyCoords(newInfections);
+    timestep++;
+    detectGameCompletion();
+    if (!timeToStop) {
+        animateGamePathogens_thenUpdate();
+        window.setTimeout(gameTimesteps, 1000)
+    }
+    else {
+        animateGamePathogens_thenUpdate();
+    }
 
 }
+
+function detectGameCompletion() {
+    updateCommunities();
+    var numberOf_AtRisk_communities = 0;
+    for (var groupIndex = 1; groupIndex < numberOfCommunities+1; groupIndex++) {
+        var numberOfSusceptiblesPerGroup = 0;
+        var numberOfInfectedPerGroup = 0;
+
+        for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
+            var node = graph.nodes[nodeIndex];
+            if (parseFloat(node.group) != groupIndex); //do nothing
+            else {
+                if (node.status == "S") numberOfSusceptiblesPerGroup++;
+                if (node.status == "I") numberOfInfectedPerGroup++;
+                if (node.status == "E") numberOfInfectedPerGroup++;
+            }
+        }
+        if (numberOfInfectedPerGroup > 0) {
+            if (numberOfSusceptiblesPerGroup > 0) {
+                numberOf_AtRisk_communities++;
+            }
+        }
+    }
+
+    if (numberOf_AtRisk_communities == 0 && diseaseIsSpreading) {
+        diseaseIsSpreading = false;
+        timeToStop = true;
+        animateGamePathogens_thenUpdate();
+        tutorialUpdate();
+    }
+
+}
+
+function animateGamePathogens_thenUpdate() {
+
+    window.setTimeout(createGamePathogens, 150)
+    window.setTimeout(moveGamePathogens  , 200)
+    window.setTimeout(popNewInfection, 450)
+    window.setTimeout(gameVaccinationUpdate , 550)
+    window.setTimeout(removeGamePathogens, 600)
+
+
+}
+
+
+function moveGamePathogens() {
+    d3.selectAll(".pathogen")
+        .sort()
+        .transition()
+        .duration(600)
+        .attr("cx", function(d) { return d.receiverX} )
+        .attr("cy", function(d) { return d.receiverY} );
+}
+
+function createGamePathogens() {
+    var pathogen = gameSVG.selectAll(".pathogen")
+        .data(xyCoords)
+        .enter()
+        .append("circle")
+        .attr("class", "pathogen")
+        .attr("cx", function(d) { return d.transmitterX })
+        .attr("cy", function(d) { return d.transmitterY })
+        .attr("r", 4)
+        .style("fill", "black")
+}
+
+function removeGamePathogens() {
+    d3.selectAll(".pathogen")
+        .transition()
+        .duration(200)
+        .style("opacity", 0)
+
+    d3.selectAll(".node")
+        .transition()
+        .duration(200)
+        .attr("r", 8)
+
+    d3.selectAll(".pathogen").remove();
+}
+
 
 function gameIndexPatients() {
     var indexPatientID = 0;
@@ -315,6 +398,7 @@ function gameIndexPatients() {
         independentOutbreaks--;
 
     }
+    diseaseIsSpreading = true;
     gameVaccinationUpdate();
 }
 
