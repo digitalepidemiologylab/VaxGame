@@ -730,6 +730,8 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 15) {
+        d3.selectAll(".node").remove();
+
         d3.select(".lessonText")
             .transition()
             .duration(500)

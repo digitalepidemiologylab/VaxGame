@@ -1347,7 +1347,6 @@ function quarantineUpdate() {
 //    d3.select(".timestepTicker")
 //        .text(timestep)
 //        .attr("opacity", 1);
-
 }
 
 function countSaved() {
@@ -1355,9 +1354,7 @@ function countSaved() {
     for (var i = 0; i < graph.nodes.length; i++)  {
         if (graph.nodes[i].status == "Q" || graph.nodes[i].status == "S") numberSaved++;
     }
-
 }
-
 
 function initRecap() {
 
@@ -1463,10 +1460,5 @@ function initRecap() {
         .attr("height", 20)
         .attr("width", 20)
         .attr("fill", "#ef5555")
-
-
-
-
-
 
 }
