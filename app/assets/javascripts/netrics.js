@@ -96,7 +96,7 @@ function findLink(source, target) {
 }
 
 
-function edgeExists(source,target, graph) {
+function edgeExists(source, target, graph) {
     var edgeExists = false;
     for (var i = 0; i < graph.links.length; i++) {
         var link = graph.links[i];

@@ -2,19 +2,166 @@ var menuColorFlash = true;
 var colorIndex = 0;
 var menuColors = ["#007138","#ffffff"];
 
-function guideRails(back) {
+function resetBack() {
+    d3.select(".backArrow")
+        .attr("fill", function() {
+            if (backEnable) return "white";
+            else return "#838383";
+        })
+        .on("click", function() {
+            if (backEnable) {
+                if (diseaseIsSpreading) return;
 
-    if (guideRailsPosition == 1) {
 
-        d3.select(".backArrow")
+                guideRailsPosition--;
+                guideRailsReverse();
+
+                if (guideRailsPosition == 9) {
+                    loadSyringe();
+                    backEnable = false;
+                    resetBack();
+                }
+
+            }
+            else return;
+
+    })
+}
+
+function resetNext() {
+    d3.select(".nextArrow")
+        .attr("fill", function() {
+            if (nextEnable) return "white";
+            else return "#838383";
+        })
+        .text("Next >")
+        .on("click", function() {
+            if (nextEnable) {
+                if (diseaseIsSpreading) return;
+
+
+                guideRailsPosition++;
+                guideRails();
+            }
+            else return;
+    })
+}
+
+function disableBack() {
+    d3.select(".backArrow")
+        .attr("fill", "#838383")
+        .text("< Back")
+        .on("click", function() {
+
+        })
+
+}
+
+function disableNext() {
+    d3.select(".nextArrow")
+        .attr("fill", "#838383")
+        .text("Next >")
+        .on("click", function() {
+
+        })
+
+}
+
+
+function net2epiTransition() {
+
+    if (guideRailsPosition == 3) {
+
+        d3.select(".guide")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord)
+            .attr("opacity", 0)
+            .text("Next, we'll look at how diseases move through a network")
+
+        d3.select(".guide2")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord + guide2YCoordChange)
+            .attr("opacity", 0)
+            .text("in lesson 2: epidemics.")
+
+        centerElement(guide, "guide");
+        centerElement(guide2, "guide2");
+
+        d3.select(".guide")
             .transition()
             .duration(500)
-            .attr("opacity", 1)
+            .attr("opacity", 1);
 
-        d3.select(".lessonText")
+        d3.select(".guide2")
             .transition()
-            .duration(2000)
-            .attr("opacity", 0)
+            .duration(500)
+            .attr("opacity", 1);
+        d3.selectAll(".node").style("cursor", 'pointer');
+
+        d3.select(".nextArrow")
+            .text("Finish >")
+            .on("click", function() {
+                guideRailsPosition++;
+                guideRails();
+                slideOutStepwiseNav();
+            })
+
+
+    }
+
+    resetBack();
+}
+
+function epi2VaxTransition() {
+    slideOutStepwiseNav();
+
+    d3.select(".guide")
+        .attr("x", guideXCoord)
+        .attr("y", guideYCoord)
+        .attr("opacity", 0)
+        .text("Coming up, in lesson 3: vaccines, we'll cover how to prevent")
+
+    d3.select(".guide2")
+        .attr("x", guideXCoord)
+        .attr("y", guideYCoord + guide2YCoordChange)
+        .attr("opacity", 0)
+        .text("epidemics by containing outbreaks before they spread.")
+
+    centerElement(guide, "guide");
+    centerElement(guide2, "guide2");
+
+    d3.select(".guide")
+        .transition()
+        .duration(500)
+        .attr("opacity", 1);
+
+    d3.select(".guide2")
+        .transition()
+        .duration(500)
+        .attr("opacity", 1);
+
+
+
+
+}
+
+
+function guideRails(back) {
+    console.log("rail position = " + guideRailsPosition)
+
+    if (diseaseIsSpreading) return;
+
+    if (guideRailsPosition == 0) backEnable = false;
+
+    if (guideRailsPosition == 1) {
+        nextEnable = true;
+        backEnable = true;
+        resetBack();
+        resetNext();
+
+        d3.select(".menuBox").style("right", "-1000px")
+
+
 
         if (!back) addOneFriend();
         d3.selectAll(".node").style("cursor", 'pointer');
@@ -44,9 +191,15 @@ function guideRails(back) {
             .transition()
             .duration(500)
             .attr("opacity", 1);
+
     }
 
     if (guideRailsPosition == 2) {
+        nextEnable = true;
+        backEnable = true;
+        resetBack();
+        resetNext();
+
         if (!back) buildGraph();
 
         d3.selectAll(".node").style("cursor", 'pointer');
@@ -80,15 +233,21 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 3) {
-        d3.select(".backArrow").text("").attr("opacity", 0)
-        d3.select(".nextArrow").text("Next: Epidemics >")
+        nextEnable = true;
+        backEnable = true;
+        resetBack();
+        resetNext();
+
         charge = -400;
-        if (!back) tutorialUpdate();
+        if (!back) {
+            tutorialUpdate()
+        }
+
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("Your friends have friends, who would be strangers to you,")
+            .text("Your friends have friends, that may be strangers to you,")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
@@ -109,34 +268,50 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
         d3.selectAll(".node").style("cursor", 'pointer');
+
+        d3.select(".menuBox")
+            .style("visibility", "visible")
+
+        d3.select(".menuBox")
+            .style("right", "0px")
+
+        d3.select("#networkSxn").attr("class","menuItemBold")
+
         removeDuplicateEdges(graph);
 
+        d3.select(".nextArrow")
+            .on("click", function() {
+                net2epiTransition();
+            });
 
     }
 
     if (guideRailsPosition == 4) {
-        removeDuplicateEdges(graph);
+
+        d3.select(".menuBox").style("right", "-1000px")
+
         d3.select(".lessonText").attr("opacity", 1)
-            .text("LESSON 2: EPIDEMICS")
+            .text("Lesson 2: Epidemics")
+
+
+        removeDuplicateEdges(graph);
 
         d3.select("#networkSxn").attr("class","menuItemNormal")
 
         d3.select("#epidemicSxn").attr("class","menuItemBold")
-
-        d3.select(".nextArrow").text("next >")
 
 
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("But now, one of the strangers gets sick and the infection")
+            .text("Now, when someone in your contact network gets sick,")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord + guide2YCoordChange)
             .attr("opacity", 0)
-            .text("starts to spread across the network...")
+            .text("the infection will spread across the network...")
 
         centerElement(guide, "guide");
         centerElement(guide2, "guide2");
@@ -156,27 +331,26 @@ function guideRails(back) {
         removeDuplicateEdges(graph);
         tutorialUpdate();
 
+        if (back) tutorialTimesteps();
+
         diseaseIsSpreading=true;
+        nextEnable = false;
+        backEnable = false;
+        disableNext();
+        disableBack();
         timeToStop = false;
-        window.setTimeout(tutorialTimesteps, 2000);
 
-//        d3.select(".timestepText").text("Day: ")
-//        d3.select(".timestepTicker").text(timestep)
 
-        d3.select(".nextArrow")
-            .transition()
-            .duration(500)
-            .attr("opacity", 0)
-            .text("")
 
-        d3.select(".lessonText")
-            .transition()
-            .duration(3000)
-            .attr("opacity", 0)
-            .text("LESSON 2: EPIDEMICS")
+
     }
 
     if (guideRailsPosition == 5) {
+        nextEnable = true;
+        backEnable = true;
+        resetBack();
+        resetNext();
+
         var img2 = svg.selectAll("image").data([0]);
         img2.enter()
             .append("image")
@@ -191,12 +365,6 @@ function guideRails(back) {
             .attr("class", "redX")
 
         flashRedX();
-
-        d3.select(".nextArrow")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1)
-            .text("next >")
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -222,33 +390,156 @@ function guideRails(back) {
             .transition()
             .duration(500)
             .attr("opacity", 1);
+
+        d3.select(".backArrow")
+            .on("click", function() {
+                d3.select(".redX").remove();
+                guideRailsPosition = 3;
+                guideRailsReverse();
+            })
+
+
+
     }
 
-    if (guideRailsPosition == 6) {
+    if (guideRailsPosition == 6 ) {
+        nextEnable = true;
+        backEnable = true;
+        resetBack();
+        resetNext();
         d3.select(".redX").remove();
-        d3.select(".nextArrow")
+
+        for (var i = 0; i < graph.nodes.length; i++) {
+            graph.nodes.status = "S";
+        }
+
+        svg.selectAll("circle.node").style("fill", "#b7b7b7")
+
+        d3.select(".guide")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord)
+            .attr("opacity", 0)
+            .text("The chance that someone spreads the infection")
+
+        d3.select(".guide2")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord + guide2YCoordChange)
+            .attr("opacity", 0)
+            .text("depends on how many neighbors they have.")
+
+        centerElement(guide, "guide");
+        centerElement(guide2, "guide2");
+
+        d3.select(".guide")
             .transition()
             .duration(500)
-            .attr("opacity", 0)
-            .text("next >")
+            .attr("opacity", 1);
 
-        loadSyringe();
+        d3.select(".guide2")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+    }
+
+    if (guideRailsPosition == 7 ) {
+        nextEnable = true;
+        backEnable = true;
+        resetBack();
+        resetNext();
+
+        d3.selectAll("circle.node")
+            .transition()
+            .duration(500)
+            .attr("r", function(d) {
+                return (3 * findNeighbors(d).length)
+            })
+
+        force
+            .nodes(graph.nodes)
+            .charge(-1100)
+            .links(graph.links)
+            .start();
+
+        d3.select(".guide")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord)
+            .attr("opacity", 0)
+            .text("Here the circles have been resized based on the chance")
+
+        d3.select(".guide2")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord + guide2YCoordChange)
+            .attr("opacity", 0)
+            .text("that they'll infect at least one of their neighbors.")
+
+        centerElement(guide, "guide");
+        centerElement(guide2, "guide2");
+
+        d3.select(".guide")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+        d3.select(".guide2")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+    }
+
+    if (guideRailsPosition == 8 ) {
+        nextEnable = true;
+        backEnable = true;
+        resetBack();
+        resetNext();
+
+        d3.select(".guide")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord)
+            .attr("opacity", 0)
+            .text("Most of the time, focusing treatment on people with")
+
+        d3.select(".guide2")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord + guide2YCoordChange)
+            .attr("opacity", 0)
+            .text("a lot of neighbors is a good strategy, but not always....")
+
+        centerElement(guide, "guide");
+        centerElement(guide2, "guide2");
+
+        d3.select(".guide")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+        d3.select(".guide2")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+        d3.select(".nextArrow")
+            .on("click", epi2VaxTransition)
+
+    }
+
+
+
+    if (guideRailsPosition == 9) {
+
+        nextEnable = false;
+        backEnable = false;
+        resetBack();
+        resetNext();
+
+
+        d3.select(".lessonText").text("Lesson 3: Vaccines")
+
         vaccineSupply = 1;
         vax = 1;
         numberVaccinated = 0;
+        loadSyringe();
 
-        d3.select(".backArrow").attr("opacity", 0).text("")
-//
-//        d3.select(".timestepText")
-//            .transition()
-//            .duration(500)
-//            .attr("opacity", 0)
-//
-//        d3.select(".timestepTicker")
-//            .transition()
-//            .duration(500)
-//            .attr("opacity", 0)
-//            .text(timestep)
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -305,24 +596,21 @@ function guideRails(back) {
                 graph.links.push(link);
             }
         }
+
         removeDuplicateEdges(graph);
         tutorialUpdate();
         flashNode();
     }
 
-    if (guideRailsPosition == 7) {
-        keepFlashing = false;
-        d3.select(".nextArrow")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1)
-            .text("next >")
+    if (guideRailsPosition == 10) {
 
-        d3.select(".backArrow")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1)
-            .text("< Instant Replay!")
+        nextEnable = true;
+        backEnable = false;
+
+        resetNext();
+        resetBack();
+
+        keepFlashing = false;
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -353,9 +641,24 @@ function guideRails(back) {
         tutorialUpdate();
     }
 
-    if (guideRailsPosition == 8) {
-        d3.select(".backArrow").attr("opacity", 0).text("< back")
-        d3.select(".nextArrow").attr("opacity", 0).text("next >")
+    if (guideRailsPosition == 11) {
+
+        nextEnable = false;
+        backEnable = false;
+
+
+        d3.select(".nextArrow")
+            .attr("fill", "#838383")
+            .on("click", function() {
+
+            })
+
+        d3.select(".nextArrow")
+            .attr("fill", "#838383")
+            .on("click", function() {
+
+            })
+
 
         keepFlashing=true;
         loadSyringe();
@@ -415,7 +718,7 @@ function guideRails(back) {
         flashNodes();
     }
 
-    if (guideRailsPosition == 9) {
+    if (guideRailsPosition == 12) {
         vaccinateMode = false;
 
         d3.selectAll(".node")
@@ -447,30 +750,20 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-        d3.select(".nextArrow").attr("opacity", 1).text("Next: Vaccines >")
 
         d3.selectAll(".node").style("fill", "#b7b7b7")
 
+
     }
 
-    if (guideRailsPosition == 10) {
+    if (guideRailsPosition == 13) {
+        d3.select(".menuBox").style("right", "-1000px")
+
+
         hideSyringe();
         vaccinateMode = false;
         timeToStop = true;
         d3.select(".vaccineDepressedState").style("visibility", "hidden")
-
-        d3.select(".backArrow")
-            .transition()
-            .duration(500)
-            .attr("opacity", 0)
-            .text("")
-
-
-        d3.select(".lessonText")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1)
-            .text("LESSON 3: VACCINES")
 
         d3.select("#epidemicSxn").attr("class","menuItemNormal")
         d3.select("#vaccineSxn").attr("class","menuItemBold")
@@ -532,11 +825,6 @@ function guideRails(back) {
 //            .attr("opacity", 0)
 //            .text(timestep)
 
-        d3.select(".nextArrow")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1)
-            .text("next >")
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -564,18 +852,19 @@ function guideRails(back) {
             .attr("opacity", 1);
 
         vaccinateMode = false;
+
+
     }
 
-    if (guideRailsPosition == 11) {
+    if (guideRailsPosition == 14) {
+
+        nextEnable = false;
+        backEnable = true;
+        resetBack();
+        resetNext();
+
         vaccineSupply = 3;
         vax = 3;
-
-
-        d3.select(".lessonText")
-            .transition()
-            .duration(1000)
-            .attr("opacity", 0)
-            .text("LESSON 3: VACCINES")
 
         loadSyringe();
 
@@ -608,11 +897,12 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-        d3.select(".nextArrow").attr("opacity", 0).text("")
     }
 
-    if (guideRailsPosition == 12) {
-        d3.select(".backArrow").attr("opacity", 1).text("< Clear Vaccinations")
+    if (guideRailsPosition == 15) {
+
+        nextEnable = false;
+        resetNext();
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -640,8 +930,9 @@ function guideRails(back) {
             .attr("opacity", 1);
     }
 
-    if (guideRailsPosition == 13) {
-        d3.select(".backArrow").attr("opacity", 1).text("< Clear Vaccinations")
+    if (guideRailsPosition == 16) {
+        nextEnable = true;
+        resetNext();
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -668,14 +959,13 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-        d3.select(".nextArrow")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1)
-            .text("next >")
+
+
     }
 
-    if (guideRailsPosition == 14) {
+    if (guideRailsPosition == 17) {
+        d3.select(".menuBox").style("right", "0px")
+
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
@@ -726,17 +1016,23 @@ function guideRails(back) {
 //            .attr("opacity", 1)
 //            .text(timestep)
 
+
+
+
         tutorialTimesteps();
     }
 
-    if (guideRailsPosition == 15) {
-        d3.selectAll(".node").remove();
+    if (guideRailsPosition == 18) {
+
+
+        d3.select(".menuBox").style("right", "-1000px")
+
 
         d3.select(".lessonText")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1)
-            .text("LESSON 3: QUARANTINE")
+            .text("Lesson 3: Quarantine")
+
+
+        d3.selectAll(".node").remove();
 
         finalStop = false;
 //        d3.selectAll(".fixedVaxNode").remove()
@@ -744,7 +1040,7 @@ function guideRails(back) {
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("Now we'll look at actions that can be taken after an infection")
+            .text("Next we'll look at actions that can be taken after an infection")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
@@ -780,7 +1076,6 @@ function guideRails(back) {
 
 //        d3.select(".timestepText").attr("opacity", 0)
 //        d3.select(".timestepTicker").attr("opacity", 0)
-        d3.select(".backArrow").text("").attr("opacity", 0)
 
         vax = 0;
         vaccineSupply = 0;
@@ -788,25 +1083,15 @@ function guideRails(back) {
 
     }
 
-    if (guideRailsPosition == 16) {
-        d3.select(".backArrow")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1)
-            .text("< back")
+    if (guideRailsPosition == 18) {
 
-        d3.select(".lessonText")
-            .transition()
-            .duration(2000)
-            .attr("opacity", 0)
         hideSyringe();
         loadSyringe();
+
 
         d3.select("#quarantineSxn").attr("class","menuItemBold")
         d3.select("#vaccineSxn").attr("class","menuItemNormal")
 
-        d3.select(".backArrow").text("< back")
-        d3.select(".nextArrow").text("next >")
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -835,11 +1120,7 @@ function guideRails(back) {
 
     }
 
-    if (guideRailsPosition == 17) {
-        d3.select(".lessonText")
-            .transition()
-            .duration(1000)
-            .attr("opacity", 0)
+    if (guideRailsPosition == 19) {
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -869,11 +1150,14 @@ function guideRails(back) {
 
     }
 
-    if (guideRailsPosition == 18) {
+    if (guideRailsPosition == 20) {
+
+        transmissionRate = 0.35;
+        rerun = false;
+
         hideSyringe();
         loadQuarantine();
 
-        d3.select(".nextArrow").attr("opacity", 0).text("")
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -885,7 +1169,7 @@ function guideRails(back) {
             .attr("x", guideXCoord)
             .attr("y", guideYCoord + guide2YCoordChange)
             .attr("opacity", 0)
-            .text("quarantine. You're racing against the infection so act fast!")
+            .text("quarantine. A new round of infections begins after every quarantine.")
 
         centerElement(guide, "guide");
         centerElement(guide2, "guide2");
@@ -902,12 +1186,12 @@ function guideRails(back) {
 
     }
 
-    if (guideRailsPosition == 19) {
+    if (guideRailsPosition == 21) {
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("Pretty tough right? Let's see how many you saved...")
+            .text("Great! Now, let's see how many you saved...")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
@@ -928,10 +1212,9 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-        d3.select(".nextArrow").attr("opacity", 1).text("next >")
     }
 
-    if (guideRailsPosition == 20) {
+    if (guideRailsPosition == 22) {
         countSaved();
         var totalNodes = graph.nodes.length;
 
@@ -988,24 +1271,10 @@ function guideRails(back) {
         d3.select("#quarantineSxn")
             .attr("class","menuItemNormal")
 
-        d3.select(".nextArrow")
-            .attr("opacity", 1)
-            .attr("x", 575)
-            .text("Full Game >>")
-            .on("click", function() {
-                window.location.href = 'http://vax.herokuapp.com/game'
-            })
+
 
         d3.select("#gameLink")
             .attr("class","menuItemBold")
-
-        d3.select(".backArrow")
-            .attr("opacity", 1)
-            .text("<< Start Over")
-            .attr("x", 345)
-            .on("click", function() {
-                window.location.href = 'http://vax.herokuapp.com/'
-            })
 
         initRecap();
 

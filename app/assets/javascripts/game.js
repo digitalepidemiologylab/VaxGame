@@ -175,22 +175,26 @@ function gameClick(node) {
         if (quarantineMode && node.status == "S") {
             node.status = "Q";
             numberQuarantined++;
+            gameTimesteps();
         }
     }
 
     if (numberOfVaccines == 0 && !diseaseIsSpreading) loadGameQuarantine();
 
     gameUpdate();
+
 }
 
 // tick function, which does the physics for each individual node & link.
 function tick() {
+    node.attr("cx", function(d) { return d.x = Math.max(8, Math.min(width - 8, d.x)); })
+        .attr("cy", function(d) { return d.y = Math.max(8, Math.min((height *.85) - 8, d.y)); });
     link.attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
+
+
 }
 
 function gameUpdate() {
@@ -253,12 +257,10 @@ function gameTimesteps() {
     stateChanges();
     newInfections = [];
     newInfections = updateExposures();
-    xyCoords = getPathogen_xyCoords(newInfections);
     timestep++;
     detectGameCompletion();
     if (!timeToStop) {
         animateGamePathogens_thenUpdate();
-        window.setTimeout(gameTimesteps, 1200)
     }
     else {
         animateGamePathogens_thenUpdate();
@@ -343,6 +345,8 @@ function moveGamePathogens() {
 }
 
 function createGamePathogens() {
+    xyCoords = getPathogen_xyCoords(newInfections);
+
     var pathogen = gameSVG.selectAll(".pathogen")
         .data(xyCoords)
         .enter()

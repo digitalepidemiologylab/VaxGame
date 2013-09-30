@@ -1,3 +1,4 @@
+var rerun = false;
 
 function selectIndexCase() {
     var numberOfPeople = graph.nodes.length;
@@ -63,6 +64,12 @@ function stateChanges() {
 }
 
 function infection() {
+    if (!rerun) transmissionRate = 0.35;
+    else {
+        transmissionRate = 1;
+    }
+
+    var numberOfInfectionsPerRound = 0;
     for (var index = 0; index < graph.nodes.length; index++) {
         if (graph.nodes[index].status != "S") continue;
         var susceptible = graph.nodes[index];
@@ -78,11 +85,24 @@ function infection() {
         }
         var probabilityOfInfection = 1.0 - Math.pow(1.0 - transmissionRate,numberOfInfectedNeighbors);
         if (Math.random() < probabilityOfInfection) {
+            numberOfInfectionsPerRound++;
             var shuffledInfectedNeighborArray = shuffle(infectedNeighborArray);
             var exposer = shuffledInfectedNeighborArray[0];
             exposeIndividual(susceptible, exposer);
         }
     }
+
+    if (numberOfInfectionsPerRound > 0) {
+        rerun = false;
+        transmissionRate = 0.35;
+    }
+    else {
+        rerun = true;
+        transmissionRate = 1;
+        infection();
+    }
+
+
 }
 
 function getStatuses(infectedClass) {
@@ -134,13 +154,10 @@ function detectEndGame() {
         if (vaccinateMode && !quarantineMode) {
             animatePathogens_thenUpdate();
             tutorialUpdate();
-            d3.select(".nextArrow").attr("opacity", 1).text("Next: Quarantine >")
-            d3.select(".backArrow").attr("opacity", 0).text("");
+
 
         }
-        if (quarantineMode && !vaccinateMode) {
-            d3.select(".nextArrow").text("next >")
-        }
+
     }
 }
 

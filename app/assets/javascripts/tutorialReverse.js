@@ -1,12 +1,27 @@
 function guideRailsReverse() {
+
+
+
     d3.select("#networkSxn").text("Networks");
     d3.select("#epidemicSxn").text("Epidemics");
     d3.select("#vaccineSxn").text("Vaccines");
     d3.select("#quarantineSxn").text("Quarantine");
 
 
+
     var back = true;
     if (guideRailsPosition == 0) {
+
+        backEnable = false;
+        resetBack();
+
+
+        d3.select(".lessonText")
+            .text("Lesson 1: Networks")
+            .attr("opacity", 1)
+
+
+        d3.select(".menuBox").style("right", "0px")
 
         quarantineMode = false;
 
@@ -26,16 +41,8 @@ function guideRailsReverse() {
             .duration(500)
             .attr("opacity", 1)
 
-        d3.select(".nextArrow")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1)
 
         d3.selectAll(".node").style("cursor", 'pointer');
-
-        d3.select(".lessonText")
-            .text("LESSON 1: NETWORKS")
-            .attr("opacity", 1)
 
         d3.select("#networkSxn").attr("class","menuItemBold");
         d3.select("#epidemicSxn").attr("class", "menuItemNormal")
@@ -83,7 +90,7 @@ function guideRailsReverse() {
 
         for (var ii = 0; ii < trivialGraph.nodes.length; ii++) {
             for (var iii = 0; iii < trivialGraph.nodes.length; iii++) {
-                if (edgeExists(trivialGraph.nodes[ii], trivialGraph.nodes[iii], tailoredGraph)) {
+                if (edgeExists(trivialGraph.nodes[ii], trivialGraph.nodes[iii], graph)) {
                     var linkString = {source:trivialGraph.nodes[ii],target:trivialGraph.nodes[iii],remove:false};
                     if (testDuplicate(trivialGraph.links, linkString)) continue;
                     trivialGraph.links.push(linkString);
@@ -95,7 +102,10 @@ function guideRailsReverse() {
         stepWiseUpdate();
     }
 
-    if (guideRailsPosition == 3 || guideRailsPosition == 4 || guideRailsPosition == 5) {
+
+    if (guideRailsPosition == 3) {
+        d3.select(".menuBox").style("right", "-1000px")
+
         quarantineMode = false;
 
         d3.select("#networkSxn").attr("class","menuItemNormal");
@@ -105,9 +115,6 @@ function guideRailsReverse() {
 
         d3.select(".redX").remove();
 
-        if (guideRailsPosition == 3 || guideRailsPosition == 4) {
-            d3.select(".backArrow").text("< Restart Outbreak")
-        }
 
         //return to pre-outbreak from post-outbreak
 
@@ -135,12 +142,12 @@ function guideRailsReverse() {
 
         removeDuplicateEdges(graph);
         tutorialUpdate();
+        guideRailsPosition++;
 
     }
 
-    if (guideRailsPosition == 6) {
+    if (guideRailsPosition == 9) {
         quarantineMode = false;
-
         graph.links = [];
         graph.nodes.push(tailoredNodes[2]);
         graph.nodes[5].status = "V";
@@ -154,6 +161,11 @@ function guideRailsReverse() {
         }
         removeDuplicateEdges(graph);
         tutorialUpdate();
+
+        loadSyringe();
+        vax = 1;
+        vaccineSupply = 1;
+
         d3.selectAll(".node")
             .transition()
             .duration(500)
@@ -170,10 +182,15 @@ function guideRailsReverse() {
 
     }
 
-    if (guideRailsPosition == 10 || guideRailsPosition == 11 || guideRailsPosition == 12) {
+    if (guideRailsPosition >= 13 && guideRailsPosition <= 17) {
+        backEnable = true;
+        nextEnable = true;
+        resetBack();
+        resetNext();
+
         quarantineMode = false;
 
-        guideRailsPosition = 10;
+        guideRailsPosition = 13;
         vaccineSupply = 3;
         vax = 3;
 //        d3.selectAll(".fixedVaxNode").remove();
@@ -197,27 +214,10 @@ function guideRailsReverse() {
         diseaseIsSpreading = false;
         finalStop = true;
         endGame=false;
-    }
 
-    if (guideRailsPosition == 15) {
-        quarantineMode = false;
 
-        d3.select("#networkSxn").attr("class","menuItemNormal");
-        d3.select("#epidemicSxn").attr("class", "menuItemNormal")
-        d3.select("#vaccineSxn").attr("class","menuItemBold")
-        d3.select("#quarantineSxn").attr("class","menuItemNormal")
     }
 
 
-
-    if (guideRailsPosition == 17) {
-        quarantineMode = false;
-
-        d3.select(".nextArrow")
-            .attr("opacity", 1)
-            .text("next >")
-        loadSyringe();
-        hideQuarantine();
-    }
     guideRails(back);
 }
