@@ -97,6 +97,8 @@ function infection() {
         transmissionRate = 0.35;
     }
     else {
+        detectCompletion();
+        if (timeToStop) return;
         rerun = true;
         transmissionRate = 1;
         infection();

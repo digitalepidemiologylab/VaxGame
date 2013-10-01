@@ -352,7 +352,7 @@ function guideRails(back) {
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("Now, when someone in your contact network gets sick,")
+            .text("When someone in your contact network gets sick,")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
@@ -717,7 +717,7 @@ function guideRails(back) {
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("Now let's separate this network into two groups")
+            .text("Separate this network into two groups")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
@@ -1070,7 +1070,7 @@ function guideRails(back) {
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("Next, lesson 4: quarantine, we'll consider actions that")
+            .text("In lesson 4: quarantine, we'll consider actions that")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)

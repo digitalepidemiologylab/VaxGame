@@ -1291,8 +1291,6 @@ function quarantineTimesteps() {
     newInfections = updateExposures();
     xyCoords = getPathogen_xyCoords(newInfections);
     this.timestep++;
-//    d3.select(".timestepTicker")
-//        .text(timestep);
     detectCompletion();
     if (!timeToStop) {
         animateQuarantinePathogens_thenUpdate();
