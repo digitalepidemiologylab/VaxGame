@@ -145,6 +145,53 @@ function epi2VaxTransition() {
 
 }
 
+function vax2QuarantineTransition() {
+
+        hideSyringe();
+        loadSyringe();
+
+        d3.select(".lessonText")
+            .text("Lesson 4: Quarantine")
+
+
+        d3.select("#quarantineSxn").attr("class","menuItemBold")
+        d3.select("#vaccineSxn").attr("class","menuItemNormal")
+
+
+        d3.select(".guide")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord)
+            .attr("opacity", 0)
+            .text("Vaccines take time to 'kick in' so they're ineffective")
+
+        d3.select(".guide2")
+            .attr("x", guideXCoord)
+            .attr("y", guideYCoord + guide2YCoordChange)
+            .attr("opacity", 0)
+            .text("if an infection has already begun to spread.")
+
+        centerElement(guide, "guide");
+        centerElement(guide2, "guide2");
+
+        d3.select(".guide")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+        d3.select(".guide2")
+            .transition()
+            .duration(500)
+            .attr("opacity", 1);
+
+
+
+
+
+
+
+
+}
+
 
 function guideRails(back) {
     console.log("rail position = " + guideRailsPosition)
@@ -901,7 +948,7 @@ function guideRails(back) {
 
     if (guideRailsPosition == 15) {
 
-        nextEnable = false;
+        nextEnable = true;
         resetNext();
 
         d3.select(".guide")
@@ -964,6 +1011,11 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 17) {
+        nextEnable = false;
+        backEnable = false;
+        resetNext();
+        resetBack();
+
         d3.select(".menuBox").style("right", "0px")
 
         d3.select(".guide")
@@ -1004,49 +1056,27 @@ function guideRails(back) {
         timeToStop = false;
         postInitialOutbreak = false;
         finalStop = true;
-//
-//        d3.select(".timestepText")
-//            .transition()
-//            .duration(500)
-//            .attr("opacity", 1)
-//
-//        d3.select(".timestepTicker")
-//            .transition()
-//            .duration(500)
-//            .attr("opacity", 1)
-//            .text(timestep)
-
-
-
 
         tutorialTimesteps();
     }
 
     if (guideRailsPosition == 18) {
 
-
-        d3.select(".menuBox").style("right", "-1000px")
-
-
-        d3.select(".lessonText")
-            .text("Lesson 3: Quarantine")
-
-
         d3.selectAll(".node").remove();
 
         finalStop = false;
-//        d3.selectAll(".fixedVaxNode").remove()
+
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("Next we'll look at actions that can be taken after an infection")
+            .text("Next, lesson 4: quarantine, we'll consider actions that")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord + guide2YCoordChange)
             .attr("opacity", 0)
-            .text("has begun to spread.")
+            .text("can be taken after an infection has begun to spread.")
 
         centerElement(guide, "guide");
         centerElement(guide2, "guide2");
@@ -1073,52 +1103,18 @@ function guideRails(back) {
         }
 
         quarantineUpdate();
-
-//        d3.select(".timestepText").attr("opacity", 0)
-//        d3.select(".timestepTicker").attr("opacity", 0)
-
         vax = 0;
         vaccineSupply = 0;
 
-
+        d3.select(".nextArrow")
+            .text("Finish >")
+            .on("click", function() {
+                vax2QuarantineTransition();
+                slideOutStepwiseNav();
+            })
     }
 
-    if (guideRailsPosition == 18) {
 
-        hideSyringe();
-        loadSyringe();
-
-
-        d3.select("#quarantineSxn").attr("class","menuItemBold")
-        d3.select("#vaccineSxn").attr("class","menuItemNormal")
-
-
-        d3.select(".guide")
-            .attr("x", guideXCoord)
-            .attr("y", guideYCoord)
-            .attr("opacity", 0)
-            .text("Vaccines take time to 'kick in' so they're ineffective")
-
-        d3.select(".guide2")
-            .attr("x", guideXCoord)
-            .attr("y", guideYCoord + guide2YCoordChange)
-            .attr("opacity", 0)
-            .text("if an infection has already begun to spread.")
-
-        centerElement(guide, "guide");
-        centerElement(guide2, "guide2");
-
-        d3.select(".guide")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1);
-
-        d3.select(".guide2")
-            .transition()
-            .duration(500)
-            .attr("opacity", 1);
-
-    }
 
     if (guideRailsPosition == 19) {
 
@@ -1151,6 +1147,11 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 20) {
+        nextEnable = false;
+        backEnable = false;
+        resetNext();
+        resetBack();
+
 
         transmissionRate = 0.35;
         rerun = false;
@@ -1187,6 +1188,9 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 21) {
+        nextEnable = true;
+        resetNext();
+
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)

@@ -533,17 +533,17 @@ function tutorialTimesteps() {
     this.timestep++;
 
     if (!timeToStop) {
-
         animatePathogens_thenUpdate();
         window.setTimeout(tutorialTimesteps, 1000);
-        d3.select()
     }
     else{
-
         animatePathogens_thenUpdate();
         nextEnable = true;
         resetBack();
         resetNext();
+
+
+
 
 
 
@@ -658,6 +658,12 @@ function slideOutStepwiseNav() {
 
             if(guideRailsPosition == 9) {
                 loadSyringe();
+            }
+
+            if (guideRailsPosition == 18) {
+                slideOutMenuBox();
+                guideRailsPosition++;
+                guideRails();
             }
 
             d3.select(this).attr("opacity", "0")
@@ -1248,9 +1254,6 @@ function activateVaccinationMode() {
 }
 
 function activateQuarantineMode() {
-    d3.select(".backArrow")
-        .attr("opacity", 0)
-        .text("")
 
     friction = 0.9;
     vaccinateMode = false;
@@ -1296,6 +1299,8 @@ function quarantineTimesteps() {
     }
     else {
         animateQuarantinePathogens_thenUpdate();
+        nextEnable = true;
+        resetNext();
 
     }
 }
