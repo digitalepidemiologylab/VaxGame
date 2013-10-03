@@ -72,6 +72,8 @@ function net2epiTransition() {
 
     if (guideRailsPosition == 3) {
 
+        d3.select(".lessonText").text("Lesson 2: Epidemics")
+
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
@@ -320,7 +322,7 @@ function guideRails(back) {
             .style("visibility", "visible")
 
         d3.select(".menuBox")
-            .style("right", "0px")
+            .style("right", "-5px")
 
         d3.select("#networkSxn").attr("class","menuItemBold")
 
@@ -334,19 +336,7 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 4) {
-
-        d3.select(".menuBox").style("right", "-1000px")
-
-        d3.select(".lessonText").attr("opacity", 1)
-            .text("Lesson 2: Epidemics")
-
-
         removeDuplicateEdges(graph);
-
-        d3.select("#networkSxn").attr("class","menuItemNormal")
-
-        d3.select("#epidemicSxn").attr("class","menuItemBold")
-
 
         d3.select(".guide")
             .attr("x", guideXCoord)
@@ -386,6 +376,7 @@ function guideRails(back) {
         disableNext();
         disableBack();
         timeToStop = false;
+
 
 
 
@@ -550,7 +541,7 @@ function guideRails(back) {
             .attr("x", guideXCoord)
             .attr("y", guideYCoord + guide2YCoordChange)
             .attr("opacity", 0)
-            .text("a lot of neighbors is a good strategy, but not always....")
+            .text("a lot of neighbors is a good strategy, but not always...")
 
         centerElement(guide, "guide");
         centerElement(guide2, "guide2");

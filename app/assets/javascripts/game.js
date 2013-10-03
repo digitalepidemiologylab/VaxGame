@@ -16,7 +16,7 @@ var gameSVG ;
 var width = 1024;
 var height = 768 - 45 - 50; // standard height - footer:height - footer:bottomMargin
 var charge = -400;
-var friction = 0.80;
+var friction = 0.9;
 
 var numberOfVaccines = 0;
 var vaccineSupply = 0;
@@ -175,7 +175,7 @@ function gameClick(node) {
         if (quarantineMode && node.status == "S") {
             node.status = "Q";
             numberQuarantined++;
-            gameTimesteps();
+            window.setTimeout(gameTimesteps, 500);
         }
     }
 
@@ -204,6 +204,9 @@ function gameUpdate() {
     var links = removeOldLinks(graph);
     graph.links = links;
     updateCommunities();
+
+
+    if (diseaseIsSpreading) friction = 0.7;
 
     force
         .nodes(nodes)

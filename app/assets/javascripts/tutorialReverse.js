@@ -1,27 +1,9 @@
 function guideRailsReverse() {
 
-
-
-    d3.select("#networkSxn").text("Networks");
-    d3.select("#epidemicSxn").text("Epidemics");
-    d3.select("#vaccineSxn").text("Vaccines");
-    d3.select("#quarantineSxn").text("Quarantine");
-
-
-
     var back = true;
     if (guideRailsPosition == 0) {
-
         backEnable = false;
         resetBack();
-
-
-        d3.select(".lessonText")
-            .text("Lesson 1: Networks")
-            .attr("opacity", 1)
-
-
-        d3.select(".menuBox").style("right", "0px")
 
         quarantineMode = false;
 
@@ -102,9 +84,7 @@ function guideRailsReverse() {
         stepWiseUpdate();
     }
 
-
-    if (guideRailsPosition == 3) {
-        d3.select(".menuBox").style("right", "-1000px")
+    if (guideRailsPosition == 4) {
 
         quarantineMode = false;
 
@@ -115,11 +95,6 @@ function guideRailsReverse() {
 
         d3.select(".redX").remove();
 
-
-        //return to pre-outbreak from post-outbreak
-
-//        d3.select(".timestepText").text("")
-//        d3.select(".timestepTicker").text("")
 
         graph.nodes = [];
         graph.links = [];
@@ -142,7 +117,8 @@ function guideRailsReverse() {
 
         removeDuplicateEdges(graph);
         tutorialUpdate();
-        guideRailsPosition++;
+
+        net2epiTransition();
 
     }
 
