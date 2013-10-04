@@ -2,10 +2,23 @@ function guideRailsReverse() {
 
     var back = true;
     if (guideRailsPosition == 0) {
+        trivialGraph = {}
+        trivialGraph.nodes = [];
+        trivialGraph.links = [];
+
+        d3.selectAll(".node").remove();
+        d3.selectAll(".link").remove();
+
+
+        quarantineMode = false;
+
+        diseaseIsSpreading = false;
+        timeToStop = true;
+
         backEnable = false;
         resetBack();
 
-        quarantineMode = false;
+
 
         d3.select(".guide")
             .attr("x",guideXCoord)
@@ -31,10 +44,12 @@ function guideRailsReverse() {
         d3.select("#vaccineSxn").attr("class","menuItemNormal")
         d3.select("#quarantineSxn").attr("class","menuItemNormal")
 
-        trivialGraph.nodes = [];
-        trivialGraph.links = [];
         trivialGraph.nodes.push(tailoredNodes[0]);
         stepWiseUpdate();
+
+
+
+
     }
 
     if (guideRailsPosition == 1) {
@@ -84,6 +99,12 @@ function guideRailsReverse() {
         stepWiseUpdate();
     }
 
+    if (guideRailsPosition == 3) {
+        timestep = 0;
+        guideRailsPosition++;
+        guideRails();
+    }
+
     if (guideRailsPosition == 4) {
 
         quarantineMode = false;
@@ -126,7 +147,7 @@ function guideRailsReverse() {
         quarantineMode = false;
         graph.links = [];
         graph.nodes.push(tailoredNodes[2]);
-        graph.nodes[5].status = "V";
+//        graph.nodes[5].status = "V";
 
         // add only the links that are connected to the highest degree node
         for (var i = 0; i < tailoredLinks.length; i++) {
@@ -136,6 +157,13 @@ function guideRailsReverse() {
             }
         }
         removeDuplicateEdges(graph);
+
+        for (var i = 0; i < graph.nodes.length; i++)  {
+            graph.nodes[i].status = "S";
+            graph.nodes[i].infectedBy = null;
+            graph.nodes[i].exposureTimestep = null;
+        }
+
         tutorialUpdate();
 
         loadSyringe();
@@ -155,6 +183,9 @@ function guideRailsReverse() {
             })
 
         keepFlashing = true;
+
+        d3.select(".startButton").remove();
+        slideOutMenuBox();
 
     }
 
@@ -189,10 +220,11 @@ function guideRailsReverse() {
         timeToStop = false;
         diseaseIsSpreading = false;
         finalStop = true;
-        endGame=false;
+        endGame = false;
 
 
     }
+
 
 
     guideRails(back);

@@ -61,6 +61,8 @@ var scoreMeter;
 
 var startButton;
 
+var fromMenu = false;
+
 backEnable = true;
 nextEnable = true;
 
@@ -142,7 +144,6 @@ function homeToTutorial() {
         .attr("class", "svg")
         .style("pointer-events", "all")
 //        .call(d3.behavior.zoom().on("zoom", redraw))
-        .append('svg:g');
 
 
     guideTextSVG = d3.select(".svg").append("svg:svg")
@@ -543,17 +544,9 @@ function tutorialTimesteps() {
         resetNext();
 
 
-
-
-
-
-
     }
 
 }
-
-
-
 
 
 function animatePathogens_thenUpdate() {
@@ -593,7 +586,6 @@ function detectCompletion() {
     }
     if (numberOfInfecteds == numberOfIndividuals) {
         timeToStop = true;
-        noReverse = false;
         diseaseIsSpreading = false;
     }
     else {
@@ -626,7 +618,7 @@ function timedRemoval(elementString) {
     d3.select(elementString).remove();
 }
 
-function slideOutStepwiseNav() {
+function slideOutStepwiseNav(menu) {
     d3.select(".stepwiseNavBar")
         .style("right", "-1000px")
 
@@ -634,47 +626,53 @@ function slideOutStepwiseNav() {
 
     window.setTimeout(createMenuBox(500), 550);
 
-    startButton = d3.select(".guideTextSVG").append("text")
-        .attr("class", "startButton")
-        .attr("font-size", 18)
-        .attr("opacity", 1)
-        .attr("x", nextX)
-        .attr("y", nextY)
-        .style("font-family", "Nunito")
-        .style("fill", "#707070")
-        .style("font-weight", 470)
-        .text("Start >")
-        .on("click", function() {
+    if (menu) {
 
-            if (guideRailsPosition == 3) {
-                slideOutMenuBox();
-                tutorialTimesteps();
+    }
+    else {
+        startButton = d3.select(".guideTextSVG").append("text")
+            .attr("class", "startButton")
+            .attr("font-size", 18)
+            .attr("opacity", 1)
+            .attr("x", nextX)
+            .attr("y", nextY)
+            .style("cursor", "pointer")
+            .style("font-family", "Nunito")
+            .style("fill", "#707070")
+            .style("font-weight", 470)
+            .text("Start >")
+            .on("click", function() {
 
-            }
+                if (guideRailsPosition == 3) {
+                    slideOutMenuBox();
+                    tutorialTimesteps();
 
-            if (guideRailsPosition == 4) {
-                slideOutMenuBox();
-                tutorialTimesteps();
-            }
-            if (guideRailsPosition == 8) {
-                slideOutMenuBox();
-                guideRailsPosition++;
-                guideRails();
-            }
+                }
 
-            if(guideRailsPosition == 9) {
-                loadSyringe();
-            }
+                if (guideRailsPosition == 4) {
+                    slideOutMenuBox();
+                    tutorialTimesteps();
+                }
+                if (guideRailsPosition == 8) {
+                    slideOutMenuBox();
+                    guideRailsPosition++;
+                    guideRails();
+                }
 
-            if (guideRailsPosition == 18) {
-                slideOutMenuBox();
-                guideRailsPosition++;
-                guideRails();
-            }
+                if(guideRailsPosition == 9) {
+                    loadSyringe();
+                }
 
-            d3.select(this).attr("opacity", "0")
+                if (guideRailsPosition == 18) {
+                    slideOutMenuBox();
+                    guideRailsPosition++;
+                    guideRails();
+                }
 
-        })
+                d3.select(this).attr("opacity", "0")
+
+            })
+    }
 
 }
 
@@ -721,20 +719,13 @@ function clearMenuBox() {
     d3.select(".menuBox").remove();
 }
 
-function resetVariables() {
-
-}
-
 function initMenuBox() {
     // network
     d3.select(".menuBox").append("div")
         .attr("class", "menuItemNormal")
         .attr("id", "networkSxn")
         .text("Networks")
-        .on("click", function() {
-            guideRailsPosition = 0;
-            guideRailsReverse();
-        })
+        .on("click", restoreNetworkLesson)
 
 
     // epidemic
@@ -742,201 +733,25 @@ function initMenuBox() {
         .attr("class", "menuItemNormal")
         .attr("id", "epidemicSxn")
         .text("Epidemics")
-        .on("click", function() {
-            guideRailsPosition = 3;
-            guideRailsReverse();
-        })
+        .on("click", restoreEpidemicLesson)
 
     // vaccinate
     d3.select(".menuBox").append("div")
         .attr("class", "menuItemNormal")
         .attr("id", "vaccinateSxn")
         .text("Vaccinate")
-        .on("click", function() {
-
-        })
+        .on("click", restoreVaccineLesson);
 
     //quarantine
     d3.select(".menuBox").append("div")
         .attr("class", "menuItemNormal")
         .attr("id", "quarantineSxn")
         .text("Quarantine")
-        .on("click", function() {
-
-
-        })
+        .on("click", restoreQuarantineLesson)
 
 
     d3.select(".menuBox")
         .style("right", "0px")
-}
-
-function dosinitMenuBox() {
-    d3.select(".menuBox").append("div")
-        .attr("class", "menuItemNormal")
-        .attr("id", "networkSxn")
-        .text("Networks")
-        .on("click", function() {
-            if (!timeToStop) {
-                pleaseWait = true;
-
-                if (quarantineMode==true) {
-                    d3.select("#quarantineSxn").attr("class", "menuItemBold")
-                        .text("Please Wait...")
-
-
-                }
-                else d3.select("#epidemicSxn").attr("class", "menuItemBold")
-                    .text("Please Wait...")
-            }
-            else {
-
-                guideRailsPosition = 0;
-                guideRailsReverse();
-
-                menuColors = ["#ffffff","#ffffff"];
-
-            }
-
-
-        })
-
-    d3.select(".menuBox").append("div")
-
-        .attr("class", "menuItemNormal")
-        .attr("id", "epidemicSxn")
-        .text("Epidemics")
-        .on("click", function() {
-
-
-            if (!timeToStop) {
-                pleaseWait = true;
-
-                if (quarantineMode==true) {
-                    d3.select("#quarantineSxn").attr("class", "menuItemBold")
-                        .text("Please Wait...")
-                    return;
-
-                }
-            }
-
-            timeToStop = false;
-            endGame = false;
-            finalStop = false;
-            hideSyringe();
-            guideRailsPosition = 3;
-            net2epiTransition();
-
-            menuColors = ["#ffffff","#ffffff"];
-
-            nextEnable = true;
-            backEnable = false;
-            resetNext();
-            resetBack();
-
-
-
-        })
-
-    d3.select(".menuBox").append("div")
-        .attr("class", "menuItemNormal")
-        .attr("id", "vaccineSxn")
-        .text("Vaccines")
-        .on("click", function() {
-
-            if (guideRailsPosition == 10) {
-                return;
-            }
-
-            if (!timeToStop) {
-                pleaseWait = true;
-
-                if (quarantineMode==true) {
-                    d3.select("#quarantineSxn").attr("class", "menuItemBold")
-                        .text("Please Wait...")
-
-                }
-                else d3.select("#epidemicSxn").attr("class", "menuItemBold")
-                    .text("Please Wait...")
-            }
-            else {
-
-
-                guideRailsPosition = 10;
-                epi2VaxTransition();
-
-                nextEnable = true;
-                backEnable = false;
-                resetNext();
-                resetBack();
-
-                d3.select("#networkSxn").attr("class","menuItemNormal");
-                d3.select("#epidemicSxn").attr("class", "menuItemNormal")
-                d3.select("#vaccineSxn").attr("class","menuItemBold")
-                d3.select("#quarantineSxn").attr("class","menuItemNormal")
-
-                menuColors = ["#ffffff","#ffffff"];
-
-
-            }
-
-        })
-
-    d3.select(".menuBox").append("div")
-        .attr("class", "menuItemNormal")
-        .attr("id", "quarantineSxn")
-        .text("Quarantine")
-        .on("click", function() {
-
-            if (!timeToStop) {
-                pleaseWait = true;
-                if (quarantineMode==true) {
-                    d3.select("#quarantineSxn").attr("class", "menuItemBold")
-                        .text("Please Wait...")
-
-                } else d3.select("#epidemicSxn").attr("class", "menuItemBold")
-                    .text("Please Wait...")
-            }
-            else {
-
-
-                guideRailsPosition = 18;
-                guideRails();
-                loadSyringe();
-
-                d3.select(".nextArrow")
-                    .transition()
-                    .duration(500)
-                    .attr("opacity", 1)
-                    .text("Next: Quarantine >")
-                d3.select("#networkSxn").attr("class","menuItemNormal");
-                d3.select("#epidemicSxn").attr("class", "menuItemNormal")
-                d3.select("#vaccineSxn").attr("class","menuItemNormal")
-                d3.select("#quarantineSxn").attr("class","menuItemBold")
-
-                menuColors = ["#ffffff","#ffffff"];
-
-                d3.select(".nextArrow")
-                    .attr("x", nextX)
-                    .on("click", function() {
-                        guideRailsPosition++;
-                        guideRails();
-                    })
-
-                d3.select(".backArrow")
-                    .attr("x", backX)
-                    .on("click", function() {
-                        guideRailsPosition--;
-                        guideRailsReverse();
-                    })
-            }
-
-        })
-
-        d3.select(".menuBox")
-        .style("right", "0px")
-
-
 }
 
 function initNavBar() {
@@ -983,7 +798,7 @@ function initNavBar() {
         })
         .style("font-family", "Nunito")
         .attr("opacity", 1)
-        .style("font-weight", 470)
+        .style("font-weight", 500)
         .attr("font-size", 18)
         .text("Next >")
         .on("click", function() {
@@ -1006,14 +821,144 @@ function initNavBar() {
         .style("font-family", "Nunito")
         .style("fill", "white")
         .attr("opacity", 0)
-        .style("font-weight", 470)
+        .style("font-weight", 500)
         .attr("font-size", 18)
         .text("Menu")
+        .style("cursor", "pointer")
+        .on("click", menuConfirm)
 
     d3.select(".menuNav")
         .transition()
         .duration(500)
         .attr("opacity", 1)
+
+}
+
+function menuConfirm() {
+
+
+    d3.select(".svg").append("text")
+        .attr("class", "confirmHEAD")
+        .attr("x", window.innerWidth/4 + 50)
+        .attr("y", window.innerHeight/2)
+        .style("font-family", "Nunito")
+        .style("fill", "black")
+        .style("font-weight", 700)
+        .style("font-size", 35)
+        .text("Skip Lesson?")
+
+
+    d3.select(".svg").append("text")
+        .attr("class", "confirmYES")
+        .attr("x", window.innerWidth/4 + 90)
+        .attr("y", window.innerHeight/2 + 50)
+        .style("font-family", "Nunito")
+        .style("fill", "black")
+        .style("font-weight", 500)
+        .style("font-size", 28)
+        .text("Yes")
+        .on("click", function() {
+            d3.select(".confirmYES").remove();
+            d3.select(".confirmNO").remove();
+            d3.select(".confirmHEAD").remove();
+
+            wipeOut();
+
+            svg = d3.select("body").append("svg")
+//        .attr("width", width)
+//        .attr("height", height)
+                .attr({
+                    "width": "100%",
+                    "height": "85%"
+                })
+                .attr("viewBox", "0 0 " + width + " " + height )
+//        .attr("preserveAspectRatio", "xMidYMid meet")
+                .attr("class", "svg")
+                .style("pointer-events", "all")
+//        .call(d3.behavior.zoom().on("zoom", redraw))
+
+
+            guideTextSVG = d3.select(".svg").append("svg:svg")
+                .attr("class", "guideTextSVG")
+                .attr("x", 0)
+                .attr("y", 500)
+
+
+            guide = d3.select(".guideTextSVG").append("text")
+                .attr("class", "guide")
+                .attr("font-size", 28)
+                .attr("opacity", 0)
+                .attr("x", guideXCoord)
+                .attr("y", guideYCoord)
+                .style("font-family", "Nunito")
+                .style("fill", "#707070")
+                .style("font-weight", 300)
+                .text("Please select a lesson from")
+
+            lessonText = d3.select(".svg").append("text")
+                .attr("class", "lessonText")
+                .attr("x", 35)
+                .attr("y", 30)
+                .style("font-size", 28)
+                .style("font-family", "Nunito")
+                .style("fill", "#707070")
+                .style("font-weight", 700)
+                .attr("opacity", 1)
+                .text("Lesson #: ")
+
+
+            guide2 = d3.select(".guideTextSVG").append("text")
+                .attr("class", "guide2")
+                .attr("x",guideXCoord).attr("y",guideYCoord+guide2YCoordChange)
+                .attr("font-size", 28)
+                .attr("opacity", 0)
+                .style("font-family", "Nunito")
+                .style("fill", "#707070")
+                .style("font-weight", 300)
+                .text("the menu bar below.")
+
+            centerElement(guide, "guide")
+            centerElement(guide2, "guide2")
+
+            d3.select(".guide").attr("opacity", 1)
+            d3.select(".guide2").attr("opacity", 1)
+
+            d3.select("body").append("div")
+                .attr("class", "vaxLogoDiv")
+                .text("VAX!")
+
+            d3.select(".vaxLogoDiv")
+                .style("visibility", "visible")
+
+            d3.select(".vaxLogoDiv")
+                .style("left", "-12px")
+
+            createMenuBox(1);
+
+            keepFlashing = false;
+
+
+        })
+
+
+    d3.select(".svg").append("text")
+        .attr("class", "confirmNO")
+        .attr("x", window.innerWidth/4 + 150 + 30)
+        .attr("y", window.innerHeight/2 + 50)
+        .style("font-family", "Nunito")
+        .style("fill", "black")
+        .style("font-weight", 500)
+        .style("font-size", 28)
+        .style("cursor", "pointer")
+        .text("No")
+        .on("click", function() {
+            d3.select(".confirmYES").remove();
+            d3.select(".confirmNO").remove();
+            d3.select(".confirmHEAD").remove();
+        })
+
+
+
 
 }
 
@@ -1030,6 +975,7 @@ function initTutorial() {
         .attr("opacity", 1)
         .attr("x", nextX)
         .attr("y", nextY)
+        .style("cursor", "pointer")
         .style("font-family", "Nunito")
         .style("fill", "#707070")
         .style("font-weight", 470)
@@ -1102,8 +1048,6 @@ function initTutorial() {
     d3.select(".lessonText")
         .attr("opacity", 1)
 
-    d3.select("#networkSxn").attr("class","menuItemBold")
-
     d3.select(".vaxLogoDiv")
         .style("visibility", "visible")
 
@@ -1111,6 +1055,7 @@ function initTutorial() {
         .style("left", "-12px")
 
     createMenuBox(1);
+
 
 }
 
@@ -1341,8 +1286,10 @@ function redraw() {
 function quarantineUpdate() {
     var nodes = removeVaccinatedNodes(graph);
     var links = removeOldLinks(graph);
+
     graph.links = links;
     updateCommunities();
+
 
 
     force
@@ -1421,6 +1368,7 @@ function quarantineUpdate() {
 //    d3.select(".timestepTicker")
 //        .text(timestep)
 //        .attr("opacity", 1);
+
 }
 
 function countSaved() {
