@@ -144,10 +144,13 @@ function guideRailsReverse() {
     }
 
     if (guideRailsPosition == 9) {
+        graph.nodes = [];
         quarantineMode = false;
         graph.links = [];
+
+
         graph.nodes.push(tailoredNodes[2]);
-//        graph.nodes[5].status = "V";
+
 
         // add only the links that are connected to the highest degree node
         for (var i = 0; i < tailoredLinks.length; i++) {
@@ -156,7 +159,10 @@ function guideRailsReverse() {
                 graph.links.push(link);
             }
         }
+
+
         removeDuplicateEdges(graph);
+
 
         for (var i = 0; i < graph.nodes.length; i++)  {
             graph.nodes[i].status = "S";

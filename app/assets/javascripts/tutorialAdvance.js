@@ -85,17 +85,17 @@ function wipeOut() {
     d3.select(".stepwiseNavBar").remove()
     d3.select(".svg").remove()
     d3.select(".vaxLogoDiv").remove()
-    d3.selectAll(".node").remove();
+//    d3.selectAll(".node").remove();
+//
+//    graph.nodes = [];
+//    graph.links = [];
+//
+//    trivialGraph.nodes = [];
+//    trivialGraph.links = [];
 
-    graph.nodes = [];
-    graph.links = [];
-
-    trivialGraph.nodes = [];
-    trivialGraph.links = [];
-
-//    if (guideRailsPosition >= 18) {       // Beyond position 18, graph object is small world.
-//        resetToSmallGraph();              // Therefore it needs to be reset if menu hopping.
-//    }
+    if (graph.nodes.length > 30) {
+        resetToSmallGraph();
+    }
 
 }
 
@@ -113,6 +113,7 @@ function resetToSmallGraph() {
 }
 
 function restoreVaccineLesson() {
+
     guideRailsPosition = 9;
     guideRailsReverse();
 }
@@ -284,6 +285,7 @@ function restoreNetworkLesson() {
 }
 
 function restoreEpidemicLesson() {
+
 
 
     hideSyringe();
@@ -475,6 +477,25 @@ function vax2QuarantineTransition() {
         .transition()
         .duration(500)
         .attr("opacity", 1);
+
+    startButton = d3.select(".guideTextSVG").append("text")
+        .attr("class", "startButton")
+        .attr("font-size", 18)
+        .attr("opacity", 1)
+        .attr("x", nextX)
+        .attr("y", nextY)
+        .style("cursor", "pointer")
+        .style("font-family", "Nunito")
+        .style("fill", "#707070")
+        .style("font-weight", 470)
+        .text("Start >")
+        .on("click", function() {
+            guideRailsPosition++;
+            guideRails();
+            slideOutMenuBox();
+            d3.select(this).transition().duration(500).attr("opacity", 0)
+            d3.select(this).transition().duration(500).text("")
+        })
 }
 
 

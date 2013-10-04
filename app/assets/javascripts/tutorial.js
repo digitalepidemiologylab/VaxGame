@@ -217,6 +217,7 @@ function tutorialUpdate() {
 
     var nodes = removeVaccinatedNodes(graph);
     var links = removeOldLinks(graph);
+
     graph.links = links;
     updateCommunities();
 
@@ -936,6 +937,10 @@ function menuConfirm() {
             createMenuBox(1);
 
             keepFlashing = false;
+
+
+
+
 
 
         })
