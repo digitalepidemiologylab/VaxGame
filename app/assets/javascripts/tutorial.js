@@ -840,25 +840,45 @@ function initNavBar() {
 }
 
 function menuConfirm() {
+
+    d3.select(".svg").append("rect")
+        .attr("x", window.innerWidth/4 + 62 + 5)
+        .attr("y", window.innerHeight/2 - 300 + 7)
+        .attr("width", 300)
+        .attr("height", 125)
+        .attr("fill", "#838383")
+
+    d3.select(".svg").append("rect")
+        .attr("class", "confirmBOX")
+        .attr("x", window.innerWidth/4 + 62)
+        .attr("y", window.innerHeight/2 - 300)
+        .attr("width", 300)
+        .attr("height", 125)
+        .attr("fill", "#85bc99")
+
+
+
+
     d3.select(".svg").append("text")
         .attr("class", "confirmHEAD")
-        .attr("x", window.innerWidth/4 + 50)
-        .attr("y", window.innerHeight/2)
+        .attr("x", window.innerWidth/4 + 100)
+        .attr("y", window.innerHeight/2 - 250)
         .style("font-family", "Nunito")
-        .style("fill", "black")
-        .style("font-weight", 700)
+        .style("fill", "white")
+        .style("font-weight", 500)
         .style("font-size", 35)
         .text("Skip Lesson?")
 
 
     d3.select(".svg").append("text")
         .attr("class", "confirmYES")
-        .attr("x", window.innerWidth/4 + 90)
-        .attr("y", window.innerHeight/2 + 50)
+        .attr("x", window.innerWidth/4 + 140)
+        .attr("y", window.innerHeight/2 - 200)
         .style("font-family", "Nunito")
-        .style("fill", "black")
+        .style("fill", "#707070")
         .style("font-weight", 500)
         .style("font-size", 28)
+        .style("cursor", "pointer")
         .text("Yes")
         .on("click", function() {
             d3.select(".confirmYES").remove();
@@ -946,10 +966,10 @@ function menuConfirm() {
 
     d3.select(".svg").append("text")
         .attr("class", "confirmNO")
-        .attr("x", window.innerWidth/4 + 150 + 30)
-        .attr("y", window.innerHeight/2 + 50)
+        .attr("x", window.innerWidth/4 + 240)
+        .attr("y", window.innerHeight/2 - 200)
         .style("font-family", "Nunito")
-        .style("fill", "black")
+        .style("fill", "#707070")
         .style("font-weight", 500)
         .style("font-size", 28)
         .style("cursor", "pointer")
