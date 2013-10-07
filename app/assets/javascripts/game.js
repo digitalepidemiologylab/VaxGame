@@ -197,16 +197,23 @@ function tick() {
 
 }
 
+function countSavedGAME() {
+    var counter = 0;
+    for (var i = 0; i < graph.nodes.length; i++) {
+        if (graph.nodes[i].status == "S") counter++;
+    }
+    return counter;
+}
+
 function gameUpdate() {
+    friction = 0.83;
+
     d3.select(".vaccineCounterText").text(numberOfVaccines)
     d3.select(".quarantineCounterText").text("x" + numberQuarantined)
     var nodes = removeVaccinatedNodes(graph);
     var links = removeOldLinks(graph);
     graph.links = links;
     updateCommunities();
-
-
-    if (diseaseIsSpreading) friction = 0.7;
 
     force
         .nodes(nodes)
@@ -246,13 +253,6 @@ function gameUpdate() {
 
     // Exit any old nodes.
     node.exit().remove();
-
-
-
-    if (!diseaseIsSpreading && numberQuarantined == 1) {
-        diseaseIsSpreading = true;
-        gameTimesteps();
-    }
 }
 
 function gameTimesteps() {
@@ -267,19 +267,6 @@ function gameTimesteps() {
     }
     else {
         animateGamePathogens_thenUpdate();
-    }
-
-    if (timeToStop && !diseaseIsSpreading) {
-        tallySaved();
-        //d3.select(".gameSVG").select("g").style("visibility","hidden")
-
-    }
-}
-
-function tallySaved() {
-    for (var nodeIndex = 0; nodeIndex < graph.nodes.length; nodeIndex++) {
-        var node = graph.nodes[nodeIndex];
-        if (node.status == "S") numberSaved++;
     }
 }
 
@@ -494,7 +481,9 @@ function initScoreRecap() {
         .attr("x", backX)
         .attr("y", 300)
         .attr("opacity", 1)
-        .text("Untreated: " + numberSaved)
+        .text("Untreated: " + countSavedGAME())
+
+    numberSaved = countSavedGAME();
 
     infectedHeight = (1.00 - ((numberVaccinated+numberQuarantined+numberSaved)/numberOfIndividuals).toFixed(2)) * (400);
     uninfectedHeight = ((numberVaccinated+numberQuarantined+numberSaved)/numberOfIndividuals).toFixed(2) * (400)
