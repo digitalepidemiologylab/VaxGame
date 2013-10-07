@@ -98,7 +98,9 @@ function infection() {
     }
     else {
         detectCompletion();
-        if (timeToStop) return;
+        if (timeToStop) {
+            return;
+        }
         rerun = true;
         transmissionRate = 1;
         infection();

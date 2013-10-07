@@ -47,6 +47,17 @@ function resetNext() {
     })
 }
 
+function resetMenu() {
+    d3.select(".menuNav")
+        .attr("fill", function() {
+            if (diseaseIsSpreading) return "#838383";
+            else return "white";
+        })
+        .on("click", function() {
+            if (!diseaseIsSpreading) menuConfirm();
+        })
+}
+
 function disableBack() {
     d3.select(".backArrow")
         .attr("fill", "#838383")
@@ -124,6 +135,28 @@ function restoreQuarantineLesson() {
 }
 
 function restoreNetworkLesson() {
+    graph.nodes = [];
+    graph.links = [];
+
+    for (var i = 0; i < tailoredNodes.length; i++) {
+        tailoredNodes[i].status = "S"
+        tailoredNodes[i].infectedBy = null;
+        tailoredNodes[i].exposureTimestep = null;
+        graph.nodes.push(tailoredNodes[i]);
+    }
+
+    for (var i = 0; i < tailoredLinks.length; i++) {
+        graph.links.push(tailoredLinks[i]);
+    }
+
+    removeDuplicateEdges(graph);
+
+    quarantineMode = false;
+    vaccinateMode = false;
+    diseaseIsSpreading = false;
+    timeToStop = false;
+    hideQuarantine();
+
     wipeOut();
     svg = d3.select("body").append("svg")
 //        .attr("width", width)
@@ -287,7 +320,6 @@ function restoreNetworkLesson() {
 function restoreEpidemicLesson() {
 
 
-
     hideSyringe();
     hideQuarantine();
     quarantineMode = false;
@@ -342,6 +374,7 @@ function restoreEpidemicLesson() {
             slideOutMenuBox();
             tutorialTimesteps();
             diseaseIsSpreading=true;
+            resetMenu();
             nextEnable = false;
             backEnable = false;
             disableNext();
@@ -423,8 +456,6 @@ function epi2VaxTransition() {
         .transition()
         .duration(500)
         .attr("opacity", 1);
-
-
 
 
 }
@@ -678,15 +709,14 @@ function guideRails(back) {
         if (back) tutorialTimesteps();
 
         diseaseIsSpreading=true;
+        resetMenu();
+
+
         nextEnable = false;
         backEnable = false;
         disableNext();
         disableBack();
         timeToStop = false;
-
-
-
-
 
     }
 
@@ -984,7 +1014,6 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-        removeDuplicateEdges(graph);
         tutorialUpdate();
     }
 
@@ -1360,6 +1389,9 @@ function guideRails(back) {
 
         indexCase.status = "I";
         diseaseIsSpreading = true;
+
+        resetMenu();
+
         timestep = 0;
         timeToStop = false;
         postInitialOutbreak = false;
@@ -1457,7 +1489,6 @@ function guideRails(back) {
         hideSyringe();
         loadQuarantine();
 
-
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
@@ -1488,6 +1519,7 @@ function guideRails(back) {
     if (guideRailsPosition == 21) {
         nextEnable = true;
         resetNext();
+
 
         d3.select(".guide")
             .attr("x", guideXCoord)

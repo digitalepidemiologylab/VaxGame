@@ -144,32 +144,20 @@ function guideRailsReverse() {
     }
 
     if (guideRailsPosition == 9) {
-        graph.nodes = [];
+        force.stop();
+
         quarantineMode = false;
+        hideQuarantine();
+        graph.nodes = [];
         graph.links = [];
 
+        for (var i = 0; i < tailoredNodes.length; i++) {
+            tailoredNodes[i].status = "S"
+            tailoredNodes[i].infectedBy = null;
+            tailoredNodes[i].exposureTimestep = null;
+        }
 
         graph.nodes.push(tailoredNodes[2]);
-
-
-        // add only the links that are connected to the highest degree node
-        for (var i = 0; i < tailoredLinks.length; i++) {
-            var link = tailoredLinks[i];
-            if (link.source.id == tailoredNodes[2].id || link.target.id == tailoredNodes[2].id) {
-                graph.links.push(link);
-            }
-        }
-
-
-        removeDuplicateEdges(graph);
-
-
-        for (var i = 0; i < graph.nodes.length; i++)  {
-            graph.nodes[i].status = "S";
-            graph.nodes[i].infectedBy = null;
-            graph.nodes[i].exposureTimestep = null;
-        }
-
         tutorialUpdate();
 
         loadSyringe();

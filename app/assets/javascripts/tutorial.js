@@ -543,6 +543,7 @@ function tutorialTimesteps() {
         nextEnable = true;
         resetBack();
         resetNext();
+        resetMenu();
 
 
     }
@@ -820,24 +821,25 @@ function initNavBar() {
         .attr("x", 215)
         .attr("y", 20)
         .style("font-family", "Nunito")
-        .style("fill", "white")
+        .attr("fill", function() {
+            if (diseaseIsSpreading) return "#838383";
+            else return "white";
+        })
         .attr("opacity", 0)
         .style("font-weight", 500)
         .attr("font-size", 18)
         .text("Menu")
         .style("cursor", "pointer")
-        .on("click", menuConfirm)
-
+        .on("click", function() {
+            if (!diseaseIsSpreading) menuConfirm();
+        })
     d3.select(".menuNav")
         .transition()
         .duration(500)
         .attr("opacity", 1)
-
 }
 
 function menuConfirm() {
-
-
     d3.select(".svg").append("text")
         .attr("class", "confirmHEAD")
         .attr("x", window.innerWidth/4 + 50)
@@ -866,17 +868,13 @@ function menuConfirm() {
             wipeOut();
 
             svg = d3.select("body").append("svg")
-//        .attr("width", width)
-//        .attr("height", height)
                 .attr({
                     "width": "100%",
                     "height": "85%"
                 })
                 .attr("viewBox", "0 0 " + width + " " + height )
-//        .attr("preserveAspectRatio", "xMidYMid meet")
                 .attr("class", "svg")
                 .style("pointer-events", "all")
-//        .call(d3.behavior.zoom().on("zoom", redraw))
 
 
             guideTextSVG = d3.select(".svg").append("svg:svg")
@@ -1231,7 +1229,6 @@ function activateVaccinationMode() {
 }
 
 function activateQuarantineMode() {
-
     friction = 0.9;
     vaccinateMode = false;
     quarantineMode = true;
@@ -1251,6 +1248,7 @@ function startQuarantineOutbreak() {
 
     graph.nodes[5].status = "I";
     diseaseIsSpreading = true;
+    resetMenu();
     timestep = 0;
     timeToStop = false;
     postInitialOutbreak = true;
@@ -1276,6 +1274,7 @@ function quarantineTimesteps() {
         animateQuarantinePathogens_thenUpdate();
         nextEnable = true;
         resetNext();
+        resetMenu();
 
     }
 }
