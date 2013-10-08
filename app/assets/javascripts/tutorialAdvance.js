@@ -189,7 +189,7 @@ function restoreNetworkLesson() {
     lessonText = d3.select(".svg").append("text")
         .attr("class", "lessonText")
         .attr("x", 35)
-        .attr("y", 30)
+        .attr("y", 80)
         .style("font-size", 28)
         .style("font-family", "Nunito")
         .style("fill", "#707070")
@@ -1493,13 +1493,13 @@ function guideRails(back) {
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("Select the 'Quarantine' tool in the upper right and click nodes to")
+            .text("Select the 'Quarantine' tool in the upper right and click uninfected nodes")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord + guide2YCoordChange)
             .attr("opacity", 0)
-            .text("quarantine. A new round of infections begins after every quarantine.")
+            .text("to quarantine. A new round of infections begins after every quarantine.")
 
         centerElement(guide, "guide");
         centerElement(guide2, "guide2");
