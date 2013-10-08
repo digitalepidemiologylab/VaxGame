@@ -642,6 +642,11 @@ function slideOutStepwiseNav(menu) {
 
                 if (guideRailsPosition == 4) {
                     slideOutMenuBox();
+                    var indexPatientID = Math.floor(Math.random() * numberOfIndividuals);
+                    graph.nodes[indexPatientID].status = "I";
+                    removeDuplicateEdges(graph);
+                    diseaseIsSpreading=true;
+                    tutorialUpdate();
                     tutorialTimesteps();
                 }
                 if (guideRailsPosition == 8) {
@@ -713,6 +718,7 @@ function clearMenuBox() {
 }
 
 function initMenuBox() {
+
     // network
     d3.select(".menuBox").append("div")
         .attr("class", "menuItemNormal")
@@ -732,7 +738,7 @@ function initMenuBox() {
     d3.select(".menuBox").append("div")
         .attr("class", "menuItemNormal")
         .attr("id", "vaccinateSxn")
-        .text("Vaccinate")
+        .text("Vaccines")
         .on("click", restoreVaccineLesson);
 
     //quarantine
@@ -767,7 +773,7 @@ function initMenuBox() {
         d3.select("#quarantineSxn").attr("class","menuItemNormal")
     }
 
-    if (guideRailsPosition == 18) {
+    if (guideRailsPosition == 18 || guideRailsPosition == 19) {
         d3.select("#networkSxn").attr("class","menuItemNormal")
         d3.select("#epidemicSxn").attr("class","menuItemNormal")
         d3.select("#vaccinateSxn").attr("class","menuItemNormal")
@@ -794,14 +800,14 @@ function initNavBar() {
         .style("font-weight", 500)
         .attr("font-size", 18)
         .text('< Back')
-        .on("mouseover", function(d) {
-            if (!backEnable) return;
-            d3.select(this).style("fill", "#2692F2")
-        })
-        .on("mouseout", function(d) {
-            if (!backEnable) return;
-            d3.select(this).style("fill", "white")
-        })
+//        .on("mouseover", function(d) {
+//            if (!backEnable) return;
+//            d3.select(this).style("fill", "#2692F2")
+//        })
+//        .on("mouseout", function(d) {
+//            if (!backEnable) return;
+//            d3.select(this).style("fill", "white")
+//        })
         .on("click", function() {
             if (backEnable) {
                 if (diseaseIsSpreading) return;
@@ -827,20 +833,19 @@ function initNavBar() {
             if (nextEnable) return "white";
             else return "#838383";
         })
-
         .style("font-family", "Nunito")
         .attr("opacity", 1)
         .style("font-weight", 500)
         .attr("font-size", 18)
         .text("Next >")
-        .on("mouseover", function(d) {
-            if (!nextEnable) return;
-            d3.select(this).style("fill", "#2692F2")
-        })
-        .on("mouseout", function(d) {
-            if (!nextEnable) return;
-            d3.select(this).style("fill", "white")
-        })
+//        .on("mouseover", function(d) {
+//            if (!nextEnable) return;
+//            d3.select(this).style("fill", "#2692F2")
+//        })
+//        .on("mouseout", function(d) {
+//            if (!nextEnable) return;
+//            d3.select(this).style("fill", "white")
+//        })
         .on("click", function() {
             if (nextEnable) {
                 if (diseaseIsSpreading) return;
@@ -931,6 +936,8 @@ function menuConfirm() {
             d3.select(".confirmNO").remove();
             d3.select(".confirmHEAD").remove();
 
+            hideQuarantine();
+            hideSyringe();
             wipeOut();
 
             svg = d3.select("body").append("svg")
@@ -1260,7 +1267,7 @@ function flashNode() {
                 }
             }
         });
-    if (keepFlashing) window.setTimeout(flashNode, 500);
+    if (keepFlashing && guideRailsPosition == 9) window.setTimeout(flashNode, 500);
 }
 
 function flashNodes() {

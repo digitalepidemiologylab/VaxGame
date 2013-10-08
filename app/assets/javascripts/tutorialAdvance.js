@@ -8,14 +8,14 @@ function resetBack() {
             if (backEnable) return "white";
             else return "#838383";
         })
-        .on("mouseover", function(d) {
-            if (!backEnable) return;
-            d3.select(this).style("fill", "#2692F2")
-        })
-        .on("mouseout", function(d) {
-            if (!backEnable) return;
-            d3.select(this).style("fill", "white")
-        })
+//        .on("mouseover", function(d) {
+//            if (!backEnable) return;
+//            d3.select(this).style("fill", "#2692F2")
+//        })
+//        .on("mouseout", function(d) {
+//            if (!backEnable) return;
+//            d3.select(this).style("fill", "white")
+//        })
         .on("click", function() {
             if (backEnable) {
                 if (diseaseIsSpreading) return;
@@ -43,14 +43,14 @@ function resetNext() {
             else return "#838383";
         })
         .text("Next >")
-        .on("mouseover", function(d) {
-            if (!nextEnable) return;
-            d3.select(this).style("fill", "#2692F2")
-        })
-        .on("mouseout", function(d) {
-            if (!nextEnable) return;
-            d3.select(this).style("fill", "white")
-        })
+//        .on("mouseover", function(d) {
+//            if (!nextEnable) return;
+//            d3.select(this).style("fill", "#2692F2")
+//        })
+//        .on("mouseout", function(d) {
+//            if (!nextEnable) return;
+//            d3.select(this).style("fill", "white")
+//        })
         .on("click", function() {
             if (nextEnable) {
                 if (diseaseIsSpreading) return;
@@ -140,17 +140,63 @@ function resetToSmallGraph() {
 }
 
 function restoreVaccineLesson() {
+    d3.select(".startButton").remove();
+
+    d3.select(".guideTextSVG").append("text")
+        .attr("class", "startButton")
+        .attr("font-size", 18)
+        .attr("opacity", 1)
+        .attr("x", nextX)
+        .attr("y", nextY)
+        .style("cursor", "pointer")
+        .style("font-family", "Nunito")
+        .style("fill", "#707070")
+        .style("font-weight", 470)
+        .text("Start >")
+        .on("click", function() {
+            slideOutMenuBox();
+            d3.select(this).remove();
+        })
 
     guideRailsPosition = 9;
     guideRailsReverse();
+
+    d3.select("#networkSxn").attr("class","menuItemNormal")
+    d3.select("#epidemicSxn").attr("class","menuItemNormal")
+    d3.select("#vaccinateSxn").attr("class","menuItemBold")
+    d3.select("#quarantineSxn").attr("class","menuItemNormal")
+
+
 }
 
 function restoreQuarantineLesson() {
+    d3.select(".startButton").remove();
+
+
+    diseaseIsSpreading = false;
+    backEnable = false;
+    nextEnable = true;
+    resetBack();
+    resetNext();
+
     guideRailsPosition = 18;
     vax2QuarantineTransition();
+
+    d3.select("#networkSxn").attr("class","menuItemNormal")
+    d3.select("#epidemicSxn").attr("class","menuItemNormal")
+    d3.select("#vaccinateSxn").attr("class","menuItemNormal")
+    d3.select("#quarantineSxn").attr("class","menuItemBold")
 }
 
 function restoreNetworkLesson() {
+
+    d3.select(".startButton").remove();
+
+    d3.select("#networkSxn").attr("class","menuItemBold")
+    d3.select("#epidemicSxn").attr("class","menuItemNormal")
+    d3.select("#vaccinateSxn").attr("class","menuItemNormal")
+    d3.select("#quarantineSxn").attr("class","menuItemNormal")
+
     graph.nodes = [];
     graph.links = [];
 
@@ -230,9 +276,8 @@ function restoreNetworkLesson() {
     trivialGraph.links = []
 
     trivialGraph.nodes.push(tailoredNodes[0]);
+    d3.selectAll(".node").style("fill", "#2fa0ef")
     stepWiseUpdate();
-
-
 
 
     d3.select("body").append("div")
@@ -334,16 +379,17 @@ function restoreNetworkLesson() {
 }
 
 function restoreEpidemicLesson() {
+    d3.select(".startButton").remove();
+
+    d3.select("#networkSxn").attr("class","menuItemNormal")
+    d3.select("#epidemicSxn").attr("class","menuItemBold")
+    d3.select("#vaccinateSxn").attr("class","menuItemNormal")
+    d3.select("#quarantineSxn").attr("class","menuItemNormal")
 
 
     hideSyringe();
     hideQuarantine();
     quarantineMode = false;
-
-    d3.select("#networkSxn").attr("class","menuItemNormal");
-    d3.select("#epidemicSxn").attr("class", "menuItemBold")
-    d3.select("#vaccineSxn").attr("class","menuItemNormal")
-    d3.select("#quarantineSxn").attr("class","menuItemNormal")
 
     d3.select(".redX").remove();
 
@@ -690,7 +736,6 @@ function guideRails(back) {
     if (guideRailsPosition == 4) {
         d3.select(".lessonText").text("Lesson 2: Epidemics")
 
-
         removeDuplicateEdges(graph);
 
         d3.select(".guide")
@@ -718,14 +763,28 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-        var indexPatientID = Math.floor(Math.random() * numberOfIndividuals);
-        graph.nodes[indexPatientID].status = "I";
-        removeDuplicateEdges(graph);
-        tutorialUpdate();
+        d3.select(".startButton")
+            .on("click", function() {
+                var indexPatientID = Math.floor(Math.random() * numberOfIndividuals);
+                graph.nodes[indexPatientID].status = "I";
+                removeDuplicateEdges(graph);
+                diseaseIsSpreading=true;
+                tutorialUpdate();
+                slideOutMenuBox();
+                tutorialTimesteps();
+                d3.select(this).remove()
+            })
 
-        if (back) tutorialTimesteps();
+        if (back) {
+            var indexPatientID = Math.floor(Math.random() * numberOfIndividuals);
+            graph.nodes[indexPatientID].status = "I";
+            removeDuplicateEdges(graph);
+            diseaseIsSpreading=true;
 
-        diseaseIsSpreading=true;
+            tutorialUpdate();
+            tutorialTimesteps();
+        }
+
         resetMenu();
 
 
@@ -1633,9 +1692,15 @@ function guideRails(back) {
 
         initRecap();
 
+        hideQuarantine();
 
         menuColors = ["#007138","#ffffff"];
-        window.setInterval(flashFullGame, 300);
+
+        d3.select(".nextArrow")
+            .text("Play!")
+            .on("click", function() {
+                window.location.href = "http://vax.herokuapp.com/game"
+            })
     }
 
 }

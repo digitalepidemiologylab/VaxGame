@@ -19,7 +19,6 @@ function guideRailsReverse() {
         resetBack();
 
 
-
         d3.select(".guide")
             .attr("x",guideXCoord)
             .attr("y",guideYCoord)
@@ -143,6 +142,7 @@ function guideRailsReverse() {
 
     }
 
+
     if (guideRailsPosition == 9) {
         force.stop();
 
@@ -178,8 +178,12 @@ function guideRailsReverse() {
 
         keepFlashing = true;
 
-        d3.select(".startButton").remove();
-        slideOutMenuBox();
+        d3.select(".startButton").on("click", function() {
+            slideOutMenuBox();
+            d3.select(".startButton").remove();
+        })
+
+
 
     }
 
