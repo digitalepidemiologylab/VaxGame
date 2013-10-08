@@ -172,6 +172,8 @@ function homeToTutorial() {
         .text("Lesson 1: Networks")
 
 
+
+
     guide2 = d3.select(".guideTextSVG").append("text")
         .attr("class", "guide2")
         .attr("x",guideXCoord).attr("y",guideYCoord+guide2YCoordChange)
@@ -601,19 +603,6 @@ function detectCompletion() {
         }
     }
 
-    if (timeToStop & pleaseWait & !quarantineMode) {
-        d3.select("#epidemicSxn").attr("class", "menuItemBold")
-            .text("Epidemics")
-        pleaseWait = false;
-
-    }
-
-    if (timeToStop & pleaseWait & quarantineMode) {
-        d3.select("#quarantineMode").attr("class", "menuItemBold")
-            .text("Quarantine")
-        pleaseWait = false;
-
-    }
 }
 
 function timedRemoval(elementString) {
@@ -701,6 +690,8 @@ function createMenuBox(time) {
 
     window.setTimeout(initMenuBox, time);
 
+
+
 }
 
 function createStepwiseNavBar() {
@@ -754,6 +745,36 @@ function initMenuBox() {
 
     d3.select(".menuBox")
         .style("right", "0px")
+
+    if (guideRailsPosition == 0) {
+        d3.select("#networkSxn").attr("class","menuItemBold")
+        d3.select("#epidemicSxn").attr("class","menuItemNormal")
+        d3.select("#vaccinateSxn").attr("class","menuItemNormal")
+        d3.select("#quarantineSxn").attr("class","menuItemNormal")
+    }
+
+    if (guideRailsPosition == 4) {
+        d3.select("#networkSxn").attr("class","menuItemNormal")
+        d3.select("#epidemicSxn").attr("class","menuItemBold")
+        d3.select("#vaccinateSxn").attr("class","menuItemNormal")
+        d3.select("#quarantineSxn").attr("class","menuItemNormal")
+    }
+
+    if (guideRailsPosition == 8) {
+        d3.select("#networkSxn").attr("class","menuItemNormal")
+        d3.select("#epidemicSxn").attr("class","menuItemNormal")
+        d3.select("#vaccinateSxn").attr("class","menuItemBold")
+        d3.select("#quarantineSxn").attr("class","menuItemNormal")
+    }
+
+    if (guideRailsPosition == 18) {
+        d3.select("#networkSxn").attr("class","menuItemNormal")
+        d3.select("#epidemicSxn").attr("class","menuItemNormal")
+        d3.select("#vaccinateSxn").attr("class","menuItemNormal")
+        d3.select("#quarantineSxn").attr("class","menuItemBold")
+    }
+
+
 }
 
 function initNavBar() {
@@ -773,6 +794,14 @@ function initNavBar() {
         .style("font-weight", 500)
         .attr("font-size", 18)
         .text('< Back')
+        .on("mouseover", function(d) {
+            if (!backEnable) return;
+            d3.select(this).style("fill", "#2692F2")
+        })
+        .on("mouseout", function(d) {
+            if (!backEnable) return;
+            d3.select(this).style("fill", "white")
+        })
         .on("click", function() {
             if (backEnable) {
                 if (diseaseIsSpreading) return;
@@ -798,11 +827,20 @@ function initNavBar() {
             if (nextEnable) return "white";
             else return "#838383";
         })
+
         .style("font-family", "Nunito")
         .attr("opacity", 1)
         .style("font-weight", 500)
         .attr("font-size", 18)
         .text("Next >")
+        .on("mouseover", function(d) {
+            if (!nextEnable) return;
+            d3.select(this).style("fill", "#2692F2")
+        })
+        .on("mouseout", function(d) {
+            if (!nextEnable) return;
+            d3.select(this).style("fill", "white")
+        })
         .on("click", function() {
             if (nextEnable) {
                 if (diseaseIsSpreading) return;
@@ -861,7 +899,7 @@ function menuConfirm() {
 
     d3.select(".svg").append("text")
         .attr("class", "confirmHEAD")
-        .attr("x", window.innerWidth/4 + 100)
+        .attr("x", window.innerWidth/4 + 110)
         .attr("y", window.innerHeight/2 - 250)
         .style("font-family", "Nunito")
         .style("fill", "white")
@@ -880,6 +918,14 @@ function menuConfirm() {
         .style("font-size", 28)
         .style("cursor", "pointer")
         .text("Yes")
+        .on("mouseover", function(d) {
+
+            d3.select(this).style("fill", "#2692F2")
+
+        })
+        .on("mouseout", function(d) {
+            d3.select(this).style("fill", "#707070")
+        })
         .on("click", function() {
             d3.select(".confirmYES").remove();
             d3.select(".confirmNO").remove();
@@ -945,6 +991,10 @@ function menuConfirm() {
             d3.select("body").append("div")
                 .attr("class", "vaxLogoDiv")
                 .text("VAX!")
+                .style("cursor", "pointer")
+                .on("click", function() {
+                    window.location.href = 'http://vax.herokuapp.com/'
+                })
 
             d3.select(".vaxLogoDiv")
                 .style("visibility", "visible")
@@ -974,6 +1024,14 @@ function menuConfirm() {
         .style("font-size", 28)
         .style("cursor", "pointer")
         .text("No")
+        .on("mouseover", function(d) {
+
+            d3.select(this).style("fill", "#2692F2")
+
+        })
+        .on("mouseout", function(d) {
+            d3.select(this).style("fill", "#707070")
+        })
         .on("click", function() {
             d3.select(".confirmYES").remove();
             d3.select(".confirmNO").remove();
@@ -990,6 +1048,11 @@ function initTutorial() {
     d3.select("body").append("div")
         .attr("class", "vaxLogoDiv")
         .text("VAX!")
+        .style("cursor", "pointer")
+        .on("click", function() {
+            window.location.href = 'http://vax.herokuapp.com/'
+        })
+
 
 
     startButton = d3.select(".guideTextSVG").append("text")
@@ -1078,6 +1141,8 @@ function initTutorial() {
         .style("left", "-12px")
 
     createMenuBox(1);
+
+
 
 
 }

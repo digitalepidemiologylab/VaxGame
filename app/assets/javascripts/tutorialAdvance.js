@@ -8,6 +8,14 @@ function resetBack() {
             if (backEnable) return "white";
             else return "#838383";
         })
+        .on("mouseover", function(d) {
+            if (!backEnable) return;
+            d3.select(this).style("fill", "#2692F2")
+        })
+        .on("mouseout", function(d) {
+            if (!backEnable) return;
+            d3.select(this).style("fill", "white")
+        })
         .on("click", function() {
             if (backEnable) {
                 if (diseaseIsSpreading) return;
@@ -35,6 +43,14 @@ function resetNext() {
             else return "#838383";
         })
         .text("Next >")
+        .on("mouseover", function(d) {
+            if (!nextEnable) return;
+            d3.select(this).style("fill", "#2692F2")
+        })
+        .on("mouseout", function(d) {
+            if (!nextEnable) return;
+            d3.select(this).style("fill", "white")
+        })
         .on("click", function() {
             if (nextEnable) {
                 if (diseaseIsSpreading) return;
@@ -425,8 +441,6 @@ function net2epiTransition() {
             })
 
 
-
-
     resetBack();
 }
 
@@ -535,7 +549,10 @@ function guideRails(back) {
 
     if (diseaseIsSpreading) return;
 
-    if (guideRailsPosition == 0) backEnable = false;
+    if (guideRailsPosition == 0) {
+        backEnable = false;
+
+    }
 
     if (guideRailsPosition == 1) {
         nextEnable = true;
@@ -717,6 +734,10 @@ function guideRails(back) {
         disableNext();
         disableBack();
         timeToStop = false;
+
+
+
+
 
     }
 

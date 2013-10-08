@@ -38,6 +38,8 @@ var uninfectedBar;
 var infectedHeight;
 var uninfectedHeight;
 
+var game;
+
 initFooter();
 initBasicMenu();
 
@@ -103,6 +105,8 @@ function initCustomGame() {
 }
 
 function initGameSpace() {
+    game = true;
+
     loadGameSyringe();
 
     vaccinateMode     = false ;
@@ -173,6 +177,7 @@ function gameClick(node) {
     }
     else {
         if (quarantineMode && node.status == "S") {
+            diseaseIsSpreading = true;
             node.status = "Q";
             numberQuarantined++;
             window.setTimeout(gameTimesteps, 500);
@@ -271,7 +276,7 @@ function gameTimesteps() {
 }
 
 function detectGameCompletion() {
-    if (timeToStop || !diseaseIsSpreading) return;
+    if (timeToStop || !diseaseIsSpreading) return
 
     updateCommunities();
     var numberOf_AtRisk_communities = 0;
@@ -286,6 +291,9 @@ function detectGameCompletion() {
                 if (node.status == "S") numberOfSusceptiblesPerGroup++;
                 if (node.status == "I") numberOfInfectedPerGroup++;
                 if (node.status == "E") numberOfInfectedPerGroup++;
+
+//                console.log(numberOfSusceptiblesPerGroup + "\t" + numberOfInfectedPerGroup)
+
             }
         }
         if (numberOfInfectedPerGroup > 0) {
@@ -293,13 +301,14 @@ function detectGameCompletion() {
                 numberOf_AtRisk_communities++;
             }
         }
+
     }
 
     if (numberOf_AtRisk_communities == 0 && diseaseIsSpreading) {
         diseaseIsSpreading = false;
         timeToStop = true;
-        animateGamePathogens_thenUpdate()
-
+        animateGamePathogens_thenUpdate();
+        window.setTimeout(endGameSession, 1000)
     }
 
 }
@@ -452,7 +461,89 @@ function activateGameQuarantineMode() {
 
 }
 
+function endGameSession() {
+    d3.select(".gameSVG").append("rect")
+        .attr("class", "endGameShadow")
+        .attr("x", window.innerWidth/4 + 62 + 5 - 100)
+        .attr("y", window.innerHeight/2 - 300 + 7)
+        .attr("width", 500)
+        .attr("height", 125)
+        .attr("fill", "#838383")
+
+    d3.select(".gameSVG").append("rect")
+        .attr("class", "endGameBox")
+        .attr("x", window.innerWidth/4 + 62 - 100)
+        .attr("y", window.innerHeight/2 - 300)
+        .attr("width", 500)
+        .attr("height", 125)
+        .attr("fill", "#85bc99")
+
+    d3.select(".gameSVG").append("text")
+        .attr("class", "endGameText")
+        .attr("x", window.innerWidth/4 + 135 - 100)
+        .attr("y", window.innerHeight/2 - 250)
+        .style("font-family", "Nunito")
+        .style("fill", "white")
+        .style("font-weight", 500)
+        .style("font-size", 25)
+        .text("Outbreak has run its course.")
+
+    d3.select(".gameSVG").append("text")
+        .attr("class", "endGameSUBMIT")
+        .attr("x", window.innerWidth/4 + 275 - 90)
+        .attr("y", window.innerHeight/2 - 250 + 50)
+        .style("font-family", "Nunito")
+        .style("fill", "white")
+        .style("font-weight", 500)
+        .style("font-size", 15)
+        .style("cursor", "pointer")
+        .text("Submit")
+        .on("mouseover", function(d) {
+
+            d3.select(this).style("fill", "#2692F2")
+
+        })
+        .on("mouseout", function(d) {
+            d3.select(this).style("fill", "white")
+        })
+        .on("click", function() {
+            d3.select(".endGameText")
+                .transition()
+                .duration(250)
+                .attr("x", window.innerWidth/4 + 85)
+                .text("Reticulating splines.")
+
+            window.setTimeout(addPeriod1, 350)
+
+            window.setTimeout(addPeriod2, 800)
+
+            window.setTimeout(initScoreRecap, 1200)
+
+        })
+}
+
+function addPeriod1() {
+    d3.select(".endGameText")
+        .transition()
+        .duration(250)
+        .attr("x", window.innerWidth/4 + 85)
+        .text("Reticulating splines..")
+}
+
+function addPeriod2() {
+    d3.select(".endGameText")
+        .transition()
+        .duration(250)
+        .attr("x", window.innerWidth/4 + 85)
+        .text("Reticulating splines...")
+}
+
 function initScoreRecap() {
+    d3.select(".endGameShadow").remove()
+    d3.select(".endGameBox").remove()
+    d3.select(".endGameText").remove()
+    d3.select(".endGameSUBMIT").remove();
+
     d3.select(".gameSVG").select("g").style("visibility", "hidden")
     hideGameQuarantine();
 
@@ -522,7 +613,7 @@ function initScoreRecap() {
         .attr("class", "uninfectedLegendText")
         .attr("x", backX + 550)
         .attr("y", 195)
-        .text("Uninfected")
+        .text("Saved")
 
     d3.select(".gameSVG").append("text")
         .attr("class", "infectedLegendText")
@@ -532,7 +623,7 @@ function initScoreRecap() {
 
     d3.select(".gameSVG").append("text")
         .attr("class", "uninfectedPercentage")
-        .attr("x", backX + 675)
+        .attr("x", backX + 625)
         .attr("y", 195)
         .text(Math.round((((numberSaved + numberQuarantined + numberVaccinated)/numberOfIndividuals)*100)).toFixed(0) + "%")
 

@@ -3,6 +3,11 @@ function initFooter() {
     d3.select("body").append("div")
         .attr("class", "gameVaxLogoDiv")
         .text("VAX!")
+        .style("cursor", "pointer")
+        .on("click", function() {
+            window.location.href = 'http://vax.herokuapp.com/'
+        })
+
 
     d3.select("body").append("div")
         .attr("class", "gameMenuBox")

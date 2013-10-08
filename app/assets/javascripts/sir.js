@@ -97,10 +97,13 @@ function infection() {
         transmissionRate = 0.35;
     }
     else {
-        detectCompletion();
+        if (game) detectGameCompletion()
+        else detectCompletion();
+
         if (timeToStop) {
             return;
         }
+
         rerun = true;
         transmissionRate = 1;
         infection();
@@ -158,8 +161,6 @@ function detectEndGame() {
         if (vaccinateMode && !quarantineMode) {
             animatePathogens_thenUpdate();
             tutorialUpdate();
-
-
         }
 
     }
