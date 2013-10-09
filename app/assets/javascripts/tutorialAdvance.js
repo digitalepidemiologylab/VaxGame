@@ -761,7 +761,8 @@ function guideRails(back) {
             .duration(500)
             .attr("opacity", 1);
 
-        d3.select(".startButton")
+        d3.select(".guideTextSVG").append("text")
+            .attr("class", ".startButton")
             .on("click", function() {
                 var indexPatientID = Math.floor(Math.random() * numberOfIndividuals);
                 graph.nodes[indexPatientID].status = "I";
@@ -772,6 +773,7 @@ function guideRails(back) {
                 tutorialTimesteps();
                 d3.select(this).remove()
             })
+
 
         if (back) {
             var indexPatientID = Math.floor(Math.random() * numberOfIndividuals);

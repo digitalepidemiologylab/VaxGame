@@ -171,9 +171,6 @@ function homeToTutorial() {
         .attr("opacity", 1)
         .text("Lesson 1: Networks")
 
-
-
-
     guide2 = d3.select(".guideTextSVG").append("text")
         .attr("class", "guide2")
         .attr("x",guideXCoord).attr("y",guideYCoord+guide2YCoordChange)
@@ -615,7 +612,14 @@ function slideOutStepwiseNav(menu) {
 
     window.setTimeout(clearStepwiseNavBar, 500);
 
-    window.setTimeout(createMenuBox(500), 550);
+    window.setTimeout(function() {
+        d3.select("body").append("div")
+            .attr("class", "menuBox")
+            .style("right", "-1000px")
+            .style("visibility", "visible")
+
+        window.setTimeout(initMenuBox, 500);
+    }, 550);
 
     if (menu) {
 
@@ -708,6 +712,8 @@ function createStepwiseNavBar() {
 
     d3.select(".stepwiseNavBar").append("svg")
         .attr("class", "stepwiseNavSVG")
+        .attr("width", 500)
+        .attr("height", 45)
         .style("background", "#85bc99")
 }
 
