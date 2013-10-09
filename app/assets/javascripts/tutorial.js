@@ -45,8 +45,8 @@ var nextY = 140;
 var guideXCoord = 400;
 var guideYCoord = 70;
 var guide2YCoordChange = 35;
-var width = 1000,
-    height = 700,
+var width = 1024,
+    height = 768,
     svg;
 var guideTextSVG;
 var actionBay;
@@ -133,13 +133,11 @@ function homeToTutorial() {
     d3.select(".homeModules").remove();
 
     svg = d3.select("body").append("svg")
-        .attr("width", width)
-        .attr("height", height)
-//        .attr({
-//            "width": "100%",
-//            "height": "85%"
-//        })
-//        .attr("viewBox", "0 0 " + width + " " + height )
+        .attr({
+            "width": "100%",
+            "height": "85%"
+        })
+        .attr("viewBox", "0 0 " + width + " " + height )
 //        .attr("preserveAspectRatio", "xMidYMid meet")
         .attr("class", "svg")
         .style("pointer-events", "all")
@@ -154,7 +152,7 @@ function homeToTutorial() {
 
     guide = d3.select(".guideTextSVG").append("text")
         .attr("class", "guide")
-        .attr("font-size", 28)
+        .attr("font-size", "28px")
         .style("font-family", "Nunito")
         .style("fill", "#707070")
         .style("font-weight", 300)
@@ -164,7 +162,7 @@ function homeToTutorial() {
         .attr("class", "lessonText")
         .attr("x", 35)
         .attr("y", 80)
-        .style("font-size", 28)
+        .style("font-size", "28px")
         .style("font-family", "Nunito")
         .style("fill", "#707070")
         .style("font-weight", 700)
@@ -174,7 +172,7 @@ function homeToTutorial() {
     guide2 = d3.select(".guideTextSVG").append("text")
         .attr("class", "guide2")
         .attr("x",guideXCoord).attr("y",guideYCoord+guide2YCoordChange)
-        .attr("font-size", 28)
+        .attr("font-size", "28px")
         .style("font-family", "Nunito")
         .style("fill", "#707070")
         .style("font-weight", 300)
@@ -627,7 +625,7 @@ function slideOutStepwiseNav(menu) {
     else {
         startButton = d3.select(".guideTextSVG").append("text")
             .attr("class", "startButton")
-            .attr("font-size", 18)
+            .attr("font-size", "18px")
             .attr("opacity", 1)
             .attr("x", nextX)
             .attr("y", nextY)
@@ -806,7 +804,7 @@ function initNavBar() {
         .style("font-family", "Nunito")
         .attr("opacity", 1)
         .style("font-weight", 500)
-        .attr("font-size", 18)
+        .attr("font-size", "18px")
         .text('< Back')
 //        .on("mouseover", function(d) {
 //            if (!backEnable) return;
@@ -844,7 +842,7 @@ function initNavBar() {
         .style("font-family", "Nunito")
         .attr("opacity", 1)
         .style("font-weight", 500)
-        .attr("font-size", 18)
+        .attr("font-size", "18px")
         .text("Next >")
 //        .on("mouseover", function(d) {
 //            if (!nextEnable) return;
@@ -878,7 +876,7 @@ function initNavBar() {
         })
         .attr("opacity", 0)
         .style("font-weight", 500)
-        .attr("font-size", 18)
+        .attr("font-size", "18px")
         .text("Menu")
         .style("cursor", "pointer")
         .on("click", function() {
@@ -917,7 +915,7 @@ function menuConfirm() {
         .style("font-family", "Nunito")
         .style("fill", "white")
         .style("font-weight", 500)
-        .style("font-size", 35)
+        .style("font-size", "35px")
         .text("Skip Lesson?")
 
 
@@ -928,7 +926,7 @@ function menuConfirm() {
         .style("font-family", "Nunito")
         .style("fill", "#707070")
         .style("font-weight", 500)
-        .style("font-size", 28)
+        .style("font-size", "28px")
         .style("cursor", "pointer")
         .text("Yes")
         .on("mouseover", function(d) {
@@ -966,7 +964,7 @@ function menuConfirm() {
 
             guide = d3.select(".guideTextSVG").append("text")
                 .attr("class", "guide")
-                .attr("font-size", 28)
+                .attr("font-size", "28px")
                 .attr("opacity", 0)
                 .attr("x", guideXCoord)
                 .attr("y", guideYCoord)
@@ -979,7 +977,7 @@ function menuConfirm() {
                 .attr("class", "lessonText")
                 .attr("x", 35)
                 .attr("y", 80)
-                .style("font-size", 28)
+                .style("font-size", "28px")
                 .style("font-family", "Nunito")
                 .style("fill", "#707070")
                 .style("font-weight", 700)
@@ -990,7 +988,7 @@ function menuConfirm() {
             guide2 = d3.select(".guideTextSVG").append("text")
                 .attr("class", "guide2")
                 .attr("x",guideXCoord).attr("y",guideYCoord+guide2YCoordChange)
-                .attr("font-size", 28)
+                .attr("font-size", "28px")
                 .attr("opacity", 0)
                 .style("font-family", "Nunito")
                 .style("fill", "#707070")
@@ -1036,7 +1034,7 @@ function menuConfirm() {
         .style("font-family", "Nunito")
         .style("fill", "#707070")
         .style("font-weight", 500)
-        .style("font-size", 28)
+        .style("font-size", "28px")
         .style("cursor", "pointer")
         .text("No")
         .on("mouseover", function(d) {
@@ -1072,7 +1070,7 @@ function initTutorial() {
 
     startButton = d3.select(".guideTextSVG").append("text")
         .attr("class", "startButton")
-        .attr("font-size", 18)
+        .attr("font-size", "18px")
         .attr("opacity", 1)
         .attr("x", nextX)
         .attr("y", nextY)
@@ -1132,7 +1130,7 @@ function initTutorial() {
     d3.select(".guide")
         .attr("x",guideXCoord)
         .attr("y",guideYCoord)
-        .attr("font-size", 28)
+        .attr("font-size", "28px")
         .attr("opacity", 0)
         .text("Suppose this is you")
 
@@ -1195,7 +1193,7 @@ function loadSyringe() {
 
     d3.select(".actionVax").append("text")
         .attr("class", "vaccineCounterText")
-        .style("font-size", 16)
+        .style("font-size", "16px")
         .style("font-family", "Nunito")
         .style("font-weight", 300)
         .style("fill", "white")
@@ -1223,7 +1221,7 @@ function loadQuarantine() {
 
     d3.select(".actionQuarantine").append("text")
         .attr("class", "quarantineCounterText")
-        .style("font-size", 16)
+        .style("font-size", "16px")
         .style("font-family", "Nunito")
         .style("font-weight", 300)
         .style("fill", "white")

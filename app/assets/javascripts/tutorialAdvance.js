@@ -20,7 +20,6 @@ function resetBack() {
             if (backEnable) {
                 if (diseaseIsSpreading) return;
 
-
                 guideRailsPosition--;
                 guideRailsReverse();
 
@@ -144,7 +143,7 @@ function restoreVaccineLesson() {
 
     d3.select(".guideTextSVG").append("text")
         .attr("class", "startButton")
-        .attr("font-size", 18)
+        .attr("font-size", "18px")
         .attr("opacity", 1)
         .attr("x", nextX)
         .attr("y", nextY)
@@ -171,6 +170,8 @@ function restoreVaccineLesson() {
 }
 
 function restoreQuarantineLesson() {
+
+    numberQuarantined = 0;
     d3.select(".startButton").remove();
 
 
@@ -243,7 +244,7 @@ function restoreNetworkLesson() {
 
     guide = d3.select(".guideTextSVG").append("text")
         .attr("class", "guide")
-        .attr("font-size", 28)
+        .attr("font-size", "28px")
         .style("font-family", "Nunito")
         .style("fill", "#707070")
         .style("font-weight", 300)
@@ -253,7 +254,7 @@ function restoreNetworkLesson() {
         .attr("class", "lessonText")
         .attr("x", 35)
         .attr("y", 80)
-        .style("font-size", 28)
+        .style("font-size", "28px")
         .style("font-family", "Nunito")
         .style("fill", "#707070")
         .style("font-weight", 700)
@@ -264,7 +265,7 @@ function restoreNetworkLesson() {
     guide2 = d3.select(".guideTextSVG").append("text")
         .attr("class", "guide2")
         .attr("x",guideXCoord).attr("y",guideYCoord+guide2YCoordChange)
-        .attr("font-size", 28)
+        .attr("font-size", "28px")
         .style("font-family", "Nunito")
         .style("fill", "#707070")
         .style("font-weight", 300)
@@ -287,7 +288,7 @@ function restoreNetworkLesson() {
 
     startButton = d3.select(".guideTextSVG").append("text")
         .attr("class", "startButton")
-        .attr("font-size", 18)
+        .attr("font-size", "18px")
         .attr("opacity", 1)
         .attr("x", nextX)
         .attr("y", nextY)
@@ -348,7 +349,7 @@ function restoreNetworkLesson() {
     d3.select(".guide")
         .attr("x",guideXCoord)
         .attr("y",guideYCoord)
-        .attr("font-size", 28)
+        .attr("font-size", "28px")
         .attr("opacity", 0)
         .text("Suppose this is you")
 
@@ -424,7 +425,7 @@ function restoreEpidemicLesson() {
 
     startButton = d3.select(".guideTextSVG").append("text")
         .attr("class", "startButton")
-        .attr("font-size", 18)
+        .attr("font-size", "18px")
         .attr("opacity", 1)
         .attr("x", nextX)
         .attr("y", nextY)
@@ -569,7 +570,7 @@ function vax2QuarantineTransition() {
 
     startButton = d3.select(".guideTextSVG").append("text")
         .attr("class", "startButton")
-        .attr("font-size", 18)
+        .attr("font-size", "18px")
         .attr("opacity", 1)
         .attr("x", nextX)
         .attr("y", nextY)

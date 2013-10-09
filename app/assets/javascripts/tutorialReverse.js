@@ -22,7 +22,7 @@ function guideRailsReverse() {
         d3.select(".guide")
             .attr("x",guideXCoord)
             .attr("y",guideYCoord)
-            .attr("font-size", 28)
+            .attr("font-size", "28px")
             .attr("opacity", 0)
             .text("Suppose this is you")
 
