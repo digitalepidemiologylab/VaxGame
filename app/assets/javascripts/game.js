@@ -397,7 +397,7 @@ function loadGameSyringe() {
 
     d3.select(".actionVax").append("text")
         .attr("class", "vaccineCounterText")
-        .style("font-size", 16)
+        .style("font-size", "16px")
         .style("font-family", "Nunito")
         .style("font-weight", 300)
         .style("fill", "white")
@@ -425,7 +425,7 @@ function loadGameQuarantine() {
 
     d3.select(".actionQuarantine").append("text")
         .attr("class", "quarantineCounterText")
-        .style("font-size", 16)
+        .style("font-size", "16px")
         .style("font-family", "Nunito")
         .style("font-weight", 300)
         .style("fill", "white")
@@ -485,7 +485,7 @@ function endGameSession() {
         .style("font-family", "Nunito")
         .style("fill", "white")
         .style("font-weight", 500)
-        .style("font-size", 25)
+        .style("font-size", "25px")
         .text("Outbreak has run its course.")
 
     d3.select(".gameSVG").append("text")
@@ -495,7 +495,7 @@ function endGameSession() {
         .style("font-family", "Nunito")
         .style("fill", "white")
         .style("font-weight", 500)
-        .style("font-size", 15)
+        .style("font-size", "15px")
         .style("cursor", "pointer")
         .text("Submit")
         .on("mouseover", function(d) {
