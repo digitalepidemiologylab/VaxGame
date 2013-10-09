@@ -133,13 +133,13 @@ function homeToTutorial() {
     d3.select(".homeModules").remove();
 
     svg = d3.select("body").append("svg")
-//        .attr("width", width)
-//        .attr("height", height)
-        .attr({
-            "width": "100%",
-            "height": "85%"
-        })
-        .attr("viewBox", "0 0 " + width + " " + height )
+        .attr("width", width)
+        .attr("height", height)
+//        .attr({
+//            "width": "100%",
+//            "height": "85%"
+//        })
+//        .attr("viewBox", "0 0 " + width + " " + height )
 //        .attr("preserveAspectRatio", "xMidYMid meet")
         .attr("class", "svg")
         .style("pointer-events", "all")
