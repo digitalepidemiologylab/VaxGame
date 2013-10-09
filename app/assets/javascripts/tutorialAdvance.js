@@ -921,7 +921,7 @@ function guideRails(back) {
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("Here the circles have been resized based on the chance")
+            .text("Here the nodes have been resized based on the chance")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
