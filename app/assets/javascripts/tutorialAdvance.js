@@ -155,6 +155,7 @@ function restoreVaccineLesson() {
         .text("Start >")
         .on("click", function() {
             slideOutMenuBox();
+            flashNode();
             d3.select(this).remove();
         })
 
@@ -446,12 +447,9 @@ function restoreEpidemicLesson() {
 
     guideRailsPosition = 4;
     guideRails();
-
 }
 
-
 function net2epiTransition() {
-
         d3.select(".guide")
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
@@ -1056,7 +1054,6 @@ function guideRails(back) {
 
         removeDuplicateEdges(graph);
         tutorialUpdate();
-        flashNode();
     }
 
     if (guideRailsPosition == 10) {

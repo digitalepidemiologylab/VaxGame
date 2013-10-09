@@ -178,10 +178,6 @@ function guideRailsReverse() {
 
         keepFlashing = true;
 
-        d3.select(".startButton").on("click", function() {
-            slideOutMenuBox();
-            d3.select(".startButton").remove();
-        })
 
 
 

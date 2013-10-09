@@ -657,6 +657,8 @@ function slideOutStepwiseNav(menu) {
 
                 if(guideRailsPosition == 9) {
                     loadSyringe();
+                    flashNode();
+
                 }
 
                 if (guideRailsPosition == 18) {
