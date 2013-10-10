@@ -46,7 +46,7 @@ var guideXCoord = 400;
 var guideYCoord = 70;
 var guide2YCoordChange = 35;
 var width = 1024,
-    height = 768,
+    height = 768 - 45 - 50,  // standard height - footer:height - footer:bottomMargin
     svg;
 var guideTextSVG;
 var actionBay;

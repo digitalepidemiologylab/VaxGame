@@ -4,7 +4,49 @@ var customNeighborChoice;
 var customVaccineChoice;
 var customOutbreakChoice;
 
+var vaxEasyCompletion;
+var vaxMediumCompletion;
+var vaxHardCompletion;
+
+var vaxEasyHiScore;
+var vaxMediumHiScore;
+var vaxHardHiScore;
+
+function readCookies() {
+    $.noConflict()
+    var cookies = $.cookie()
+
+    if($.cookie('vaxEasyCompletion') == undefined) initCookies();
+
+    vaxEasyCompletion = cookies.vaxEasyCompletion;
+    vaxMediumCompletion = cookies.vaxMediumCompletion;
+    vaxHardCompletion = cookies.vaxHardCompletion;
+
+    vaxEasyHiScore = cookies.vaxEasyHiScore;
+    vaxMediumHiScore = cookies.vaxMediumHiScore;
+    vaxHardHiScore = cookies.vaxHardHiScore;
+
+
+
+}
+
+function initCookies() {
+    $.cookie('vaxEasyCompletion', 'false', { expires: 365, path: '/' });
+    $.cookie('vaxMediumCompletion', 'false', { expires: 365, path: '/' });
+    $.cookie('vaxHardCompletion', 'false', { expires: 365, path: '/' });
+
+    $.cookie('vaxEasyHiScore', 0, { expires: 365, path: '/' });
+    $.cookie('vaxMediumHiScore', 0, { expires: 365, path: '/' });
+    $.cookie('vaxHardHiScore', 0, { expires: 365, path: '/' });
+}
+
+
+
+
 function initBasicMenu() {
+
+
+
     // new game header at top-left
     d3.select("body").append("div")
         .attr("class", "newGameHeader")

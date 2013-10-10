@@ -11,10 +11,9 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require deepCopy
+//= require jquery.cookie
 //= require d3.v3
 //= require gameMenu
-//= require jsnetworkx
 //= require netrics
 //= require sir
 //= require bootstrap
