@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery.cookie
-//= require d3.v3
+//= require d3.v3.min
 //= require gameMenu
 //= require netrics
 //= require sir
