@@ -40,8 +40,160 @@ var uninfectedHeight;
 
 var game;
 
+var easyBar = 75;
+var mediumBar = 65;
+var hardBar = 55;
+
+var vaxEasyCompletion;
+var vaxMediumCompletion;
+var vaxHardCompletion;
+
+var vaxEasyHiScore;
+var vaxMediumHiScore;
+var vaxHardHiScore;
+
+
 initFooter();
 initBasicMenu();
+window.setTimeout(initCookiesOnDelay, 500)
+
+function initCookiesOnDelay() {
+    readCookies();
+}
+
+function readCookies() {
+
+    var cookies = $.cookie()
+
+    if($.cookie('vaxEasyCompletion') == undefined) initCookies();
+
+    cookies = $.cookie();
+
+    vaxEasyCompletion = cookies.vaxEasyCompletion;
+    vaxMediumCompletion = cookies.vaxMediumCompletion;
+    vaxHardCompletion = cookies.vaxHardCompletion;
+
+    vaxEasyHiScore = cookies.vaxEasyHiScore;
+    vaxMediumHiScore = cookies.vaxMediumHiScore;
+    vaxHardHiScore = cookies.vaxHardHiScore;
+
+    cookieBasedModeSelection();
+}
+
+function initCookies() {
+    $.cookie('vaxEasyCompletion', false, { expires: 365, path: '/' });
+    $.cookie('vaxMediumCompletion', false, { expires: 365, path: '/' });
+    $.cookie('vaxHardCompletion', false, { expires: 365, path: '/' });
+
+    $.cookie('vaxEasyHiScore', 0, { expires: 365, path: '/' });
+    $.cookie('vaxMediumHiScore', 0, { expires: 365, path: '/' });
+    $.cookie('vaxHardHiScore', 0, { expires: 365, path: '/' });
+
+
+}
+
+function clearCookies() {
+    $.removeCookie('vaxEasyCompletion');
+    $.removeCookie('vaxMediumCompletion');
+    $.removeCookie('vaxHardCompletion');
+
+    $.removeCookie('vaxEasyHiScore');
+    $.removeCookie('vaxMediumHiScore');
+    $.removeCookie('vaxHardHiScore');
+
+}
+
+function allAccess() {
+    $.cookie('vaxEasyCompletion', true, { expires: 365, path: '/' });
+    $.cookie('vaxMediumCompletion', true, { expires: 365, path: '/' });
+    $.cookie('vaxHardCompletion', true, { expires: 365, path: '/' });
+
+    $.cookie('vaxEasyHiScore', 100, { expires: 365, path: '/' });
+    $.cookie('vaxMediumHiScore', 100, { expires: 365, path: '/' });
+    $.cookie('vaxHardHiScore', 100, { expires: 365, path: '/' });
+}
+
+
+function cookieBasedModeSelection() {
+    d3.select("#difficultyEasy")
+        .on("mouseover", function() {
+            d3.select(this).style("color", "#2692F2")
+        })
+        .on("mouseout", function() {
+            d3.select(this).style("color", "#707070")
+        })
+
+    // set medium based on easy
+    if (vaxEasyCompletion == "true") {
+        d3.select("#difficultyMedium")
+            .attr("class", "difficultyItem")
+            .on("mouseover", function() {
+                d3.select(this).style("color", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("color", "#707070")
+            })
+            .on("click", function() {
+                difficultyString = "medium";
+                initBasicGame(difficultyString)
+            });
+    }
+    else {
+        d3.select("#difficultyMedium")
+            .attr("class", "difficultyItemGrey")
+            .on("mouseover", function() {})
+            .on("mouseout", function() {})
+            .on("click", function() {})
+    }
+
+    // set hard based on medium
+    if (vaxMediumCompletion == "true") {
+        d3.select("#difficultyHard")
+            .attr("class", "difficultyItem")
+            .on("mouseover", function() {
+                d3.select(this).style("color", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("color", "#707070")
+            })
+            .on("click", function() {
+                difficultyString = "hard";
+                initBasicGame(difficultyString)
+            });
+    }
+    else {
+        d3.select("#difficultyHard")
+            .attr("class", "difficultyItemGrey")
+            .on("mouseover", function() {})
+            .on("mouseout", function() {})
+            .on("click", function() {})
+    }
+
+    // set custom based on hard
+    if (vaxHardCompletion == "true") {
+        d3.select("#difficultyCustom")
+            .attr("class", "difficultyItem")
+            .on("mouseover", function() {
+                d3.select(this).style("color", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("color", "#707070")
+            })
+            .on("click", function() {
+                d3.select(".difficultySelection").remove()
+                initCustomMenu();
+            });
+
+    }
+    else {
+        d3.select("#difficultyCustom")
+            .attr("class", "difficultyItemGrey")
+            .on("mouseover", function() {})
+            .on("mouseout", function() {})
+            .on("click", function() {})
+    }
+}
+
 
 function initBasicGame(difficulty) {
     d3.select(".difficultySelection").remove();
@@ -538,7 +690,28 @@ function addPeriod2() {
         .text("Reticulating splines...")
 }
 
+function setCookies() {
+    var proportionSaved = Math.round((((countSavedGAME() + numberQuarantined + numberVaccinated)/numberOfIndividuals)*100)).toFixed(0)
+
+    if (difficultyString == "easy") {
+        if ($.cookie('vaxEasyHiScore') < proportionSaved) $.cookie('vaxEasyHiScore', proportionSaved)
+        if (proportionSaved > easyBar) $.cookie('vaxEasyCompletion', 'true')
+    }
+
+    if (difficultyString == "medium") {
+        if ($.cookie('vaxMediumHiScore') < proportionSaved) $.cookie('vaxMediumHiScore', proportionSaved)
+        if (proportionSaved > mediumBar) $.cookie('vaxMediumCompletion', 'true')
+    }
+
+    if (difficultyString == "hard") {
+        if ($.cookie('vaxHardHiScore') < proportionSaved)$.cookie('vaxHardHiScore', proportionSaved)
+        if (proportionSaved > hardBar) $.cookie('vaxHardCompletion', 'true')
+    }
+}
+
 function initScoreRecap() {
+    setCookies();
+
     d3.select(".endGameShadow").remove()
     d3.select(".endGameBox").remove()
     d3.select(".endGameText").remove()

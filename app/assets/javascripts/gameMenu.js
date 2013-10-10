@@ -4,48 +4,8 @@ var customNeighborChoice;
 var customVaccineChoice;
 var customOutbreakChoice;
 
-var vaxEasyCompletion;
-var vaxMediumCompletion;
-var vaxHardCompletion;
-
-var vaxEasyHiScore;
-var vaxMediumHiScore;
-var vaxHardHiScore;
-
-function readCookies() {
-    $.noConflict()
-    var cookies = $.cookie()
-
-    if($.cookie('vaxEasyCompletion') == undefined) initCookies();
-
-    vaxEasyCompletion = cookies.vaxEasyCompletion;
-    vaxMediumCompletion = cookies.vaxMediumCompletion;
-    vaxHardCompletion = cookies.vaxHardCompletion;
-
-    vaxEasyHiScore = cookies.vaxEasyHiScore;
-    vaxMediumHiScore = cookies.vaxMediumHiScore;
-    vaxHardHiScore = cookies.vaxHardHiScore;
-
-
-
-}
-
-function initCookies() {
-    $.cookie('vaxEasyCompletion', 'false', { expires: 365, path: '/' });
-    $.cookie('vaxMediumCompletion', 'false', { expires: 365, path: '/' });
-    $.cookie('vaxHardCompletion', 'false', { expires: 365, path: '/' });
-
-    $.cookie('vaxEasyHiScore', 0, { expires: 365, path: '/' });
-    $.cookie('vaxMediumHiScore', 0, { expires: 365, path: '/' });
-    $.cookie('vaxHardHiScore', 0, { expires: 365, path: '/' });
-}
-
-
-
 
 function initBasicMenu() {
-
-
 
     // new game header at top-left
     d3.select("body").append("div")
@@ -63,43 +23,41 @@ function initBasicMenu() {
 
     // difficulty menu items
     d3.select(".difficultySelection").append("div")
-        .attr("class", "difficultyItemHighlight")
+        .attr("class", "difficultyItem")
         .attr("id", "difficultyEasy")
         .text("Easy")
+        .on("mouseover", function() {
+            d3.select(this).style("color", "#2692F2")
+        })
+        .on("mouseout", function() {
+            d3.select(this).style("color", "#707070")
+        })
         .on("click", function() {
-            difficultyString = "easy";
+            difficultyString = "easy"
             initBasicGame(difficultyString);
         })
+
 
 
     d3.select(".difficultySelection").append("div")
-        .attr("class", "difficultyItem")
+        .attr("class", "difficultyItemGrey")
         .attr("id", "difficultyMedium")
         .text("Medium")
-        .on("click", function() {
-            difficultyString = "medium";
-            initBasicGame(difficultyString);
-        })
+
 
 
     d3.select(".difficultySelection").append("div")
         .attr("class", "difficultyItemGrey")
         .attr("id", "difficultyHard")
         .text("Hard")
-        .on("click", function() {
-            difficultyString = "hard";
-            initBasicGame(difficultyString);
-        })
+
 
 
     d3.select(".difficultySelection").append("div")
         .attr("class", "difficultyItemGrey")
         .attr("id", "difficultyCustom")
         .text("Custom")
-        .on("click", function() {
-            d3.select(".difficultySelection").remove()
-            initCustomMenu();
-        })
+
 
 }
 
