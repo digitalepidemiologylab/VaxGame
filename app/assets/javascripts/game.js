@@ -40,9 +40,9 @@ var uninfectedHeight;
 
 var game;
 
-var easyBar = 75;
-var mediumBar = 65;
-var hardBar = 55;
+var easyBar = 70;
+var mediumBar = 50;
+var hardBar = 40;
 
 var vaxEasyCompletion;
 var vaxMediumCompletion;
@@ -206,28 +206,30 @@ function initBasicGame(difficulty) {
     graph.links       = []    ;
 
     if (difficulty == "easy") {
-        numberOfIndividuals = 30;
+        numberOfIndividuals = 50;
         meanDegree = 3;
         numberOfVaccines = 5;
-        transmissionRate = transmissionRates[4];
+        transmissionRate = transmissionRates[7];
         recoveryRate = recoveryRates[0];
     }
 
     if (difficulty == "medium") {
-        numberOfIndividuals = 50;
+        numberOfIndividuals = 75;
         meanDegree = 4;
-        numberOfVaccines = 10;
-        transmissionRate = transmissionRates[6];
+        numberOfVaccines = 7;
+        independentOutbreaks = 2;
+        transmissionRate = transmissionRates[7];
         recoveryRate = recoveryRates[0];
     }
 
     if (difficulty == "hard") {
+        charge = -250;
         numberOfIndividuals = 100;
-        meanDegree = 5;
-        numberOfVaccines = 25;
-        transmissionRate = transmissionRates[6];
+        meanDegree = 4;
+        numberOfVaccines = 10;
+        transmissionRate = transmissionRates[4];
         recoveryRate = recoveryRates[0];
-        independentOutbreaks = 2;
+        independentOutbreaks = 3;
     }
 
     graph = generateSmallWorld(numberOfIndividuals, rewire, meanDegree);
@@ -240,6 +242,8 @@ function initCustomGame() {
     graph             = {}    ;
     graph.nodes       = []    ;
     graph.links       = []    ;
+
+    transmissionRate = 0.50;
 
     numberOfIndividuals = customNodeChoice;
     meanDegree = customNeighborChoice;
