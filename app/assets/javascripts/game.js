@@ -22,10 +22,10 @@ var numberOfVaccines = 0;
 var vaccineSupply = 0;
 
 var difficultyString;
-var customNodeChoice = 75;
-var customNeighborChoice = 4;
-var customVaccineChoice = 15;
-var customOutbreakChoice = 2;
+var customNodeChoice;
+var customNeighborChoice;
+var customVaccineChoice;
+var customOutbreakChoice;
 
 var timestep = 0;
 var newInfections;
@@ -82,6 +82,11 @@ function readCookies() {
     vaxMediumHiScore = cookies.vaxMediumHiScore;
     vaxHardHiScore = cookies.vaxHardHiScore;
 
+    customNodeChoice = parseInt(cookies.customNodes);
+    customNeighborChoice = parseInt(cookies.customNeighbors);
+    customVaccineChoice = parseInt(cookies.customVaccines);
+    customOutbreakChoice = parseInt(cookies.customOutbreaks);
+
     cookieBasedModeSelection();
 }
 
@@ -94,7 +99,10 @@ function initCookies() {
     $.cookie('vaxMediumHiScore', 0, { expires: 365, path: '/' });
     $.cookie('vaxHardHiScore', 0, { expires: 365, path: '/' });
 
-
+    $.cookie('customNodes', 75, { expires: 365, path: '/'})
+    $.cookie('customNeighbors', 4, { expires: 365, path: '/'})
+    $.cookie('customVaccines', 15, { expires: 365, path: '/'})
+    $.cookie('customOutbreaks', 2, { expires: 365, path: '/'})
 }
 
 function clearCookies() {
@@ -904,5 +912,4 @@ function toggleDegreeFxn() {
     gameUpdate();
 
 }
-
 

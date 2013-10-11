@@ -1,9 +1,3 @@
-var difficultyString;
-var customNodeChoice;
-var customNeighborChoice;
-var customVaccineChoice;
-var customOutbreakChoice;
-
 
 function initBasicMenu() {
 
@@ -74,11 +68,20 @@ function initCustomMenu() {
 
     d3.select("#customMenuDiv").style("visibility", "visible")
 
+    d3.select("#customNodes").text("Nodes: " + parseInt($.cookie('customNodes')))
+    d3.select("#customDegree").text("Neighbors: " + parseInt($.cookie('customNeighbors')) + "ea.")
+    d3.select("#customVaccines").text("Vaccines: " + parseInt($.cookie('customVaccines')))
+    d3.select("#customOutbreaks").text("Outbreaks: " + parseInt($.cookie('customOutbreaks')))
+
+
     d3.select("#customMenuDiv").append("text")
         .attr("class", "okayButton")
         .text("OKAY")
         .on("click", function() {
+
             initCustomGame();
+
+
         })
 
 
@@ -89,13 +92,14 @@ $(function() {
         range: "min",
         min: 1,
         max: 150,
-        value: 75,
+        value: parseInt($.cookie('customNodes')),
         slide: function (event, ui) {
-            $("#customNodes").text("Nodes: " + ui.value);
-            customNodeChoice = ui.value;
+            $.cookie('customNodes', ui.value)
+            $("#customNodes").text("Nodes: " + parseInt($.cookie('customNodes')));
+            customNodeChoice = parseInt($.cookie('customNodes'));
         }
     });
-    $( "#nodeSlider" ).slider( "value", 75);
+    $( "#nodeSlider" ).slider( "value", parseInt($.cookie('customNodes')));
 });
 
 $(function() {
@@ -103,14 +107,14 @@ $(function() {
         range: "min",
         min: 1,
         max: 10,
-        value: 4,
+        value: parseInt($.cookie('customNeighbors')),
         slide: function (event, ui) {
-            $("#customDegree").text("Neighbors: " + ui.value + "ea.");
-            customNeighborChoice = ui.value;
-
+            $.cookie('customNeighbors', ui.value)
+            $("#customDegree").text("Neighbors: " + parseInt($.cookie('customNeighbors')) + "ea.");
+            customNeighborChoice = parseInt($.cookie('customNeighbors'));
         }
     });
-    $( "#degreeSlider").slider( "value", 4)
+    $( "#degreeSlider").slider( "value", parseInt($.cookie('customNeighbors')))
 });
 
 $(function() {
@@ -118,14 +122,14 @@ $(function() {
         range: "min",
         min: 1,
         max: 300,
-        value: 15,
+        value: parseInt($.cookie('customVaccines')),
         slide: function (event, ui) {
-            $("#customVaccines").text("Vaccines: " + ui.value);
-            customVaccineChoice = ui.value;
-
+            $.cookie('customVaccines', ui.value)
+            $("#customVaccines").text("Vaccines: " + parseInt($.cookie('customVaccines')));
+            customVaccineChoice = parseInt($.cookie('customVaccines'));
         }
     });
-    $( "#vaccineSlider").slider( "value", 15)
+    $( "#vaccineSlider").slider( "value", parseInt($.cookie('customVaccines')))
 });
 
 $(function() {
@@ -133,15 +137,15 @@ $(function() {
         range: "min",
         min: 1,
         max: 5,
-        value: 2,
+        value: parseInt($.cookie('customOutbreaks')),
         slide: function (event, ui) {
-            $("#customOutbreaks").text("Outbreaks: " + ui.value);
-            customOutbreakChoice = ui.value;
+            $.cookie('customOutbreaks', ui.value)
+            $("#customOutbreaks").text("Outbreaks: " + parseInt($.cookie('customOutbreaks')));
+            customOutbreakChoice = parseInt($.cookie('customOutbreaks'));
         }
     });
-    $( "#outbreakSlider").slider( "value", 2)
+    $( "#outbreakSlider").slider( "value", parseInt($.cookie('customOutbreaks')))
 });
-
 
 
 
