@@ -25,7 +25,6 @@
   font-family: "Nunito";
   font-weight: 300;
   color: #ffffff;
-  display: inline;
   padding-top: 0px;
   padding-right: 30px;
   padding-left: 28px;
@@ -80,29 +79,24 @@
 .difficultyItem {
   position: relative;
   font-size: 32px;
+  display: block;
   font-family: "Nunito";
   font-weight: 300;
+  margin-left: 40%;
+  margin-right: 40%;
   color: #707070;
   margin-top: 30px;
   cursor: pointer;
 }
 
-.difficultyItemHighlight {
-  position: relative;
-  font-size: 32px;
-  font-family: "Nunito";
-  font-weight: 300;
-  color: #2692F2;
-  margin-top: 30px;
-  cursor: pointer;
-
-}
-
 .difficultyItemGrey {
   position: relative;
   font-size: 32px;
+  display: block;
   font-family: "Nunito";
   font-weight: 300;
+  margin-left: 40%;
+  margin-right: 40%;
   color: #BABABA;
   margin-top: 30px;
   cursor: pointer;

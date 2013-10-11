@@ -14,8 +14,8 @@ var numberInfected;
 
 var gameSVG ;
 var width = 975;
-var height = 700 - 45 - 50;  // standard height - footer:height - footer:bottomMargin
-var charge = -250;
+var height = 800 - 45 - 50;  // standard height - footer:height - footer:bottomMargin
+var charge = -300;
 var friction = 0.9;
 
 var numberOfVaccines = 0;
@@ -54,6 +54,8 @@ var vaxHardHiScore;
 
 var currentNode;
 var currentElement;
+
+var toggleDegree = false;
 
 
 initFooter();
@@ -226,7 +228,7 @@ function initBasicGame(difficulty) {
     }
 
     if (difficulty == "hard") {
-        charge = -250;
+        charge = -300;
         numberOfIndividuals = 100;
         meanDegree = 4;
         numberOfVaccines = 10;
@@ -347,7 +349,9 @@ function initGameSpace() {
 
 function nodeSize(node) {
     var size = 8;
-    // property-based sizing of nodes go here, if any
+    if (toggleDegree) {
+        size = findNeighbors(node).length * 2;
+    }
     return size;
 }
 
@@ -436,15 +440,19 @@ function gameUpdate() {
     // Update the nodes…
     node = gameSVG.selectAll("circle.node")
         .data(nodes, function(d) { return d.id; })
-        .attr("r", 8)
         .style("fill", nodeColor)
+
+    d3.selectAll("circle.node")
+        .transition()
+        .duration(100)
+        .attr("r", nodeSize)
+
 
     // Enter any new nodes.
     node.enter().append("svg:circle")
         .attr("class", "node")
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; })
-        .attr("r", 8)
         .style("fill", nodeColor)
         .on("click", gameClick)
         .call(force.drag);
@@ -521,11 +529,16 @@ function popNewGameInfection() {
         .transition()
         .duration(500)
         .attr("r", function(d) {
-            var size = 8;
+            var currentSize;
+            if (toggleDegree) currentSize = findNeighbors(d).length * 2;
+            else currentSize = 8;
+
+
             if (d.status == "I") {
-                if (timestep - d.exposureTimestep == 1) size = 12;
+                if (timestep - d.exposureTimestep == 1) return currentSize * 1.5;
+                else return currentSize;
             }
-            return size;
+            else return currentSize;
         })
 }
 
@@ -863,10 +876,7 @@ function initScoreRecap() {
 
 jQuery(document).bind('keydown', function (evt){
 
-    if (evt.shiftKey && evt.which == 27) force.start();
-    else {
-        if (evt.which == 27) force.stop();
-    }
+    if (currentNode == undefined) return;
 
     if (evt.shiftKey && evt.which == 32) {
         currentNode.fixed = false;
@@ -880,8 +890,19 @@ jQuery(document).bind('keydown', function (evt){
         }
     }
 
-
-
-
-
 });
+
+
+function toggleDegreeFxn() {
+    toggleDegree = !toggleDegree;
+
+    if (toggleDegree && difficultyString == "medium") charge = -500;
+    if (toggleDegree && difficultyString == "hard") charge = -400;
+
+    if (!toggleDegree) charge = -300;
+
+    gameUpdate();
+
+}
+
+
