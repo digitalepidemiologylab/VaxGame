@@ -862,14 +862,26 @@ function initScoreRecap() {
 }
 
 jQuery(document).bind('keydown', function (evt){
-    if (currentNode == undefined) return;
 
-    if (evt.which == 32) {
-        currentNode.fixed = true;
-        currentElement.style("stroke-width", "3px")
+    if (evt.shiftKey && evt.which == 27) force.start();
+    else {
+        if (evt.which == 27) force.stop();
     }
-    if (evt.which == 27) {
+
+    if (evt.shiftKey && evt.which == 32) {
         currentNode.fixed = false;
         currentElement.style("stroke-width", "2px")
+
     }
+    else {
+        if (evt.which == 32) {
+            currentNode.fixed = true;
+            currentElement.style("stroke-width", "3px")
+        }
+    }
+
+
+
+
+
 });
