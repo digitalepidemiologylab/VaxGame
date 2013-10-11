@@ -36,6 +36,6 @@ function initFooter() {
         .attr("id", "newGameNav")
         .text("New Game")
         .on("click", function() {
-            //loopback to newGame page
+            window.location.href = 'http://vax.herokuapp.com/game'
         })
 }

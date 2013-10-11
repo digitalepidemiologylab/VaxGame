@@ -42,7 +42,7 @@ var game;
 
 var easyBar = 70;
 var mediumBar = 50;
-var hardBar = 40;
+var hardBar = 35;
 
 var vaxEasyCompletion;
 var vaxMediumCompletion;
@@ -276,7 +276,7 @@ function initGameSpace() {
         gameSVG = d3.select("body").append("svg")
             .attr({
                 "width": window.innerWidth,
-                "height": 768 - 45  //footer takes ~12.5% of the page
+                "height": 768 - 45
             })
             .attr("class", "gameSVG")
             .attr("pointer-events", "all")

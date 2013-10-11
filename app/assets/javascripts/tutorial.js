@@ -16,15 +16,12 @@ var charge = -400;
 var newInfections = [];
 var xyCoords = [];
 var vax = 1;
-var exposureEdges = [];
 var currentFlash = 0;
 var keepFlashing = true;
 var xFlashCounter = 0;
 var numberQuarantined = 0;
 var vaccineSupply = 0;
-var vaccineResearched = false;
 var vaccinateMode = false;
-var treatMode = false;
 var quarantineMode = false;
 var twine = [];
 var twineIndex = 0;
@@ -35,10 +32,8 @@ var groupCounter = 1;
 var bcScores = [];
 var timestep = 0;
 var indexCase = null;
-var simulation = true;
 var opacityIndex = 0;
 var lessonText;
-var vaccinatedBayStartYCoord = 125;
 var start = false;
 var nextX = 800;
 var nextY = 140;
@@ -49,19 +44,14 @@ var width = 1024,
     height = 768 - 45 - 50,  // standard height - footer:height - footer:bottomMargin
     svg;
 var guideTextSVG;
-var actionBay;
 var force, link, node;
-var pleaseWait = false;
 var friction = 0.90;
 var backX = 115;
 var numberSaved = 0;
 var infectedBar;
 var uninfectedBar;
-var scoreMeter;
 
 var startButton;
-
-var fromMenu = false;
 
 backEnable = true;
 nextEnable = true;
@@ -91,46 +81,67 @@ var numberOfIndividuals = tailoredNodes.length;
 var weakTieNodes = getWeakTieNodes();
 var weakTieLinks = getWeakTieLinks();
 
-var backArrow, timestepTicker, timestepText, nextArrow;
+var backArrow, nextArrow;
 
-d3.select("body").append("text")
+var homeSVG = d3.select("body").append("svg")
+    .attr("class", "homeSVG")
+    .attr({
+        "width": "100%",
+        "height": "87.5%"  //footer takes ~12.5% of the page
+    })
+    .attr("viewBox", "0 0 " + width + " " + height )
+    .attr("pointer-events", "all")
+    .style("position", "absolute")
+
+var img1 = homeSVG.selectAll("image").data([0]);
+img1.enter()
+    .append("image")
+    .attr("class", "homeBackground")
+    .attr("xlink:href", "/assets/Vax_home_background.png")
+    .transition()
+    .duration(500)
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", "1024")
+    .attr("height", "768")
+
+d3.select(".homeSVG").append("text")
     .attr("class", "homeTitle")
+    .attr("x", 400)
+    .attr("y", 265)
+    .attr("fill", "#707070")
     .text("VAX!")
 
-d3.select("body").append("text")
+d3.select(".homeSVG").append("text")
     .attr("class", "homeText")
+    .attr("x", 275)
+    .attr("y", 315)
+    .attr("fill", "#707070")
     .text("A game about epidemic prevention.")
 
-d3.select("body").append("text")
+d3.select(".homeSVG").append("text")
     .attr("class", "homeTutorial")
+    .attr("x", 775)
+    .attr("y", 525)
+    .attr("fill", "#707070")
     .text("Tutorial >")
     .on("click", function() {
         homeToTutorial();
     })
 
-d3.select("body").append("text")
-    .attr("class", "homeModules")
-    .text("Modules >")
-    .on("click", function() {
-        d3.select(this)
-            .text("Under Construction...")
-            .style("font-size", "15px")
-    })
-
-d3.select("body").append("text")
+d3.select(".homeSVG").append("text")
     .attr("class", "homeGame")
+    .attr("x", 746)
+    .attr("y", 565)
+    .attr("fill", "#707070")
     .text("Full Game >")
     .on("click", function() {
         window.location.href = 'http://vax.herokuapp.com/game'
     })
 
+
 function homeToTutorial() {
-    d3.select("#homeBackground").remove();
-    d3.select(".homeTitle").remove();
-    d3.select(".homeText").remove();
-    d3.select(".homeTutorial").remove();
-    d3.select(".homeGame").remove();
-    d3.select(".homeModules").remove();
+    d3.select(".homeSVG").remove();
 
     var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
 
@@ -1333,7 +1344,6 @@ function activateVaccinationMode() {
     vaccinateMode = true;
     d3.selectAll(".node").style("cursor", 'url(/assets/vax_cursor.cur)');
     d3.select(".svg").style("cursor", 'url(/assets/vax_cursor.cur)');
-    vaccineResearched = true;
     intervention = true;
     d3.select(".vaccineCounterText")
         .text(vaccineSupply + " / " + vax);
@@ -1369,8 +1379,6 @@ function startQuarantineOutbreak() {
 }
 
 function quarantineTimesteps() {
-    console.log(timestep)
-    exposureEdges = [];
 
     infection();
     stateChanges();
