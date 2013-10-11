@@ -132,16 +132,30 @@ function homeToTutorial() {
     d3.select(".homeGame").remove();
     d3.select(".homeModules").remove();
 
-    svg = d3.select("body").append("svg")
-        .attr({
-            "width": "100%",
-            "height": "85%"
-        })
-        .attr("viewBox", "0 0 " + width + " " + height )
-//        .attr("preserveAspectRatio", "xMidYMid meet")
-        .attr("class", "svg")
-        .style("pointer-events", "all")
-//        .call(d3.behavior.zoom().on("zoom", redraw))
+    var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
+
+    if (isFirefox) {
+        svg = d3.select("body").append("svg")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", window.innerWidth)
+            .attr("height", 768 - 45 - 50)
+            .attr("class", "svg")
+            .style("pointer-events", "all")
+    }
+    else {
+        svg = d3.select("body").append("svg")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr({
+                "width": "100%",
+                "height": "85%"
+            })
+            .attr("viewBox", "0 0 " + width + " " + height )
+            .attr("class", "svg")
+            .style("pointer-events", "all")
+
+    }
 
 
     guideTextSVG = d3.select(".svg").append("svg:svg")

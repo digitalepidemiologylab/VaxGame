@@ -13,9 +13,9 @@ var numberSaved;
 var numberInfected;
 
 var gameSVG ;
-var width = 1024;
-var height = 768 - 45 - 50; // standard height - footer:height - footer:bottomMargin
-var charge = -400;
+var width = 900;
+var height = 700 - 45 - 50;  // standard height - footer:height - footer:bottomMargin
+var charge = -250;
 var friction = 0.9;
 
 var numberOfVaccines = 0;
@@ -270,15 +270,31 @@ function initGameSpace() {
     numberVaccinated  = 0     ;
     numberQuarantined = 0     ;
 
-    gameSVG = d3.select("body").append("svg")
-        .attr({
-            "width": "100%",
-            "height": "87.5%"  //footer takes ~12.5% of the page
-        })
-        .attr("viewBox", "0 0 " + width + " " + height )
-        .attr("class", "gameSVG")
-        .attr("pointer-events", "all")
-        .append('svg:g');
+    var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
+
+    if (isFirefox) {
+        gameSVG = d3.select("body").append("svg")
+            .attr({
+                "width": window.innerWidth,
+                "height": 768 - 45  //footer takes ~12.5% of the page
+            })
+            .attr("class", "gameSVG")
+            .attr("pointer-events", "all")
+            .append('svg:g');
+    }
+    else {
+        gameSVG = d3.select("body").append("svg")
+            .attr({
+                "width": "100%",
+                "height": "87.5%"  //footer takes ~12.5% of the page
+            })
+            .attr("viewBox", "0 0 " + width + " " + height )
+            .attr("class", "gameSVG")
+            .attr("pointer-events", "all")
+            .append('svg:g');
+
+    }
+
 
 
     // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
