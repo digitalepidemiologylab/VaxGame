@@ -52,8 +52,6 @@ var vaxEasyHiScore;
 var vaxMediumHiScore;
 var vaxHardHiScore;
 
-var nodePinning = false;
-
 var currentNode;
 var currentElement;
 
@@ -864,6 +862,8 @@ function initScoreRecap() {
 }
 
 jQuery(document).bind('keydown', function (evt){
+    if (currentNode == undefined) return;
+
     if (evt.which == 32) {
         currentNode.fixed = true;
         currentElement.style("stroke-width", "3px")
@@ -872,5 +872,4 @@ jQuery(document).bind('keydown', function (evt){
         currentNode.fixed = false;
         currentElement.style("stroke-width", "2px")
     }
-
 });
