@@ -275,7 +275,7 @@ function initGameSpace() {
     if (isFirefox) {
         gameSVG = d3.select("body").append("svg")
             .attr({
-                "width": window.innerWidth,
+                "width": 1024,
                 "height": 768 - 45
             })
             .attr("class", "gameSVG")

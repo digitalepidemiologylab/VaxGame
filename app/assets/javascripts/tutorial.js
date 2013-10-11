@@ -153,7 +153,7 @@ function homeToTutorial() {
         svg = d3.select("body").append("svg")
             .attr("x", 0)
             .attr("y", 0)
-            .attr("width", window.innerWidth)
+            .attr("width", 1024)
             .attr("height", 768 - 45 - 50)
             .attr("class", "svg")
             .style("pointer-events", "all")
