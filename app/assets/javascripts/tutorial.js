@@ -50,6 +50,10 @@ var backX = 115;
 var numberSaved = 0;
 var infectedBar;
 var uninfectedBar;
+var exposureEdges = [];
+var simulation = true;
+var vaccineResearched = false;
+var pleaseWait = false;
 
 var startButton;
 
@@ -1344,6 +1348,7 @@ function activateVaccinationMode() {
     vaccinateMode = true;
     d3.selectAll(".node").style("cursor", 'url(/assets/vax_cursor.cur)');
     d3.select(".svg").style("cursor", 'url(/assets/vax_cursor.cur)');
+    vaccineResearched = true;
     intervention = true;
     d3.select(".vaccineCounterText")
         .text(vaccineSupply + " / " + vax);
@@ -1379,6 +1384,7 @@ function startQuarantineOutbreak() {
 }
 
 function quarantineTimesteps() {
+    exposureEdges = [];
 
     infection();
     stateChanges();
