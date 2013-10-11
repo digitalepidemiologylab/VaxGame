@@ -13,7 +13,7 @@ var numberSaved;
 var numberInfected;
 
 var gameSVG ;
-var width = 900;
+var width = 975;
 var height = 700 - 45 - 50;  // standard height - footer:height - footer:bottomMargin
 var charge = -250;
 var friction = 0.9;
@@ -275,7 +275,7 @@ function initGameSpace() {
     if (isFirefox) {
         gameSVG = d3.select("body").append("svg")
             .attr({
-                "width": 1024,
+                "width": 950,
                 "height": 768 - 45
             })
             .attr("class", "gameSVG")
@@ -285,7 +285,7 @@ function initGameSpace() {
     else {
         gameSVG = d3.select("body").append("svg")
             .attr({
-                "width": "100%",
+                "width": "90%",
                 "height": "87.5%"  //footer takes ~12.5% of the page
             })
             .attr("viewBox", "0 0 " + width + " " + height )

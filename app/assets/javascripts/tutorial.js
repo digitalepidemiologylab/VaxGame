@@ -40,7 +40,7 @@ var nextY = 140;
 var guideXCoord = 400;
 var guideYCoord = 70;
 var guide2YCoordChange = 35;
-var width = 1024,
+var width = 950,
     height = 768 - 45 - 50,  // standard height - footer:height - footer:bottomMargin
     svg;
 var guideTextSVG;
@@ -153,7 +153,7 @@ function homeToTutorial() {
         svg = d3.select("body").append("svg")
             .attr("x", 0)
             .attr("y", 0)
-            .attr("width", 1024)
+            .attr("width", 950)
             .attr("height", 768 - 45 - 50)
             .attr("class", "svg")
             .style("pointer-events", "all")
