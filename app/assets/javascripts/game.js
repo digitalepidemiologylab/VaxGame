@@ -52,6 +52,11 @@ var vaxEasyHiScore;
 var vaxMediumHiScore;
 var vaxHardHiScore;
 
+var nodePinning = false;
+
+var currentNode;
+var currentElement;
+
 
 initFooter();
 initBasicMenu();
@@ -233,6 +238,11 @@ function initBasicGame(difficulty) {
     }
 
     graph = generateSmallWorld(numberOfIndividuals, rewire, meanDegree);
+
+    for (var i = 0; i < graph.nodes.length; i++) {
+        graph.nodes[i].fixed = false;
+    }
+
     removeDuplicateEdges(graph);
     initGameSpace();
 }
@@ -321,7 +331,20 @@ function initGameSpace() {
         .attr("r", nodeSize)
         .attr("fill", nodeColor)
         .call(force.drag)
-        .on("click", gameClick);
+        .on("click", gameClick)
+        .on("mouseover", function(d) {
+            d3.select(this).style("stroke-width","3px");
+            currentNode = d;
+            currentElement = d3.select(this);
+        })
+        .on("mouseout", function(d) {
+            d3.select(this).style("stroke-width","2px")
+            if (currentNode.fixed == true) d3.select(this).style("stroke-width","3px");
+            currentNode = null;
+            currentElement = null;
+        })
+
+
 }
 
 function nodeSize(node) {
@@ -416,7 +439,7 @@ function gameUpdate() {
     node = gameSVG.selectAll("circle.node")
         .data(nodes, function(d) { return d.id; })
         .attr("r", 8)
-        .style("fill", nodeColor);
+        .style("fill", nodeColor)
 
     // Enter any new nodes.
     node.enter().append("svg:circle")
@@ -431,6 +454,8 @@ function gameUpdate() {
     // Exit any old nodes.
     node.exit().remove();
 }
+
+
 
 function gameTimesteps() {
     infection();
@@ -837,3 +862,15 @@ function initScoreRecap() {
         .attr("fill", "#ef5555")
 
 }
+
+jQuery(document).bind('keydown', function (evt){
+    if (evt.which == 32) {
+        currentNode.fixed = true;
+        currentElement.style("stroke-width", "3px")
+    }
+    if (evt.which == 27) {
+        currentNode.fixed = false;
+        currentElement.style("stroke-width", "2px")
+    }
+
+});
