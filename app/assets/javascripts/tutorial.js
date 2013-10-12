@@ -147,6 +147,13 @@ d3.select(".homeSVG").append("text")
 function homeToTutorial() {
     d3.select(".homeSVG").remove();
 
+//    d3.select("body").append("div")
+//        .style("position", "absolute")
+//        .style("fill", "white")
+//        .style("width", window.innerWidth)
+//        .style("height", "150px")
+//        .style("top", "550px")
+
     var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
 
     if (isFirefox) {
@@ -171,12 +178,26 @@ function homeToTutorial() {
             .style("pointer-events", "all")
 
     }
+    d3.select(".svg").append("rect")
+        .attr("fill", "white")
+        .attr("width", 5000)
+        .attr("x", -500)
+        .attr("y", 500)
+        .attr("height", "125px")
 
 
     guideTextSVG = d3.select(".svg").append("svg:svg")
         .attr("class", "guideTextSVG")
         .attr("x", 0)
-        .attr("y", 500)
+        .attr("y", 475)
+
+//    d3.select(".guideTextSVG").append("rect")
+//        .attr("fill", "white")
+//        .attr("width", 1024)
+//        .attr("y", 25)
+//        .attr("height", "150px")
+
+
 
 
     guide = d3.select(".guideTextSVG").append("text")

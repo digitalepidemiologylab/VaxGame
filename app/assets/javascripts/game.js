@@ -222,6 +222,7 @@ function initBasicGame(difficulty) {
         numberOfIndividuals = 50;
         meanDegree = 3;
         numberOfVaccines = 5;
+        independentOutbreaks = 1;
         transmissionRate = transmissionRates[7];
         recoveryRate = recoveryRates[0];
     }
@@ -256,6 +257,8 @@ function initBasicGame(difficulty) {
 }
 
 function initCustomGame() {
+    difficultyString = null;
+
     d3.select(".newGameHeader").remove();
     graph             = {}    ;
     graph.nodes       = []    ;
@@ -271,11 +274,14 @@ function initCustomGame() {
 
     graph = generateSmallWorld(numberOfIndividuals, rewire, meanDegree);
     removeDuplicateEdges(graph);
-    initGameSpace();
 
-    d3.select("#customMenuDiv").remove();
-    d3.select(".difficultySelection").remove();
-    d3.select(".difficultySelection").remove();
+    d3.select("#customMenuDiv").style("right", "-1000px").style("visibility", "hidden")
+
+    window.setTimeout(function() {
+        d3.select("#customMenuDiv").remove()
+        initGameSpace();
+    }, 500);
+
 }
 
 function initGameSpace() {
@@ -303,7 +309,7 @@ function initGameSpace() {
     else {
         gameSVG = d3.select("body").append("svg")
             .attr({
-                "width": "90%",
+                "width": "100%",
                 "height": "87.5%"  //footer takes ~12.5% of the page
             })
             .attr("viewBox", "0 0 " + width + " " + height )
@@ -787,39 +793,39 @@ function initScoreRecap() {
     // details - left
     d3.select(".gameSVG").append("text")
         .attr("class", "networkSizeText")
-        .attr("x", backX)
-        .attr("y", 195)
+        .attr("x", backX + 25)
+        .attr("y", 195 - 75)
         .text("Network Size: " + numberOfIndividuals);
 
     d3.select(".gameSVG").append("text")
         .attr("class", "numberQuarantinedText")
-        .attr("x", backX)
-        .attr("y", 230)
+        .attr("x", backX + 25)
+        .attr("y", 230 - 75)
         .text("Quarantined: " + numberQuarantined)
 
     d3.select(".gameSVG").append("text")
         .attr("class", "numberVaccinatedText")
-        .attr("x", backX)
-        .attr("y", 265)
+        .attr("x", backX + 25)
+        .attr("y", 265 - 75)
         .attr("opacity", 1)
         .text("Vaccinated: " + numberVaccinated)
 
     d3.select(".gameSVG").append("text")
         .attr("class", "numberUntreatedText")
-        .attr("x", backX)
-        .attr("y", 300)
+        .attr("x", backX + 25)
+        .attr("y", 300 - 75)
         .attr("opacity", 1)
         .text("Untreated: " + countSavedGAME())
 
     numberSaved = countSavedGAME();
 
-    infectedHeight = (1.00 - ((numberVaccinated+numberQuarantined+numberSaved)/numberOfIndividuals).toFixed(2)) * (400);
-    uninfectedHeight = ((numberVaccinated+numberQuarantined+numberSaved)/numberOfIndividuals).toFixed(2) * (400)
+    infectedHeight = (1.00 - ((numberVaccinated+numberQuarantined+numberSaved)/numberOfIndividuals).toFixed(2)) * (300);
+    uninfectedHeight = ((numberVaccinated+numberQuarantined+numberSaved)/numberOfIndividuals).toFixed(2) * (300)
 
     uninfectedBar = d3.select(".gameSVG").append("rect")
         .attr("class", "uninfectedBar")
-        .attr("x", 1200)
-        .attr("y", 175)
+        .attr("x", 1200 + 25)
+        .attr("y", 175 - 75)
         .attr("height", uninfectedHeight)
         .attr("width", 100)
         .attr("opacity", 0)
@@ -827,6 +833,9 @@ function initScoreRecap() {
 
     centerElement(uninfectedBar, "uninfectedBar")
     uninfectedBar.attr("opacity", 1)
+
+    d3.select(".uninfectedBar").attr("x", uninfectedBar.node().getBBox().x + 25)
+
 
     var bottomOfUninfected = uninfectedBar.node().getBBox().y + uninfectedHeight + 20;
 
@@ -842,45 +851,160 @@ function initScoreRecap() {
     centerElement(infectedBar, "infectedBar")
     infectedBar.attr("opacity", 1)
 
-
-
+    d3.select(".infectedBar").attr("x", infectedBar.node().getBBox().x + 25)
 
     // legend - right
     d3.select(".gameSVG").append("text")
         .attr("class", "uninfectedLegendText")
-        .attr("x", backX + 550)
-        .attr("y", 195)
+        .attr("x", backX + 550 + 25)
+        .attr("y", 195 - 75)
         .text("Saved")
 
     d3.select(".gameSVG").append("text")
         .attr("class", "infectedLegendText")
-        .attr("x", backX + 550)
-        .attr("y", 245)
+        .attr("x", backX + 550 + 25)
+        .attr("y", 245 - 75)
         .text("Infected")
 
     d3.select(".gameSVG").append("text")
         .attr("class", "uninfectedPercentage")
-        .attr("x", backX + 625)
-        .attr("y", 195)
+        .attr("x", backX + 625 + 25)
+        .attr("y", 195 - 75)
         .text(Math.round((((numberSaved + numberQuarantined + numberVaccinated)/numberOfIndividuals)*100)).toFixed(0) + "%")
 
     d3.select(".gameSVG").append("rect")
         .attr("class", "uninfectedLegendBox")
-        .attr("x", backX + 521)
-        .attr("y", 177)
+        .attr("x", backX + 521 + 25)
+        .attr("y", 177 - 75)
         .attr("height", 20)
         .attr("width", 20)
         .attr("fill", "#b7b7b7")
 
     d3.select(".gameSVG").append("rect")
         .attr("class", "infectedLegendBox")
-        .attr("x", backX + 521)
-        .attr("y", 227)
+        .attr("x", backX + 521 + 25)
+        .attr("y", 227 - 75)
         .attr("height", 20)
         .attr("width", 20)
         .attr("fill", "#ef5555")
 
+    d3.select(".gameSVG").append("rect")
+        .attr("class", "whiteBackground")
+        .attr("x", -500)
+        .attr("y", 475)
+        .attr("width", 5000)
+        .attr("height", 150)
+        .attr("fill", "white")
+
+    loadConclusionText();
+
+
 }
+
+function loadConclusionText() {
+    var bar;
+    if (difficultyString == "easy") bar = easyBar;
+    if (difficultyString == "medium") bar = mediumBar;
+    if (difficultyString == "hard") bar = hardBar;
+
+    var total = Math.round((((numberSaved + numberQuarantined + numberVaccinated)/numberOfIndividuals)*100)).toFixed(0);
+
+    if (difficultyString == null) {
+        d3.select(".gameSVG").append("text")
+            .attr("class", "recapText")
+            .attr("x", 260)
+            .attr("y", 525)
+            .text("Well done, you saved " + total + "% of the network.")
+
+        d3.select(".gameSVG").append("text")
+            .attr("class", "recapButton")
+            .attr("x", 470)
+            .attr("y", 590)
+            .text("Retry")
+            .on("click", retry)
+
+    }
+    else {
+        if (total > bar) {
+            d3.select(".gameSVG").append("text")
+                .attr("class", "recapText")
+                .attr("x", 260)
+                .attr("y", 525)
+                .text("Well done, you saved " + total + "% of the network.")
+
+            d3.select(".gameSVG").append("text")
+                .attr("class", "recapButton")
+                .attr("x", 355)
+                .attr("y", 590)
+                .text("Retry")
+                .on("click", retry)
+
+
+            d3.select(".gameSVG").append("text")
+                .attr("class", "recapButton")
+                .attr("x", 580)
+                .attr("y", 590)
+                .text("Next")
+                .on("click", next)
+
+        }
+        else {
+            d3.select(".gameSVG").append("text")
+                .attr("class", "recapText")
+                .attr("x", 200)
+                .attr("y", 525)
+                .text("Save " + bar + "% of the network to unlock the next stage.")
+
+            d3.select(".gameSVG").append("text")
+                .attr("class", "recapButton")
+                .attr("x", 470)
+                .attr("y", 590)
+                .text("Retry")
+                .on("click", retry)
+        }
+    }
+
+
+}
+
+function retry() {
+    d3.select(".gameSVG").remove()
+    graph = {};
+    timestep = 0;
+    diseaseIsSpreading = false;
+    timeToStop = false;
+
+    if (difficultyString == null) initCustomGame();
+    else initBasicGame(difficultyString);
+
+}
+
+function next() {
+    d3.select(".gameSVG").remove()
+    graph = {};
+    timestep = 0;
+    diseaseIsSpreading = false;
+    timeToStop = false;
+
+    if (difficultyString == "hard") initCustomGame();
+    else {
+        if (difficultyString == "easy") {
+            initBasicGame("medium")
+            difficultyString = "medium"
+            return;
+        }
+        if (difficultyString == "medium") {
+            initBasicGame("hard");
+            difficultyString = "hard";
+            return;
+        }
+    }
+
+}
+
+
+
+
 
 jQuery(document).bind('keydown', function (evt){
 
@@ -912,4 +1036,5 @@ function toggleDegreeFxn() {
     gameUpdate();
 
 }
+
 
