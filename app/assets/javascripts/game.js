@@ -42,7 +42,7 @@ var game;
 
 var easyBar = 70;
 var mediumBar = 50;
-var hardBar = 35;
+var hardBar = 40;
 
 var vaxEasyCompletion;
 var vaxMediumCompletion;
@@ -52,10 +52,17 @@ var vaxEasyHiScore;
 var vaxMediumHiScore;
 var vaxHardHiScore;
 
+var easyScores;
+var mediumScores;
+var hardScores;
+var scores = {easy: easyScores, medium: mediumScores, hard: hardScores};
+
 var currentNode;
 var currentElement;
 
 var toggleDegree = false;
+
+var cookie = {};
 
 
 initFooter();
@@ -63,11 +70,35 @@ initBasicMenu();
 window.setTimeout(initCookiesOnDelay, 500)
 
 function initCookiesOnDelay() {
-    readCookies();
+    readCookiesJSON();
+}
+
+function readCookiesJSON() {
+    $.cookie.json = true;
+    var cookies = $.cookie('vaxCookie')
+
+    if (cookies == undefined) initCookiesJSON();
+
+    cookie = $.cookie('vaxCookie')
+
+    vaxEasyCompletion = cookie.easy;
+    vaxMediumCompletion = cookie.medium;
+    vaxHardCompletion = cookie.hard;
+
+    vaxEasyHiScore = Math.max.apply( Math, cookie.scores[0])
+    vaxMediumHiScore = Math.max.apply( Math, cookie.scores[1])
+    vaxHardHiScore = Math.max.apply( Math, cookie.scores[2])
+
+
+    customNodeChoice = parseInt(cookie.custom[0]);
+    customNeighborChoice = parseInt(cookie.custom[1]);
+    customVaccineChoice = parseInt(cookie.custom[2]);
+    customOutbreakChoice = parseInt(cookie.custom[3]);
+
+    cookieBasedModeSelection();
 }
 
 function readCookies() {
-
     var cookies = $.cookie()
 
     if($.cookie('vaxEasyCompletion') == undefined) initCookies();
@@ -87,6 +118,7 @@ function readCookies() {
     customVaccineChoice = parseInt(cookies.customVaccines);
     customOutbreakChoice = parseInt(cookies.customOutbreaks);
 
+
     cookieBasedModeSelection();
 }
 
@@ -103,6 +135,20 @@ function initCookies() {
     $.cookie('customNeighbors', 4, { expires: 365, path: '/'})
     $.cookie('customVaccines', 15, { expires: 365, path: '/'})
     $.cookie('customOutbreaks', 2, { expires: 365, path: '/'})
+}
+
+function initCookiesJSON() {
+    $.cookie.json = true;
+    easyScores = [];
+    mediumScores = [];
+    hardScores = [];
+    var customDefaults = [75, 4, 15, 2];
+    var score = [easyScores, mediumScores, hardScores];
+
+    var cookie = {easy: false, medium: false, hard: false, custom: customDefaults, scores: score}
+
+    $.cookie('vaxCookie', JSON.stringify(cookie), { expires: 365, path: '/' })
+
 }
 
 function clearCookies() {
@@ -137,7 +183,7 @@ function cookieBasedModeSelection() {
         })
 
     // set medium based on easy
-    if (vaxEasyCompletion == "true") {
+    if (vaxEasyCompletion == true) {
         d3.select("#difficultyMedium")
             .attr("class", "difficultyItem")
             .on("mouseover", function() {
@@ -160,7 +206,7 @@ function cookieBasedModeSelection() {
     }
 
     // set hard based on medium
-    if (vaxMediumCompletion == "true") {
+    if (vaxMediumCompletion == true) {
         d3.select("#difficultyHard")
             .attr("class", "difficultyItem")
             .on("mouseover", function() {
@@ -183,7 +229,7 @@ function cookieBasedModeSelection() {
     }
 
     // set custom based on hard
-    if (vaxHardCompletion == "true") {
+    if (vaxHardCompletion == true) {
         d3.select("#difficultyCustom")
             .attr("class", "difficultyItem")
             .on("mouseover", function() {
@@ -765,22 +811,62 @@ function setCookies() {
 
     if (difficultyString == "easy") {
         if ($.cookie('vaxEasyHiScore') < proportionSaved) $.cookie('vaxEasyHiScore', proportionSaved)
-        if (proportionSaved > easyBar) $.cookie('vaxEasyCompletion', 'true')
+        if (proportionSaved >= easyBar) $.cookie('vaxEasyCompletion', 'true')
     }
 
     if (difficultyString == "medium") {
         if ($.cookie('vaxMediumHiScore') < proportionSaved) $.cookie('vaxMediumHiScore', proportionSaved)
-        if (proportionSaved > mediumBar) $.cookie('vaxMediumCompletion', 'true')
+        if (proportionSaved >= mediumBar) $.cookie('vaxMediumCompletion', 'true')
     }
 
     if (difficultyString == "hard") {
         if ($.cookie('vaxHardHiScore') < proportionSaved)$.cookie('vaxHardHiScore', proportionSaved)
-        if (proportionSaved > hardBar) $.cookie('vaxHardCompletion', 'true')
+        if (proportionSaved >= hardBar) $.cookie('vaxHardCompletion', 'true')
     }
 }
 
+function writeCookiesJSON() {
+    var proportionSaved = Math.round((((countSavedGAME() + numberQuarantined + numberVaccinated)/numberOfIndividuals)*100)).toFixed(0)
+
+    if (difficultyString == "easy") {
+        cookie.scores[0].push(proportionSaved);
+        if (proportionSaved > easyBar) vaxEasyCompletion = true;
+        vaxEasyHiScore = Math.max.apply( Math, cookie.scores[0])
+
+    }
+    if (difficultyString == "medium") {
+        cookie.scores[1].push(proportionSaved);
+        if (proportionSaved > mediumBar) vaxMediumCompletion = true;
+        vaxMediumHiScore = Math.max.apply( Math, cookie.scores[1])
+
+    }
+    if (difficultyString == "hard") {
+        cookie.scores[2].push(proportionSaved);
+        if (proportionSaved > hardBar) vaxHardCompletion = true;
+        vaxHardHiScore = Math.max.apply( Math, cookie.scores[2])
+    }
+    if (difficultyString == undefined) {
+        cookie.custom[0] = customNodeChoice;
+        cookie.custom[1] = customNeighborChoice;
+        cookie.custom[2] = customVaccineChoice;
+        cookie.custom[3] = customOutbreakChoice;
+    }
+
+    var easyScores = cookie.scores[0];
+    var mediumScores = cookie.scores[1];
+    var hardScores = cookie.scores[2];
+    var lastCustom = cookie.custom
+    var score = [easyScores, mediumScores, hardScores];
+
+    var newCookie = {easy: vaxEasyCompletion, medium: vaxMediumCompletion, hard: vaxHardCompletion, custom: lastCustom, scores: score}
+    $.removeCookie('vaxCookie')
+    $.cookie('vaxCookie', JSON.stringify(newCookie), { expires: 365, path: '/' })
+
+}
+
 function initScoreRecap() {
-    setCookies();
+//    setCookies();
+    writeCookiesJSON();
 
     d3.select(".endGameShadow").remove()
     d3.select(".endGameBox").remove()
@@ -922,6 +1008,12 @@ function loadConclusionText() {
             .attr("y", 590)
             .text("Retry")
             .on("click", retry)
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
 
     }
     else {
@@ -938,6 +1030,12 @@ function loadConclusionText() {
                 .attr("y", 590)
                 .text("Retry")
                 .on("click", retry)
+                .on("mouseover", function() {
+                    d3.select(this).style("fill", "#2692F2")
+                })
+                .on("mouseout", function() {
+                    d3.select(this).style("fill", "#707070")
+                })
 
 
             d3.select(".gameSVG").append("text")
@@ -946,6 +1044,12 @@ function loadConclusionText() {
                 .attr("y", 590)
                 .text("Next")
                 .on("click", next)
+                .on("mouseover", function() {
+                    d3.select(this).style("fill", "#2692F2")
+                })
+                .on("mouseout", function() {
+                    d3.select(this).style("fill", "#707070")
+                })
 
         }
         else {
@@ -961,6 +1065,12 @@ function loadConclusionText() {
                 .attr("y", 590)
                 .text("Retry")
                 .on("click", retry)
+                .on("mouseover", function() {
+                    d3.select(this).style("fill", "#2692F2")
+                })
+                .on("mouseout", function() {
+                    d3.select(this).style("fill", "#707070")
+                })
         }
     }
 
@@ -986,7 +1096,10 @@ function next() {
     diseaseIsSpreading = false;
     timeToStop = false;
 
-    if (difficultyString == "hard") initCustomGame();
+    if (difficultyString == "hard" || difficultyString == null) {
+        window.location.href = "http://vax.herokuapp.com/game"
+
+    }
     else {
         if (difficultyString == "easy") {
             initBasicGame("medium")

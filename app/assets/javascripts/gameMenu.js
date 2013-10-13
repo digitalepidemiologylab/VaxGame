@@ -1,3 +1,8 @@
+customNodeChoice = 1;
+customVaccineChoice = 1;
+customNeighborChocie = 1;
+customOutbreakChoice = 1;
+
 
 function initBasicMenu() {
 
@@ -91,11 +96,13 @@ $(function() {
         range: "min",
         min: 1,
         max: 150,
-        value: parseInt($.cookie('customNodes')),
+        value: customNodeChoice,
         slide: function (event, ui) {
+            $.cookie.json = false;
             $.cookie('customNodes', ui.value)
-            $("#customNodes").text("Nodes: " + parseInt($.cookie('customNodes')));
-            customNodeChoice = parseInt($.cookie('customNodes'));
+            $.cookie.json = true;
+            $("#customNodes").text("Nodes: " + ui.value);
+            customNodeChoice = ui.value;
         }
     });
     $( "#nodeSlider" ).slider( "value", parseInt($.cookie('customNodes')));
@@ -106,14 +113,16 @@ $(function() {
         range: "min",
         min: 1,
         max: 10,
-        value: parseInt($.cookie('customNeighbors')),
+        value: customNeighborChoice,
         slide: function (event, ui) {
+            $.cookie.json = false;
             $.cookie('customNeighbors', ui.value)
-            $("#customDegree").text("Neighbors: " + parseInt($.cookie('customNeighbors')) + "ea.");
-            customNeighborChoice = parseInt($.cookie('customNeighbors'));
+            $.cookie.json = true;
+            $("#customDegree").text("Neighbors: " + ui.value + "ea.");
+            customNeighborChoice = ui.value;
         }
     });
-    $( "#degreeSlider").slider( "value", parseInt($.cookie('customNeighbors')))
+    $( "#degreeSlider").slider( "value", parseInt($.cookie('customNeighbors')));
 });
 
 $(function() {
@@ -121,11 +130,13 @@ $(function() {
         range: "min",
         min: 1,
         max: 300,
-        value: parseInt($.cookie('customVaccines')),
+        value: customVaccineChoice,
         slide: function (event, ui) {
+            $.cookie.json = false;
             $.cookie('customVaccines', ui.value)
-            $("#customVaccines").text("Vaccines: " + parseInt($.cookie('customVaccines')));
-            customVaccineChoice = parseInt($.cookie('customVaccines'));
+            $.cookie.json = true;
+            $("#customVaccines").text("Vaccines: " + ui.value);
+            customVaccineChoice = ui.value;
         }
     });
     $( "#vaccineSlider").slider( "value", parseInt($.cookie('customVaccines')))
@@ -136,15 +147,16 @@ $(function() {
         range: "min",
         min: 1,
         max: 5,
-        value: parseInt($.cookie('customOutbreaks')),
+        value:customOutbreakChoice,
         slide: function (event, ui) {
+            $.cookie.json = false;
             $.cookie('customOutbreaks', ui.value)
-            $("#customOutbreaks").text("Outbreaks: " + parseInt($.cookie('customOutbreaks')));
-            customOutbreakChoice = parseInt($.cookie('customOutbreaks'));
+            $.cookie.json = true;
+            $("#customOutbreaks").text("Outbreaks: " + ui.value);
+            customOutbreakChoice = ui.value;
         }
     });
     $( "#outbreakSlider").slider( "value", parseInt($.cookie('customOutbreaks')))
 });
-
 
 
