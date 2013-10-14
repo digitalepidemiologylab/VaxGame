@@ -15,7 +15,7 @@ var numberInfected;
 var gameSVG ;
 var width = 975;
 var height = 800 - 45 - 50;  // standard height - footer:height - footer:bottomMargin
-var charge = -300;
+var charge = -500;
 var friction = 0.9;
 
 var numberOfVaccines = 0;
@@ -364,8 +364,7 @@ function initCustomGame() {
     independentOutbreaks = customOutbreakChoice;
 
     if (customNodeChoice > 100) charge = -150;
-    if (customNodeChoice > 150) charge = -125;
-    if (customNodeChoice > 175) charge = -100;
+    if (customNodeChoice > 125) charge = -130;
 
     graph = generateSmallWorld(numberOfIndividuals, rewire, meanDegree);
     removeDuplicateEdges(graph);
@@ -511,7 +510,7 @@ function initGameSpace() {
 function nodeSize(node) {
     var size = 8;
     if (toggleDegree) {
-        size = findNeighbors(node).length * 2;
+        size = (findNeighbors(node).length + 1.5) * 1.9;
     }
     return size;
 }
@@ -691,8 +690,9 @@ function popNewGameInfection() {
         .duration(500)
         .attr("r", function(d) {
             var currentSize;
-            if (toggleDegree) currentSize = findNeighbors(d).length * 2;
+            if (toggleDegree) currentSize = (findNeighbors(d).length + 1.5) * 1.9;
             else currentSize = 8;
+
 
 
             if (d.status == "I") {
@@ -771,9 +771,12 @@ function loadGameSyringe() {
         .style("font-weight", 300)
         .style("fill", "white")
         .text("")
-        .style("right", "45px")
+        .style("right", "49px")
 
     d3.select(".vaccineCounterText").text(numberOfVaccines)
+
+    window.setTimeout(activateGameVaccinationMode, 100)
+
 }
 
 function hideGameSyringe() {
@@ -801,6 +804,8 @@ function loadGameQuarantine() {
         .text("")
 
     d3.select(".quarantineCounterText").text("x" + numberQuarantined)
+
+    window.setTimeout(activateGameQuarantineMode, 1000);
 }
 
 function hideGameQuarantine() {
@@ -817,6 +822,7 @@ function activateGameVaccinationMode() {
     d3.select(".gameSVG").style("cursor", 'url(/assets/vax_cursor.cur)');
     d3.select(".vaccineCounterText").text(numberOfVaccines);
     d3.select(".vaccineDepressedState").style("visibility", "visible")
+
 }
 
 function activateGameQuarantineMode() {
@@ -827,6 +833,7 @@ function activateGameQuarantineMode() {
     d3.select(".quarantineDepressedState").style("visibility", "visible")
 
     gameIndexPatients();
+
 
 }
 
@@ -1244,7 +1251,7 @@ jQuery(document).bind('keydown', function (evt){
 function toggleDegreeFxn() {
     toggleDegree = !toggleDegree;
 
-    if (toggleDegree && difficultyString == "medium") charge = -500;
+    if (toggleDegree && difficultyString == "medium") charge = -600;
     if (toggleDegree && difficultyString == "hard") charge = -400;
 
     if (!toggleDegree) charge = -300;
