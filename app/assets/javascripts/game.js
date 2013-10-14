@@ -99,29 +99,29 @@ function readCookiesJSON() {
     cookieBasedModeSelection();
 }
 
-function readCookies() {
-    var cookies = $.cookie()
-
-    if($.cookie('vaxEasyCompletion') == undefined) initCookies();
-
-    cookies = $.cookie();
-
-    vaxEasyCompletion = cookies.vaxEasyCompletion;
-    vaxMediumCompletion = cookies.vaxMediumCompletion;
-    vaxHardCompletion = cookies.vaxHardCompletion;
-
-    vaxEasyHiScore = cookies.vaxEasyHiScore;
-    vaxMediumHiScore = cookies.vaxMediumHiScore;
-    vaxHardHiScore = cookies.vaxHardHiScore;
-
-    customNodeChoice = parseInt(cookies.customNodes);
-    customNeighborChoice = parseInt(cookies.customNeighbors);
-    customVaccineChoice = parseInt(cookies.customVaccines);
-    customOutbreakChoice = parseInt(cookies.customOutbreaks);
-
-
-    cookieBasedModeSelection();
-}
+//function readCookies() {
+//    var cookies = $.cookie()
+//
+//    if($.cookie('vaxEasyCompletion') == undefined) initCookies();
+//
+//    cookies = $.cookie();
+//
+//    vaxEasyCompletion = cookies.vaxEasyCompletion;
+//    vaxMediumCompletion = cookies.vaxMediumCompletion;
+//    vaxHardCompletion = cookies.vaxHardCompletion;
+//
+//    vaxEasyHiScore = cookies.vaxEasyHiScore;
+//    vaxMediumHiScore = cookies.vaxMediumHiScore;
+//    vaxHardHiScore = cookies.vaxHardHiScore;
+//
+//    customNodeChoice = parseInt(cookies.customNodes);
+//    customNeighborChoice = parseInt(cookies.customNeighbors);
+//    customVaccineChoice = parseInt(cookies.customVaccines);
+//    customOutbreakChoice = parseInt(cookies.customOutbreaks);
+//
+//
+//    cookieBasedModeSelection();
+//}
 
 //function initCookies() {
 //    $.cookie('vaxEasyCompletion', false, { expires: 365, path: '/' });
@@ -376,6 +376,9 @@ function initGameSpace() {
             .attr("class", "gameSVG")
             .attr("pointer-events", "all")
             .append('svg:g');
+
+
+
     }
     else {
         gameSVG = d3.select("body").append("svg")
@@ -387,6 +390,56 @@ function initGameSpace() {
             .attr("class", "gameSVG")
             .attr("pointer-events", "all")
             .append('svg:g');
+
+        d3.select(".gameSVG").append("text")
+            .attr("x", 450)
+            .attr("y", 25)
+            .attr("class", "hotkeyDropdown")
+            .text("▾ Hotkeys ▾")
+            .style("cursor", "pointer")
+            .on("mouseover", function() {
+                var pin = d3.select(".gameSVG").append("text")
+                    .attr("class", "pin")
+                    .attr("x", 435)
+                    .attr("y", 40)
+                    .text("Pin Node: Space")
+                    .attr("opacity", 0)
+
+
+                var release = d3.select(".gameSVG").append("text")
+                    .attr("class", "release")
+                    .attr("x", 404)
+                    .attr("y", 55)
+                    .text("Release Node: Shift+Space")
+                    .attr("opacity", 0)
+
+
+                d3.select(".pin")
+                    .transition()
+                    .duration(25)
+                    .attr("opacity", 1)
+
+                d3.select(".release")
+                    .transition()
+                    .duration(25)
+                    .attr("opacity", 1)
+
+
+            } )
+            .on("mouseout", function() {
+                d3.select(".pin")
+                    .transition()
+                    .duration(2500)
+                    .attr("opacity", 0)
+                d3.select(".release")
+                    .transition()
+                    .duration(2500)
+                    .attr("opacity", 0)
+
+                window.setTimeout(function() {d3.select(".pin").remove(); d3.select(".release").remove()}, 2600)
+
+            })
+
 
     }
 
@@ -1013,6 +1066,8 @@ function initScoreRecap() {
 }
 
 function loadConclusionText() {
+    d3.select(".hotkeyDropdown").remove()
+
     var bar;
     if (difficultyString == "easy") bar = easyBar;
     if (difficultyString == "medium") bar = mediumBar;
