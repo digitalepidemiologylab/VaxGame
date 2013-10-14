@@ -179,6 +179,7 @@ function homeToTutorial() {
 
     }
     d3.select(".svg").append("rect")
+        .attr("class", "whiteBackground")
         .attr("fill", "white")
         .attr("width", window.innerWidth)
         .attr("x", -150)

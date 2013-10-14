@@ -123,22 +123,27 @@ function readCookies() {
     cookieBasedModeSelection();
 }
 
-function initCookies() {
-    $.cookie('vaxEasyCompletion', false, { expires: 365, path: '/' });
-    $.cookie('vaxMediumCompletion', false, { expires: 365, path: '/' });
-    $.cookie('vaxHardCompletion', false, { expires: 365, path: '/' });
-
-    $.cookie('vaxEasyHiScore', 0, { expires: 365, path: '/' });
-    $.cookie('vaxMediumHiScore', 0, { expires: 365, path: '/' });
-    $.cookie('vaxHardHiScore', 0, { expires: 365, path: '/' });
-
-    $.cookie('customNodes', 75, { expires: 365, path: '/'})
-    $.cookie('customNeighbors', 4, { expires: 365, path: '/'})
-    $.cookie('customVaccines', 15, { expires: 365, path: '/'})
-    $.cookie('customOutbreaks', 2, { expires: 365, path: '/'})
-}
+//function initCookies() {
+//    $.cookie('vaxEasyCompletion', false, { expires: 365, path: '/' });
+//    $.cookie('vaxMediumCompletion', false, { expires: 365, path: '/' });
+//    $.cookie('vaxHardCompletion', false, { expires: 365, path: '/' });
+//
+//    $.cookie('vaxEasyHiScore', 0, { expires: 365, path: '/' });
+//    $.cookie('vaxMediumHiScore', 0, { expires: 365, path: '/' });
+//    $.cookie('vaxHardHiScore', 0, { expires: 365, path: '/' });
+//
+//    $.cookie('customNodes', 75, { expires: 365, path: '/'})
+//    $.cookie('customNeighbors', 4, { expires: 365, path: '/'})
+//    $.cookie('customVaccines', 15, { expires: 365, path: '/'})
+//    $.cookie('customOutbreaks', 2, { expires: 365, path: '/'})
+//}
 
 function initCookiesJSON() {
+    var oldCookieTest = $.cookie('vaxEasyCompletion');
+
+    if (oldCookieTest) clearCookies();
+    else { if (!oldCookieTest) clearCookies();}
+
     $.cookie.json = true;
     easyScores = [];
     mediumScores = [];
@@ -152,24 +157,35 @@ function initCookiesJSON() {
 }
 
 function clearCookies() {
-    $.removeCookie('vaxEasyCompletion');
-    $.removeCookie('vaxMediumCompletion');
-    $.removeCookie('vaxHardCompletion');
+    $.removeCookie('vaxCookie')
 
-    $.removeCookie('vaxEasyHiScore');
-    $.removeCookie('vaxMediumHiScore');
-    $.removeCookie('vaxHardHiScore');
+    $.removeCookie('customNodes')
+    $.removeCookie('customNeighbors')
+    $.removeCookie('customVaccines')
+    $.removeCookie('customOutbreaks')
+
+    //old cookie clearing
+    $.removeCookie('vaxEasyCompletion')
+    $.removeCookie('vaxMediumCompletion')
+    $.removeCookie('vaxHardCompletion')
+
+    $.removeCookie('vaxEasyHiScore')
+    $.removeCookie('vaxMediumHiScore')
+    $.removeCookie('vaxHardHiScore')
 
 }
 
 function allAccess() {
-    $.cookie('vaxEasyCompletion', true, { expires: 365, path: '/' });
-    $.cookie('vaxMediumCompletion', true, { expires: 365, path: '/' });
-    $.cookie('vaxHardCompletion', true, { expires: 365, path: '/' });
+    $.cookie.json = true;
+    easyScores = ["49"];
+    mediumScores = ["74"];
+    hardScores = ["99"];
+    var score = [easyScores, mediumScores, hardScores];
 
-    $.cookie('vaxEasyHiScore', 100, { expires: 365, path: '/' });
-    $.cookie('vaxMediumHiScore', 100, { expires: 365, path: '/' });
-    $.cookie('vaxHardHiScore', 100, { expires: 365, path: '/' });
+    var cookie = {easy: true, medium: true, hard: true, scores: score}
+    $.removeCookie('vaxCookie')
+    $.cookie('vaxCookie', JSON.stringify(cookie), { expires: 365, path: '/' })
+
 }
 
 
