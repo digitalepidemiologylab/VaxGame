@@ -436,7 +436,7 @@ function initGameSpace() {
             .style("top", "25px")
             .style("right", "40px")
             .style("color", "black")
-            .text("Release : Shift+Space")
+            .text("Release  : Shift+Space")
             .style("visibility", "hidden")
 
 
@@ -511,6 +511,9 @@ function nodeSize(node) {
     var size = 8;
     if (toggleDegree) {
         size = (findNeighbors(node).length + 1.5) * 1.9;
+        if (meanDegree > 3) size = (findNeighbors(node).length+1) * 1.65;
+        if (meanDegree > 4) size = (findNeighbors(node).length+1) * 1.25;
+
     }
     return size;
 }
@@ -690,7 +693,12 @@ function popNewGameInfection() {
         .duration(500)
         .attr("r", function(d) {
             var currentSize;
-            if (toggleDegree) currentSize = (findNeighbors(d).length + 1.5) * 1.9;
+            if (toggleDegree) {
+                currentSize = (findNeighbors(d).length + 1.5) * 1.9;
+                if (meanDegree > 3) currentSize = (findNeighbors(d).length+1) * 1.65;
+                if (meanDegree > 4) currentSize = (findNeighbors(d).length+1) * 1.25;
+
+            }
             else currentSize = 8;
 
 

@@ -83,8 +83,10 @@ function initCustomMenu() {
         .attr("class", "okayButton")
         .text("OKAY")
         .on("click", function() {
-
+            d3.select(this).remove();
             initCustomGame();
+
+
 
         })
 
@@ -118,7 +120,7 @@ $(function() {
     $( "#degreeSlider").slider({
         range: "min",
         min: 1,
-        max: 10,
+        max: 5,
         value: customNeighborChoice,
         slide: function (event, ui) {
             $.cookie.json = false;
