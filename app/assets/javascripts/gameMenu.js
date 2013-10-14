@@ -91,11 +91,12 @@ function initCustomMenu() {
 
 }
 
+var maxVax = parseInt($.cookie('customNodes'))
 $(function() {
     $( "#nodeSlider").slider({
         range: "min",
         min: 1,
-        max: 150,
+        max: 200,
         value: customNodeChoice,
         slide: function (event, ui) {
             $.cookie.json = false;
@@ -103,6 +104,11 @@ $(function() {
             $.cookie.json = true;
             $("#customNodes").text("Nodes: " + ui.value);
             customNodeChoice = ui.value;
+            customVaccineChoice = Math.round(0.10 * customNodeChoice)
+            d3.select("#customVaccines").text("Vaccines: " + Math.round(0.10 * customNodeChoice))
+            $( "#vaccineSlider").slider({
+                max: customNodeChoice,
+                value: Math.round(0.10 * customNodeChoice)});
         }
     });
     $( "#nodeSlider" ).slider( "value", parseInt($.cookie('customNodes')));
@@ -129,7 +135,7 @@ $(function() {
     $( "#vaccineSlider").slider({
         range: "min",
         min: 1,
-        max: 300,
+        max: maxVax,
         value: customVaccineChoice,
         slide: function (event, ui) {
             $.cookie.json = false;
@@ -139,7 +145,9 @@ $(function() {
             customVaccineChoice = ui.value;
         }
     });
+
     $( "#vaccineSlider").slider( "value", parseInt($.cookie('customVaccines')))
+
 });
 
 $(function() {

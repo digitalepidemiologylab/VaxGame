@@ -180,8 +180,8 @@ function homeToTutorial() {
     }
     d3.select(".svg").append("rect")
         .attr("fill", "white")
-        .attr("width", 5000)
-        .attr("x", -500)
+        .attr("width", window.innerWidth)
+        .attr("x", -150)
         .attr("y", 500)
         .attr("height", "125px")
 

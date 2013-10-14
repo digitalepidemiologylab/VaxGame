@@ -89,11 +89,12 @@ function readCookiesJSON() {
     vaxMediumHiScore = Math.max.apply( Math, cookie.scores[1])
     vaxHardHiScore = Math.max.apply( Math, cookie.scores[2])
 
-
-    customNodeChoice = parseInt(cookie.custom[0]);
-    customNeighborChoice = parseInt(cookie.custom[1]);
-    customVaccineChoice = parseInt(cookie.custom[2]);
-    customOutbreakChoice = parseInt(cookie.custom[3]);
+    $.cookie.json = false;
+    customNodeChoice = parseInt($.cookie().customNodes);
+    customNeighborChoice = parseInt($.cookie().customNeighbors);
+    customVaccineChoice = parseInt($.cookie().customVaccines);
+    customOutbreakChoice = parseInt($.cookie().customOutbreaks);
+    $.cookie.json = true;
 
     cookieBasedModeSelection();
 }
@@ -142,10 +143,9 @@ function initCookiesJSON() {
     easyScores = [];
     mediumScores = [];
     hardScores = [];
-    var customDefaults = [75, 4, 15, 2];
     var score = [easyScores, mediumScores, hardScores];
 
-    var cookie = {easy: false, medium: false, hard: false, custom: customDefaults, scores: score}
+    var cookie = {easy: false, medium: false, hard: false, scores: score}
 
     $.cookie('vaxCookie', JSON.stringify(cookie), { expires: 365, path: '/' })
 
@@ -286,7 +286,7 @@ function initBasicGame(difficulty) {
         charge = -300;
         numberOfIndividuals = 100;
         meanDegree = 4;
-        numberOfVaccines = 10;
+        numberOfVaccines = 15;
         transmissionRate = transmissionRates[4];
         recoveryRate = recoveryRates[0];
         independentOutbreaks = 3;
@@ -317,6 +317,10 @@ function initCustomGame() {
     numberOfVaccines = customVaccineChoice;
     vaccineSupply = numberOfVaccines;
     independentOutbreaks = customOutbreakChoice;
+
+    if (customNodeChoice > 100) charge = -150;
+    if (customNodeChoice > 150) charge = -125;
+    if (customNodeChoice > 175) charge = -100;
 
     graph = generateSmallWorld(numberOfIndividuals, rewire, meanDegree);
     removeDuplicateEdges(graph);
@@ -845,20 +849,20 @@ function writeCookiesJSON() {
         if (proportionSaved > hardBar) vaxHardCompletion = true;
         vaxHardHiScore = Math.max.apply( Math, cookie.scores[2])
     }
+    $.cookie.json = false;
+
     if (difficultyString == undefined) {
-        cookie.custom[0] = customNodeChoice;
-        cookie.custom[1] = customNeighborChoice;
-        cookie.custom[2] = customVaccineChoice;
-        cookie.custom[3] = customOutbreakChoice;
-    }
+        $.cookie('customNodes', customNodeChoice);
+        $.cookie('customNeighbors', customNeighborChoice);
+        $.cookie('customVaccines', customVaccineChoice);
+        $.cookie('customOutbreaks', customOutbreakChoice);    }
 
     var easyScores = cookie.scores[0];
     var mediumScores = cookie.scores[1];
     var hardScores = cookie.scores[2];
-    var lastCustom = cookie.custom
     var score = [easyScores, mediumScores, hardScores];
 
-    var newCookie = {easy: vaxEasyCompletion, medium: vaxMediumCompletion, hard: vaxHardCompletion, custom: lastCustom, scores: score}
+    var newCookie = {easy: vaxEasyCompletion, medium: vaxMediumCompletion, hard: vaxHardCompletion, scores: score}
     $.removeCookie('vaxCookie')
     $.cookie('vaxCookie', JSON.stringify(newCookie), { expires: 365, path: '/' })
 
@@ -976,9 +980,9 @@ function initScoreRecap() {
 
     d3.select(".gameSVG").append("rect")
         .attr("class", "whiteBackground")
-        .attr("x", -500)
+        .attr("x", -130)
         .attr("y", 475)
-        .attr("width", 5000)
+        .attr("width", window.innerWidth)
         .attr("height", 150)
         .attr("fill", "white")
 
