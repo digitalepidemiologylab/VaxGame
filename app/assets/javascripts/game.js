@@ -998,7 +998,7 @@ function initScoreRecap() {
         .attr("class", "whiteBackground")
         .attr("x", -130)
         .attr("y", 475)
-        .attr("width", window.innerWidth)
+        .attr("width", window.innerWidth + 100)
         .attr("height", 150)
         .attr("fill", "white")
 
