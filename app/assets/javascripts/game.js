@@ -101,17 +101,17 @@ function readCookiesJSON() {
     }
     if (isNaN(customNeighborChoice)) {
         customNeighborChoice = 3;
-        $.cookie('customNeighbors', 75)
+        $.cookie('customNeighbors', 3)
 
     }
     if (isNaN(customVaccineChoice)) {
         customVaccineChoice = 10;
-        $.cookie('customVaccines', 75)
+        $.cookie('customVaccines', 10)
 
     }
     if (isNaN(customOutbreakChoice)) {
         customOutbreakChoice = 2;
-        $.cookie('customOutbreaks', 75)
+        $.cookie('customOutbreaks', 2)
 
     }
 
