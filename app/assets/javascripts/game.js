@@ -95,10 +95,25 @@ function readCookiesJSON() {
     customVaccineChoice = parseInt($.cookie().customVaccines);
     customOutbreakChoice = parseInt($.cookie().customOutbreaks);
 
-    if (isNaN(customNodeChoice)) customNodeChoice = 75;
-    if (isNaN(customNeighborChoice)) customNeighborChoice = 3;
-    if (isNaN(customVaccineChoice)) customVaccineChoice = 10;
-    if (isNaN(customOutbreakChoice)) customOutbreakChoice = 2;
+    if (isNaN(customNodeChoice)) {
+        customNodeChoice = 75;
+        $.cookie('customNodes', 75)
+    }
+    if (isNaN(customNeighborChoice)) {
+        customNeighborChoice = 3;
+        $.cookie('customNeighbors', 75)
+
+    }
+    if (isNaN(customVaccineChoice)) {
+        customVaccineChoice = 10;
+        $.cookie('customVaccines', 75)
+
+    }
+    if (isNaN(customOutbreakChoice)) {
+        customOutbreakChoice = 2;
+        $.cookie('customOutbreaks', 75)
+
+    }
 
     $.cookie.json = true;
 
