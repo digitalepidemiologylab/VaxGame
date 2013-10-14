@@ -96,7 +96,7 @@ $(function() {
     $( "#nodeSlider").slider({
         range: "min",
         min: 1,
-        max: 200,
+        max: 150,
         value: customNodeChoice,
         slide: function (event, ui) {
             $.cookie.json = false;

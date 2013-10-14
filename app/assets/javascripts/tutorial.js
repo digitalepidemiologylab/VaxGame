@@ -178,13 +178,13 @@ function homeToTutorial() {
             .style("pointer-events", "all")
 
     }
-    d3.select(".svg").append("rect")
-        .attr("class", "whiteBackground")
-        .attr("fill", "white")
-        .attr("width", window.innerWidth)
-        .attr("x", -150)
-        .attr("y", 500)
-        .attr("height", "125px")
+//    d3.select(".svg").append("rect")
+//        .attr("class", "whiteBackground")
+//        .attr("fill", "white")
+//        .attr("width", window.innerWidth)
+//        .attr("x", -150)
+//        .attr("y", 500)
+//        .attr("height", "125px")
 
 
     guideTextSVG = d3.select(".svg").append("svg:svg")

@@ -60,7 +60,7 @@ var scores = {easy: easyScores, medium: mediumScores, hard: hardScores};
 var currentNode;
 var currentElement;
 
-var toggleDegree = false;
+var toggleDegree = true;
 
 var cookie = {};
 
@@ -415,52 +415,51 @@ function initGameSpace() {
             .attr("pointer-events", "all")
             .append('svg:g');
 
-        d3.select(".gameSVG").append("text")
-            .attr("x", 450)
-            .attr("y", 25)
+        d3.select("body").append("div")
             .attr("class", "hotkeyDropdown")
             .text("▾ Hotkeys ▾")
+            .style("position", "absolute")
+            .style("top", "0px")
+            .style("left", "10px")
+            .style("color", "black")
             .style("cursor", "pointer")
-            .on("mouseover", function() {
-                var pin = d3.select(".gameSVG").append("text")
-                    .attr("class", "pin")
-                    .attr("x", 435)
-                    .attr("y", 40)
-                    .text("Pin Node: Space")
-                    .attr("opacity", 0)
+
+        var pin = d3.select(".hotkeyDropdown").append("div")
+            .attr("class", "pin")
+            .style("top", "25px")
+            .style("right", "0px")
+            .style("color", "black")
+            .text("Pin Node: Space")
+            .style("visibility", "hidden")
+
+        var release = d3.select(".hotkeyDropdown").append("div")
+            .attr("class", "release")
+            .style("top", "25px")
+            .style("right", "40px")
+            .style("color", "black")
+            .text("Release : Shift+Space")
+            .style("visibility", "hidden")
 
 
-                var release = d3.select(".gameSVG").append("text")
-                    .attr("class", "release")
-                    .attr("x", 404)
-                    .attr("y", 55)
-                    .text("Release Node: Shift+Space")
-                    .attr("opacity", 0)
+            d3.select(".hotkeyDropdown")
+                .on("mouseover", function() {
+                    d3.select(".pin")
+                        .style("visibility", "visible")
 
 
-                d3.select(".pin")
-                    .transition()
-                    .duration(25)
-                    .attr("opacity", 1)
-
-                d3.select(".release")
-                    .transition()
-                    .duration(25)
-                    .attr("opacity", 1)
+                   d3.select(".release")
+                        .style("visibility", "visible")
 
 
             } )
             .on("mouseout", function() {
                 d3.select(".pin")
-                    .transition()
-                    .duration(2500)
-                    .attr("opacity", 0)
-                d3.select(".release")
-                    .transition()
-                    .duration(2500)
-                    .attr("opacity", 0)
+                    .style("visibility", "hidden")
 
-                window.setTimeout(function() {d3.select(".pin").remove(); d3.select(".release").remove()}, 2600)
+                d3.select(".release")
+                    .style("visibility", "hidden")
+
+
 
             })
 
@@ -552,7 +551,7 @@ function gameClick(node) {
 // tick function, which does the physics for each individual node & link.
 function tick() {
     node.attr("cx", function(d) { return d.x = Math.max(8, Math.min(width - 8, d.x)); })
-        .attr("cy", function(d) { return d.y = Math.max(8, Math.min((height *.85) - 8, d.y)); });
+        .attr("cy", function(d) { return d.y = Math.max(8, Math.min((height *.85), d.y)); });
     link.attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
@@ -1076,13 +1075,13 @@ function initScoreRecap() {
         .attr("width", 20)
         .attr("fill", "#ef5555")
 
-    d3.select(".gameSVG").append("rect")
-        .attr("class", "whiteBackground")
-        .attr("x", -130)
-        .attr("y", 475)
-        .attr("width", window.innerWidth + 100)
-        .attr("height", 150)
-        .attr("fill", "white")
+//    d3.select(".gameSVG").append("rect")
+//        .attr("class", "whiteBackground")
+//        .attr("x", -130)
+//        .attr("y", 475)
+//        .attr("width", window.innerWidth + 100)
+//        .attr("height", 150)
+//        .attr("fill", "white")
 
     loadConclusionText();
 
