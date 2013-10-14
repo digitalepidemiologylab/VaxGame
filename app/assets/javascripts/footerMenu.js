@@ -13,15 +13,15 @@ function initFooter() {
         .attr("class", "gameMenuBox")
 
 // create divs within the menu box, note that because it's float right, we're adding right to left
-    d3.select(".gameMenuBox").append("div")
-        .attr("class", "gameMenuBoxItem")
-        .attr("id", "highScoreNav")
-        .text("High Scores")
-        .on("click", function() {
-
-            //direct to high score page
-
-        })
+//    d3.select(".gameMenuBox").append("div")
+//        .attr("class", "gameMenuBoxItem")
+//        .attr("id", "highScoreNav")
+//        .text("High Scores")
+//        .on("click", function() {
+//
+//            //direct to high score page
+//
+//        })
 
     d3.select(".gameMenuBox").append("div")
         .attr("class", "gameMenuBoxItem")
@@ -30,6 +30,12 @@ function initFooter() {
         .on("click", function() {
             //direct to FAQ w/ link to Tutorial
         })
+        .on("mouseover", function() {
+            d3.select(this).style("color", "#2692F2")
+        })
+        .on("mouseout", function() {
+            d3.select(this).style("color", "white")
+        })
 
     d3.select(".gameMenuBox").append("div")
         .attr("class", "gameMenuBoxItem")
@@ -37,5 +43,11 @@ function initFooter() {
         .text("New Game")
         .on("click", function() {
             window.location.href = 'http://vax.herokuapp.com/game'
+        })
+        .on("mouseover", function() {
+            d3.select(this).style("color", "#2692F2")
+        })
+        .on("mouseout", function() {
+            d3.select(this).style("color", "white")
         })
 }

@@ -26,6 +26,7 @@ var customNodeChoice;
 var customNeighborChoice;
 var customVaccineChoice;
 var customOutbreakChoice;
+var customRefuserChoice;
 
 var timestep = 0;
 var newInfections;
@@ -94,6 +95,8 @@ function readCookiesJSON() {
     customNeighborChoice = parseInt($.cookie().customNeighbors);
     customVaccineChoice = parseInt($.cookie().customVaccines);
     customOutbreakChoice = parseInt($.cookie().customOutbreaks);
+    customRefuserChoice = parseInt($.cookie().customRefusers);
+
 
     if (isNaN(customNodeChoice)) {
         customNodeChoice = 75;
@@ -112,6 +115,10 @@ function readCookiesJSON() {
     if (isNaN(customOutbreakChoice)) {
         customOutbreakChoice = 2;
         $.cookie('customOutbreaks', 2)
+    }
+    if (isNaN(customRefuserChoice)) {
+        customRefuserChoice = 0.05;
+        $.cookie('customRefusers', 0.05)
 
     }
 
@@ -172,6 +179,8 @@ function initCookiesJSON() {
     $.cookie('customNeighbors', 3)
     $.cookie('customVaccines', 10)
     $.cookie('customOutbreaks', 2)
+    $.cookie('customRefusers', 0.05)
+
 
     $.cookie.json = true;
     easyScores = [];
@@ -192,6 +201,8 @@ function clearCookies() {
     $.removeCookie('customNeighbors')
     $.removeCookie('customVaccines')
     $.removeCookie('customOutbreaks')
+    $.removeCookie('customRefusers')
+
 
     //old cookie clearing
     $.removeCookie('vaxEasyCompletion')
@@ -206,9 +217,9 @@ function clearCookies() {
 
 function allAccess() {
     $.cookie.json = true;
-    easyScores = ["49"];
-    mediumScores = ["74"];
-    hardScores = ["99"];
+    easyScores = ["100"];
+    mediumScores = ["100"];
+    hardScores = ["100"];
     var score = [easyScores, mediumScores, hardScores];
 
     var cookie = {easy: true, medium: true, hard: true, scores: score}
@@ -219,6 +230,21 @@ function allAccess() {
 
 
 function cookieBasedModeSelection() {
+
+    if (vaxEasyHiScore == -Infinity) {}
+    else d3.select(".easyHi")
+        .text("(Best: " + vaxEasyHiScore + "%)")
+
+    if (vaxMediumHiScore == -Infinity) {}
+    else d3.select(".mediumHi")
+        .text("(Best: " + vaxMediumHiScore + "%)")
+
+    if (vaxHardHiScore == -Infinity) {}
+    else d3.select(".hardHi")
+        .text("(Best: " + vaxHardHiScore + "%)")
+
+
+
     d3.select("#difficultyEasy")
         .on("mouseover", function() {
             d3.select(this).style("color", "#2692F2")
@@ -383,6 +409,12 @@ function initGameSpace() {
 
     loadGameSyringe();
 
+    if (difficultyString == "hard" || difficultyString == null) {
+        for (var i = 0; i < graph.nodes.length; i++) {
+            if (Math.random() < 0.05) graph.nodes[i].refuser = true;
+        }
+    }
+
     vaccinateMode     = false ;
     quarantineMode    = false ;
     numberVaccinated  = 0     ;
@@ -526,11 +558,19 @@ function nodeColor(node) {
     if (node.status == "R") color = "#9400D3";
     if (node.status == "V") color = "#d9d678";
     if (node.status == "Q") color = "#d9d678";
+
+    if (node.refuser && node.status == "S") {
+        color = "black"
+    }
+
     return color;
 }
 
 function gameClick(node) {
+
     if (vaccinateMode) {
+        if (node.refuser == true) return;
+
         node.status = "V";
         numberOfVaccines--;
         numberVaccinated++;
@@ -779,7 +819,11 @@ function loadGameSyringe() {
         .style("font-weight", 300)
         .style("fill", "white")
         .text("")
-        .style("right", "49px")
+        .style("right", function() {
+            if (numberOfVaccines.toString().length == 1) return "49px"
+            if (numberOfVaccines.toString().length == 2) return "46px"
+
+        })
 
     d3.select(".vaccineCounterText").text(numberOfVaccines)
 
@@ -967,7 +1011,9 @@ function writeCookiesJSON() {
         $.cookie('customNodes', customNodeChoice);
         $.cookie('customNeighbors', customNeighborChoice);
         $.cookie('customVaccines', customVaccineChoice);
-        $.cookie('customOutbreaks', customOutbreakChoice);    }
+        $.cookie('customOutbreaks', customOutbreakChoice);
+        $.cookie('customRefusers', customRefuserChoice);
+    }
 
     var easyScores = cookie.scores[0];
     var mediumScores = cookie.scores[1];
@@ -1107,9 +1153,30 @@ function loadConclusionText() {
     d3.select(".hotkeyDropdown").remove()
 
     var bar;
-    if (difficultyString == "easy") bar = easyBar;
-    if (difficultyString == "medium") bar = mediumBar;
-    if (difficultyString == "hard") bar = hardBar;
+    var bestScore;
+    if (difficultyString == "easy") {
+        bestScore = vaxEasyHiScore;
+        bar = easyBar;
+    }
+    if (difficultyString == "medium") {
+        bestScore = vaxMediumHiScore;
+        bar = mediumBar;
+    }
+    if (difficultyString == "hard") {
+        bestScore = vaxHardHiScore;
+        bar = hardBar;
+    }
+
+    d3.select(".gameSVG").append("text")
+        .attr("class", "bestScore")
+        .attr("x", backX + 25)
+        .attr("y", 420)
+        .style("font-family", "Nunito")
+        .style("fill", "#707070")
+        .style("font-size", "24px")
+        .style("font-weight", "500")
+        .text("Best Score: " + bestScore + "%");
+
 
     var total = Math.round((((numberSaved + numberQuarantined + numberVaccinated)/numberOfIndividuals)*100)).toFixed(0);
 
@@ -1233,18 +1300,12 @@ function next() {
 
 }
 
-
-
-
-
 jQuery(document).bind('keydown', function (evt){
-
     if (currentNode == undefined) return;
 
     if (evt.shiftKey && evt.which == 32) {
         currentNode.fixed = false;
         currentElement.style("stroke-width", "2px")
-
     }
     else {
         if (evt.which == 32) {
@@ -1252,9 +1313,7 @@ jQuery(document).bind('keydown', function (evt){
             currentElement.style("stroke-width", "3px")
         }
     }
-
 });
-
 
 function toggleDegreeFxn() {
     toggleDegree = !toggleDegree;

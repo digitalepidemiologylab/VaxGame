@@ -36,6 +36,16 @@ function initBasicMenu() {
             initBasicGame(difficultyString);
         })
 
+    d3.select(".difficultySelection").append("div")
+        .attr("class", "easyHi")
+        .style("position", "absolute")
+        .style("top", "85px")
+        .style("left", "100px")
+        .style("color", "#BABABA")
+        .style("font-family", "Nunito")
+        .style("font-weight", "500")
+        .style("font-size", "20px")
+        .text("")
 
 
     d3.select(".difficultySelection").append("div")
@@ -43,12 +53,34 @@ function initBasicMenu() {
         .attr("id", "difficultyMedium")
         .text("Medium")
 
+    d3.select(".difficultySelection").append("div")
+        .attr("class", "mediumHi")
+        .style("position", "absolute")
+        .style("top", "133px")
+        .style("left", "152px")
+        .style("color", "#BABABA")
+        .style("font-family", "Nunito")
+        .style("font-weight", "500")
+        .style("font-size", "20px")
+        .text("")
+
 
 
     d3.select(".difficultySelection").append("div")
         .attr("class", "difficultyItemGrey")
         .attr("id", "difficultyHard")
         .text("Hard")
+
+    d3.select(".difficultySelection").append("div")
+        .attr("class", "hardHi")
+        .style("position", "absolute")
+        .style("top", "182px")
+        .style("left", "100px")
+        .style("color", "#BABABA")
+        .style("font-family", "Nunito")
+        .style("font-weight", "500")
+        .style("font-size", "20px")
+        .text("")
 
 
 
@@ -76,7 +108,9 @@ function initCustomMenu() {
     d3.select("#customNodes").text("Nodes: " + parseInt($.cookie('customNodes')))
     d3.select("#customDegree").text("Neighbors: " + parseInt($.cookie('customNeighbors')) + "ea.")
     d3.select("#customVaccines").text("Vaccines: " + parseInt($.cookie('customVaccines')))
+    d3.select("#customRefusers").text("Refusers: " + parseInt($.cookie('customRefusers')))
     d3.select("#customOutbreaks").text("Outbreaks: " + parseInt($.cookie('customOutbreaks')))
+
 
 
     d3.select("#customMenuDiv").append("text")
@@ -106,11 +140,20 @@ $(function() {
             $.cookie.json = true;
             $("#customNodes").text("Nodes: " + ui.value);
             customNodeChoice = ui.value;
+
             customVaccineChoice = Math.round(0.10 * customNodeChoice)
             d3.select("#customVaccines").text("Vaccines: " + Math.round(0.10 * customNodeChoice))
             $( "#vaccineSlider").slider({
                 max: customNodeChoice,
                 value: Math.round(0.10 * customNodeChoice)});
+
+            customRefuserChoice = Math.round(0.05 * customNodeChoice)
+            d3.select("#customRefusers").text("Refusers: " + Math.round(0.05 * customNodeChoice))
+            $( "#refuserSlider").slider({
+                max: customNodeChoice,
+                value: Math.round(0.05 * customNodeChoice)});
+
+
         }
     });
     $( "#nodeSlider" ).slider( "value", parseInt($.cookie('customNodes')));
@@ -168,5 +211,23 @@ $(function() {
     });
     $( "#outbreakSlider").slider( "value", parseInt($.cookie('customOutbreaks')))
 });
+
+$(function() {
+    $( "#refuserSlider").slider({
+        range: "min",
+        min: 0,
+        max: maxVax,
+        value:customRefuserChoice,
+        slide: function (event, ui) {
+            $.cookie.json = false;
+            $.cookie('customRefusers', ui.value)
+            $.cookie.json = true;
+            $("#customRefusers").text("Refusers: " + ui.value);
+            customRefuserChoice = ui.value;
+        }
+    });
+    $( "#refuserSlider").slider( "value", parseInt($.cookie('customRefusers')))
+});
+
 
 

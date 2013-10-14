@@ -158,7 +158,7 @@ function detectEndGame() {
         endGame = true;
         diseaseIsSpreading = false;
         timeToStop = true;
-        if (vaccinateMode && !quarantineMode) {
+        if (vaccinateMode && !quarantineMode && !game) {
             animatePathogens_thenUpdate();
             tutorialUpdate();
         }

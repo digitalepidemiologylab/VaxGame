@@ -4,12 +4,11 @@
   background: #85bc99;
   float:right;
   color: "white";
-  width:375px;
+  width:250px;
   height: 45px;
   bottom: 50px;
   padding-top: 30px;
-  padding-left: 12px;
-  text-align: center;
+  padding-left: 0px;
   right:-10px;
   box-shadow:5px 6px #838383;
   -webkit-transition-duration: 0.5s;
@@ -68,12 +67,11 @@
 
 .difficultySelection {
   position: absolute;
-  top: 200px;
+  left: 100px;
+  top: 125px;
   height: 500px;
-  width: 100%;
-  margin: 0 auto;
+  width: 300px;
   vertical-align: middle;
-  text-align: center;
 }
 
 .difficultyItem {
@@ -82,8 +80,6 @@
   display: block;
   font-family: "Nunito";
   font-weight: 300;
-  margin-left: 40%;
-  margin-right: 40%;
   color: #707070;
   margin-top: 30px;
   cursor: pointer;
@@ -95,8 +91,6 @@
   display: block;
   font-family: "Nunito";
   font-weight: 300;
-  margin-left: 40%;
-  margin-right: 40%;
   color: #BABABA;
   margin-top: 30px;
   cursor: pointer;
@@ -117,7 +111,7 @@
 #customMenuDiv {
   position: relative;
   top: 50px;
-  height: 525px;
+  height: 600px;
   width: 35%;
   margin: 0 auto;
   vertical-align: middle;
@@ -166,7 +160,7 @@
   cursor: pointer;
 }
 
-#nodeSlider, #degreeSlider, #vaccineSlider, #outbreakSlider {
+#nodeSlider, #degreeSlider, #vaccineSlider, #outbreakSlider, #refuserSlider {
   position: relative;
   margin: 20px;
   margin-top: 30px;
