@@ -1,6 +1,30 @@
 var menuColorFlash = true;
 var colorIndex = 0;
 var menuColors = ["#007138","#ffffff"];
+var wiggle = false;
+
+function wiggleHack() {
+    d3.select(".guide")
+        .text("Try dragging nodes around to get a different perspective.")
+        .attr("opacity", 0)
+
+    d3.select(".guide2")
+        .text("Sometimes you'll find hidden connections you might otherwise miss." )
+        .attr("opacity", 0)
+
+    centerElement(guide, "guide")
+    centerElement(guide2, "guide2")
+
+    d3.select(".guide")
+        .transition()
+        .duration(500)
+        .attr("opacity", 1)
+
+    d3.select(".guide2")
+        .transition()
+        .duration(500)
+        .attr("opacity", 1)
+}
 
 function resetBack() {
     d3.select(".backArrow")
@@ -1298,7 +1322,7 @@ function guideRails(back) {
             .attr("x", guideXCoord)
             .attr("y", guideYCoord + guide2YCoordChange)
             .attr("opacity", 0)
-            .text("we'll use vaccines to break up the network.")
+            .text("we'll use vaccines to break up the network. ")
 
         centerElement(guide, "guide");
         centerElement(guide2, "guide2");
@@ -1312,6 +1336,7 @@ function guideRails(back) {
             .transition()
             .duration(500)
             .attr("opacity", 1);
+
 
         vaccinateMode = false;
 
@@ -1329,6 +1354,8 @@ function guideRails(back) {
         vaccineSupply = 3;
         vax = 3;
 
+
+        wiggle = true;
         loadSyringe();
 
         d3.select(".guide")
@@ -1363,7 +1390,6 @@ function guideRails(back) {
     }
 
     if (guideRailsPosition == 15) {
-
         nextEnable = true;
         resetNext();
 

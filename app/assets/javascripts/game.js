@@ -144,6 +144,11 @@ function initCookiesJSON() {
     if (oldCookieTest) clearCookies();
     else { if (!oldCookieTest) clearCookies();}
 
+    $.cookie('customNodes', 75)
+    $.cookie('customNeighbors', 3)
+    $.cookie('customVaccines', 10)
+    $.cookie('customOutbreaks', 2)
+
     $.cookie.json = true;
     easyScores = [];
     mediumScores = [];

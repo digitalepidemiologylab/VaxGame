@@ -1367,6 +1367,9 @@ function flashNodes() {
 }
 
 function activateVaccinationMode() {
+    if (wiggle) wiggleHack();
+    wiggle = false;
+
     vaccinateMode = true;
     d3.selectAll(".node").style("cursor", 'url(/assets/vax_cursor.cur)');
     d3.select(".svg").style("cursor", 'url(/assets/vax_cursor.cur)');
