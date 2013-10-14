@@ -94,7 +94,15 @@ function readCookiesJSON() {
     customNeighborChoice = parseInt($.cookie().customNeighbors);
     customVaccineChoice = parseInt($.cookie().customVaccines);
     customOutbreakChoice = parseInt($.cookie().customOutbreaks);
+
+    if (isNaN(customNodeChoice)) customNodeChoice = 75;
+    if (isNaN(customNeighborChoice)) customNeighborChoice = 3;
+    if (isNaN(customVaccineChoice)) customVaccineChoice = 10;
+    if (isNaN(customOutbreakChoice)) customOutbreakChoice = 2;
+
     $.cookie.json = true;
+
+
 
     cookieBasedModeSelection();
 }
@@ -141,8 +149,9 @@ function readCookiesJSON() {
 function initCookiesJSON() {
     var oldCookieTest = $.cookie('vaxEasyCompletion');
 
-    if (oldCookieTest) clearCookies();
-    else { if (!oldCookieTest) clearCookies();}
+
+    if (oldCookieTest || isNaN(customNodeChoice)) clearCookies();
+    else { if (!oldCookieTest || isNaN(customNodeChoice)) clearCookies();}
 
     $.cookie('customNodes', 75)
     $.cookie('customNeighbors', 3)
