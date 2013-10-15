@@ -97,21 +97,26 @@ var homeSVG = d3.select("body").append("svg")
     .attr("pointer-events", "all")
     .style("position", "absolute")
 
-var img1 = homeSVG.selectAll("image").data([0]);
-img1.enter()
-    .append("image")
-    .attr("class", "homeBackground")
-    .attr("xlink:href", "/assets/Vax_home_background.png")
-    .transition()
-    .duration(500)
-    .attr("x", 0)
-    .attr("y", 0)
-    .attr("width", "1024")
-    .attr("height", "768")
+generateFrontGraph();
+initMainFooter();
+
+//var img1 = homeSVG.selectAll("image").data([0]);
+//img1.enter()
+//    .append("image")
+//    .attr("class", "homeBackground")
+//    .attr("xlink:href", "/assets/Vax_home_background.png")
+//    .transition()
+//    .duration(500)
+//    .attr("x", 0)
+//    .attr("y", 0)
+//    .attr("width", "1024")
+//    .attr("height", "768")
+
+
 
 d3.select(".homeSVG").append("text")
     .attr("class", "homeTitle")
-    .attr("x", 400)
+    .attr("x", 390)
     .attr("y", 265)
     .attr("fill", "#707070")
     .text("VAX!")
@@ -146,6 +151,11 @@ d3.select(".homeSVG").append("text")
 
 function homeToTutorial() {
     d3.select(".homeSVG").remove();
+    d3.select(".gameVaxLogoDiv").remove();
+    d3.select(".about").remove();
+
+
+
 
 //    d3.select("body").append("div")
 //        .style("position", "absolute")
@@ -155,8 +165,10 @@ function homeToTutorial() {
 //        .style("top", "550px")
 
     var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
+    var isIE = /*@cc_on!@*/false || document.documentMode;   // At least IE6
 
-    if (isFirefox) {
+
+    if (isFirefox || isIE) {
         svg = d3.select("body").append("svg")
             .attr("x", 0)
             .attr("y", 0)
@@ -228,6 +240,14 @@ function homeToTutorial() {
         .style("fill", "#707070")
         .style("font-weight", 300)
         .text("")
+
+    d3.select("body").append("div")
+        .attr("class", "about")
+        .text("Salathé Group @ Penn State")
+        .style("bottom", "5px")
+        .on("click", function() {
+            window.location.href = 'http://salathegroup.com/'
+        })
 
     advanceTutorial()
 }

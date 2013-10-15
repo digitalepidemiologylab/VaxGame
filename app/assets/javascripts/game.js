@@ -421,8 +421,10 @@ function initGameSpace() {
     numberQuarantined = 0     ;
 
     var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
+    var isIE = /*@cc_on!@*/false || document.documentMode;   // At least IE6
 
-    if (isFirefox) {
+
+    if (isFirefox || isIE) {
         gameSVG = d3.select("body").append("svg")
             .attr({
                 "width": 950,

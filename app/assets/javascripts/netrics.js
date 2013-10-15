@@ -1,3 +1,10 @@
+var frontForce;
+var frontNodes;
+var frontGraph;
+var frontLinks;
+var frontNode;
+var frontLink;
+
 function generateSmallWorld(n, p, k) {
     var vertices = [];
     var edges = [];
@@ -737,4 +744,115 @@ function getWeakTieLinks() {
         }
     ]
     return weakTieLinks;
+}
+
+function generateFrontGraph() {
+    var frontCharge = -30000;
+
+    frontGraph = {};
+    frontNodes = [{id:0}, {id:1}, {id:2}, {id:3}];
+
+
+    frontLinks = [
+
+    {
+        source:frontNodes[0],
+        target:frontNodes[1]
+    },
+
+    {
+        source:frontNodes[1],
+        target:frontNodes[2]
+    },
+
+    {
+        source:frontNodes[2],
+        target:frontNodes[0]
+    },
+
+    {
+        source:frontNodes[1],
+        target:frontNodes[3]
+    },
+    ];
+
+    frontGraph.nodes = frontNodes;
+    frontGraph.links = frontLinks;
+
+//    var isFirefox = typeof InstallTrigger !== 'undefined';
+//
+//    if (isFirefox) {
+//        frontSVG = d3.select("body").append("svg")
+//            .attr({
+//                "width": 950,
+//                "height": 768
+//            })
+//            .attr("class", "frontSVG")
+//            .attr("pointer-events", "all")
+//            .append('svg:g');
+//
+//
+//
+//    }
+//    else {
+//        frontSVG = d3.select("body").append("svg")
+//            .attr({
+//                "width": "100%",
+//                "height": "100%"
+//            })
+//            .attr("viewBox", "0 0 " + width + " " + height )
+//            .attr("class", "frontSVG")
+//            .attr("pointer-events", "all")
+//            .append('svg:g');
+//    }
+
+    frontForce = d3.layout.force()
+        .nodes(frontGraph.nodes)
+        .links(frontGraph.links)
+        .size([width, height])
+        .charge(frontCharge)
+        .friction(friction)
+        .on("tick", frontTick)
+        .start();
+
+// associate empty SVGs with link data. assign attributes.
+    frontLink = homeSVG.selectAll(".link")
+        .data(frontGraph.links)
+        .enter().append("line")
+        .attr("class", "link")
+        .style("fill", "#707070")
+        .attr("opacity", 0.10)
+        .style("stroke-width", "10px")
+
+// associate empty SVGs with node data. assign attributes. call force.drag to make them moveable.
+    frontNode = homeSVG.selectAll(".node")
+        .data(frontGraph.nodes)
+        .enter().append("circle")
+        .attr("class", "node")
+        .attr("r", 50)
+        .style("stroke", "#707070")
+        .style("stroke-width", "10px")
+        .attr("opacity", 0.65)
+        .attr("fill", function(d) {
+            if (d.id == 3) return "#ef5555"
+            else return "#b7b7b7"
+        })
+        .call(frontForce.drag)
+
+
+}
+
+function frontTick() {
+
+
+    frontNode.attr("cx", function(d) { return d.x = Math.max(8, Math.min(width - 8, d.x)); })
+        .attr("cy", function(d) { return d.y = Math.max(8, Math.min(500 - 8, d.y)); });
+
+
+    frontLink.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+
 }

@@ -1,5 +1,49 @@
 <% provide(:title, 'Help') %>
-<h1>FAQ</h1>
-<p>
-FAQ GOES HERE!
-</p>
+<%= javascript_include_tag "help" %>
+
+
+<div id="accordion">
+  <h3>What is Vax?</h3>
+  <div>
+    <p>
+      First and foremost, Vax! is a game about epidemic prevention. It's also
+      an interactive learning environment designed to visualize a process that
+      strains our imagination: A contagion spreading across a network.
+    </p>
+    <p>
+      Players are tasked to vaccinate a randomly generated network that resembles
+      human social networks. Eventually, an infectious outbreak begins to spread
+      and the player is tasked to quell the epidemic with quarantine.
+    </p>
+    <p>
+      Vax! is a puzzle-game infused with chance that was inspired by fusion of
+      real-world challenges, theoretical models, and addictively rewarding games.
+    </p>
+  </div>
+  <h3>Future of Vax...</h3>
+  <div>
+    <p>
+     We plan to develop modules, designed as mini-games, to delve into complex
+     topics related to the spread of infectious diseases. The goal is advance
+     the public's understanding without the technical jargon and equations.
+    </p>
+  </div>
+  <h3>Where can I learn more?</h3>
+  <div>
+    <p>
+      The best place to start is the (free) <a href="http://www.coursera.org/course/epidemics">online course</a>
+      hosted by Coursera, the Center for Infectious Disease Dynamics, and Penn State.
+    </p>
+    <p>
+      Check out <a href="http://www.moocdemic.com/">MOOCDEMIC</a>: a location-based simulation game. Playable on any mobile device with a browser, this massive open online epidemic game will engage players to detect, spread, and ultimately control a virtual infectious disease. The game is free and designed to help teach some key concepts about epidemiology.
+    </p>
+
+  </div>
+  <h3>I found a bug!</h3>
+  <div>
+    <p>
+       The code for Vax! is open and available on <a href="http://github.com/salathegroup/VaxGame/issues">GitHub</a>.
+       There you can submit a detailed bug report and we'll take a look.
+    </p>
+  </div>
+</div>
