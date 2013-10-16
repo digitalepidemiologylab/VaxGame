@@ -928,6 +928,63 @@ function activateGameQuarantineMode() {
 
     gameIndexPatients();
 
+    outbreakDetected();
+
+
+}
+
+function outbreakDetected() {
+    d3.select(".gameSVG").append("rect")
+        .attr("class", "outbreakNotifyShadow")
+        .attr("x", window.innerWidth/4 + 62 + 5 - 50)
+        .attr("y", -100)
+        .attr("width", 250)
+        .attr("height", 50)
+        .attr("fill", "#838383")
+        .attr("opacity", 1)
+
+    d3.select(".gameSVG").append("rect")
+        .attr("class", "outbreakNotifyBox")
+        .attr("x", window.innerWidth/4 + 62 - 50)
+        .attr("y", -100)
+        .attr("width", 250)
+        .attr("height", 50)
+        .attr("fill", "#85bc99")
+        .attr("opacity", 1)
+
+    d3.select(".gameSVG").append("text")
+        .attr("class", "outbreakNotifyText")
+        .attr("x", window.innerWidth/4 + 62 + 5 - 50 + 12)
+        .attr("y", -100)
+        .attr("fill", "white")
+        .style("font-family", "Nunito")
+        .style("font-size", "24px")
+        .style("font-weight", 300)
+        .text("Outbreak Detected!")
+        .attr("opacity", 1)
+
+    d3.select(".outbreakNotifyText").transition().duration(500).attr("y", window.innerHeight/2 - 300 + 100 - 70 + 5)
+    d3.select(".outbreakNotifyBox").transition().duration(500).attr("y", window.innerHeight/2 - 300)
+    d3.select(".outbreakNotifyShadow").transition().duration(500).attr("y", window.innerHeight/2 - 300 + 7)
+
+    window.setTimeout(function() {
+        d3.select(".outbreakNotifyShadow")
+            .transition()
+            .duration(500)
+            .attr("y", -100)
+
+        d3.select(".outbreakNotifyBox")
+            .transition()
+            .duration(500)
+            .attr("y", -100)
+
+        d3.select(".outbreakNotifyText")
+            .transition()
+            .duration(500)
+            .attr("y", -100)
+
+
+    }, 2000)
 
 }
 
@@ -935,15 +992,20 @@ function endGameSession() {
     d3.select(".gameSVG").append("rect")
         .attr("class", "endGameShadow")
         .attr("x", window.innerWidth/4 + 62 + 5 - 100)
-        .attr("y", window.innerHeight/2 - 300 + 7)
+        .attr("y", -100)
         .attr("width", 500)
         .attr("height", 125)
         .attr("fill", "#838383")
 
+
+
+
+
+
     d3.select(".gameSVG").append("rect")
         .attr("class", "endGameBox")
         .attr("x", window.innerWidth/4 + 62 - 100)
-        .attr("y", window.innerHeight/2 - 300)
+        .attr("y", -100)
         .attr("width", 500)
         .attr("height", 125)
         .attr("fill", "#85bc99")
@@ -951,7 +1013,7 @@ function endGameSession() {
     d3.select(".gameSVG").append("text")
         .attr("class", "endGameText")
         .attr("x", window.innerWidth/4 + 135 - 100)
-        .attr("y", window.innerHeight/2 - 250)
+        .attr("y", -100)
         .style("font-family", "Nunito")
         .style("fill", "white")
         .style("font-weight", 500)
@@ -961,7 +1023,7 @@ function endGameSession() {
     d3.select(".gameSVG").append("text")
         .attr("class", "endGameSUBMIT")
         .attr("x", window.innerWidth/4 + 275 - 90)
-        .attr("y", window.innerHeight/2 - 250 + 50)
+        .attr("y", -100)
         .style("font-family", "Nunito")
         .style("fill", "white")
         .style("font-weight", 500)
@@ -990,6 +1052,13 @@ function endGameSession() {
             window.setTimeout(initScoreRecap, 1200)
 
         })
+
+    d3.select(".endGameBox").transition().duration(500).attr("y", window.innerHeight/2 - 300)
+    d3.select(".endGameShadow").transition().duration(500).attr("y", window.innerHeight/2 - 300 + 7)
+    d3.select(".endGameText").transition().duration(500).attr("y", window.innerHeight/2 - 250)
+    d3.select(".endGameSUBMIT").transition().duration(500).attr("y", window.innerHeight/2 - 250 + 50)
+
+
 }
 
 function addPeriod1() {
@@ -1072,10 +1141,10 @@ function initScoreRecap() {
 //    setCookies();
     writeCookiesJSON();
 
-    d3.select(".endGameShadow").remove()
-    d3.select(".endGameBox").remove()
-    d3.select(".endGameText").remove()
-    d3.select(".endGameSUBMIT").remove();
+    d3.select(".endGameShadow").transition().duration(500).attr("y", -200)
+    d3.select(".endGameBox").transition().duration(500).attr("y", -200)
+    d3.select(".endGameText").transition().duration(500).attr("y", -200)
+    d3.select(".endGameSUBMIT").transition().duration(500).attr("y", -200)
 
     d3.select(".gameSVG").select("g").style("visibility", "hidden")
     hideGameQuarantine();

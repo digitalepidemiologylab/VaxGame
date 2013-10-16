@@ -1,10 +1,3 @@
-var frontForce;
-var frontNodes;
-var frontGraph;
-var frontLinks;
-var frontNode;
-var frontLink;
-
 function generateSmallWorld(n, p, k) {
     var vertices = [];
     var edges = [];

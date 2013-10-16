@@ -986,8 +986,9 @@ function initNavBar() {
 function menuConfirm() {
 
     d3.select(".svg").append("rect")
+        .attr("class", "confirmShadow")
         .attr("x", window.innerWidth/4 + 62 + 5)
-        .attr("y", window.innerHeight/2 - 300 + 7)
+        .attr("y", -200)
         .attr("width", 300)
         .attr("height", 125)
         .attr("fill", "#838383")
@@ -995,18 +996,17 @@ function menuConfirm() {
     d3.select(".svg").append("rect")
         .attr("class", "confirmBOX")
         .attr("x", window.innerWidth/4 + 62)
-        .attr("y", window.innerHeight/2 - 300)
+        .attr("y", -200)
         .attr("width", 300)
         .attr("height", 125)
         .attr("fill", "#85bc99")
 
 
 
-
     d3.select(".svg").append("text")
         .attr("class", "confirmHEAD")
         .attr("x", window.innerWidth/4 + 110)
-        .attr("y", window.innerHeight/2 - 250)
+        .attr("y", -200)
         .style("font-family", "Nunito")
         .style("fill", "white")
         .style("font-weight", 500)
@@ -1017,7 +1017,7 @@ function menuConfirm() {
     d3.select(".svg").append("text")
         .attr("class", "confirmYES")
         .attr("x", window.innerWidth/4 + 140)
-        .attr("y", window.innerHeight/2 - 200)
+        .attr("y", -200)
         .style("font-family", "Nunito")
         .style("fill", "#707070")
         .style("font-weight", 500)
@@ -1033,89 +1033,96 @@ function menuConfirm() {
             d3.select(this).style("fill", "#707070")
         })
         .on("click", function() {
-            d3.select(".confirmYES").remove();
-            d3.select(".confirmNO").remove();
-            d3.select(".confirmHEAD").remove();
+            d3.select(".confirmShadow").transition().duration(500).attr("y", -200)
+            d3.select(".confirmBOX").transition().duration(500).attr("y", -200 )
+            d3.select(".confirmHEAD").transition().duration(500).attr("y", -200)
+            d3.select(".confirmYES").transition().duration(500).attr("y",  -200)
+            d3.select(".confirmNO").transition().duration(500).attr("y", -200)
 
-            hideQuarantine();
-            hideSyringe();
-            wipeOut();
+            window.setTimeout(function() {
+                hideQuarantine();
+                hideSyringe();
+                wipeOut();
 
-            svg = d3.select("body").append("svg")
-                .attr({
-                    "width": "100%",
-                    "height": "85%"
-                })
-                .attr("viewBox", "0 0 " + width + " " + height )
-                .attr("class", "svg")
-                .style("pointer-events", "all")
-
-
-            guideTextSVG = d3.select(".svg").append("svg:svg")
-                .attr("class", "guideTextSVG")
-                .attr("x", 0)
-                .attr("y", 500)
+                svg = d3.select("body").append("svg")
+                    .attr({
+                        "width": "100%",
+                        "height": "85%"
+                    })
+                    .attr("viewBox", "0 0 " + width + " " + height )
+                    .attr("class", "svg")
+                    .style("pointer-events", "all")
 
 
-            guide = d3.select(".guideTextSVG").append("text")
-                .attr("class", "guide")
-                .attr("font-size", "28px")
-                .attr("opacity", 0)
-                .attr("x", guideXCoord)
-                .attr("y", guideYCoord)
-                .style("font-family", "Nunito")
-                .style("fill", "#707070")
-                .style("font-weight", 300)
-                .text("Please select a lesson from")
-
-            lessonText = d3.select(".svg").append("text")
-                .attr("class", "lessonText")
-                .attr("x", 35)
-                .attr("y", 80)
-                .style("font-size", "28px")
-                .style("font-family", "Nunito")
-                .style("fill", "#707070")
-                .style("font-weight", 700)
-                .attr("opacity", 1)
-                .text("Lesson #: ")
+                guideTextSVG = d3.select(".svg").append("svg:svg")
+                    .attr("class", "guideTextSVG")
+                    .attr("x", 0)
+                    .attr("y", 500)
 
 
-            guide2 = d3.select(".guideTextSVG").append("text")
-                .attr("class", "guide2")
-                .attr("x",guideXCoord).attr("y",guideYCoord+guide2YCoordChange)
-                .attr("font-size", "28px")
-                .attr("opacity", 0)
-                .style("font-family", "Nunito")
-                .style("fill", "#707070")
-                .style("font-weight", 300)
-                .text("the menu bar below.")
+                guide = d3.select(".guideTextSVG").append("text")
+                    .attr("class", "guide")
+                    .attr("font-size", "28px")
+                    .attr("opacity", 0)
+                    .attr("x", guideXCoord)
+                    .attr("y", guideYCoord)
+                    .style("font-family", "Nunito")
+                    .style("fill", "#707070")
+                    .style("font-weight", 300)
+                    .text("Please select a lesson from")
 
-            centerElement(guide, "guide")
-            centerElement(guide2, "guide2")
-
-            d3.select(".guide").attr("opacity", 1)
-            d3.select(".guide2").attr("opacity", 1)
-
-            d3.select("body").append("div")
-                .attr("class", "vaxLogoDiv")
-                .text("VAX!")
-                .style("cursor", "pointer")
-                .on("click", function() {
-                    window.location.href = 'http://vax.herokuapp.com/'
-                })
-
-            d3.select(".vaxLogoDiv")
-                .style("visibility", "visible")
-
-            d3.select(".vaxLogoDiv")
-                .style("left", "-12px")
-
-            createMenuBox(1);
-
-            keepFlashing = false;
+                lessonText = d3.select(".svg").append("text")
+                    .attr("class", "lessonText")
+                    .attr("x", 35)
+                    .attr("y", 80)
+                    .style("font-size", "28px")
+                    .style("font-family", "Nunito")
+                    .style("fill", "#707070")
+                    .style("font-weight", 700)
+                    .attr("opacity", 1)
+                    .text("Lesson: ")
 
 
+                guide2 = d3.select(".guideTextSVG").append("text")
+                    .attr("class", "guide2")
+                    .attr("x",guideXCoord).attr("y",guideYCoord+guide2YCoordChange)
+                    .attr("font-size", "28px")
+                    .attr("opacity", 0)
+                    .style("font-family", "Nunito")
+                    .style("fill", "#707070")
+                    .style("font-weight", 300)
+                    .text("the menu bar below.")
 
+                centerElement(guide, "guide")
+                centerElement(guide2, "guide2")
+
+                d3.select(".guide").attr("opacity", 1)
+                d3.select(".guide2").attr("opacity", 1)
+
+                d3.select("body").append("div")
+                    .attr("class", "vaxLogoDiv")
+                    .text("VAX!")
+                    .style("cursor", "pointer")
+                    .on("click", function() {
+                        window.location.href = 'http://vax.herokuapp.com/'
+                    })
+
+                d3.select(".vaxLogoDiv")
+                    .style("visibility", "visible")
+
+                d3.select(".vaxLogoDiv")
+                    .style("left", "-12px")
+
+                createMenuBox(1);
+
+                keepFlashing = false;
+
+
+
+
+
+
+            }, 501)
 
 
 
@@ -1125,7 +1132,7 @@ function menuConfirm() {
     d3.select(".svg").append("text")
         .attr("class", "confirmNO")
         .attr("x", window.innerWidth/4 + 240)
-        .attr("y", window.innerHeight/2 - 200)
+        .attr("y", -200)
         .style("font-family", "Nunito")
         .style("fill", "#707070")
         .style("font-weight", 500)
@@ -1141,10 +1148,23 @@ function menuConfirm() {
             d3.select(this).style("fill", "#707070")
         })
         .on("click", function() {
-            d3.select(".confirmYES").remove();
-            d3.select(".confirmNO").remove();
-            d3.select(".confirmHEAD").remove();
+            d3.select(".confirmShadow").transition().duration(500).attr("y", -200)
+            d3.select(".confirmBOX").transition().duration(500).attr("y", -200 )
+            d3.select(".confirmHEAD").transition().duration(500).attr("y", -200)
+            d3.select(".confirmYES").transition().duration(500).attr("y",  -200)
+            d3.select(".confirmNO").transition().duration(500).attr("y", -200)
+
         })
+
+    d3.select(".confirmShadow").transition().duration(500).attr("y", window.innerHeight/2 - 300 + 7)
+    d3.select(".confirmBOX").transition().duration(500).attr("y", window.innerHeight/2 - 300)
+    d3.select(".confirmHEAD").transition().duration(500).attr("y", window.innerHeight/2 - 250)
+    d3.select(".confirmYES").transition().duration(500).attr("y", window.innerHeight/2 - 200)
+    d3.select(".confirmNO").transition().duration(500).attr("y", window.innerHeight/2 - 200)
+
+
+
+
 
 
 
@@ -1180,6 +1200,7 @@ function initTutorial() {
             slideOutMenuBox();
             d3.select(this).transition().duration(500).attr("opacity", 0)
             d3.select(this).transition().duration(500).text("")
+
         })
 
     // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.

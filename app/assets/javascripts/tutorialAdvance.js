@@ -445,8 +445,6 @@ function restoreEpidemicLesson() {
 
     endGame = false;
 
-    d3.select(".startButton").remove();
-
     startButton = d3.select(".guideTextSVG").append("text")
         .attr("class", "startButton")
         .attr("font-size", "18px")
@@ -459,9 +457,14 @@ function restoreEpidemicLesson() {
         .style("font-weight", 470)
         .text("Start >")
         .on("click", function() {
-            slideOutMenuBox();
-            tutorialTimesteps();
+            var indexPatientID = Math.floor(Math.random() * numberOfIndividuals);
+            graph.nodes[indexPatientID].status = "I";
+
             diseaseIsSpreading=true;
+            tutorialTimesteps();
+
+
+            slideOutMenuBox();
             resetMenu();
             nextEnable = false;
             backEnable = false;
