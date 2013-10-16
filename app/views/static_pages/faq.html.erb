@@ -1,5 +1,5 @@
 <% provide(:title, 'Help') %>
-<%= javascript_include_tag "help" %>
+<%= javascript_include_tag "faq" %>
 
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -14,42 +14,44 @@
 
 
 <div id="accordion">
-  <h3>What is Vax?</h3>
+  <h3 id="faqHead">What is VAX?</h3>
   <div>
-    <p>
+    <p class="faqText">
       First and foremost, Vax! is a game about epidemic prevention. It's also
       an interactive learning environment designed to visualize a process that
       strains our imagination: A contagion spreading across a network.
     </p>
-    <p>
+    <p class="faqText">
       Players are tasked to prepare for an outbreak by vaccinating a network that resembles human social networks. After distributing vaccines, an infectious outbreak begins to spread and the player is tasked to quell the epidemic by quarantining individuals at risk of becoming infected.
     </p>
-    <p>
+    <p class="faqText">
       Vax! is a puzzle-game infused with chance that was inspired by real-world challenges, infectious disease modeling, and addictively rewarding gameplay.
     </p>
   </div>
-  <h3>Future of Vax...</h3>
+  <h3 id="faqHead">Future of VAX?</h3>
   <div>
-    <p>
+    <p class="faqText">
      We plan to develop modules, designed as mini-games, to delve into complex
-     topics related to the spread of infectious diseases. The goal is advance
-     the public's understanding without the technical jargon and equations.
+     topics related to the spread of infectious diseases.
+    </p>
+    <p class="faqText">
+    The goal is advance the public's understanding without the technical jargon and equations.
     </p>
   </div>
-  <h3>Where can I learn more?</h3>
-  <div>
-    <p>
+  <h3 id="faqHead">Where can I learn more?</h3>
+  <div >
+    <p class="faqText" >
       The best place to start is the (free) <a href="http://www.coursera.org/course/epidemics">online course</a>
       hosted by Coursera, the Center for Infectious Disease Dynamics, and Penn State.
     </p>
-    <p>
+    <p class="faqText">
       Check out <a href="http://www.moocdemic.com/">MOOCDEMIC</a>: a location-based simulation game. Playable on any mobile device with a browser, this massive open online epidemic game will engage players to detect, spread, and ultimately control a virtual infectious disease. The game is free and designed to help teach some key concepts about epidemiology.
     </p>
 
   </div>
-  <h3>I found a bug!</h3>
+  <h3 id="faqHead">What should I do if I've found a bug?</h3>
   <div>
-    <p>
+    <p class="faqText">
        The code for Vax! is open and available on <a href="http://github.com/salathegroup/VaxGame/issues">GitHub</a>.
        There you can submit a detailed bug report and we'll take a look.
     </p>

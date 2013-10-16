@@ -28,7 +28,7 @@ function initFooter() {
         .attr("id", "helpNav")
         .text("FAQ")
         .on("click", function() {
-            window.location.href = 'http://vax.herokuapp.com/help'
+            window.location.href = 'http://vax.herokuapp.com/faq'
         })
         .on("mouseover", function() {
             d3.select(this).style("color", "#2692F2")

@@ -112,6 +112,9 @@ function initCustomMenu() {
     d3.select("#customOutbreaks").text("Outbreaks: " + parseInt($.cookie('customOutbreaks')))
 
 
+    d3.selectAll(".ui-state-default").style("background", "white")
+    d3.selectAll(".ui-corner-all").style("border-radius", "50px")
+
 
     d3.select("#customMenuDiv").append("text")
         .attr("class", "okayButton")

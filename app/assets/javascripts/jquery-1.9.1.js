@@ -6080,7 +6080,7 @@ jQuery.fn.extend({
 		var isFunc = jQuery.isFunction( value );
 
 		// Make sure that the elements are removed from the DOM before they are inserted
-		// this can help fix replacing a parent with child elements
+		// this can faq fix replacing a parent with child elements
 		if ( !isFunc && typeof value !== "string" ) {
 			value = jQuery( value ).not( this ).detach();
 		}
