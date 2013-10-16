@@ -64,7 +64,7 @@ var currentElement;
 var toggleDegree = true;
 
 var cookie = {};
-
+var pop;
 
 initFooter();
 initBasicMenu();
@@ -405,6 +405,9 @@ function initCustomGame() {
 }
 
 function initGameSpace() {
+    pop = document.getElementById('audio');
+
+
     game = true;
 
     loadGameSyringe();
@@ -570,8 +573,11 @@ function nodeColor(node) {
 
 function gameClick(node) {
 
+
     if (vaccinateMode) {
         if (node.refuser == true) return;
+
+        pop.play();
 
         node.status = "V";
         numberOfVaccines--;
@@ -579,6 +585,8 @@ function gameClick(node) {
     }
     else {
         if (quarantineMode && node.status == "S") {
+            pop.play();
+
             diseaseIsSpreading = true;
             node.status = "Q";
             numberQuarantined++;

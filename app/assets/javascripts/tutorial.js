@@ -60,6 +60,8 @@ var startButton;
 backEnable = true;
 nextEnable = true;
 
+var pop;
+
 
 
 // this is the full graph, made by Ike
@@ -153,6 +155,9 @@ function homeToTutorial() {
     d3.select(".homeSVG").remove();
     d3.select(".gameVaxLogoDiv").remove();
     d3.select(".about").remove();
+
+    pop = document.getElementById('audio');
+
 
 
 
@@ -326,6 +331,7 @@ function tutorialUpdate() {
 
             return color;});
 
+
     // Enter any new nodes.
     node.enter().append("svg:circle")
         .attr("class", "node")
@@ -347,9 +353,11 @@ function tutorialUpdate() {
         })
         .on("click", function(d) {
             if (quarantineMode) {
+                pop.play()
                 vaccinateMode = false;
 
                 d3.status = "Q"
+
 
             }
             if (vaccinateMode) {
@@ -359,6 +367,8 @@ function tutorialUpdate() {
                     return;
                 }
                 d.status = "V";
+                pop.play()
+
 
                 vaccineSupply--;
                 numberVaccinated++;
@@ -487,6 +497,8 @@ function stepWiseUpdate() {
                         return;
                     }
                     d.status = "V";
+                    pop.play()
+
                     d3.select(this)
 //                        .attr("class", "vaxNode")
 //                        .style("stroke", "#636363")
@@ -528,6 +540,8 @@ function stepWiseUpdate() {
                     return;
                 }
                 d.status = "V";
+                pop.play()
+
 
 
                 vaccineSupply--;
@@ -1188,7 +1202,9 @@ function initTutorial() {
                     window.alert("Out of Vaccines!")
                     return;
                 }
+                pop.play()
                 d.status = "V";
+
 
                 vaccineSupply--;
                 numberVaccinated++;
@@ -1330,6 +1346,8 @@ function flashNode() {
             if (d.id == node.id) {
                 if (vaccinateMode) {
                     d.status = "V";
+                    pop.play()
+
                     vaccineSupply--;
                     numberVaccinated++;
                     keepFlashing = false;
@@ -1369,6 +1387,8 @@ function flashNodes() {
             if (d.id == 10 || d.id == 4 || d.id == 6) {
                 if (vaccinateMode) {
                     d.status = "V";
+                    pop.play()
+
                     vaccineSupply--;
                     numberVaccinated++;
                     keepFlashing = false;
@@ -1522,6 +1542,8 @@ function quarantineUpdate() {
 
             if (d.status == "S") {
                 d.status = "Q";
+                pop.play()
+
                 quarantineUpdate();
                 numberQuarantined++;
                 d3.select(".quarantineCounterText").text("x" + numberQuarantined)
