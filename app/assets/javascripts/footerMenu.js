@@ -26,9 +26,9 @@ function initFooter() {
     d3.select(".gameMenuBox").append("div")
         .attr("class", "gameMenuBoxItem")
         .attr("id", "helpNav")
-        .text("Help")
+        .text("FAQ")
         .on("click", function() {
-            //direct to FAQ w/ link to Tutorial
+            window.location.href = 'http://vax.herokuapp.com/help'
         })
         .on("mouseover", function() {
             d3.select(this).style("color", "#2692F2")
