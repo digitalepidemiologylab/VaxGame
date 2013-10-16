@@ -811,7 +811,7 @@ function generateFrontGraph() {
         .links(frontGraph.links)
         .size([width, height])
         .charge(frontCharge)
-        .friction(friction)
+        .friction(0.80)
         .on("tick", frontTick)
         .start();
 
@@ -821,8 +821,8 @@ function generateFrontGraph() {
         .enter().append("line")
         .attr("class", "link")
         .style("fill", "#707070")
-        .attr("opacity", 0.10)
         .style("stroke-width", "10px")
+        .style("stroke", "#d5d5d5")
 
 // associate empty SVGs with node data. assign attributes. call force.drag to make them moveable.
     frontNode = homeSVG.selectAll(".node")
@@ -830,12 +830,11 @@ function generateFrontGraph() {
         .enter().append("circle")
         .attr("class", "node")
         .attr("r", 50)
-        .style("stroke", "#707070")
+        .style("stroke", "#b7b7b7")
         .style("stroke-width", "10px")
-        .attr("opacity", 0.65)
         .attr("fill", function(d) {
-            if (d.id == 3) return "#ef5555"
-            else return "#b7b7b7"
+            if (d.id == 3) return "#f1d2d2"
+            else return "#d5d5d5"
         })
         .call(frontForce.drag)
 

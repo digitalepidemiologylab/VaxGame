@@ -66,6 +66,9 @@ var toggleDegree = true;
 var cookie = {};
 var pop;
 
+
+
+
 initFooter();
 initBasicMenu();
 window.setTimeout(initCookiesOnDelay, 500)
@@ -369,6 +372,12 @@ function initBasicGame(difficulty) {
         graph.nodes[i].fixed = false;
     }
 
+    if (difficultyString == "hard" || difficultyString == null) {
+        for (var i = 0; i < graph.nodes.length; i++) {
+            if (Math.random() < 0.05) graph.nodes[i].refuser = true;
+        }
+    }
+
     removeDuplicateEdges(graph);
     initGameSpace();
 }
@@ -411,12 +420,6 @@ function initGameSpace() {
     game = true;
 
     loadGameSyringe();
-
-    if (difficultyString == "hard" || difficultyString == null) {
-        for (var i = 0; i < graph.nodes.length; i++) {
-            if (Math.random() < 0.05) graph.nodes[i].refuser = true;
-        }
-    }
 
     vaccinateMode     = false ;
     quarantineMode    = false ;
@@ -542,6 +545,8 @@ function initGameSpace() {
         })
 
 
+
+
 }
 
 function nodeSize(node) {
@@ -564,8 +569,9 @@ function nodeColor(node) {
     if (node.status == "V") color = "#d9d678";
     if (node.status == "Q") color = "#d9d678";
 
-    if (node.refuser && node.status == "S") {
+    if (node.status == "S" && node.refuser) {
         color = "black"
+        d3.select(this).style("stroke", "black")
     }
 
     return color;
@@ -577,16 +583,24 @@ function gameClick(node) {
     if (vaccinateMode) {
         if (node.refuser == true) return;
 
-        pop.play();
+        try {
+            pop.play()
+        }
+        catch(err){
 
+        }
         node.status = "V";
         numberOfVaccines--;
         numberVaccinated++;
     }
     else {
         if (quarantineMode && node.status == "S") {
-            pop.play();
+            try {
+                pop.play()
+            }
+            catch(err){
 
+            }
             diseaseIsSpreading = true;
             node.status = "Q";
             numberQuarantined++;
@@ -600,6 +614,7 @@ function gameClick(node) {
 
 }
 
+
 // tick function, which does the physics for each individual node & link.
 function tick() {
     node.attr("cx", function(d) { return d.x = Math.max(8, Math.min(width - 8, d.x)); })
@@ -608,6 +623,23 @@ function tick() {
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
+
+//    d3.selectAll(".refuserX").remove();
+//
+//    for (var i = 0; i < graph.nodes.length; i++) {
+//        if (!graph.nodes[i].refuser) continue;
+//        d3.select("g").append("text")
+//            .attr("class", "refuserX")
+//            .attr("fill", "black")
+//            .attr("opacity", 0.75)
+//            .attr("font-weight", "700")
+//            .attr("font-size", function() {return graph.nodes[i].r + 5})
+//            .attr("xlink:href", "/assets/refuser_node-01.svg")
+//            .attr("x", function() {return graph.nodes[i].x - 5})
+//            .attr("y", function() {return graph.nodes[i].y + 5})
+//            .text("X")
+//
+//    }
 
 
 }
@@ -660,7 +692,6 @@ function gameUpdate() {
         .duration(100)
         .attr("r", nodeSize)
 
-
     // Enter any new nodes.
     node.enter().append("svg:circle")
         .attr("class", "node")
@@ -672,6 +703,7 @@ function gameUpdate() {
 
     // Exit any old nodes.
     node.exit().remove();
+
 }
 
 

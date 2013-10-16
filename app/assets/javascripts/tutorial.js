@@ -159,9 +159,6 @@ function homeToTutorial() {
     pop = document.getElementById('audio');
 
 
-
-
-
 //    d3.select("body").append("div")
 //        .style("position", "absolute")
 //        .style("fill", "white")
@@ -178,7 +175,7 @@ function homeToTutorial() {
             .attr("x", 0)
             .attr("y", 0)
             .attr("width", 950)
-            .attr("height", 768 - 45 - 50)
+            .attr("height", 768 - 45 - 50 - 35)
             .attr("class", "svg")
             .style("pointer-events", "all")
     }
@@ -188,7 +185,7 @@ function homeToTutorial() {
             .attr("y", 0)
             .attr({
                 "width": "100%",
-                "height": "85%"
+                "height": "83%"
             })
             .attr("viewBox", "0 0 " + width + " " + height )
             .attr("class", "svg")
@@ -214,9 +211,6 @@ function homeToTutorial() {
 //        .attr("width", 1024)
 //        .attr("y", 25)
 //        .attr("height", "150px")
-
-
-
 
     guide = d3.select(".guideTextSVG").append("text")
         .attr("class", "guide")
@@ -248,8 +242,8 @@ function homeToTutorial() {
 
     d3.select("body").append("div")
         .attr("class", "about")
+        .style("bottom", "20px")
         .text("Salathé Group @ Penn State")
-        .style("bottom", "5px")
         .on("click", function() {
             window.location.href = 'http://salathegroup.com/'
         })
@@ -353,7 +347,11 @@ function tutorialUpdate() {
         })
         .on("click", function(d) {
             if (quarantineMode) {
-                pop.play()
+                try {
+                    pop.play()
+                }
+                catch(err){console.log(err)}
+
                 vaccinateMode = false;
 
                 d3.status = "Q"
@@ -367,8 +365,12 @@ function tutorialUpdate() {
                     return;
                 }
                 d.status = "V";
-                pop.play()
+                try {
+                    pop.play()
+                }
+                catch(err){
 
+                }
 
                 vaccineSupply--;
                 numberVaccinated++;
@@ -497,8 +499,12 @@ function stepWiseUpdate() {
                         return;
                     }
                     d.status = "V";
-                    pop.play()
+                    try {
+                        pop.play()
+                    }
+                    catch(err){
 
+                    }
                     d3.select(this)
 //                        .attr("class", "vaxNode")
 //                        .style("stroke", "#636363")
@@ -540,8 +546,12 @@ function stepWiseUpdate() {
                     return;
                 }
                 d.status = "V";
-                pop.play()
+                try {
+                    pop.play()
+                }
+                catch(err){
 
+                }
 
 
                 vaccineSupply--;
@@ -1202,8 +1212,12 @@ function initTutorial() {
                     window.alert("Out of Vaccines!")
                     return;
                 }
-                pop.play()
-                d.status = "V";
+                try {
+                    pop.play()
+                }
+                catch(err){
+
+                }                d.status = "V";
 
 
                 vaccineSupply--;
@@ -1346,8 +1360,12 @@ function flashNode() {
             if (d.id == node.id) {
                 if (vaccinateMode) {
                     d.status = "V";
-                    pop.play()
+                    try {
+                        pop.play()
+                    }
+                    catch(err){
 
+                    }
                     vaccineSupply--;
                     numberVaccinated++;
                     keepFlashing = false;
@@ -1387,8 +1405,12 @@ function flashNodes() {
             if (d.id == 10 || d.id == 4 || d.id == 6) {
                 if (vaccinateMode) {
                     d.status = "V";
-                    pop.play()
+                    try {
+                        pop.play()
+                    }
+                    catch(err){
 
+                    }
                     vaccineSupply--;
                     numberVaccinated++;
                     keepFlashing = false;
@@ -1542,8 +1564,12 @@ function quarantineUpdate() {
 
             if (d.status == "S") {
                 d.status = "Q";
-                pop.play()
+                try {
+                    pop.play()
+                }
+                catch(err){
 
+                }
                 quarantineUpdate();
                 numberQuarantined++;
                 d3.select(".quarantineCounterText").text("x" + numberQuarantined)
