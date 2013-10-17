@@ -69,7 +69,6 @@ var pop;
 
 
 
-initFooter();
 initBasicMenu();
 window.setTimeout(initCookiesOnDelay, 500)
 
@@ -380,6 +379,7 @@ function initBasicGame(difficulty) {
 
     removeDuplicateEdges(graph);
     initGameSpace();
+
 }
 
 function initCustomGame() {
@@ -420,6 +420,11 @@ function initGameSpace() {
     game = true;
 
     loadGameSyringe();
+    initFooter();
+    d3.select(".gameMenuBox").style("right", "-300px")
+    window.setTimeout(function() {d3.select(".gameMenuBox").style("right", "-10px"); d3.select(".gameVaxLogoDiv").style("left", "-12px")},1)
+
+
 
     vaccinateMode     = false ;
     quarantineMode    = false ;
@@ -570,8 +575,7 @@ function nodeColor(node) {
     if (node.status == "Q") color = "#d9d678";
 
     if (node.status == "S" && node.refuser) {
-        color = "black"
-        d3.select(this).style("stroke", "black")
+        color = "#fab45a"
     }
 
     return color;
@@ -854,12 +858,14 @@ function loadGameSyringe() {
     d3.select(".actionVax").style("visibility", "visible");
     d3.select(".actionVax").style("right", 0);
 
+    d3.select("#vaxShieldText").style("color", "white")
+
     d3.select(".actionVax").append("text")
         .attr("class", "vaccineCounterText")
         .style("font-size", "16px")
         .style("font-family", "Nunito")
         .style("font-weight", 300)
-        .style("fill", "white")
+        .style("color", "white")
         .text("")
         .style("right", function() {
             if (numberOfVaccines.toString().length == 1) return "49px"
@@ -889,12 +895,14 @@ function loadGameQuarantine() {
 
     d3.select(".quarantineCounterText").remove()
 
+    d3.select("#quarantineText").style("color", "white")
+
     d3.select(".actionQuarantine").append("text")
         .attr("class", "quarantineCounterText")
         .style("font-size", "16px")
         .style("font-family", "Nunito")
         .style("font-weight", 300)
-        .style("fill", "white")
+        .style("color", "white")
         .text("")
 
     d3.select(".quarantineCounterText").text("x" + numberQuarantined)

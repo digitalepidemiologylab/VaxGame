@@ -1263,7 +1263,6 @@ function initTutorial() {
         .duration(500)
         .attr("opacity", 1)
 
-
     d3.selectAll(".node").style("cursor", 'pointer');
 
     d3.select(".lessonText")
@@ -1276,10 +1275,6 @@ function initTutorial() {
         .style("left", "-12px")
 
     createMenuBox(1);
-
-
-
-
 }
 
 
@@ -1307,6 +1302,9 @@ function unFixNodes(graph) {
 }
 
 function loadSyringe() {
+    d3.select("#vaxShieldText").style("color", "white").style("fill", "white")
+
+
     if (quarantineMode) hideQuarantine();
     d3.select(".actionVax").style("visibility", "visible");
     d3.select(".actionVax").style("right", 0);
@@ -1322,6 +1320,8 @@ function loadSyringe() {
         .text("")
 
     d3.select(".vaccineCounterText").text(vaccineSupply + " / " + vax)
+
+
 }
 
 function hideSyringe() {
@@ -1333,6 +1333,8 @@ function hideSyringe() {
 }
 
 function loadQuarantine() {
+    d3.select("#quarantineText").style("color", "white")
+
     if (vaccinateMode) hideSyringe();
 
     quarantineMode = true;
@@ -1349,7 +1351,7 @@ function loadQuarantine() {
         .style("fill", "white")
         .text("")
 
-    d3.select(".quarantineCounterText").text("x" + numberQuarantined)
+    d3.select(".quarantineCounterText").style("color", "white").text("x" + numberQuarantined)
 
 }
 
@@ -1453,17 +1455,23 @@ function activateVaccinationMode() {
     if (wiggle) wiggleHack();
     wiggle = false;
 
+
     vaccinateMode = true;
     d3.selectAll(".node").style("cursor", 'url(/assets/vax_cursor.cur)');
     d3.select(".svg").style("cursor", 'url(/assets/vax_cursor.cur)');
     vaccineResearched = true;
     intervention = true;
     d3.select(".vaccineCounterText")
+        .style("color", "white")
         .text(vaccineSupply + " / " + vax);
     d3.select(".vaccineDepressedState").style("visibility", "visible")
+
+
 }
 
 function activateQuarantineMode() {
+
+
     friction = 0.9;
     vaccinateMode = false;
     quarantineMode = true;
@@ -1602,7 +1610,7 @@ function quarantineUpdate() {
     // Exit any old nodes.
     node.exit().remove();
 
-    d3.select(".quarantineCounterText").text("x" + numberQuarantined)
+    d3.select(".quarantineCounterText").style("color", "white").text("x" + numberQuarantined)
 
 
 //    d3.select(".timestepText")
