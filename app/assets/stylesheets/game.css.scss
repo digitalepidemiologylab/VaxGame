@@ -1,4 +1,48 @@
 
+#pinNodesDiv {
+  position: absolute;
+  top: 5px;
+  left: 20px;
+  width: 140px;
+  height: 200px;
+}
+
+#pinHeader {
+  position: absolute;
+  top: 0px;
+  font-family: "Nunito";
+  font-weight: 500;
+  font-size: 16px;
+  margin: 10px;
+
+}
+
+#pinText {
+  position: absolute;
+  top: 18px;
+  left: -15px;
+  text-align: center;
+  font-family: "Nunito";
+  font-weight: 300;
+  font-size: 15px;
+  margin: 10px;
+
+
+}
+
+#unPinText {
+  position: absolute;
+  text-align: center;
+  left: -15px;
+  top: 65px;
+  font-family: "Nunito";
+  font-weight: 300;
+  font-size: 15px;
+  margin: 10px;
+
+}
+
+
 .gameMenuBox {
   position:absolute;
   background: #85bc99;

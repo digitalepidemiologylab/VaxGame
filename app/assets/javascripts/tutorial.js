@@ -102,20 +102,6 @@ var homeSVG = d3.select("body").append("svg")
 generateFrontGraph();
 initMainFooter();
 
-//var img1 = homeSVG.selectAll("image").data([0]);
-//img1.enter()
-//    .append("image")
-//    .attr("class", "homeBackground")
-//    .attr("xlink:href", "/assets/Vax_home_background.png")
-//    .transition()
-//    .duration(500)
-//    .attr("x", 0)
-//    .attr("y", 0)
-//    .attr("width", "1024")
-//    .attr("height", "768")
-
-
-
 d3.select(".homeSVG").append("text")
     .attr("class", "homeTitle")
     .attr("x", 390)
@@ -158,14 +144,6 @@ function homeToTutorial() {
 
     pop = document.getElementById('audio');
 
-
-//    d3.select("body").append("div")
-//        .style("position", "absolute")
-//        .style("fill", "white")
-//        .style("width", window.innerWidth)
-//        .style("height", "150px")
-//        .style("top", "550px")
-
     var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
     var isIE = /*@cc_on!@*/false || document.documentMode;   // At least IE6
 
@@ -192,25 +170,13 @@ function homeToTutorial() {
             .style("pointer-events", "all")
 
     }
-//    d3.select(".svg").append("rect")
-//        .attr("class", "whiteBackground")
-//        .attr("fill", "white")
-//        .attr("width", window.innerWidth)
-//        .attr("x", -150)
-//        .attr("y", 500)
-//        .attr("height", "125px")
+
 
 
     guideTextSVG = d3.select(".svg").append("svg:svg")
         .attr("class", "guideTextSVG")
         .attr("x", 0)
         .attr("y", 475)
-
-//    d3.select(".guideTextSVG").append("rect")
-//        .attr("fill", "white")
-//        .attr("width", 1024)
-//        .attr("y", 25)
-//        .attr("height", "150px")
 
     guide = d3.select(".guideTextSVG").append("text")
         .attr("class", "guide")
@@ -350,7 +316,7 @@ function tutorialUpdate() {
                 try {
                     pop.play()
                 }
-                catch(err){console.log(err)}
+                catch(err){}
 
                 vaccinateMode = false;
 
@@ -506,12 +472,8 @@ function stepWiseUpdate() {
 
                     }
                     d3.select(this)
-//                        .attr("class", "vaxNode")
-//                        .style("stroke", "#636363")
-//                        .style("stroke-width", 2)
                         .style("fill", "#d9d678")
 
-//                    vaccinatedBayStartYCoord += 25;
                     vaccineSupply--;
                     numberVaccinated++;
 
@@ -901,14 +863,6 @@ function initNavBar() {
         .style("font-weight", 500)
         .attr("font-size", "18px")
         .text('< Back')
-//        .on("mouseover", function(d) {
-//            if (!backEnable) return;
-//            d3.select(this).style("fill", "#2692F2")
-//        })
-//        .on("mouseout", function(d) {
-//            if (!backEnable) return;
-//            d3.select(this).style("fill", "white")
-//        })
         .on("click", function() {
             if (backEnable) {
                 if (diseaseIsSpreading) return;
@@ -939,14 +893,6 @@ function initNavBar() {
         .style("font-weight", 500)
         .attr("font-size", "18px")
         .text("Next >")
-//        .on("mouseover", function(d) {
-//            if (!nextEnable) return;
-//            d3.select(this).style("fill", "#2692F2")
-//        })
-//        .on("mouseout", function(d) {
-//            if (!nextEnable) return;
-//            d3.select(this).style("fill", "white")
-//        })
         .on("click", function() {
             if (nextEnable) {
                 if (diseaseIsSpreading) return;

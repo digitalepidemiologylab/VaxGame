@@ -617,7 +617,7 @@ function vax2QuarantineTransition() {
 
 
 function guideRails(back) {
-    console.log("rail position = " + guideRailsPosition)
+//    console.log("rail position = " + guideRailsPosition)
 
     if (diseaseIsSpreading) return;
 
@@ -1262,7 +1262,6 @@ function guideRails(back) {
             graph.nodes[i].exposureTimestep = null;
         }
 
-        console.log(graph.nodes[13])
 
         for (var ii = 0; ii < tailoredLinks.length; ii++) {
             graph.links.push(tailoredLinks[ii]);

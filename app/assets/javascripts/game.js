@@ -11,6 +11,7 @@ var numberVaccinated;
 var numberQuarantined;
 var numberSaved;
 var numberInfected;
+var numberOfRefusers;
 
 var gameSVG ;
 var width = 975;
@@ -368,7 +369,7 @@ function initBasicGame(difficulty) {
         graph.nodes[i].fixed = false;
     }
 
-    if (difficultyString == "hard" || difficultyString == null) {
+    if (difficulty == "hard") {
         for (var i = 0; i < graph.nodes.length; i++) {
             if (Math.random() < 0.05) graph.nodes[i].refuser = true;
         }
@@ -394,12 +395,25 @@ function initCustomGame() {
     numberOfVaccines = customVaccineChoice;
     vaccineSupply = numberOfVaccines;
     independentOutbreaks = customOutbreakChoice;
+    numberOfRefusers = customRefuserChoice;
 
     if (customNodeChoice > 100) charge = -150;
     if (customNodeChoice > 125) charge = -130;
 
     graph = generateSmallWorld(numberOfIndividuals, rewire, meanDegree);
     removeDuplicateEdges(graph);
+
+    for (var i = 0; i < graph.nodes.length; i++) {
+        graph.nodes[i].refuser = false;
+    }
+
+    for (var i = 0; i < numberOfRefusers; i++) {
+        do {
+            var node = graph.nodes[Math.round(Math.random() * graph.nodes.length)]
+        }
+        while (node.refuser)
+        node.refuser = true;
+    }
 
     d3.select("#customMenuDiv").style("right", "-1000px").style("visibility", "hidden")
 
@@ -412,8 +426,6 @@ function initCustomGame() {
 
 function initGameSpace() {
     pop = document.getElementById('audio');
-
-
     game = true;
 
     loadGameSyringe();
@@ -455,59 +467,7 @@ function initGameSpace() {
             .attr("class", "gameSVG")
             .attr("pointer-events", "all")
             .append('svg:g');
-
-        d3.select("body").append("div")
-            .attr("class", "hotkeyDropdown")
-            .text("▾ Hotkeys ▾")
-            .style("position", "absolute")
-            .style("top", "0px")
-            .style("left", "10px")
-            .style("color", "black")
-            .style("cursor", "pointer")
-
-        var pin = d3.select(".hotkeyDropdown").append("div")
-            .attr("class", "pin")
-            .style("top", "25px")
-            .style("right", "0px")
-            .style("color", "black")
-            .text("Pin Node: Space")
-            .style("visibility", "hidden")
-
-        var release = d3.select(".hotkeyDropdown").append("div")
-            .attr("class", "release")
-            .style("top", "25px")
-            .style("right", "40px")
-            .style("color", "black")
-            .text("Release  : Shift+Space")
-            .style("visibility", "hidden")
-
-
-            d3.select(".hotkeyDropdown")
-                .on("mouseover", function() {
-                    d3.select(".pin")
-                        .style("visibility", "visible")
-
-
-                   d3.select(".release")
-                        .style("visibility", "visible")
-
-
-            } )
-            .on("mouseout", function() {
-                d3.select(".pin")
-                    .style("visibility", "hidden")
-
-                d3.select(".release")
-                    .style("visibility", "hidden")
-
-
-
-            })
-
-
     }
-
-
 
     // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
     force = d3.layout.force()
@@ -546,7 +506,57 @@ function initGameSpace() {
             currentElement = null;
         })
 
+    loadHotKeyText();
+    if (difficultyString == "hard" || difficultyString == null) refusersPresent();
 
+
+
+
+
+}
+
+function loadHotKeyText() {
+    var visible = true;
+
+
+    d3.select("body").append("div")
+        .attr("id", "pinNodesDiv")
+
+    d3.select("#pinNodesDiv").append("text")
+        .attr("id", "pinHeader")
+        .style("color", "#2692F2")
+        .text("▴ Pin Nodes ▴")
+        .style("cursor", "pointer")
+
+    d3.select("#pinNodesDiv").append("text")
+        .attr("id", "pinText")
+        .html("Hover and hit <b>spacebar</b> to pin.")
+
+    d3.select("#pinNodesDiv").append("text")
+        .attr("id", "unPinText")
+        .html("Hover and hit <b>shift+spacebar</b> </br> to unpin.")
+
+    d3.select("#pinNodesDiv")
+        .on("click", function() {
+            if (!visible) {
+                d3.select("#pinNodesDiv").append("text")
+                    .attr("id", "pinText")
+                    .html("Hover and hit <b>spacebar</b> to pin.")
+
+                d3.select("#pinNodesDiv").append("text")
+                    .attr("id", "unPinText")
+                    .html("Hover and hit <b>shift+spacebar</b> </br> to unpin.")
+            }
+            else {
+                d3.select("#pinText").remove();
+                d3.select("#unPinText").remove();
+            }
+            visible = !visible;
+
+            if (visible) d3.select("#pinHeader").text("▴ Pin Nodes ▴")
+            else d3.select("#pinHeader").text("▾ Pin Nodes ▾")
+
+        });
 
 
 }
@@ -625,22 +635,6 @@ function tick() {
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-//    d3.selectAll(".refuserX").remove();
-//
-//    for (var i = 0; i < graph.nodes.length; i++) {
-//        if (!graph.nodes[i].refuser) continue;
-//        d3.select("g").append("text")
-//            .attr("class", "refuserX")
-//            .attr("fill", "black")
-//            .attr("opacity", 0.75)
-//            .attr("font-weight", "700")
-//            .attr("font-size", function() {return graph.nodes[i].r + 5})
-//            .attr("xlink:href", "/assets/refuser_node-01.svg")
-//            .attr("x", function() {return graph.nodes[i].x - 5})
-//            .attr("y", function() {return graph.nodes[i].y + 5})
-//            .text("X")
-//
-//    }
 
 
 }
@@ -741,7 +735,6 @@ function detectGameCompletion() {
                 if (node.status == "I") numberOfInfectedPerGroup++;
                 if (node.status == "E") numberOfInfectedPerGroup++;
 
-//                console.log(numberOfSusceptiblesPerGroup + "\t" + numberOfInfectedPerGroup)
 
             }
         }
@@ -934,6 +927,61 @@ function activateGameQuarantineMode() {
     gameIndexPatients();
 
     outbreakDetected();
+
+}
+
+function refusersPresent() {
+    d3.select(".gameSVG").append("rect")
+        .attr("class", "refuserNotifyShadow")
+        .attr("x", window.innerWidth/4 + 62 + 5 - 50)
+        .attr("y", -100)
+        .attr("width", 325)
+        .attr("height", 50)
+        .attr("fill", "#838383")
+        .attr("opacity", 1)
+
+    d3.select(".gameSVG").append("rect")
+        .attr("class", "refuserNotifyBox")
+        .attr("x", window.innerWidth/4 + 62 - 50)
+        .attr("y", -100)
+        .attr("width", 325)
+        .attr("height", 50)
+        .attr("fill", "#85bc99")
+        .attr("opacity", 1)
+
+    d3.select(".gameSVG").append("text")
+        .attr("class", "refuserNotifyText")
+        .attr("x", window.innerWidth/4 + 62 + 5 - 50 + 15)
+        .attr("y", -100)
+        .attr("fill", "white")
+        .style("font-family", "Nunito")
+        .style("font-size", "24px")
+        .style("font-weight", 300)
+        .text("Vaccine refusers present!")
+        .attr("opacity", 1)
+
+    d3.select(".refuserNotifyText").transition().duration(500).attr("y", 200 + 32)
+    d3.select(".refuserNotifyBox").transition().duration(500).attr("y", 200)
+    d3.select(".refuserNotifyShadow").transition().duration(500).attr("y", 200 + 7)
+
+    window.setTimeout(function() {
+        d3.select(".refuserNotifyShadow")
+            .transition()
+            .duration(500)
+            .attr("y", -100)
+
+        d3.select(".refuserNotifyBox")
+            .transition()
+            .duration(500)
+            .attr("y", -100)
+
+        d3.select(".refuserNotifyText")
+            .transition()
+            .duration(500)
+            .attr("y", -100)
+
+
+    }, 2500)
 
 
 }
@@ -1266,7 +1314,8 @@ function initScoreRecap() {
 }
 
 function loadConclusionText() {
-    d3.select(".hotkeyDropdown").remove()
+
+    d3.select("#pinNodesDiv").remove()
 
     var bar;
     var bestScore;
@@ -1396,6 +1445,7 @@ function next() {
     timestep = 0;
     diseaseIsSpreading = false;
     timeToStop = false;
+    hideGameQuarantine();
 
     if (difficultyString == "hard" || difficultyString == null) {
         window.location.href = "http://vax.herokuapp.com/game"
