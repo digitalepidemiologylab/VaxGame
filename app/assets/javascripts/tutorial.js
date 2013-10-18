@@ -175,7 +175,7 @@ function homeToTutorial() {
             .attr("x", 0)
             .attr("y", 0)
             .attr("width", 950)
-            .attr("height", 768 - 45 - 50 - 35)
+            .attr("height", 768 - 45 - 50 - 35 - 20)
             .attr("class", "svg")
             .style("pointer-events", "all")
     }

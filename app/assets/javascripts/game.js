@@ -66,9 +66,6 @@ var toggleDegree = true;
 var cookie = {};
 var pop;
 
-
-
-
 initBasicMenu();
 window.setTimeout(initCookiesOnDelay, 500)
 

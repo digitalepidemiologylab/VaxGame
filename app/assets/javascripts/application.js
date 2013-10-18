@@ -16,7 +16,6 @@
 //= require gameMenu
 //= require netrics
 //= require sir
-//= require bootstrap
 //= require jquery-ui
 //= require jquery_ujs
 //= require_tree .

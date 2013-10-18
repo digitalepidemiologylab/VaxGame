@@ -1,4 +1,8 @@
 function initFooter() {
+
+    d3.select("#helpNav").remove()
+    d3.select("#newGameNav").remove();
+
     // make logo & menuBox
     d3.select("body").append("div")
         .attr("class", "gameVaxLogoDiv")
@@ -11,6 +15,8 @@ function initFooter() {
 
     d3.select("body").append("div")
         .attr("class", "gameMenuBox")
+
+
 
 
     d3.select(".gameMenuBox").append("div")
