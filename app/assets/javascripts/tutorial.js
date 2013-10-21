@@ -140,7 +140,7 @@ d3.select(".homeSVG").append("text")
 function homeToTutorial() {
     d3.select(".homeSVG").remove();
     d3.select(".gameVaxLogoDiv").remove();
-    d3.select(".about").remove();
+//    d3.select(".about").remove();
 
     pop = document.getElementById('audio');
 
@@ -206,13 +206,13 @@ function homeToTutorial() {
         .style("font-weight", 300)
         .text("")
 
-    d3.select("body").append("div")
-        .attr("class", "about")
-        .style("bottom", "20px")
-        .text("Salathé Group @ Penn State")
-        .on("click", function() {
-            window.location.href = 'http://salathegroup.com/'
-        })
+//    d3.select("body").append("div")
+//        .attr("class", "about")
+//        .style("bottom", "20px")
+//        .text("Salathé Group @ Penn State")
+//        .on("click", function() {
+//            window.location.href = 'http://salathegroup.com/'
+//        })
 
     advanceTutorial()
 }

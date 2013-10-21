@@ -1314,6 +1314,10 @@ function initScoreRecap() {
 }
 
 function loadConclusionText() {
+    var total = Math.round((((numberSaved + numberQuarantined + numberVaccinated)/numberOfIndividuals)*100)).toFixed(0);
+
+
+    d3.select(".popup_game_share").style("visibility", "visible")
 
     d3.select("#pinNodesDiv").remove()
 
@@ -1331,6 +1335,7 @@ function loadConclusionText() {
         bestScore = vaxHardHiScore;
         bar = hardBar;
     }
+    if (difficultyString == null) bestScore = total;
 
     d3.select(".gameSVG").append("text")
         .attr("class", "bestScore")
@@ -1342,8 +1347,22 @@ function loadConclusionText() {
         .style("font-weight", "500")
         .text("Best Score: " + bestScore + "%");
 
+    var diffset;
 
-    var total = Math.round((((numberSaved + numberQuarantined + numberVaccinated)/numberOfIndividuals)*100)).toFixed(0);
+    if (difficultyString == "easy") diffset = "Easy";
+    if (difficultyString == "medium") diffset = "Medium";
+    if (difficultyString == "hard") diffset = "Hard";
+    if (difficultyString == null) {
+        diffset = "Custom";
+
+        bestScore = total;
+    }
+
+    var twitterText = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F.vax.herokuapp.com&text=I just stopped an epidemic in its tracks! Can you can beat " + bestScore + "%25 on " + diffset + "? Fight the outbreak at&url=http%3A%2F%2Fvax.herokuapp.com";
+    var facebookText = "http://www.facebook.com/sharer.php?s=100&p[title]=Vax! | Gamifying Epidemic Prevention&p[summary]=I just stopped an epidemic in its tracks! Can you beat " + bestScore + "% on " + diffset + "?&p[url]=http://vax.herokuapp.com";
+    d3.select("#twitter").attr("href", function() {return twitterText})
+    d3.select("#facebook").attr("href", function() {return facebookText})
+
 
     if (difficultyString == null) {
         d3.select(".gameSVG").append("text")
@@ -1423,11 +1442,10 @@ function loadConclusionText() {
                 })
         }
     }
-
-
 }
 
 function retry() {
+    d3.select(".popup_game_share").style("visibility", "hidden")
     d3.select(".gameSVG").remove()
     graph = {};
     timestep = 0;
@@ -1440,6 +1458,7 @@ function retry() {
 }
 
 function next() {
+    d3.select(".popup_game_share").style("visibility", "hidden")
     d3.select(".gameSVG").remove()
     graph = {};
     timestep = 0;
@@ -1453,13 +1472,13 @@ function next() {
     }
     else {
         if (difficultyString == "easy") {
+            difficultyString = "medium";
             initBasicGame("medium")
-            difficultyString = "medium"
             return;
         }
         if (difficultyString == "medium") {
-            initBasicGame("hard");
             difficultyString = "hard";
+            initBasicGame("hard");
             return;
         }
     }

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% provide(:title, 'Vax') %>
+
+  <% provide(:title, 'Game') %>
   <%= javascript_include_tag "jquery" %>
   <%= javascript_include_tag "jquery.cookie" %>
   <%= javascript_include_tag "jquery-ui-1.10.3.custom.min" %>
@@ -62,6 +63,12 @@
       <div id = "outbreakSlider" >  </div>
 
     </div>
+
+<div class="popup_game_share">
+  <a href="https://plus.google.com/share?url=http://vax.herokuapp.com" target="_blank"><%=image_tag("googleplus_icon.png", style:"padding:12px 7px 0px 7px;width:25px;")%></a>
+  <a id="twitter" href="" target="_blank"><%=image_tag("twitter_icon.png", style:"padding:12px 7px 0px 7px;width:25px;")%></a>
+  <a id="facebook" href="" target="_blank"><%=image_tag("facebook_icon.png", style:"padding:12px 7px 0px 7px;width:25px;")%></a></div>
+</div>
 
 
 </body>

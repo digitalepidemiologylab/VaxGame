@@ -15,7 +15,4 @@ class StaticPagesController < ApplicationController
   def game
   end
 
-  def intervention
-  end
-
 end
