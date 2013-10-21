@@ -134,7 +134,7 @@ var maxVax = parseInt($.cookie('customNodes'))
 $(function() {
     $( "#nodeSlider").slider({
         range: "min",
-        min: 2,
+        min: 10,
         max: 150,
         value: customNodeChoice,
         slide: function (event, ui) {

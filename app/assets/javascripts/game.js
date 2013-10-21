@@ -397,6 +397,9 @@ function initCustomGame() {
     independentOutbreaks = customOutbreakChoice;
     numberOfRefusers = customRefuserChoice;
 
+    if (numberOfVaccines == 0) numberOfVaccines = 1;
+    if (independentOutbreaks > (graph.nodes.length - numberOfVaccines)) independentOutbreaks = 1;
+
     if (customNodeChoice > 100) charge = -150;
     if (customNodeChoice > 125) charge = -130;
 
