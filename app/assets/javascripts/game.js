@@ -1363,8 +1363,49 @@ function loadConclusionText() {
 
     var twitterText = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F.vax.herokuapp.com&text=I just stopped an epidemic in its tracks! Can you can beat " + bestScore + "%25 on " + diffset + "? Fight the outbreak at&url=http%3A%2F%2Fvax.herokuapp.com";
     var facebookText = "http://www.facebook.com/sharer.php?s=100&p[title]=Vax! | Gamifying Epidemic Prevention&p[summary]=I just stopped an epidemic in its tracks! Can you beat " + bestScore + "% on " + diffset + "?&p[url]=http://vax.herokuapp.com";
-    d3.select("#twitter").attr("href", function() {return twitterText})
-    d3.select("#facebook").attr("href", function() {return facebookText})
+
+
+    d3.select(".gameSVG").append("image")
+        .attr("x", 150)
+        .attr("y", 355)
+        .attr("height", "35px")
+        .attr("width", "35px")
+        .attr("xlink:href", "/assets/facebook_icon.png")
+        .attr("id", "facebook")
+        .style("padding", "12px 7px 0px 7px")
+        .style("width", "25px")
+        .style("cursor", "pointer")
+        .on("click", function() {
+            window.location.href = facebookText;
+        })
+
+    d3.select(".gameSVG").append("image")
+        .attr("x", 215)
+        .attr("y", 355)
+        .attr("height", "35px")
+        .attr("width", "35px")
+        .attr("xlink:href", "/assets/twitter_icon.png")
+        .attr("id", "twitter")
+        .style("padding", "12px 7px 0px 7px")
+        .style("width", "25px")
+        .style("cursor", "pointer")
+        .on("click", function() {
+            window.location.href = twitterText;
+        })
+
+    d3.select(".gameSVG").append("image")
+        .attr("x", 280)
+        .attr("y", 355)
+        .attr("height", "35px")
+        .attr("width", "35px")
+        .attr("xlink:href", "/assets/googleplus_icon.png")
+        .attr("id", "twitter")
+        .style("padding", "12px 7px 0px 7px")
+        .style("width", "25px")
+        .style("cursor", "pointer")
+        .on("click", function() {
+            window.location.href = "https://plus.google.com/share?url=http://vax.herokuapp.com";
+        })
 
 
     if (difficultyString == null) {
