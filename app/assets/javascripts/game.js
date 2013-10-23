@@ -1198,19 +1198,19 @@ function writeCookiesJSON() {
 
 function generateStackedBarChart() {
     var width = 125;
-    var height = 420;
+    var height = 320;
 
     var stackedSVG = d3.select(".gameSVG").append("svg")
         .attr("class", "stacked")
         .attr("width", width)
         .attr("height", height)
         .attr("x", 20)
-        .attr("y", 50)
+        .attr("y", 150)
         .append("svg:g")
-        .attr("transform", "translate(10,470)");
+        .attr("transform", "translate(10,320)");
 
     x = d3.scale.ordinal().rangeRoundBands([0, width-50])
-    y = d3.scale.linear().range([0, height-50])
+    y = d3.scale.linear().range([0, height])
     z = d3.scale.ordinal().range(["#b7b7b7","#85BC99","#d9d678" , "#ef5555" ])
     // 1 column
     var matrix = [
@@ -1384,7 +1384,7 @@ function generateUninfectedBar(total,bestScore) {
     var height = 320;
 
     var x = d3.scale.linear().domain([0, data.length]).range([0, width]);
-    var y = d3.scale.linear().domain([0, d3.max(data, function(datum) { return datum.score; })]).
+    var y = d3.scale.linear().domain([0, d3.max(data, function(datum) { return 100 })]).
         rangeRound([0, height]);
 
 // add the canvas to the DOM
