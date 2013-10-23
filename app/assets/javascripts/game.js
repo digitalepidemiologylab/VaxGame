@@ -1211,15 +1211,14 @@ function generateStackedBarChart() {
 
     x = d3.scale.ordinal().rangeRoundBands([0, width-50])
     y = d3.scale.linear().range([0, height-50])
-    z = d3.scale.ordinal().range(["#b7b7b7", "#ef5555", "#d9d678", "#85BC99"])
-
+    z = d3.scale.ordinal().range(["#b7b7b7","#85BC99","#d9d678" , "#ef5555" ])
     // 1 column
     var matrix = [
-        [ 1,  countSavedGAME(), (numberOfIndividuals - numberQuarantined - numberVaccinated - countSavedGAME()), numberQuarantined, numberVaccinated]
+        [ 1,  countSavedGAME(), numberVaccinated, numberQuarantined, (numberOfIndividuals - numberQuarantined - numberVaccinated - countSavedGAME())]
 
     ];
 
-    var remapped =["untreated", "infected", "quarantined", "vaccinated"].map(function(dat,i){
+    var remapped =["uninfected","vaccinated", "quarantined", "infected"].map(function(dat,i){
         return matrix.map(function(d,ii){
             return {x: ii, y: d[i+1] };
         })
@@ -1237,7 +1236,9 @@ function generateStackedBarChart() {
         .enter().append("svg:g")
         .attr("class", "valgroup")
         .style("fill", function(d, i) { return z(i); })
-        .style("stroke", function(d, i) { return d3.rgb(z(i)).darker(); });
+        .attr("id", function(d,i) { if (i == 0) return "uninfected"; if (i == 1) return "infected"; if (i == 2) return "quarantined"; if (i == 3) return "vaccinated"})
+
+
 
     // Add a rect for each date.
     var rect = valgroup.selectAll("rect")
@@ -1246,7 +1247,9 @@ function generateStackedBarChart() {
         .attr("x", function(d) { return x(d.x); })
         .attr("y", function(d) { return -y(d.y0) - y(d.y); })
         .attr("height", function(d) { return y(d.y); })
-        .attr("width", x.rangeBand());
+        .attr("width", x.rangeBand())
+        .attr("id", function(d) {console.log(d)})
+
 
     d3.select(".gameSVG").append("line")
         .style("stroke", "#707070")
@@ -1290,6 +1293,80 @@ function generateStackedBarChart() {
         .style("font-weight", "500")
         .style("fill", "#707070")
         .text("0%")
+
+
+
+    d3.select(".gameSVG").append("rect")
+        .attr("height", 15)
+        .attr("width", 15)
+        .attr("x", 150)
+        .attr("y", 200)
+        .attr("fill", "#ef5555")
+
+    d3.select(".gameSVG").append("rect")
+        .attr("height", 15)
+        .attr("width", 15)
+        .attr("x", 150)
+        .attr("y", 230)
+        .attr("fill", "#d9d678")
+
+
+    d3.select(".gameSVG").append("rect")
+        .attr("height", 15)
+        .attr("width", 15)
+        .attr("x", 150)
+        .attr("y", 260)
+        .attr("fill", "#85BC99")
+
+
+    d3.select(".gameSVG").append("rect")
+        .attr("height", 15)
+        .attr("width", 15)
+        .attr("x", 150)
+        .attr("y", 290)
+        .attr("fill", "#b7b7b7")
+
+
+
+    d3.select(".gameSVG").append("text")
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("fill", "#707070")
+        .attr("x", 180)
+        .attr("y", 213)
+        .text("Infected")
+
+    d3.select(".gameSVG").append("text")
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("fill", "#707070")
+        .attr("x", 180)
+        .attr("y", 243)
+        .text("Quarantined")
+
+
+
+
+    d3.select(".gameSVG").append("text")
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("fill", "#707070")
+        .attr("x", 180)
+        .attr("y", 273)
+        .text("Vaccinated")
+
+
+
+    d3.select(".gameSVG").append("text")
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("fill", "#707070")
+        .attr("x", 180)
+        .attr("y", 303)
+        .text("Uninfected")
+
+
+
 
 
 
