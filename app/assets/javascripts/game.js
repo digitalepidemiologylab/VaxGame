@@ -513,7 +513,10 @@ function initGameSpace() {
         })
 
     loadHotKeyText();
-    if (difficultyString == "hard" || difficultyString == null) refusersPresent();
+    if (difficultyString == "hard" || difficultyString == null) {
+        if (numberOfRefusers > 0) refusersPresent();
+
+    }
 
 
 
@@ -1564,6 +1567,9 @@ function initScoreRecap2() {
 }
 
 function addShareButtons(bestScore,diffset) {
+    if (difficultyString == undefined) diffset = "Custom"
+
+
     var twitterText = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F.vax.herokuapp.com&text=I just stopped an epidemic in its tracks! Can you can beat " + bestScore + "%25 on " + diffset + "? Fight the outbreak at&url=http%3A%2F%2Fvax.herokuapp.com";
     var facebookText = "http://www.facebook.com/sharer.php?s=100&p[title]=Vax! | Gamifying Epidemic Prevention&p[summary]=I just stopped an epidemic in its tracks! Can you beat " + bestScore + "% on " + diffset + "?&p[url]=http://vax.herokuapp.com";
 
