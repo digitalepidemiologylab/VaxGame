@@ -67,6 +67,9 @@ var toggleDegree = true;
 var cookie = {};
 var pop;
 
+var best;
+var current;
+
 initBasicMenu();
 window.setTimeout(initCookiesOnDelay, 500)
 
@@ -1105,7 +1108,7 @@ function endGameSession() {
 
             window.setTimeout(addPeriod2, 800)
 
-            window.setTimeout(initScoreRecap, 1200)
+            window.setTimeout(initScoreRecap2, 1200)
 
         })
 
@@ -1190,6 +1193,527 @@ function writeCookiesJSON() {
     var newCookie = {easy: vaxEasyCompletion, medium: vaxMediumCompletion, hard: vaxHardCompletion, scores: score}
     $.removeCookie('vaxCookie')
     $.cookie('vaxCookie', JSON.stringify(newCookie), { expires: 365, path: '/' })
+
+}
+
+function generateStackedBarChart() {
+    var width = 125;
+    var height = 420;
+
+    var stackedSVG = d3.select(".gameSVG").append("svg")
+        .attr("class", "stacked")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("x", 20)
+        .attr("y", 50)
+        .append("svg:g")
+        .attr("transform", "translate(10,470)");
+
+    x = d3.scale.ordinal().rangeRoundBands([0, width-50])
+    y = d3.scale.linear().range([0, height-50])
+    z = d3.scale.ordinal().range(["#b7b7b7", "#ef5555", "#d9d678", "#85BC99"])
+
+    // 1 column
+    var matrix = [
+        [ 1,  countSavedGAME(), (numberOfIndividuals - numberQuarantined - numberVaccinated - countSavedGAME()), numberQuarantined, numberVaccinated]
+
+    ];
+
+    var remapped =["untreated", "infected", "quarantined", "vaccinated"].map(function(dat,i){
+        return matrix.map(function(d,ii){
+            return {x: ii, y: d[i+1] };
+        })
+    });
+
+    var stacked = d3.layout.stack()(remapped)
+
+    x.domain(stacked[0].map(function(d) { return d.x; }));
+    y.domain([0, d3.max(stacked[stacked.length - 1], function(d) { return d.y0 + d.y; })]);
+
+
+    // Add a group for each column.
+    var valgroup = stackedSVG.selectAll("g.valgroup")
+        .data(stacked)
+        .enter().append("svg:g")
+        .attr("class", "valgroup")
+        .style("fill", function(d, i) { return z(i); })
+        .style("stroke", function(d, i) { return d3.rgb(z(i)).darker(); });
+
+    // Add a rect for each date.
+    var rect = valgroup.selectAll("rect")
+        .data(function(d){return d;})
+        .enter().append("svg:rect")
+        .attr("x", function(d) { return x(d.x); })
+        .attr("y", function(d) { return -y(d.y0) - y(d.y); })
+        .attr("height", function(d) { return y(d.y); })
+        .attr("width", x.rangeBand());
+
+    d3.select(".gameSVG").append("line")
+        .style("stroke", "#707070")
+        .style("stroke-width", "1px")
+        .attr("x1", -35)
+        .attr("x2", 200)
+        .attr("y1", 470)
+        .attr("y2", 470)
+
+    d3.select(".gameSVG").append("line")
+        .style("stroke", "#707070")
+        .style("stroke-width", "1px")
+        .attr("x1", -35)
+        .attr("x2", -35)
+        .attr("y1", 140)
+        .attr("y2", 470)
+
+    d3.select(".gameSVG").append("text")
+        .attr("x", -83)
+        .attr("y", 162)
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
+        .text("100%")
+
+    d3.select(".gameSVG").append("text")
+        .attr("x", -76)
+        .attr("y", 310)
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
+        .text("50%")
+
+    d3.select(".gameSVG").append("text")
+        .attr("x", -72)
+        .attr("y", 455)
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
+        .text("0%")
+
+
+
+
+}
+
+function generateUninfectedBar(total,bestScore) {
+
+    var data = [{score: total},
+                {score: bestScore},
+    ];
+
+    var barWidth = 75;
+    var width = (barWidth + 25) * data.length;
+    var height = 320;
+
+    var x = d3.scale.linear().domain([0, data.length]).range([0, width]);
+    var y = d3.scale.linear().domain([0, d3.max(data, function(datum) { return datum.score; })]).
+        rangeRound([0, height]);
+
+// add the canvas to the DOM
+    var barDemo = d3.select(".gameSVG").
+        append("svg").
+        attr("class", "barSVG").
+        attr("width", width).
+        attr("height", height).
+        attr("x", 420).
+        attr("y", 150)
+
+    barDemo.selectAll("rect").
+        data(data).
+        enter().
+        append("svg:rect").
+        attr("x", function(datum, index) { return x(index); }).
+        attr("y", function(datum) { return height - y(datum.score); }).
+        attr("height", function(datum) { return y(datum.score); }).
+        attr("class", function(datum, index) { if (index == 0) return "current"; else return "best"}).
+        attr("width", barWidth).
+        attr("fill", function(datum, index) { if (index == 0) return "#b7b7b7"; else return "#00adea"})
+
+
+    var best = d3.select(".best")
+    var current = d3.select(".current")
+
+
+    d3.select(".gameSVG").append("text")
+        .attr("x", best.node().getBBox().x + 426)
+        .attr("y", best.node().getBBox().y + 145)
+        .style("font-family", "Nunito")
+        .style("font-size", "30px")
+        .style("color", "#707070")
+        .attr("color", "#707070")
+        .attr("fill", "#707070")
+        .text(bestScore + "%")
+
+    d3.select(".gameSVG").append("text")
+        .attr("x", current.node().getBBox().x + 427)
+        .attr("y", current.node().getBBox().y + 145)
+        .style("font-family", "Nunito")
+        .style("font-size", "30px")
+        .style("color", "#707070")
+        .attr("color", "#707070")
+        .attr("fill", "#707070")
+        .text(total + "%")
+
+    d3.select(".gameSVG").append("line")
+        .style("stroke", "#707070")
+        .style("stroke-width", "1px")
+        .attr("x1", 395)
+        .attr("x2", 625)
+        .attr("y1", 470)
+        .attr("y2", 470)
+
+    d3.select(".gameSVG").append("line")
+        .style("stroke", "#707070")
+        .style("stroke-width", "1px")
+        .attr("x1", 395)
+        .attr("x2", 395)
+        .attr("y1", 140)
+        .attr("y2", 470)
+
+    d3.select(".gameSVG").append("text")
+        .attr("x", 347)
+        .attr("y", 162)
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
+        .text("100%")
+
+    d3.select(".gameSVG").append("text")
+        .attr("x", 359)
+        .attr("y", 310)
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
+        .text("50%")
+
+    d3.select(".gameSVG").append("text")
+        .attr("x", 355)
+        .attr("y", 455)
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
+        .text("0%")
+
+    d3.select(".gameSVG").append("text")
+        .attr("x", 430)
+        .attr("y", 489)
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
+        .text("Current")
+
+    d3.select(".gameSVG").append("text")
+        .attr("x", 540)
+        .attr("y", 489)
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
+        .text("Best")
+
+
+
+
+
+
+}
+
+function initScoreRecap2() {
+    writeCookiesJSON();
+
+    // remove game features from view
+    d3.select(".endGameShadow").transition().duration(500).attr("y", -200)
+    d3.select(".endGameBox").transition().duration(500).attr("y", -200)
+    d3.select(".endGameText").transition().duration(500).attr("y", -200)
+    d3.select(".endGameSUBMIT").transition().duration(500).attr("y", -200)
+    d3.select("#pinNodesDiv").remove()
+    d3.select(".gameSVG").select("g").style("visibility", "hidden")
+    hideGameQuarantine();
+
+    var currentScore = Math.round((((countSavedGAME() + numberQuarantined + numberVaccinated)/numberOfIndividuals)*100)).toFixed(0);
+    var passed;
+    var bar;
+    var bestScore;
+    var diffset;
+    if (difficultyString == "easy") {
+        diffset = "Easy";
+        bestScore = vaxEasyHiScore;
+        bar = easyBar;
+    }
+    if (difficultyString == "medium") {
+        diffset = "Medium";
+        bestScore = vaxMediumHiScore;
+        bar = mediumBar;
+    }
+    if (difficultyString == "hard") {
+        diffset = "Hard";
+        bestScore = vaxHardHiScore;
+        bar = hardBar;
+    }
+    if (difficultyString == null) {
+        bestScore = currentScore;
+        bar = 0;
+    }
+
+    if (currentScore >= bar) passed = true
+    else passed = false;
+
+
+
+    d3.select(".gameSVG").append("text")
+        .attr("class", "networkSizeText")
+        .attr("x", -85)
+        .attr("y", 90)
+        .style("font-size", "40px")
+        .text("Network Size: " + numberOfIndividuals);
+
+    generateStackedBarChart();
+
+    generateUninfectedBar(currentScore, bestScore);
+
+    addTextRecap(bar, passed);
+
+    addShareButtons(bestScore, diffset);
+
+
+
+
+
+}
+
+function addShareButtons(bestScore,diffset) {
+    var twitterText = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F.vax.herokuapp.com&text=I just stopped an epidemic in its tracks! Can you can beat " + bestScore + "%25 on " + diffset + "? Fight the outbreak at&url=http%3A%2F%2Fvax.herokuapp.com";
+    var facebookText = "http://www.facebook.com/sharer.php?s=100&p[title]=Vax! | Gamifying Epidemic Prevention&p[summary]=I just stopped an epidemic in its tracks! Can you beat " + bestScore + "% on " + diffset + "?&p[url]=http://vax.herokuapp.com";
+
+
+    d3.select(".gameSVG").append("image")
+        .attr("x", 790)
+        .attr("y", 365)
+        .attr("height", "35px")
+        .attr("width", "35px")
+        .attr("xlink:href", "/assets/facebook_icon.png")
+        .attr("class", "shareIcon")
+        .attr("id", "facebook")
+        .style("padding", "12px 7px 0px 7px")
+        .style("width", "25px")
+        .style("cursor", "pointer")
+        .attr("opacity", 0)
+        .on("click", function() {
+            window.location.href = facebookText;
+        })
+
+    d3.select(".gameSVG").append("image")
+        .attr("x", 855)
+        .attr("y", 365)
+        .attr("height", "35px")
+        .attr("width", "35px")
+        .attr("xlink:href", "/assets/twitter_icon.png")
+        .attr("class", "shareIcon")
+        .attr("id", "twitter")
+        .style("padding", "12px 7px 0px 7px")
+        .style("width", "25px")
+        .attr("opacity", 0)
+        .style("cursor", "pointer")
+        .on("click", function() {
+            window.location.href = twitterText;
+        })
+
+    d3.select(".gameSVG").append("image")
+        .attr("x", 920)
+        .attr("y", 365)
+        .attr("height", "35px")
+        .attr("width", "35px")
+        .attr("xlink:href", "/assets/googleplus_icon.png")
+        .attr("class", "shareIcon")
+        .attr("id", "g+")
+        .attr("opacity", 0)
+        .style("padding", "12px 7px 0px 7px")
+        .style("width", "25px")
+        .style("cursor", "pointer")
+        .on("click", function() {
+            window.location.href = "https://plus.google.com/share?url=http://vax.herokuapp.com";
+        })
+
+    d3.select(".gameSVG").append("text")
+        .attr("x", 750)
+        .attr("y", 345)
+        .style("font-family", "Nunito")
+        .style("font-size", "25px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
+        .text("Share ▾")
+        .on("click", function() {
+            d3.selectAll(".shareIcon")
+                .transition()
+                .duration(500)
+                .attr("opacity", 1)
+        })
+
+
+
+}
+
+function addTextRecap(bar, passed) {
+    if (passed) {
+
+        if (difficultyString == null) {
+            d3.select(".gameSVG").append("text")
+                .style("font-family", "Nunito")
+                .style("font-size", "55px")
+                .style("font-weight", "500")
+                .style("fill", "#707070")
+                .attr("class", "recapBinaryText")
+                .attr("x", 732)
+                .attr("y", 180)
+                .text("Play Again!")
+
+            d3.select(".gameSVG").append("text")
+                .attr("class", "recapButton")
+                .attr("x", 450)
+                .attr("y", 625)
+                .text("Retry")
+                .style("font-size", "45px")
+                .on("click", retry)
+                .on("mouseover", function() {
+                    d3.select(this).style("fill", "#2692F2")
+                })
+                .on("mouseout", function() {
+                    d3.select(this).style("fill", "#707070")
+                })
+            return;
+        }
+
+        d3.select(".gameSVG").append("text")
+            .style("font-family", "Nunito")
+            .style("font-size", "75px")
+            .style("font-weight", "500")
+            .style("fill", "#707070")
+            .attr("class", "recapBinaryText")
+            .attr("x", 749)
+            .attr("y", 180)
+            .text("Passed!")
+
+        d3.select(".gameSVG").append("text")
+            .attr("class", "recapText1")
+            .attr("x", 755)
+            .attr("y", 230)
+            .style("font-family", "Nunito")
+            .style("font-size", "20px")
+            .style("font-weight", "300")
+            .style("fill", "#707070")
+            .text("Well done! You exceeded the")
+
+        d3.select(".gameSVG").append("text")
+            .attr("class", "recapText2")
+            .attr("x", 755)
+            .attr("y", 255)
+            .style("font-family", "Nunito")
+            .style("font-size", "20px")
+            .style("font-weight", "300")
+            .style("fill", "#707070")
+            .text(bar + "% survival rate required to")
+
+        d3.select(".gameSVG").append("text")
+            .attr("class", "recapText3")
+            .attr("x", 755)
+            .attr("y", 280)
+            .style("font-family", "Nunito")
+            .style("font-size", "20px")
+            .style("font-weight", "300")
+            .style("fill", "#707070")
+            .text("move on to the next level.")
+
+        d3.select(".gameSVG").append("text")
+            .attr("class", "recapButton")
+            .attr("x", 645)
+            .attr("y", 590)
+            .style("font-size", "45px")
+            .text("Next")
+            .on("click", next)
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+
+        d3.select(".gameSVG").append("text")
+            .attr("class", "recapButton")
+            .style("font-size", "45px")
+            .attr("x", 240)
+            .attr("y", 590)
+            .text("Retry")
+            .on("click", retry)
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+
+    }
+    else {
+        d3.select(".gameSVG").append("text")
+            .style("font-family", "Nunito")
+            .style("font-size", "55px")
+            .style("font-weight", "500")
+            .style("fill", "#707070")
+            .attr("class", "recapBinaryText")
+            .attr("x", 735)
+            .attr("y", 180)
+            .text("Try Again!")
+
+        d3.select(".gameSVG").append("text")
+            .attr("class", "recapText1")
+            .attr("x", 755)
+            .attr("y", 225)
+            .style("font-family", "Nunito")
+            .style("font-size", "20px")
+            .style("font-weight", "300")
+            .style("fill", "#707070")
+            .text("You did not exceed the")
+
+        d3.select(".gameSVG").append("text")
+            .attr("class", "recapText2")
+            .attr("x", 730)
+            .attr("y", 250)
+            .style("font-family", "Nunito")
+            .style("font-size", "20px")
+            .style("font-weight", "300")
+            .style("fill", "#707070")
+            .text(bar + "% survival rate required to")
+
+        d3.select(".gameSVG").append("text")
+            .attr("class", "recapText3")
+            .attr("x", 742)
+            .attr("y", 273)
+            .style("font-family", "Nunito")
+            .style("font-size", "20px")
+            .style("font-weight", "300")
+            .style("fill", "#707070")
+            .text("move on to the next level.")
+
+        d3.select(".gameSVG").append("text")
+            .attr("class", "recapButton")
+            .attr("x", 450)
+            .attr("y", 625)
+            .style("font-size", "45px")
+            .text("Retry")
+            .on("click", retry)
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+
+
+    }
 
 }
 
@@ -1357,7 +1881,6 @@ function loadConclusionText() {
     if (difficultyString == "hard") diffset = "Hard";
     if (difficultyString == null) {
         diffset = "Custom";
-
         bestScore = total;
     }
 
@@ -1489,7 +2012,6 @@ function loadConclusionText() {
 }
 
 function retry() {
-    d3.select(".popup_game_share").style("visibility", "hidden")
     d3.select(".gameSVG").remove()
     graph = {};
     timestep = 0;
@@ -1502,7 +2024,6 @@ function retry() {
 }
 
 function next() {
-    d3.select(".popup_game_share").style("visibility", "hidden")
     d3.select(".gameSVG").remove()
     graph = {};
     timestep = 0;
