@@ -384,6 +384,8 @@ function initBasicGame(difficulty) {
 }
 
 function initCustomGame() {
+    d3.select(".vaxLogoDiv").remove();
+
     difficultyString = null;
 
     d3.select(".newGameHeader").remove();
@@ -431,6 +433,8 @@ function initCustomGame() {
 }
 
 function initGameSpace() {
+    d3.select(".vaxLogoDiv").remove();
+
     pop = document.getElementById('audio');
     game = true;
 

@@ -1,41 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Simple Stack</title>
-  <script src="http://d3js.org/d3.v2.js"></script>
-  <style>
-      svg {
-          shape-rendering: crispEdges;
-      }
-  </style>
+  <%= javascript_include_tag "herdImmunity.js" %>
+
+
 </head>
 <body>
 
-
-<script type="text/javascript">
-
-  var untreated = 30
-  var infected = 48
-  var quarantined = 12
-  var vaccinated = 10
-
-    var w = 150,
-        h = 500
-
-    // create canvas
-    var svg = d3.select("body").append("svg")
-            .attr("class", "stacked")
-            .attr("width", w)
-            .attr("height", h)
-            .append("svg:g")
-            .style("position", "absolute")
-            .style("top", "100px")
-            .attr("transform", "translate(10,470)");
-
-
-
-
-
-</script>
 </body>
 </html>

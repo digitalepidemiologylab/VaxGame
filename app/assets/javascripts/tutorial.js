@@ -64,6 +64,7 @@ var pop;
 
 
 
+
 // this is the full graph, made by Ike
 var tailoredGraph = {};
 var tailoredNodes = getTailoredNodes();
@@ -118,10 +119,10 @@ d3.select(".homeSVG").append("text")
 
 d3.select(".homeSVG").append("text")
     .attr("class", "homeTutorial")
-    .attr("x", 775)
+    .attr("x", 803)
     .attr("y", 525)
     .attr("fill", "#707070")
-    .text("Tutorial >")
+    .text("Tour >")
     .on("click", function() {
         homeToTutorial();
     })
@@ -135,6 +136,18 @@ d3.select(".homeSVG").append("text")
     .on("click", function() {
         window.location.href = 'http://vax.herokuapp.com/game'
     })
+
+d3.select(".homeSVG").append("text")
+    .attr("x", 735)
+    .attr("y", 605)
+    .style("cursor", "pointer")
+    .attr("fill", "#707070")
+    .on("click", function() {
+        window.location.href = "http://salathegroup.com";
+    })
+    .text("Salathé Group | 2013")
+
+
 
 
 function homeToTutorial() {

@@ -6,6 +6,22 @@ customOutbreakChoice = 1;
 
 function initBasicMenu() {
 
+    d3.select("body").append("div")
+        .attr("class", "vaxLogoDiv")
+        .text("VAX!")
+        .style("cursor", "pointer")
+        .on("click", function() {
+            window.location.href = 'http://vax.herokuapp.com/'
+        })
+
+
+    d3.select(".vaxLogoDiv")
+        .style("visibility", "visible")
+
+    d3.select(".vaxLogoDiv")
+        .style("left", "-12px")
+
+
     // new game header at top-left
     d3.select("body").append("div")
         .attr("class", "newGameHeader")
@@ -121,7 +137,10 @@ function initCustomMenu() {
         .text("OKAY")
         .on("click", function() {
             d3.select(this).remove();
+            d3.select(".vaxLogoDiv").remove();
+
             initCustomGame();
+
 
 
 

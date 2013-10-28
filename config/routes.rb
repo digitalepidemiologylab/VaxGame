@@ -12,6 +12,6 @@ VaxGame::Application.routes.draw do
   match '/game', to: 'static_pages#game'
 
   #match '/test', to: 'static_pages#test'
-  match '/tutorial', to: 'static_pages#tutorial'
+  match '/tour', to: 'static_pages#tour'
 
 end
