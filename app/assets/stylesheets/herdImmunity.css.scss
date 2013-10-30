@@ -1,11 +1,11 @@
 #hiNav {
-  position:relative;
+  position:absolute;
   background: #85bc99;
   float:right;
   color: "white";
   width:225px;
   height: 45px;
-  top: 25px;
+  bottom: 10px;
   padding-top: 30px;
   padding-left: 12px;
   text-align: center;
@@ -17,4 +17,20 @@
   -moz-transition-duration: 0.5s;
   -o-transition-duration: 0.5s;
   transition-duration: 0.5s;
+}
+
+#hiGuideText {
+  position: absolute;
+  width: 80%;
+  margin: 0 auto;
+  margin-left: 100px;
+  line-height: 25px;
+  vertical-align: middle;
+  text-align: center;
+  font-family: "Nunito";
+  fill: #707070;
+  color: #707070;
+  font-size: 24px;
+  font-weight: 300;
+
 }
