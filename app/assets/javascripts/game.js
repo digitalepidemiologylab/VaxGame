@@ -2,7 +2,6 @@ var numberOfIndividuals, meanDegree, rewire = 0.1;
 var graph = {};
 var force,node, link;
 
-
 var transmissionRate,recoveryRate;
 var transmissionRates = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 var recoveryRates = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
@@ -63,6 +62,7 @@ var scores = {easy: easyScores, medium: mediumScores, hard: hardScores};
 var currentNode;
 var currentElement;
 
+var toggleDegree = true;
 
 var cookie = {};
 var pop;
@@ -503,10 +503,7 @@ function initGameSpace() {
         .attr("r", nodeSize)
         .attr("fill", nodeColor)
         .call(force.drag)
-        .on("click", function(d) {
-            if (speed) speedModeGameClick(d);
-            else gameClick(d);
-        })
+        .on("click", gameClick)
         .on("mouseover", function(d) {
             d3.select(this).style("stroke-width","3px");
             currentNode = d;
@@ -520,8 +517,14 @@ function initGameSpace() {
         })
 
     loadHotKeyText();
-    if (difficultyString == "hard") refusersPresent();
-    if (difficultyString == null || numberOfRefusers>0) refusersPresent();
+    if (difficultyString == "hard" || difficultyString == null) {
+        if (numberOfRefusers > 0) refusersPresent();
+
+    }
+
+
+
+
 
 }
 
@@ -588,7 +591,7 @@ function nodeColor(node) {
     if (node.status == "E") color = "#ef5555";
     if (node.status == "I") color = "#ef5555";
     if (node.status == "R") color = "#9400D3";
-    if (node.status == "V") color = "#76A788";
+    if (node.status == "V") color = "#d9d678";
     if (node.status == "Q") color = "#d9d678";
 
     if (node.status == "S" && node.refuser) {
@@ -626,42 +629,6 @@ function gameClick(node) {
             node.status = "Q";
             numberQuarantined++;
             window.setTimeout(gameTimesteps, 500);
-        }
-    }
-
-    if (numberOfVaccines == 0 && !diseaseIsSpreading) loadGameQuarantine();
-
-    gameUpdate();
-
-}
-
-function speedModeGameClick(node) {
-    if (vaccinateMode) {
-        if (node.refuser == true) return;
-
-        try {
-            pop.play()
-        }
-        catch(err){
-
-        }
-        node.status = "V";
-        numberOfVaccines--;
-        numberVaccinated++;
-    }
-    else {
-        if (quarantineMode && node.status == "S") {
-            if (!diseaseIsSpreading) speedModeTimesteps();
-
-            try {
-                pop.play()
-            }
-            catch(err){
-
-            }
-            diseaseIsSpreading = true;
-            node.status = "Q";
-            numberQuarantined++;
         }
     }
 
@@ -739,10 +706,7 @@ function gameUpdate() {
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; })
         .style("fill", nodeColor)
-        .on("click", function(d) {
-            if (speed) speedModeGameClick(d)
-            else gameClick(d);
-        })
+        .on("click", gameClick)
         .call(force.drag);
 
     // Exit any old nodes.
@@ -765,23 +729,6 @@ function gameTimesteps() {
     else {
         animateGamePathogens_thenUpdate();
     }
-}
-
-function speedModeTimesteps() {
-    infection();
-    stateChanges();
-    newInfections = [];
-    newInfections = updateExposures();
-    timestep++;
-    detectGameCompletion();
-    if (!timeToStop) {
-        animateGamePathogens_thenUpdate();
-        window.setTimeout(speedModeTimesteps, 1750)
-    }
-    else {
-        animateGamePathogens_thenUpdate();
-    }
-
 }
 
 function detectGameCompletion() {

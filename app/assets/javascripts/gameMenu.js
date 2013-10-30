@@ -3,10 +3,9 @@ customVaccineChoice = 1;
 customNeighborChocie = 1;
 customOutbreakChoice = 1;
 
-var speed = false;
-var toggleDegree = true;
 
 function initBasicMenu() {
+
     d3.select("body").append("div")
         .attr("class", "vaxLogoDiv")
         .text("VAX!")
@@ -15,11 +14,13 @@ function initBasicMenu() {
             window.location.href = 'http://vax.herokuapp.com/'
         })
 
+
     d3.select(".vaxLogoDiv")
         .style("visibility", "visible")
 
     d3.select(".vaxLogoDiv")
         .style("left", "-12px")
+
 
     // new game header at top-left
     d3.select("body").append("div")
@@ -62,6 +63,7 @@ function initBasicMenu() {
         .style("font-size", "20px")
         .text("")
 
+
     d3.select(".difficultySelection").append("div")
         .attr("class", "difficultyItemGrey")
         .attr("id", "difficultyMedium")
@@ -77,6 +79,8 @@ function initBasicMenu() {
         .style("font-weight", "500")
         .style("font-size", "20px")
         .text("")
+
+
 
     d3.select(".difficultySelection").append("div")
         .attr("class", "difficultyItemGrey")
@@ -94,128 +98,12 @@ function initBasicMenu() {
         .style("font-size", "20px")
         .text("")
 
+
+
     d3.select(".difficultySelection").append("div")
         .attr("class", "difficultyItemGrey")
         .attr("id", "difficultyCustom")
         .text("Custom")
-
-    d3.select(".difficultySelection").append("div")
-        .attr("class", "gameOptionsHeader")
-        .text("GAME OPTIONS")
-        .style("position", "absolute")
-        .style("top", "35px")
-        .style("width", "200px")
-        .style("left", "600px")
-        .style("color", "#707070")
-        .style("font-family", "Nunito")
-        .style("font-weight", "700")
-        .style("font-size", "24px")
-
-    d3.select(".difficultySelection").append("div")
-        .attr("class", "networkDisplay")
-        .text("Network Display")
-        .style("position", "absolute")
-        .style("top", "100px")
-        .style("width", "200px")
-        .style("left", "600px")
-        .style("color", "#707070")
-        .style("font-family", "Nunito")
-        .style("font-weight", "300")
-        .style("font-size", "22px")
-
-    d3.select(".difficultySelection").append("div")
-        .attr("class", "degreeToggleMenuTrue")
-        .text("Show Degree")
-        .style("position", "absolute")
-        .style("top", "125px")
-        .style("width", "200px")
-        .style("left", "600px")
-        .style("color", "#2692F2")
-        .style("font-family", "Nunito")
-        .style("font-weight", "500")
-        .style("font-size", "18px")
-        .style("cursor", "pointer")
-        .on("click", function() {
-            d3.select(".degreeToggleMenuTrue").style("color", "#2692F2").style("font-weight", "500")
-            d3.select(".degreeToggleMenuFalse").style("color", "#BABABA").style("font-weight", "300")
-
-            toggleDegree = true;
-
-        })
-
-    d3.select(".difficultySelection").append("div")
-        .attr("class", "degreeToggleMenuFalse")
-        .text("Hide Degree")
-        .style("position", "absolute")
-        .style("top", "125px")
-        .style("width", "200px")
-        .style("left", "725px")
-        .style("color", "#BABABA")
-        .style("font-family", "Nunito")
-        .style("font-weight", "300")
-        .style("font-size", "18px")
-        .style("cursor", "pointer")
-        .on("click", function() {
-            d3.select(".degreeToggleMenuTrue").style("color", "#BABABA").style("font-weight", "300")
-            d3.select(".degreeToggleMenuFalse").style("color", "#2692F2").style("font-weight", "500")
-
-            toggleDegree = false;
-        })
-
-
-
-    d3.select(".difficultySelection").append("div")
-        .attr("class", "quarantineModeOptions")
-        .text("Quarantine Phase")
-        .style("position", "absolute")
-        .style("top", "165px")
-        .style("width", "200px")
-        .style("left", "600px")
-        .style("color", "#707070")
-        .style("font-family", "Nunito")
-        .style("font-weight", "300")
-        .style("font-size", "22px")
-
-    d3.select(".difficultySelection").append("div")
-        .attr("class", "turnBasedTrue")
-        .text("Turn-based")
-        .style("position", "absolute")
-        .style("top", "190px")
-        .style("width", "200px")
-        .style("left", "600px")
-        .style("color", "#2692F2")
-        .style("font-family", "Nunito")
-        .style("font-weight", "500")
-        .style("font-size", "18px")
-        .style("cursor", "pointer")
-        .on("click", function() {
-            d3.select(".turnBasedTrue").style("color", "#2692F2").style("font-weight", "500")
-            d3.select(".realTimeTrue").style("color", "#BABABA").style("font-weight", "300")
-
-            speed = false;
-        })
-
-    d3.select(".difficultySelection").append("div")
-        .attr("class", "realTimeTrue")
-        .text("Real-time")
-        .style("position", "absolute")
-        .style("top", "190px")
-        .style("width", "200px")
-        .style("left", "705px")
-        .style("color", "#BABABA")
-        .style("font-family", "Nunito")
-        .style("font-weight", "300")
-        .style("font-size", "18px")
-        .style("cursor", "pointer")
-        .on("click", function() {
-            d3.select(".turnBasedTrue").style("color", "#BABABA").style("font-weight", "300")
-            d3.select(".realTimeTrue").style("color", "#2692F2").style("font-weight", "500")
-
-            speed = true;
-
-        })
-
-
 
 
 }
