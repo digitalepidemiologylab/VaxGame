@@ -77,6 +77,83 @@ function initCookiesOnDelay() {
     readCookiesJSON();
 }
 
+function initSocialShare() {
+
+
+    var twitterText = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F.vax.herokuapp.com&text=I just stopped an epidemic in its tracks! Can you can beat my high scores? Easy: " + vaxEasyHiScore + "%25 %7C Medium: " + vaxMediumHiScore + "%25 %7C Hard: " + vaxHardHiScore + "%25. vax.herokuapp.com";
+    var facebookText = "http://www.facebook.com/sharer.php?s=100&p[title]=Vax! | Gamifying Epidemic Prevention&p[summary]=I just stopped an epidemic in its tracks! Can you beat my high scores? Easy: " + vaxEasyHiScore + "% | Medium: " + vaxMediumHiScore + "% | Hard: " + vaxHardHiScore + "%.&p[url]=http://vax.herokuapp.com";
+
+
+    d3.select(".difficultySelection").append("svg")
+        .attr("class", "socialShareMain")
+        .style("left", "300px")
+        .style("top", "300px")
+        .style("width", "300px")
+        .style("height", "200px")
+
+    d3.select(".socialShareMain").append("text")
+        .attr("x", 0)
+        .attr("y", 70)
+        .style("font-family", "Nunito")
+        .style("font-size", "25px")
+        .style("font-weight", "300")
+        .style("fill", "#707070")
+        .style("cursor", "pointer")
+        .text("Share All ▾")
+        .on("click", function() {
+            d3.selectAll(".shareIcon")
+                .transition()
+                .duration(500)
+                .attr("opacity", 1)
+        })
+
+
+    d3.select(".socialShareMain").append("image")
+        .attr("class", "shareIcon")
+        .attr("x", 25)
+        .attr("y", 100)
+        .attr("height", "50px")
+        .attr("width", "50px")
+        .attr("xlink:href", "/assets/facebook_icon.png")
+        .attr("id", "facebook")
+        .style("cursor", "pointer")
+        .attr("opacity", 0)
+        .on("click", function() {
+            window.location.href = facebookText;
+        })
+
+
+
+    d3.select(".socialShareMain").append("image")
+        .attr("class", "shareIcon")
+        .attr("x", 100)
+        .attr("y", 100)
+        .attr("height", "50px")
+        .attr("width", "50px")
+        .attr("xlink:href", "/assets/twitter_icon.png")
+        .attr("id", "twitter")
+        .attr("opacity", 0)
+        .style("cursor", "pointer")
+        .on("click", function() {
+            window.location.href = twitterText;
+        })
+
+    d3.select(".socialShareMain").append("image")
+        .attr("class", "shareIcon")
+        .attr("x", 175)
+        .attr("y", 100)
+        .attr("height", "50px")
+        .attr("width", "50px")
+        .attr("xlink:href", "/assets/googleplus_icon.png")
+        .attr("id", "twitter")
+        .attr("opacity", 0)
+        .style("cursor", "pointer")
+        .on("click", function() {
+            window.location.href = "https://plus.google.com/share?url=http://vax.herokuapp.com";
+        })
+
+}
+
 function readCookiesJSON() {
     $.cookie.json = true;
     var cookies = $.cookie('vaxCookie')
@@ -92,6 +169,8 @@ function readCookiesJSON() {
     vaxEasyHiScore = Math.max.apply( Math, cookie.scores[0])
     vaxMediumHiScore = Math.max.apply( Math, cookie.scores[1])
     vaxHardHiScore = Math.max.apply( Math, cookie.scores[2])
+
+
 
     $.cookie.json = false;
     customNodeChoice = parseInt($.cookie().customNodes);
@@ -127,8 +206,7 @@ function readCookiesJSON() {
 
     $.cookie.json = true;
 
-
-
+    initSocialShare();
     cookieBasedModeSelection();
 }
 
@@ -1634,8 +1712,8 @@ function addShareButtons(bestScore,diffset) {
     d3.select(".gameSVG").append("image")
         .attr("x", 790)
         .attr("y", 365)
-        .attr("height", "35px")
-        .attr("width", "35px")
+        .attr("height", "50px")
+        .attr("width", "50px")
         .attr("xlink:href", "/assets/facebook_icon.png")
         .attr("class", "shareIcon")
         .attr("id", "facebook")
@@ -1648,10 +1726,10 @@ function addShareButtons(bestScore,diffset) {
         })
 
     d3.select(".gameSVG").append("image")
-        .attr("x", 855)
+        .attr("x", 865)
         .attr("y", 365)
-        .attr("height", "35px")
-        .attr("width", "35px")
+        .attr("height", "50px")
+        .attr("width", "50px")
         .attr("xlink:href", "/assets/twitter_icon.png")
         .attr("class", "shareIcon")
         .attr("id", "twitter")
@@ -1664,10 +1742,10 @@ function addShareButtons(bestScore,diffset) {
         })
 
     d3.select(".gameSVG").append("image")
-        .attr("x", 920)
+        .attr("x", 940)
         .attr("y", 365)
-        .attr("height", "35px")
-        .attr("width", "35px")
+        .attr("height", "50px")
+        .attr("width", "50px")
         .attr("xlink:href", "/assets/googleplus_icon.png")
         .attr("class", "shareIcon")
         .attr("id", "g+")
@@ -2031,12 +2109,11 @@ function loadConclusionText() {
     d3.select(".gameSVG").append("image")
         .attr("x", 150)
         .attr("y", 355)
-        .attr("height", "35px")
-        .attr("width", "35px")
+        .attr("height", "50px")
+        .attr("width", "50px")
         .attr("xlink:href", "/assets/facebook_icon.png")
         .attr("id", "facebook")
         .style("padding", "12px 7px 0px 7px")
-        .style("width", "25px")
         .style("cursor", "pointer")
         .on("click", function() {
             window.location.href = facebookText;
@@ -2045,8 +2122,8 @@ function loadConclusionText() {
     d3.select(".gameSVG").append("image")
         .attr("x", 215)
         .attr("y", 355)
-        .attr("height", "35px")
-        .attr("width", "35px")
+        .attr("height", "50px")
+        .attr("width", "50px")
         .attr("xlink:href", "/assets/twitter_icon.png")
         .attr("id", "twitter")
         .style("padding", "12px 7px 0px 7px")
@@ -2059,8 +2136,8 @@ function loadConclusionText() {
     d3.select(".gameSVG").append("image")
         .attr("x", 280)
         .attr("y", 355)
-        .attr("height", "35px")
-        .attr("width", "35px")
+        .attr("height", "50px")
+        .attr("width", "50px")
         .attr("xlink:href", "/assets/googleplus_icon.png")
         .attr("id", "twitter")
         .style("padding", "12px 7px 0px 7px")
