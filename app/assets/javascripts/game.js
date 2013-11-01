@@ -55,10 +55,19 @@ var vaxEasyHiScore;
 var vaxMediumHiScore;
 var vaxHardHiScore;
 
+var vaxEasyHiScoreRT;
+var vaxMediumHiScoreRT;
+var vaxHardHiScoreRT;
+
 var easyScores;
 var mediumScores;
 var hardScores;
 var scores = {easy: easyScores, medium: mediumScores, hard: hardScores};
+
+var easyScoresRT;
+var mediumScoresRT;
+var hardScoresRT;
+var scoresRT = {easy: easyScoresRT, medium: mediumScoresRT, hard: hardScoresRT};
 
 var currentNode;
 var currentElement;
@@ -78,10 +87,16 @@ function initCookiesOnDelay() {
 }
 
 function initSocialShare() {
+    if (vaxHardHiScore < 0) return;
 
 
-    var twitterText = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F.vax.herokuapp.com&text=I just stopped an epidemic in its tracks! Can you can beat my high scores? Easy: " + vaxEasyHiScore + "%25 %7C Medium: " + vaxMediumHiScore + "%25 %7C Hard: " + vaxHardHiScore + "%25. vax.herokuapp.com";
-    var facebookText = "http://www.facebook.com/sharer.php?s=100&p[title]=Vax! | Gamifying Epidemic Prevention&p[summary]=I just stopped an epidemic in its tracks! Can you beat my high scores? Easy: " + vaxEasyHiScore + "% | Medium: " + vaxMediumHiScore + "% | Hard: " + vaxHardHiScore + "%.&p[url]=http://vax.herokuapp.com";
+    var twitterText;
+    var facebookText;
+
+    twitterText = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F.vax.herokuapp.com&text=I just stopped an epidemic in its tracks! Can you can beat my high scores? Easy: " + vaxEasyHiScore + "%25 %7C Medium: " + vaxMediumHiScoreRT + "%25 %7C Hard: " + vaxHardHiScoreRT + "%25. vax.herokuapp.com";
+    facebookText = "http://www.facebook.com/sharer.php?s=100&p[title]=Vax! | Gamifying Epidemic Prevention&p[summary]=I just stopped an epidemic in its tracks! Can you beat my high scores? Easy: " + vaxEasyHiScore + "% | Medium: " + vaxMediumHiScoreRT + "% | Hard: " + vaxHardHiScoreRT + "%.&p[url]=http://vax.herokuapp.com";
+
+
 
 
     d3.select(".difficultySelection").append("svg")
@@ -170,7 +185,19 @@ function readCookiesJSON() {
     vaxMediumHiScore = Math.max.apply( Math, cookie.scores[1])
     vaxHardHiScore = Math.max.apply( Math, cookie.scores[2])
 
+    if (cookie.scoresRT == undefined) {
+        var easyScoresRT = [];
+        var mediumScoresRT = [];
+        var hardScoresRT = [];
+        var scoreRT = [easyScoresRT, mediumScoresRT, hardScoresRT]
 
+        cookie.scoresRT = scoreRT;
+
+    }
+
+    vaxEasyHiScoreRT = Math.max.apply( Math, cookie.scoresRT[0])
+    vaxMediumHiScoreRT = Math.max.apply( Math, cookie.scoresRT[1])
+    vaxHardHiScoreRT = Math.max.apply( Math, cookie.scoresRT[2])
 
     $.cookie.json = false;
     customNodeChoice = parseInt($.cookie().customNodes);
@@ -264,12 +291,18 @@ function initCookiesJSON() {
 
 
     $.cookie.json = true;
+
     easyScores = [];
     mediumScores = [];
     hardScores = [];
     var score = [easyScores, mediumScores, hardScores];
 
-    var cookie = {easy: false, medium: false, hard: false, scores: score}
+    easyScoresRT = [];
+    mediumScoresRT = [];
+    hardScoresRT = [];
+    var scoreRT = [easyScoresRT, mediumScoresRT, hardScoresRT];
+
+    var cookie = {easy: false, medium: false, hard: false, scores: score, scoresRT: scoreRT}
 
     $.cookie('vaxCookie', JSON.stringify(cookie), { expires: 365, path: '/' })
 
@@ -298,12 +331,17 @@ function clearCookies() {
 
 function allAccess() {
     $.cookie.json = true;
-    easyScores = ["100"];
-    mediumScores = ["100"];
-    hardScores = ["100"];
+    easyScores = ["99"];
+    mediumScores = ["99"];
+    hardScores = ["99"];
     var score = [easyScores, mediumScores, hardScores];
 
-    var cookie = {easy: true, medium: true, hard: true, scores: score}
+    easyScoresRT = ["99"];
+    mediumScoresRT = ["99"];
+    hardScoresRT = ["99"];
+    var scoreRT = [easyScoresRT, mediumScoresRT, hardScoresRT];
+
+    var cookie = {easy: true, medium: true, hard: true, scores: score, scoresRT: scoreRT}
     $.removeCookie('vaxCookie')
     $.cookie('vaxCookie', JSON.stringify(cookie), { expires: 365, path: '/' })
 
@@ -313,16 +351,50 @@ function allAccess() {
 function cookieBasedModeSelection() {
 
     if (vaxEasyHiScore == -Infinity) {}
-    else d3.select(".easyHi")
-        .text("(Best: " + vaxEasyHiScore + "%)")
+    else {
+
+        if (speed) {
+            d3.select(".easyHi")
+                .text("(Best: " + vaxEasyHiScoreRT + "%)")
+
+        }
+        else {
+            d3.select(".easyHi")
+                .text("(Best: " + vaxEasyHiScore + "%)")
+
+        }
+
+    }
 
     if (vaxMediumHiScore == -Infinity) {}
-    else d3.select(".mediumHi")
-        .text("(Best: " + vaxMediumHiScore + "%)")
+    else {
+        if (speed) {
+            d3.select(".mediumHi")
+                .text("(Best: " + vaxMediumHiScoreRT + "%)")
+
+        }
+        else {
+            d3.select(".mediumHi")
+                .text("(Best: " + vaxMediumHiScore + "%)")
+
+        }
+
+    }
 
     if (vaxHardHiScore == -Infinity) {}
-    else d3.select(".hardHi")
-        .text("(Best: " + vaxHardHiScore + "%)")
+    else {
+        if (speed) {
+            d3.select(".hardHi")
+                .text("(Best: " + vaxHardHiScoreRT + "%)")
+
+        }
+        else {
+            d3.select(".hardHi")
+                .text("(Best: " + vaxHardHiScore + "%)")
+
+        }
+
+    }
 
 
 
@@ -1195,10 +1267,6 @@ function endGameSession() {
         .attr("fill", "#838383")
 
 
-
-
-
-
     d3.select(".gameSVG").append("rect")
         .attr("class", "endGameBox")
         .attr("x", window.innerWidth/4 + 62 - 100)
@@ -1246,7 +1314,7 @@ function endGameSession() {
 
             window.setTimeout(addPeriod2, 800)
 
-            window.setTimeout(initScoreRecap2, 1200)
+            window.setTimeout(initScoreRecap, 1200)
 
         })
 
@@ -1278,18 +1346,41 @@ function setCookies() {
     var proportionSaved = Math.round((((countSavedGAME() + numberQuarantined + numberVaccinated)/numberOfIndividuals)*100)).toFixed(0)
 
     if (difficultyString == "easy") {
-        if ($.cookie('vaxEasyHiScore') < proportionSaved) $.cookie('vaxEasyHiScore', proportionSaved)
-        if (proportionSaved >= easyBar) $.cookie('vaxEasyCompletion', 'true')
+        if (speed) {
+            if ($.cookie('vaxEasyHiScoreRT') < proportionSaved) $.cookie('vaxEasyHiScoreRT', proportionSaved)
+            if (proportionSaved >= easyBar) $.cookie('vaxEasyCompletion', 'true')
+
+        }
+        else {
+            if ($.cookie('vaxEasyHiScore') < proportionSaved) $.cookie('vaxEasyHiScore', proportionSaved)
+            if (proportionSaved >= easyBar) $.cookie('vaxEasyCompletion', 'true')
+        }
+
     }
 
     if (difficultyString == "medium") {
-        if ($.cookie('vaxMediumHiScore') < proportionSaved) $.cookie('vaxMediumHiScore', proportionSaved)
-        if (proportionSaved >= mediumBar) $.cookie('vaxMediumCompletion', 'true')
+        if (speed) {
+            if ($.cookie('vaxMediumHiScoreRT') < proportionSaved) $.cookie('vaxMediumHiScoreRT', proportionSaved)
+            if (proportionSaved >= mediumBar) $.cookie('vaxMediumCompletion', 'true')
+        }
+        else {
+            if ($.cookie('vaxMediumHiScore') < proportionSaved) $.cookie('vaxMediumHiScore', proportionSaved)
+            if (proportionSaved >= mediumBar) $.cookie('vaxMediumCompletion', 'true')
+        }
+
+
     }
 
     if (difficultyString == "hard") {
-        if ($.cookie('vaxHardHiScore') < proportionSaved)$.cookie('vaxHardHiScore', proportionSaved)
-        if (proportionSaved >= hardBar) $.cookie('vaxHardCompletion', 'true')
+        if (speed) {
+            if ($.cookie('vaxHardHiScoreRT') < proportionSaved)$.cookie('vaxHardHiScoreRT', proportionSaved)
+            if (proportionSaved >= hardBar) $.cookie('vaxHardCompletion', 'true')
+        }
+        else {
+            if ($.cookie('vaxHardHiScore') < proportionSaved)$.cookie('vaxHardHiScore', proportionSaved)
+            if (proportionSaved >= hardBar) $.cookie('vaxHardCompletion', 'true')
+        }
+
     }
 }
 
@@ -1297,21 +1388,55 @@ function writeCookiesJSON() {
     var proportionSaved = Math.round((((countSavedGAME() + numberQuarantined + numberVaccinated)/numberOfIndividuals)*100)).toFixed(0)
 
     if (difficultyString == "easy") {
-        cookie.scores[0].push(proportionSaved);
-        if (proportionSaved > easyBar) vaxEasyCompletion = true;
-        vaxEasyHiScore = Math.max.apply( Math, cookie.scores[0])
+
+        if (speed) {
+            cookie.scoresRT[0].push(proportionSaved);
+            if (proportionSaved > easyBar) vaxEasyCompletion = true;
+            vaxEasyHiScoreRT = Math.max.apply( Math, cookie.scoresRT[0])
+
+
+        }
+        else {
+            cookie.scores[0].push(proportionSaved);
+            if (proportionSaved > easyBar) vaxEasyCompletion = true;
+            vaxEasyHiScore = Math.max.apply( Math, cookie.scores[0])
+
+
+        }
 
     }
     if (difficultyString == "medium") {
-        cookie.scores[1].push(proportionSaved);
-        if (proportionSaved > mediumBar) vaxMediumCompletion = true;
-        vaxMediumHiScore = Math.max.apply( Math, cookie.scores[1])
+        if (speed) {
+            cookie.scoresRT[1].push(proportionSaved);
+            if (proportionSaved > mediumBar) vaxMediumCompletion = true;
+            vaxMediumHiScoreRT = Math.max.apply( Math, cookie.scoresRT[1])
+
+        }
+        else {
+            cookie.scores[1].push(proportionSaved);
+            if (proportionSaved > mediumBar) vaxMediumCompletion = true;
+            vaxMediumHiScore = Math.max.apply( Math, cookie.scores[1])
+
+        }
+
+
 
     }
     if (difficultyString == "hard") {
-        cookie.scores[2].push(proportionSaved);
-        if (proportionSaved > hardBar) vaxHardCompletion = true;
-        vaxHardHiScore = Math.max.apply( Math, cookie.scores[2])
+        if (speed) {
+            cookie.scoresRT[2].push(proportionSaved);
+            if (proportionSaved > hardBar) vaxHardCompletion = true;
+            vaxHardHiScoreRT = Math.max.apply( Math, cookie.scoresRT[2])
+
+        }
+        else {
+            cookie.scores[2].push(proportionSaved);
+            if (proportionSaved > hardBar) vaxHardCompletion = true;
+            vaxHardHiScore = Math.max.apply( Math, cookie.scores[2])
+
+        }
+
+
     }
     $.cookie.json = false;
 
@@ -1328,7 +1453,12 @@ function writeCookiesJSON() {
     var hardScores = cookie.scores[2];
     var score = [easyScores, mediumScores, hardScores];
 
-    var newCookie = {easy: vaxEasyCompletion, medium: vaxMediumCompletion, hard: vaxHardCompletion, scores: score}
+    var easyScoresRT = cookie.scoresRT[0];
+    var mediumScoresRT = cookie.scoresRT[1];
+    var hardScoresRT = cookie.scoresRT[2];
+    var scoreRT = [easyScoresRT, mediumScoresRT, hardScoresRT];
+
+    var newCookie = {easy: vaxEasyCompletion, medium: vaxMediumCompletion, hard: vaxHardCompletion, scores: score, scoresRT: scoreRT}
     $.removeCookie('vaxCookie')
     $.cookie('vaxCookie', JSON.stringify(newCookie), { expires: 365, path: '/' })
 
@@ -1638,7 +1768,7 @@ function generateUninfectedBar(total,bestScore) {
 
 }
 
-function initScoreRecap2() {
+function initScoreRecap() {
     writeCookiesJSON();
 
     // remove game features from view
@@ -1656,19 +1786,47 @@ function initScoreRecap2() {
     var bestScore;
     var diffset;
     if (difficultyString == "easy") {
-        diffset = "Easy";
-        bestScore = vaxEasyHiScore;
-        bar = easyBar;
+        if (speed) {
+            diffset = "Easy";
+            bestScore = vaxEasyHiScoreRT;
+            bar = easyBar;
+        }
+        else {
+            diffset = "Easy";
+            bestScore = vaxEasyHiScore;
+            bar = easyBar;
+        }
+
     }
     if (difficultyString == "medium") {
-        diffset = "Medium";
-        bestScore = vaxMediumHiScore;
-        bar = mediumBar;
+        if (speed) {
+            diffset = "Medium";
+            bestScore = vaxMediumHiScoreRT;
+            bar = mediumBar;
+
+        }
+        else {
+            diffset = "Medium";
+            bestScore = vaxMediumHiScore;
+            bar = mediumBar;
+
+        }
+
     }
     if (difficultyString == "hard") {
-        diffset = "Hard";
-        bestScore = vaxHardHiScore;
-        bar = hardBar;
+        if (speed) {
+            diffset = "Hard";
+            bestScore = vaxHardHiScoreRT;
+            bar = hardBar;
+
+        }
+        else {
+            diffset = "Hard";
+            bestScore = vaxHardHiScore;
+            bar = hardBar;
+
+        }
+
     }
     if (difficultyString == null) {
         bestScore = currentScore;
@@ -1932,129 +2090,6 @@ function addTextRecap(bar, passed) {
 
 
     }
-
-}
-
-function initScoreRecap() {
-//    setCookies();
-    writeCookiesJSON();
-
-    d3.select(".endGameShadow").transition().duration(500).attr("y", -200)
-    d3.select(".endGameBox").transition().duration(500).attr("y", -200)
-    d3.select(".endGameText").transition().duration(500).attr("y", -200)
-    d3.select(".endGameSUBMIT").transition().duration(500).attr("y", -200)
-
-    d3.select(".gameSVG").select("g").style("visibility", "hidden")
-    hideGameQuarantine();
-
-    // details - left
-    d3.select(".gameSVG").append("text")
-        .attr("class", "networkSizeText")
-        .attr("x", backX + 25)
-        .attr("y", 195 - 75)
-        .text("Network Size: " + numberOfIndividuals);
-
-    d3.select(".gameSVG").append("text")
-        .attr("class", "numberQuarantinedText")
-        .attr("x", backX + 25)
-        .attr("y", 230 - 75)
-        .text("Quarantined: " + numberQuarantined)
-
-    d3.select(".gameSVG").append("text")
-        .attr("class", "numberVaccinatedText")
-        .attr("x", backX + 25)
-        .attr("y", 265 - 75)
-        .attr("opacity", 1)
-        .text("Vaccinated: " + numberVaccinated)
-
-    d3.select(".gameSVG").append("text")
-        .attr("class", "numberUntreatedText")
-        .attr("x", backX + 25)
-        .attr("y", 300 - 75)
-        .attr("opacity", 1)
-        .text("Untreated: " + countSavedGAME())
-
-    numberSaved = countSavedGAME();
-
-    infectedHeight = (1.00 - ((numberVaccinated+numberQuarantined+numberSaved)/numberOfIndividuals).toFixed(2)) * (300);
-    uninfectedHeight = ((numberVaccinated+numberQuarantined+numberSaved)/numberOfIndividuals).toFixed(2) * (300)
-
-    uninfectedBar = d3.select(".gameSVG").append("rect")
-        .attr("class", "uninfectedBar")
-        .attr("x", 1200 + 25)
-        .attr("y", 175 - 75)
-        .attr("height", uninfectedHeight)
-        .attr("width", 100)
-        .attr("opacity", 0)
-        .attr("fill", "#b7b7b7")
-
-    centerElement(uninfectedBar, "uninfectedBar")
-    uninfectedBar.attr("opacity", 1)
-
-    d3.select(".uninfectedBar").attr("x", uninfectedBar.node().getBBox().x + 25)
-
-
-    var bottomOfUninfected = uninfectedBar.node().getBBox().y + uninfectedHeight + 20;
-
-    infectedBar = d3.select(".gameSVG").append("rect")
-        .attr("class", "infectedBar")
-        .attr("x", 1200)
-        .attr("y", bottomOfUninfected)
-        .attr("height", infectedHeight)
-        .attr("width", 100)
-        .attr("opacity", 0)
-        .attr("fill", "#ef5555")
-
-    centerElement(infectedBar, "infectedBar")
-    infectedBar.attr("opacity", 1)
-
-    d3.select(".infectedBar").attr("x", infectedBar.node().getBBox().x + 25)
-
-    // legend - right
-    d3.select(".gameSVG").append("text")
-        .attr("class", "uninfectedLegendText")
-        .attr("x", backX + 550 + 25)
-        .attr("y", 195 - 75)
-        .text("Saved")
-
-    d3.select(".gameSVG").append("text")
-        .attr("class", "infectedLegendText")
-        .attr("x", backX + 550 + 25)
-        .attr("y", 245 - 75)
-        .text("Infected")
-
-    d3.select(".gameSVG").append("text")
-        .attr("class", "uninfectedPercentage")
-        .attr("x", backX + 625 + 25)
-        .attr("y", 195 - 75)
-        .text(Math.round((((numberSaved + numberQuarantined + numberVaccinated)/numberOfIndividuals)*100)).toFixed(0) + "%")
-
-    d3.select(".gameSVG").append("rect")
-        .attr("class", "uninfectedLegendBox")
-        .attr("x", backX + 521 + 25)
-        .attr("y", 177 - 75)
-        .attr("height", 20)
-        .attr("width", 20)
-        .attr("fill", "#b7b7b7")
-
-    d3.select(".gameSVG").append("rect")
-        .attr("class", "infectedLegendBox")
-        .attr("x", backX + 521 + 25)
-        .attr("y", 227 - 75)
-        .attr("height", 20)
-        .attr("width", 20)
-        .attr("fill", "#ef5555")
-
-//    d3.select(".gameSVG").append("rect")
-//        .attr("class", "whiteBackground")
-//        .attr("x", -130)
-//        .attr("y", 475)
-//        .attr("width", window.innerWidth + 100)
-//        .attr("height", 150)
-//        .attr("fill", "white")
-
-    loadConclusionText();
-
 
 }
 

@@ -193,6 +193,20 @@ function initBasicMenu() {
             d3.select(".realTimeTrue").style("color", "#BABABA").style("font-weight", "300")
 
             speed = false;
+
+            if (vaxEasyHiScore == -Infinity) {}
+            else d3.select(".easyHi").text("(Best: " + vaxEasyHiScore + "%)")
+
+
+            if (vaxMediumHiScore == -Infinity) {}
+            else d3.select(".mediumHi").text("(Best: " + vaxMediumHiScore + "%)")
+
+            if (vaxHardHiScore == -Infinity) {}
+            else d3.select(".hardHi").text("(Best: " + vaxHardHiScore + "%)")
+
+
+
+
         })
 
     d3.select(".difficultySelection").append("div")
@@ -212,6 +226,16 @@ function initBasicMenu() {
             d3.select(".realTimeTrue").style("color", "#2692F2").style("font-weight", "500")
 
             speed = true;
+
+            if (vaxEasyHiScoreRT < 0) d3.select(".easyHi").text("")
+            else d3.select(".easyHi").text("(Best: " + vaxEasyHiScoreRT + "%)")
+
+            if (vaxMediumHiScoreRT < 0) d3.select(".mediumHi").text("")
+            else d3.select(".mediumHi").text("(Best: " + vaxMediumHiScoreRT + "%)")
+
+            if (vaxHardHiScoreRT < 0) d3.select(".hardHi").text("")
+            else d3.select(".hardHi").text("(Best: " + vaxHardHiScoreRT + "%)")
+
 
         })
 
