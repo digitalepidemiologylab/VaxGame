@@ -137,7 +137,7 @@ d3.select(".homeSVG").append("text")
     .style("fill", "#707070")
     .style("font-weight", 500)
     .on("click", function() {
-        window.location.href = "http://salathegroup.com";
+        window.location.href = "http://vax.herokuapp.com/faq";
     })
     .text("About >")
 
