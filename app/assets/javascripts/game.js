@@ -2,7 +2,6 @@ var numberOfIndividuals, meanDegree, rewire = 0.1;
 var graph = {};
 var force,node, link;
 
-
 var transmissionRate,recoveryRate;
 var transmissionRates = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 var recoveryRates = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
@@ -72,7 +71,6 @@ var scoresRT = {easy: easyScoresRT, medium: mediumScoresRT, hard: hardScoresRT};
 var currentNode;
 var currentElement;
 
-
 var cookie = {};
 var pop;
 
@@ -89,15 +87,11 @@ function initCookiesOnDelay() {
 function initSocialShare() {
     if (vaxHardHiScore < 0) return;
 
-
     var twitterText;
     var facebookText;
 
     twitterText = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F.vax.herokuapp.com&text=I just stopped an epidemic in its tracks! Can you can beat my high scores? Easy: " + vaxEasyHiScore + "%25 %7C Medium: " + vaxMediumHiScoreRT + "%25 %7C Hard: " + vaxHardHiScoreRT + "%25. vax.herokuapp.com";
     facebookText = "http://www.facebook.com/sharer.php?s=100&p[title]=Vax! | Gamifying Epidemic Prevention&p[summary]=I just stopped an epidemic in its tracks! Can you beat my high scores? Easy: " + vaxEasyHiScore + "% | Medium: " + vaxMediumHiScoreRT + "% | Hard: " + vaxHardHiScoreRT + "%.&p[url]=http://vax.herokuapp.com";
-
-
-
 
     d3.select(".difficultySelection").append("svg")
         .attr("class", "socialShareMain")
@@ -166,7 +160,6 @@ function initSocialShare() {
         .on("click", function() {
             window.location.href = "https://plus.google.com/share?url=http://vax.herokuapp.com";
         })
-
 }
 
 function readCookiesJSON() {
@@ -236,45 +229,6 @@ function readCookiesJSON() {
     initSocialShare();
     cookieBasedModeSelection();
 }
-
-//function readCookies() {
-//    var cookies = $.cookie()
-//
-//    if($.cookie('vaxEasyCompletion') == undefined) initCookies();
-//
-//    cookies = $.cookie();
-//
-//    vaxEasyCompletion = cookies.vaxEasyCompletion;
-//    vaxMediumCompletion = cookies.vaxMediumCompletion;
-//    vaxHardCompletion = cookies.vaxHardCompletion;
-//
-//    vaxEasyHiScore = cookies.vaxEasyHiScore;
-//    vaxMediumHiScore = cookies.vaxMediumHiScore;
-//    vaxHardHiScore = cookies.vaxHardHiScore;
-//
-//    customNodeChoice = parseInt(cookies.customNodes);
-//    customNeighborChoice = parseInt(cookies.customNeighbors);
-//    customVaccineChoice = parseInt(cookies.customVaccines);
-//    customOutbreakChoice = parseInt(cookies.customOutbreaks);
-//
-//
-//    cookieBasedModeSelection();
-//}
-
-//function initCookies() {
-//    $.cookie('vaxEasyCompletion', false, { expires: 365, path: '/' });
-//    $.cookie('vaxMediumCompletion', false, { expires: 365, path: '/' });
-//    $.cookie('vaxHardCompletion', false, { expires: 365, path: '/' });
-//
-//    $.cookie('vaxEasyHiScore', 0, { expires: 365, path: '/' });
-//    $.cookie('vaxMediumHiScore', 0, { expires: 365, path: '/' });
-//    $.cookie('vaxHardHiScore', 0, { expires: 365, path: '/' });
-//
-//    $.cookie('customNodes', 75, { expires: 365, path: '/'})
-//    $.cookie('customNeighbors', 4, { expires: 365, path: '/'})
-//    $.cookie('customVaccines', 15, { expires: 365, path: '/'})
-//    $.cookie('customOutbreaks', 2, { expires: 365, path: '/'})
-//}
 
 function initCookiesJSON() {
     var oldCookieTest = $.cookie('vaxEasyCompletion');

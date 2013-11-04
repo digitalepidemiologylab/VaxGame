@@ -119,8 +119,8 @@ d3.select(".homeSVG").append("text")
 
 d3.select(".homeSVG").append("text")
     .attr("class", "homeTutorial")
-    .attr("x", 803)
-    .attr("y", 525)
+    .attr("x", 802)
+    .attr("y", 490)
     .attr("fill", "#707070")
     .text("Tour >")
     .on("click", function() {
@@ -128,9 +128,23 @@ d3.select(".homeSVG").append("text")
     })
 
 d3.select(".homeSVG").append("text")
+    .attr("x", 786)
+    .attr("y", 525)
+    .style("cursor", "pointer")
+    .attr("fill", "#707070")
+    .attr("font-size", "23px")
+    .style("font-family", "Nunito")
+    .style("fill", "#707070")
+    .style("font-weight", 500)
+    .on("click", function() {
+        window.location.href = "http://salathegroup.com";
+    })
+    .text("About >")
+
+d3.select(".homeSVG").append("text")
     .attr("class", "homeGame")
-    .attr("x", 746)
-    .attr("y", 565)
+    .attr("x", 744)
+    .attr("y", 558)
     .attr("fill", "#707070")
     .text("Full Game >")
     .on("click", function() {
@@ -138,8 +152,8 @@ d3.select(".homeSVG").append("text")
     })
 
 d3.select(".homeSVG").append("text")
-    .attr("x", 735)
-    .attr("y", 605)
+    .attr("x", 733)
+    .attr("y", 588)
     .style("cursor", "pointer")
     .attr("fill", "#707070")
     .on("click", function() {

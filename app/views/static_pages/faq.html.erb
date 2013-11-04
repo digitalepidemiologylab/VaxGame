@@ -10,6 +10,17 @@
     ga('create', 'UA-43815419-2', 'vax.herokuapp.com');
     ga('send', 'pageview');
 
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-xxxxx-y']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
 </script>
 
 
@@ -84,6 +95,13 @@
     <p class="faqText">
        The code for Vax! is open and available on <a style="color:#2692F2" href="http://github.com/salathegroup/VaxGame/issues">GitHub</a>.
        There you can submit a detailed bug report and we'll take a look.
+    </p>
+  </div>
+
+  <h3 id="faqHead">Privacy Policy...</h3>
+  <div>
+    <p class = "faqText">
+        User data collection is managed by Google Analytics and Quantcast. <i>Our servers do not store any user information</i>. In the future, data collection may expand to gameplay habits and strategies for research purposes. Such changes will require <a style="color:#2692F2" href=http://en.wikipedia.org/wiki/Institutional_review_board>IRB</a> approval and an updated privacy policy. See our privacy policy here: <a href="http://www.iubenda.com/privacy-policy/415399" class="iubenda-white iubenda-embed" title="Privacy Policy">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "http://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
     </p>
   </div>
 
