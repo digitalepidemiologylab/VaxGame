@@ -32,7 +32,10 @@ I wanted Vax to be all of the following, and more...
 
 Before Vax, the extent of my web development experience is encompassed by this amazing [Ruby on Rails tutorial][1]. Therefore this web application is minimalist by-design. I've employed a few libraries, such as [d3.js][2], [jquery][3], and [jqueryui][4]. I've also employed a few gems to handle cookies, errors, and styling.
 
-[1]: http://ruby.railstutorial.org/
+[1]: http://ruby.railstutorial.org
+
 [2]: http://d3js.org
+
 [3]: http://jquery.com
+
 [4]: http://jqueryui.com
