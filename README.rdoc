@@ -1,7 +1,7 @@
 == Welcome to Vax!
 
-||Vax is a is a game about epidemic prevention. It's also an interactive learning
-environment designed to visualize a process that strains our imagination:||
+Vax is a is a game about epidemic prevention. It's also an interactive learning
+environment designed to visualize a process that strains our imagination:
 
 <i>A contagion spreading across a network</i>
 
