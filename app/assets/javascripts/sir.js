@@ -48,7 +48,13 @@ function updateExposures() {
 function infectedToRecovered(individual) {
     if (individual.status != "I") return;
     var timeSinceInfection = this.timestep - individual.exposureTimestep;
-    if (Math.random() < recoveryRate || timeSinceInfection > maxRecoveryTime) individual.status = "R";
+
+    // 1 - (1 - recoveryPerIndividualPerTimestep)
+
+    if (Math.random() < (1-(Math.pow((1 - recoveryRate), timeSinceInfection))) || (timeSinceInfection > 10)) {
+        blorg++;
+        individual.status = "R";
+    }
 }
 
 function forceRecovery(individual) {
@@ -92,22 +98,22 @@ function infection() {
         }
     }
 
-    if (numberOfInfectionsPerRound > 0) {
-        rerun = false;
-        transmissionRate = 0.35;
-    }
-    else {
-        if (game) detectGameCompletion()
-        else detectCompletion();
-
-        if (timeToStop) {
-            return;
-        }
-
-        rerun = true;
-        transmissionRate = 1;
-        infection();
-    }
+//    if (numberOfInfectionsPerRound > 0) {
+//        rerun = false;
+//        transmissionRate = 0.35;
+//    }
+//    else {
+//        if (game) detectGameCompletion()
+//        else detectCompletion();
+//
+//        if (timeToStop) {
+//            return;
+//        }
+//
+//        rerun = true;
+//        transmissionRate = 1;
+//        infection();
+//    }
 
 
 }
