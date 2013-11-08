@@ -1,6 +1,9 @@
 var hiSVG;
 var hiGuide = 0;
 var hiGuideText;
+var backgroundHex = "#F1F1F1";
+var textHex = "#707070";
+
 
 init_hiSpace();
 
@@ -37,6 +40,7 @@ function init_hiSVG() {
 function init_hiSpace() {
     init_hiSVG();
 
+
     d3.select("body").append("div")
         .attr("id", "hiNav")
 
@@ -59,13 +63,18 @@ function init_hiSpace() {
         .text("Start >")
         .on("click", function() {
             hiGuide++;
-            hiAdvance();
+            d3.select("#hiGuideText").transition().duration(500).style("color", backgroundHex)
+            window.setTimeout(hiAdvance, 500);
 
         })
 
     hiGuideText = d3.select("body").append("div")
         .attr("id", "hiGuideText")
+        .attr("fill", "#707070")
         .html("In this module, we'll look at how Herd Immunity works and </br> how it differs between different pathogens.")
+
+    drawPlayNet();
+
 
 }
 

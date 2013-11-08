@@ -1,34 +1,49 @@
-var recoveryRate = 0.01;
-var transmissionRate = 1;
-var coefficientOfVariation;
-var effectiveR0;
+// network measures and network-based disease measures
+var degreeMeasures = [];
 var meanDegree;
 var stddev;
-var degreeMeasures = [];
-var susceptible = 0;
-var infected = 0;
-var recovered = 0;
-var vaccinated = 0;
+var coefficientOfVariation;
+var effectiveR0;
 
-function initVariables(transmit, recover) {
-    recoveryRate = recover;
-    transmissionRate = transmit;
+// sir parameters
+var recoveryRate = 0.05;
+var transmissionRate = 0.25;
+
+// sim control
+var vaxCoverageInterval = 0.10;
+var maxSims = 100;
+var steps = (1.0 / vaxCoverageInterval);
+
+// results storage
+var coverages = [];
+var meanFinalEpidemicSizes = [];
+var meanMeasuredR0 = [];
+
+var formatPercent = d3.format("%");
+
+
+// init
+// initSimVars(vaxCoverageInterval, maxSims);
+
+function initSimVars(vaxCovg_stepSize, sims) {
+    vaxCoverageInterval = vaxCovg_stepSize;
+    maxSims = sims;
+    steps = (1.0 / vaxCoverageInterval) - 1;
+
     coefficientOfVariation = measureCV();
     effectiveR0 = estimateR0();
+
+    runSims();
 }
 
 function measureMeanDegree() {
     // mean degree
+    var sum = 0;
     degreeMeasures = [];
     for (var i = 0; i < graph.nodes.length; i++) {
         degreeMeasures.push(findNeighbors(graph.nodes[i]).length);
-    }
-
-    var sum = 0;
-    for (var i = 0; i < degreeMeasures.length; i++) {
         sum += degreeMeasures[i];
     }
-
     meanDegree = sum / degreeMeasures.length;
 }
 
@@ -54,37 +69,63 @@ function estimateR0() {
     return (transmissionRate / recoveryRate) * meanDegree * (1 + (coefficientOfVariation*coefficientOfVariation));
 }
 
-function runSims(coverageInterval, steps, maxSims) {
+function measureR0() {
     var count = 0;
+    for (var i = 0; i < graph.nodes.length; i++) {
+        if (graph.nodes[i].infectedBy == indexCase) count++;
+    }
+    return count;
+}
+
+function runSims() {
+    meanFinalEpidemicSizes = [];
+    meanMeasuredR0 = [];
     var vaxCoverage;
-    for (var vaxCovgCounter = 0; vaxCovgCounter < steps; vaxCovgCounter++) {
+    for (var vaxCovgCounter = 1; vaxCovgCounter < steps; vaxCovgCounter++) {
+        var sumFinalEpidemicSize = 0;
+        var sumMeasuredR0 = 0;
+        vaxCoverage = vaxCovgCounter * vaxCoverageInterval;
+        coverages.push(formatPercent(vaxCoverage))
+        console.log(vaxCoverage)
         for (var simCount = 0; simCount < maxSims; simCount++) {
-            count++;
             resetInitials();
-            vaxCoverage = vaxCovgCounter * coverageInterval;
             singleSim(vaxCoverage);
+            sumFinalEpidemicSize += getStatuses("R");
+            sumMeasuredR0 += measureR0();
+
         }
+        meanMeasuredR0.push(sumMeasuredR0 / maxSims);
+        meanFinalEpidemicSizes.push(sumFinalEpidemicSize / maxSims);
+
     }
 }
 
 function singleSim(vaxCoverage) {
     vaccinateRandomly(vaxCoverage)
-    for (var i = 0; i < graph.nodes.length; i++) {
-        if (graph.nodes[i].status == "V") vaccinated++;
-    }
-
     selectIndexCase();
     diseaseIsSpreading = true;
     outbreakTimesteps();
 }
 
 function outbreakTimesteps() {
-    infection();
+    infection_noGuaranteedTransmission();
     stateChanges();
     newInfections = [];
     newInfections = updateExposures();
     timestep++;
-    detectGameCompletion();
+    detectSimCompletion();
+
+
+}
+
+function detectSimCompletion() {
+    if (getStatuses("I") == 0 && timestep > 0) {
+        timeToStop = true;
+        diseaseIsSpreading = false;
+    }
+    else {
+        outbreakTimesteps();
+    }
 }
 
 function vaccinateRandomly(vaxCoverage) {

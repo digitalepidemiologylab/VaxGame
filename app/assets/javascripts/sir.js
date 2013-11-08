@@ -9,6 +9,7 @@ function selectIndexCase() {
     }
     while (indexCase.status == "V");
 
+    this.indexCase = null;
     this.indexCase = indexCase;
     infectIndividual(this.indexCase);
 }
@@ -49,10 +50,9 @@ function infectedToRecovered(individual) {
     if (individual.status != "I") return;
     var timeSinceInfection = this.timestep - individual.exposureTimestep;
 
-    // 1 - (1 - recoveryPerIndividualPerTimestep)
-
+    // 1 - (1 - recoveryPerIndividualPerTimestep)^timeInfected
     if (Math.random() < (1-(Math.pow((1 - recoveryRate), timeSinceInfection))) || (timeSinceInfection > 10)) {
-        blorg++;
+
         individual.status = "R";
     }
 }
@@ -98,30 +98,56 @@ function infection() {
         }
     }
 
-//    if (numberOfInfectionsPerRound > 0) {
-//        rerun = false;
-//        transmissionRate = 0.35;
-//    }
-//    else {
-//        if (game) detectGameCompletion()
-//        else detectCompletion();
-//
-//        if (timeToStop) {
-//            return;
-//        }
-//
-//        rerun = true;
-//        transmissionRate = 1;
-//        infection();
-//    }
+    if (numberOfInfectionsPerRound > 0) {
+        rerun = false;
+        transmissionRate = 0.35;
+    }
+    else {
+        if (game) detectGameCompletion()
+        else detectCompletion();
+
+        if (timeToStop) {
+            return;
+        }
+
+        rerun = true;
+        transmissionRate = 1;
+        infection();
+    }
 
 
+}
+
+function infection_noGuaranteedTransmission() {
+    var numberOfInfectionsPerRound = 0;
+    for (var index = 0; index < graph.nodes.length; index++) {
+        if (graph.nodes[index].status != "S") continue;
+        var susceptible = graph.nodes[index];
+        var neighbors = findNeighbors(susceptible);
+        var infectedNeighborArray = [];
+        var numberOfInfectedNeighbors = 0;
+        for (var neighborIndex = 0; neighborIndex < neighbors.length; neighborIndex++) {
+            var neighbor = neighbors[neighborIndex];
+            if (neighbor.status == "I") {
+                infectedNeighborArray.push(neighbors[neighborIndex]);
+                numberOfInfectedNeighbors++;
+            }
+        }
+        var probabilityOfInfection = 1.0 - Math.pow(1.0 - transmissionRate,numberOfInfectedNeighbors);
+        if (Math.random() < probabilityOfInfection) {
+            numberOfInfectionsPerRound++;
+            var shuffledInfectedNeighborArray = shuffle(infectedNeighborArray);
+            var exposer = shuffledInfectedNeighborArray[0];
+            exposeIndividual(susceptible, exposer);
+        }
+    }
 }
 
 function getStatuses(infectedClass) {
     var S = 0;
     var I = 0;
     var R = 0;
+    var V = 0;
 
     for (var index = 0; index < graph.nodes.length; index++) {
         var individual = graph.nodes[index];
@@ -129,11 +155,14 @@ function getStatuses(infectedClass) {
         if (individual.status == "S") S++;
         if (individual.status == "I") I++;
         if (individual.status == "R") R++;
+        if (individual.status == "V") V++;
     }
 
     if (infectedClass == "S") return S;
     if (infectedClass == "I") return I;
     if (infectedClass == "R") return R;
+    if (infectedClass == "V") return V;
+
 }
 
 
