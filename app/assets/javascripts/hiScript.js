@@ -8,7 +8,7 @@ var meanFinalEpidemicSizes = [0,0,0,0,0,0,0,0,0];
 var coverages = [0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90]
 var meanMeasuredR0 = [0,0,0,0,0,0,0,0,0];
 
-var hiNodeSize = 12;
+var hiNodeSize = 13;
 var simSet = 0;
 var vaxCoverage = 0;
 
@@ -23,17 +23,19 @@ function hiAdvance() {
         d3.select("#advanceHI").text("Next >")
         d3.select("#hiGuideText")
             .html("What is herd immunity?")
+
+        d3.select("#headerHI").transition().duration(2000).attr("opacity", 0)
     }
 
     if (hiGuide == 2) {
         d3.select("#hiGuideText")
-            .html("When a large proportion of a population acquires immunity, <br> the few that are still susceptible to a particular infectious disease <br> (the very old, young, and sick) remain protected...but why?")
+            .html("When a <b>large proportion</b> of a population acquires immunity, <br> the few that are still <b>susceptible</b> to a particular infectious disease <br> (the very old, young, and sick) <b>remain protected</b><i>...but why?</i>")
 
     }
 
     if (hiGuide == 3) {
         d3.select("#hiGuideText")
-            .html("If we vaccinate a large proportion of the population at random, <br> we shouldn't find very many susceptible people that are connected. <br> <b>This is the key to herd immunity...</b>")
+            .html("If we vaccinate a <b>large proportion</b> of the population at <b>random</b>, <br> there are likely to be <b>few connected susceptible people</b>. <br>This is the <i>key</i> to understanding herd immunity...")
 
         window.setTimeout(function() {
 
@@ -53,7 +55,7 @@ function hiAdvance() {
 
     if (hiGuide == 4) {
         d3.select("#hiGuideText")
-            .html("No matter how many times we randomly redistribute vaccines, <br> large clusters of susceptible people are unlikely.")
+            .html("No matter how many times we randomly redistribute<br>  vaccines, susceptible clusters remain small. <br> <i>Sometimes they're even by themselves!</i>")
 
         window.setTimeout(function() {
             redistribute = window.setInterval(function() {
@@ -174,7 +176,7 @@ function hiAdvance() {
 
 
         d3.select("#hiGuideText")
-            .html("We'll demonstrate herd immunity by simulating a <b>measles</b> outbreak, <br> a highly infectious virus that causes childhood disease.")
+            .html("We'll demonstrate the benefits of herd immunity by <b>simulating</b> a measles <b>outbreak</b>, <br> a <b>highly infectious virus</b> that causes childhood disease.")
 
     }
 
@@ -188,7 +190,7 @@ function hiAdvance() {
 
 
         d3.select("#hiGuideText")
-            .html("First some background, the average number of cases <br> that the first infected person will produce is called <br> the <b>basic reproductive number</b>, or <b>R₀</b> ('R naught').")
+            .html("First some background, the average number of cases <br> that the <i>first infected person</i> will produce is called <br> the <b>basic reproductive number</b>, or <b>R₀</b> ('<i>R naught</i>').")
 
        drawPlayNet();
 
@@ -218,7 +220,7 @@ function hiAdvance() {
 
     if (hiGuide == 8) {
         d3.select("#hiGuideText")
-            .html("R₀ is powerfully affected by how easily it spreads, <br> how quickly people recover, and the structure of the contact network.")
+            .html("R₀ is powerfully affected by how easily it <i>spreads</i>, <br> how quickly people <i>recover</i>, and the <i>structure</i> of the contact network.")
     }
 
 
@@ -226,6 +228,92 @@ function hiAdvance() {
 
         transmissionRate = 0.90;
         recoveryRate = 0.20;
+
+        d3.select("#hiSVG").append("circle")
+            .attr("cx",925)
+            .attr("cy",400)
+            .attr("r", 16)
+            .attr("class", "legendCircle")
+            .attr("fill", "#b7b7b7")
+            .style("stroke-width", "2px")
+            .attr("opacity", 1)
+            .style("stroke", "#707070")
+
+        d3.select("#hiSVG").append("text")
+            .attr("x", 960)
+            .attr("y", 410)
+            .attr("class", "legendText")
+            .style("fill", "#707070")
+            .style("font-family", "Nunito")
+            .style("font-weight", 400)
+            .style("font-size", "30px")
+            .attr("opacity", 1)
+            .text("Susceptible")
+
+
+        d3.select("#hiSVG").append("circle")
+            .attr("cx",925)
+            .attr("cy",475)
+            .attr("r", 16)
+            .attr("class", "legendCircle")
+            .attr("fill", "#ef5555")
+            .style("stroke-width", "2px")
+            .attr("opacity", 1)
+            .style("stroke", "#707070")
+
+        d3.select("#hiSVG").append("text")
+            .attr("x", 960)
+            .attr("y", 485)
+            .attr("class", "legendText")
+            .style("fill", "#707070")
+            .style("font-family", "Nunito")
+            .style("font-weight", 400)
+            .style("font-size", "30px")
+            .attr("opacity", 1)
+            .text("Infected")
+
+        d3.select("#hiSVG").append("circle")
+            .attr("cx",925)
+            .attr("cy",550)
+            .attr("r", 16)
+            .attr("class", "legendCircle")
+            .attr("fill", "#9400D3")
+            .style("stroke-width", "2px")
+            .attr("opacity", 1)
+            .style("stroke", "#707070")
+
+
+        d3.select("#hiSVG").append("text")
+            .attr("x", 960)
+            .attr("y", 560)
+            .attr("class", "legendText")
+            .style("fill", "#707070")
+            .style("font-family", "Nunito")
+            .style("font-weight", 400)
+            .style("font-size", "30px")
+            .attr("opacity", 1)
+            .text("Recovered")
+
+        d3.select("#hiSVG").append("circle")
+            .attr("cx",925)
+            .attr("cy",625)
+            .attr("r", 16)
+            .attr("class", "legendCircle")
+            .attr("fill", "#76A788")
+            .style("stroke-width", "2px")
+            .attr("opacity", 1)
+            .style("stroke", "#707070")
+
+        d3.select("#hiSVG").append("text")
+            .attr("x", 960)
+            .attr("y", 635)
+            .attr("class", "legendText")
+            .style("fill", "#707070")
+            .style("font-family", "Nunito")
+            .style("font-weight", 400)
+            .style("font-size", "30px")
+            .attr("opacity", 1)
+            .text("Vaccinated")
 
 
         d3.select("#hiGuideText")
@@ -273,16 +361,25 @@ function hiAdvance() {
     if (hiGuide == 10) {
 
         d3.select("#hiGuideText")
-            .html("While vaccination saved a few people, most were still infected. " +
-                " <br> But let's repeat that 100 times to get a clearer picture. <br> <b>For Science!</b>")
+            .html("In most cases, everyone who wasn't vaccinated will be infected. <br> " +
+                "But let's play with the dials and run a <i>few thousand simulations...</i> <br>" + "<b>For Science!</b>")
     }
 
     if (hiGuide == 11) {
+        d3.selectAll(".legendText")
+            .transition()
+            .duration(500)
+            .attr("opacity", 0)
+        d3.selectAll(".legendCircle")
+            .transition()
+            .duration(500)
+            .attr("opacity", 0)
+
         recoveryRate = 0.2;
         transmissionRate = 0.90;
 
         mainScreen = true;
-        hiNodeSize = 10;
+        hiNodeSize = 13;
         drawRepeatNet();
         plotBar(meanFinalEpidemicSizes)
         simSet = 0;
@@ -302,7 +399,7 @@ function hiAdvance() {
     }
 
     if (hiGuide == 14) {
-        maxYaxis = 40;
+        maxYaxis = 30;
 
         d3.select("#playNetSVG").remove();
         d3.selectAll("#barChart").remove();
@@ -342,7 +439,7 @@ function hiAdvance() {
         meanFinalEpidemicSizes = [0,0,0,0,0,0,0,0,0]
 
         mainScreen = true;
-        hiNodeSize = 10;
+        hiNodeSize = 13;
         drawRepeatNet();
         plotBar(meanFinalEpidemicSizes)
         simSet = 0;
@@ -368,7 +465,7 @@ function hiAdvance() {
     }
 
     if (hiGuide == 19) {
-        maxYaxis = 40;
+        maxYaxis = 25;
 
         d3.select("#playNetSVG").remove();
         d3.selectAll("#barChart").remove();
@@ -382,7 +479,7 @@ function hiAdvance() {
         meanFinalEpidemicSizes = [0,0,0,0,0,0,0,0,0]
 
         mainScreen = true;
-        hiNodeSize = 10;
+        hiNodeSize = 13;
         drawRepeatNet();
         plotBar(meanFinalEpidemicSizes)
         simSet = 0;
@@ -471,6 +568,12 @@ function removeGamePathogensHI() {
 }
 
 function hiTimesteps() {
+    if (simSet>=9) {
+        d3.selectAll(".node").style("fill", "#b7b7b7")
+        return;
+    }
+
+
     infection_noGuaranteedTransmission();
     stateChanges();
     newInfections = [];
@@ -482,17 +585,21 @@ function hiTimesteps() {
         window.setTimeout(hiTimesteps, visualizationTimesteps)
     }
     else {
-        if (!diseaseIsSpreading) {
-            animateGamePathogens_thenUpdateHI();
-
-            if (mainScreen) updateBarChart()
-
+        animateGamePathogens_thenUpdateHI();
+        if (mainScreen) {
+            updateBarChart()
         }
+
+
 
     }
 }
 
 function updateBarChart() {
+    if (simSet > 9) {
+        return;
+    }
+
     vaxCoverage = coverages[simSet];
 
     runSimsGivenCoverage(vaxCoverage);
@@ -537,7 +644,10 @@ function findMaxConnectedByType(focalStatus, targetStatus) {
 
 
 function runVisualizationSims() {
-    if (simSet >= 9) return;
+    if (simSet > 9) {
+        return;
+    }
+
     revertNodeStatus();
     patientZero();
     updateNodeColor();

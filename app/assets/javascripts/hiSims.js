@@ -11,7 +11,7 @@ var transmissionRate = 0.25;
 
 // sim control
 var vaxCoverageInterval = 0.10;
-var maxSims = 100;
+var maxSims = 250;
 var steps = (1.0 / vaxCoverageInterval);
 
 var formatPercent = d3.format("%");
@@ -110,6 +110,7 @@ function runSimsGivenCoverage(vaxCoverage) {
 
     simSet++;
 
+
     console.log(meanFinalEpidemicSizes)
 
 }
@@ -143,6 +144,7 @@ function detectSimCompletion() {
 }
 
 function vaccinateRandomly(vaxCoverage) {
+    if (vaxCoverage == null) return;
     for (var i = 0; i < graph.nodes.length; i++) {
         var node = graph.nodes[i];
         if (Math.random() < vaxCoverage) {

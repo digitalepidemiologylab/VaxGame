@@ -10,7 +10,7 @@ var topBound = 105;
 var bottomBound = 15;
 
 function drawPlayNet() {
-    graph = generateSmallWorld(75, 0.10, 4)
+    graph = generateSmallWorld(60, 0.12, 4)
 
     removeDuplicateEdges(graph);
 
@@ -32,6 +32,7 @@ function drawPlayNet() {
     link = playNetSVG.selectAll(".link")
         .data(graph.links)
         .enter().append("line")
+        .style("stroke-width", "2px")
         .attr("class", "link");
 
     node = playNetSVG.selectAll(".node")
@@ -47,7 +48,7 @@ function drawPlayNet() {
 function drawRepeatNet() {
     d3.select("#playNetSVG").remove()
 
-    graph = generateSmallWorld(75, 0.10, 4)
+    graph = generateSmallWorld(60, 0.12, 4)
 
     removeDuplicateEdges(graph);
 
@@ -60,7 +61,7 @@ function drawRepeatNet() {
     force = d3.layout.force()
         .nodes(graph.nodes)
         .links(graph.links)
-        .charge(-250)
+        .charge(-350)
         .friction(0.7)
         .gravity(0.0075)
         .on("tick", hiTick)
@@ -69,13 +70,14 @@ function drawRepeatNet() {
     link = playNetSVG.selectAll(".link")
         .data(graph.links)
         .enter().append("line")
+        .style("stroke-width", "2px")
         .attr("class", "link");
 
     node = playNetSVG.selectAll(".node")
         .data(graph.nodes)
         .enter().append("circle")
         .attr("class", "node")
-        .attr("r", 10)
+        .attr("r", 13)
         .attr("fill", "#b7b7b7")
         .call(force.drag)
 

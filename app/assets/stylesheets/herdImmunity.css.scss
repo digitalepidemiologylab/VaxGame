@@ -34,3 +34,26 @@
   font-weight: 300;
 
 }
+
+.xAxis path,
+.xAxis line,
+.yAxis path,
+.yAxis line,
+.yAxis text,
+.xAxis text,
+.domain {
+  font-family:"Nunito";
+  font-size: 22px;
+  color: #707070;
+  fill: #707070;
+  stroke-width: 1px;
+}
+
+
+.bar {
+  fill: #ef5555;
+}
+
+.x.axis path {
+  display: none;
+}

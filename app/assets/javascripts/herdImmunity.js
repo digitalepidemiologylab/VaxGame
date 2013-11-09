@@ -45,7 +45,7 @@ function init_hiSpace() {
         .attr("id", "hiNav")
 
     d3.select("#hiSVG").append("text")
-        .attr("id", "hiHeader")
+        .attr("id", "headerHI")
         .style("font-size", "60px")
         .style("font-family", "Nunito")
         .style("font-weight", 300)
@@ -63,15 +63,15 @@ function init_hiSpace() {
         .text("Start >")
         .on("click", function() {
             hiGuide++;
-            d3.select("#hiGuideText").transition().duration(500).style("color", backgroundHex)
-            window.setTimeout(hiAdvance, 500);
+            d3.select("#hiGuideText").transition().duration(300).style("color", backgroundHex)
+            window.setTimeout(hiAdvance, 300);
 
         })
 
     hiGuideText = d3.select("body").append("div")
         .attr("id", "hiGuideText")
         .attr("fill", "#707070")
-        .html("In this module, we'll look at how Herd Immunity works and </br> how it differs between different pathogens.")
+        .html("In this module, we'll look at how <i>herd immunity</i> works and </br> how it differs between different pathogens.")
 
     drawPlayNet();
 
