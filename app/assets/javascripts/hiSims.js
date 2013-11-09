@@ -14,11 +14,6 @@ var vaxCoverageInterval = 0.10;
 var maxSims = 100;
 var steps = (1.0 / vaxCoverageInterval);
 
-// results storage
-var coverages = [];
-var meanFinalEpidemicSizes = [];
-var meanMeasuredR0 = [];
-
 var formatPercent = d3.format("%");
 
 
@@ -94,10 +89,29 @@ function runSims() {
             sumMeasuredR0 += measureR0();
 
         }
-        meanMeasuredR0.push(sumMeasuredR0 / maxSims);
-        meanFinalEpidemicSizes.push(sumFinalEpidemicSize / maxSims);
+        meanMeasuredR0.push((sumMeasuredR0 / maxSims));
+        meanFinalEpidemicSizes.push((sumFinalEpidemicSize / maxSims));
 
     }
+}
+
+function runSimsGivenCoverage(vaxCoverage) {
+    var sumFinalEpidemicSize = 0;
+    var sumMeasuredR0 = 0;
+
+    for (var simCount = 0; simCount < maxSims; simCount++) {
+        resetInitials();
+        singleSim(vaxCoverage);
+        sumFinalEpidemicSize += getStatuses("R");
+        sumMeasuredR0 += measureR0();
+    }
+    meanMeasuredR0[simSet] = (sumMeasuredR0 / maxSims);
+    meanFinalEpidemicSizes[simSet] = (sumFinalEpidemicSize / maxSims)
+
+    simSet++;
+
+    console.log(meanFinalEpidemicSizes)
+
 }
 
 function singleSim(vaxCoverage) {
@@ -131,7 +145,14 @@ function detectSimCompletion() {
 function vaccinateRandomly(vaxCoverage) {
     for (var i = 0; i < graph.nodes.length; i++) {
         var node = graph.nodes[i];
-        if (Math.random() < vaxCoverage) node.status = "V";
+        if (Math.random() < vaxCoverage) {
+            node.status = "V";
+            if (imperfectVaccines && Math.random() < 0.35) {
+                node.status = "S";
+            }
+        }
+
+
     }
 }
 

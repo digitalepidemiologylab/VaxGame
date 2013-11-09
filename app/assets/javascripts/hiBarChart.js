@@ -1,60 +1,88 @@
+var hiBarSVG;
+var x;
+var y;
+var xAxis;
+var yAxis;
+var spacer;
+var maxYaxis = 80;
 function plotBar(data) {
 
+    var covgTicks = ["10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%"]
+
+    d3.select(".xAxis").remove();
+    d3.select(".yAxis").remove();
+    d3.select(".R0text").remove();
+
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
-        width = 700 - margin.left - margin.right,
+        width = 600 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom;
 
-
-
-    var x = d3.scale.ordinal()
+    x = d3.scale.ordinal()
         .rangeRoundBands([0, width]);
 
-    var y = d3.scale.linear()
+    y = d3.scale.linear()
         .range([height, 0]);
 
-    var xAxis = d3.svg.axis()
+    xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom")
-        .tickValues(coverages)
+        .tickValues(covgTicks)
 
-
-
-    var yAxis = d3.svg.axis()
+    yAxis = d3.svg.axis()
         .scale(y)
         .orient("left")
 
-    var svg = d3.select("body").append("svg")
+    hiBarSVG = d3.select("#hiSVG").append("svg")
+        .attr("id", "barChart")
+        .attr("x", 500)
+        .attr("y", 225)
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         x.domain(data.map(function(d,i) {return i}))
-        y.domain([0, d3.max(data, function(d) {return d})])
 
-        svg.append("g")
-            .attr("class", "x axis")
+        y.domain([0, maxYaxis])
+
+    hiBarSVG.append("g")
+            .attr("class", "xAxis")
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis);
 
-        svg.append("g")
-            .attr("class", "y axis")
+    hiBarSVG.append("g")
+            .attr("class", "yAxis")
             .call(yAxis)
             .append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 6)
             .attr("dy", ".71em")
 
-    var spacer = 15;
+    spacer = 15;
 
-        svg.selectAll(".bar")
+    hiBarSVG.selectAll(".bar")
             .data(data)
             .enter().append("rect")
             .attr("class", "bar")
             .attr("x", function(d,i) { return x.rangeBand() * i + (spacer/2)})
             .attr("width", x.rangeBand() - spacer)
             .attr("y", function(d) { return y(d) })
-            .attr("height", function(d) { return height - y(d);});
+            .attr("height", 0)
+            .transition()
+            .duration(500)
+            .attr("height", function(d) { return height - y(d);})
+
+//
+//    for (var i = 0; i < simSet; i++) {
+//        d3.select("#hiSVG").append("text")
+//            .attr("class", "R0text")
+//            .attr("x", 445 + (75*i))
+//            .attr("y", function() {return 465 - (meanFinalEpidemicSizes[i]*4)})
+//            .text(function() {if (meanMeasuredR0[i] > 0) return "R0 = " + meanMeasuredR0[i]})
+//
+//    }
+
+
 
 }
 

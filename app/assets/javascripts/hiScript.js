@@ -4,6 +4,19 @@ var globalMax;
 var globalMaxConnected;
 var globalMaxConnectedLabel;
 var susceptibleNeighbors;
+var meanFinalEpidemicSizes = [0,0,0,0,0,0,0,0,0];
+var coverages = [0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90]
+var meanMeasuredR0 = [0,0,0,0,0,0,0,0,0];
+
+var hiNodeSize = 12;
+var simSet = 0;
+var vaxCoverage = 0;
+
+var visualizationTimesteps = 600;
+
+var mainScreen = false;
+var flu = false;
+var imperfectVaccines = false;
 
 function hiAdvance() {
     if (hiGuide == 1) {
@@ -11,7 +24,6 @@ function hiAdvance() {
         d3.select("#hiGuideText")
             .html("What is herd immunity?")
     }
-
 
     if (hiGuide == 2) {
         d3.select("#hiGuideText")
@@ -37,9 +49,6 @@ function hiAdvance() {
                     if (d.status == "S") return "#b7b7b7";})
 
         }, 1000)
-
-
-
     }
 
     if (hiGuide == 4) {
@@ -118,7 +127,6 @@ function hiAdvance() {
                             if (l.source.status == "S" && l.target.status == "S") return "5px";
                             else return "0px";
 
-
                             if (l.source.status == "V" || l.target.status == "V") return "0px";
 
 
@@ -144,7 +152,7 @@ function hiAdvance() {
 
         d3.select("#hiSVG").append("text")
             .attr("class", "measlesText")
-            .attr("x", 300)
+            .attr("x", 320)
             .attr("y", 350)
             .style("font-size", "60px")
             .style("font-family", "Nunito")
@@ -155,25 +163,14 @@ function hiAdvance() {
 
         d3.select("#hiSVG").append("text")
             .attr("class", "measlesText")
-            .attr("x", 320)
-            .attr("y", 375)
-            .style("font-size", "24px")
-            .style("font-family", "Nunito")
-            .style("font-weight", 300)
-            .style("fill", "#707070")
-            .attr("opacity", 1)
-            .text("Transmission: ##%")
-
-        d3.select("#hiSVG").append("text")
-            .attr("class", "measlesText")
-            .attr("x", 343)
+            .attr("x", 380)
             .attr("y", 400)
             .style("font-size", "24px")
             .style("font-family", "Nunito")
-            .style("font-weight", 300)
+            .style("font-weight", 400)
             .style("fill", "#707070")
             .attr("opacity", 1)
-            .text("Recovery: ##%")
+            .text("R₀ = 13-18")
 
 
         d3.select("#hiGuideText")
@@ -193,7 +190,7 @@ function hiAdvance() {
         d3.select("#hiGuideText")
             .html("First some background, the average number of cases <br> that the first infected person will produce is called <br> the <b>basic reproductive number</b>, or <b>R₀</b> ('R naught').")
 
-        drawPlayNet();
+       drawPlayNet();
 
        graph.nodes[0].status = "I";
        d3.selectAll(".node").style("fill", function(d) {if (d.status == "I") return "#ef5555"})
@@ -227,6 +224,13 @@ function hiAdvance() {
 
     if (hiGuide == 9) {
 
+        transmissionRate = 0.90;
+        recoveryRate = 0.20;
+
+
+        d3.select("#hiGuideText")
+            .html("Let's see how far a measles outbreak will spread with 10% vaccination coverage...")
+
         for (var i = 0; i < graph.nodes.length; i++) {
             if (Math.random() < 0.10) graph.nodes[i].status = "V";
             else graph.nodes[i].status = "S";
@@ -235,8 +239,6 @@ function hiAdvance() {
             graph.nodes[i].exposureTimestep = null;
         }
 
-        d3.select("#hiGuideText")
-            .html("Let's see how far a measles outbreak will spread with 10% vaccination coverage...")
 
         do {
             var indexPatientID = Math.floor(Math.random() * graph.nodes.length);
@@ -269,41 +271,139 @@ function hiAdvance() {
     }
 
     if (hiGuide == 10) {
+
         d3.select("#hiGuideText")
-            .html("Vaccination saved a few people, but in the name of science, " +
-                " <br> let's repeat that 100 times to get a clearer picture.")
+            .html("While vaccination saved a few people, most were still infected. " +
+                " <br> But let's repeat that 100 times to get a clearer picture. <br> <b>For Science!</b>")
     }
 
     if (hiGuide == 11) {
+        recoveryRate = 0.2;
+        transmissionRate = 0.90;
 
-        d3.select("#hiGuideText")
-            .html("As we can see, at 10% vaccination coverage, the outbreak size <br> still remains quite large.")
+        mainScreen = true;
+        hiNodeSize = 10;
+        drawRepeatNet();
+        plotBar(meanFinalEpidemicSizes)
+        simSet = 0;
+        runVisualizationSims();
 
     }
 
     if (hiGuide == 12) {
-        // run visual sim
-        // at completion, grow bar
-        // repeat up to 90%
-
         d3.select("#hiGuideText")
-            .html("Now we'll increase the proportion of the population that is <br> that is vaccinated to find the optimal vaccination coverage for measles.")
+            .html("For measles, the vaccination coverage required <br> to achieve herd immunity is about 90%!")
     }
 
     if (hiGuide == 13) {
         d3.select("#hiGuideText")
-            .html("It looks like once we vaccinate ~90% of the population, <br> measles outbreaks are quite small.")
+            .html("Let's try that again, but with a more common disease like influenza...")
+
     }
+
+    if (hiGuide == 14) {
+        maxYaxis = 40;
+
+        d3.select("#playNetSVG").remove();
+        d3.selectAll("#barChart").remove();
+
+        d3.select("#hiSVG").append("text")
+            .attr("class", "fluText")
+            .attr("x", 320)
+            .attr("y", 350)
+            .style("font-size", "60px")
+            .style("font-family", "Nunito")
+            .style("font-weight", 700)
+            .style("fill", "#707070")
+            .attr("opacity", 1)
+            .text("Influenza")
+
+
+        d3.select("#hiSVG").append("text")
+            .attr("class", "fluText")
+            .attr("x", 383)
+            .attr("y", 400)
+            .style("font-size", "30px")
+            .style("font-family", "Nunito")
+            .style("font-weight", 400)
+            .style("fill", "#707070")
+            .attr("opacity", 1)
+            .text("R₀ = 1.5-3")
+
+    }
+
+    if (hiGuide == 15) {
+
+        flu = true;
+        d3.selectAll(".fluText").remove();
+        transmissionRate = 0.25;
+        recoveryRate = 0.35;
+
+        meanFinalEpidemicSizes = [0,0,0,0,0,0,0,0,0]
+
+        mainScreen = true;
+        hiNodeSize = 10;
+        drawRepeatNet();
+        plotBar(meanFinalEpidemicSizes)
+        simSet = 0;
+        runVisualizationSims();
+
+
+    }
+
+    if (hiGuide == 16) {
+        d3.select("#hiGuideText")
+            .html("For influenza, the herd immunity threshold is just over 50%. <br> But our simulation seems to suggest its a lot lower...")
+    }
+
+    if (hiGuide == 17) {
+        d3.select("#hiGuideText")
+            .html("Flu vaccines are not always effective, so higher vaccination coverages are necessary.")
+    }
+
+    if (hiGuide == 18) {
+        d3.select("#hiGuideText")
+            .html("So let's try that again but allow vaccines to fail for various reasons... <br><br>" +
+                " <div align=center> People who have already been exposed</div>  <div align=center> Weak immune responses</div> <div align=center> Defective doses</div> ");
+    }
+
+    if (hiGuide == 19) {
+        maxYaxis = 40;
+
+        d3.select("#playNetSVG").remove();
+        d3.selectAll("#barChart").remove();
+
+        flu = true;
+        imperfectVaccines = true;
+        d3.selectAll(".fluText").remove();
+        transmissionRate = 0.25;
+        recoveryRate = 0.35;
+
+        meanFinalEpidemicSizes = [0,0,0,0,0,0,0,0,0]
+
+        mainScreen = true;
+        hiNodeSize = 10;
+        drawRepeatNet();
+        plotBar(meanFinalEpidemicSizes)
+        simSet = 0;
+        runVisualizationSims();
+
+
+    }
+
+
+
+
 
     d3.select("#hiGuideText").transition().duration(500).style("color", textHex);
 
 }
 
 function animateGamePathogens_thenUpdateHI() {
-    window.setTimeout(createGamePathogensHI  , 50)
-    window.setTimeout(moveGamePathogensHI    , 100)
-    window.setTimeout(popNewGameInfectionHI  , 300)
-    window.setTimeout(removeGamePathogensHI  , 800)
+    window.setTimeout(createGamePathogensHI  , visualizationTimesteps * 0.1)
+    window.setTimeout(moveGamePathogensHI    , visualizationTimesteps * 0.2)
+    window.setTimeout(popNewGameInfectionHI  , visualizationTimesteps * 0.3)
+    window.setTimeout(removeGamePathogensHI  , visualizationTimesteps * 0.9)
 
     window.setTimeout(function() {d3.selectAll(".node")
         .style("fill", function(d) {
@@ -313,7 +413,7 @@ function animateGamePathogens_thenUpdateHI() {
             if (d.status == "R") return "#9400D3";
 
         })
-    },850);
+    },550);
 
 
 }
@@ -322,14 +422,14 @@ function animateGamePathogens_thenUpdateHI() {
 function popNewGameInfectionHI() {
     d3.selectAll(".node")
         .transition()
-        .duration(500)
+        .duration(visualizationTimesteps * 0.75)
         .attr("r", function(d) {
             if (d.status == "I") {
-                console.log(d.exposureTimestep + "\t" + timestep + "\t" + d.id)
-                if (timestep - d.exposureTimestep == 1) return 12 * 1.5;
-                else return 12;
+//                console.log(d.exposureTimestep + "\t" + timestep + "\t" + d.id)
+                if (timestep - d.exposureTimestep == 1) return hiNodeSize * 1.5;
+                else return hiNodeSize;
             }
-            else return 12;
+            else return hiNodeSize;
         })
 }
 
@@ -337,7 +437,7 @@ function moveGamePathogensHI() {
     d3.selectAll(".pathogen")
         .sort()
         .transition()
-        .duration(600)
+        .duration(visualizationTimesteps)
         .attr("cx", function(d) { return d.receiverX} )
         .attr("cy", function(d) { return d.receiverY} );
 }
@@ -360,7 +460,7 @@ function removeGamePathogensHI() {
     d3.selectAll(".node")
         .transition()
         .duration(200)
-        .attr("r", 12)
+        .attr("r", hiNodeSize)
 
     d3.selectAll(".pathogen")
         .transition()
@@ -379,12 +479,25 @@ function hiTimesteps() {
     detectVizSimCompletion();
     if (!timeToStop) {
         animateGamePathogens_thenUpdateHI();
-        window.setTimeout(hiTimesteps, 1000)
+        window.setTimeout(hiTimesteps, visualizationTimesteps)
     }
     else {
-        animateGamePathogens_thenUpdateHI();
-    }
+        if (!diseaseIsSpreading) {
+            animateGamePathogens_thenUpdateHI();
 
+            if (mainScreen) updateBarChart()
+
+        }
+
+    }
+}
+
+function updateBarChart() {
+    vaxCoverage = coverages[simSet];
+
+    runSimsGivenCoverage(vaxCoverage);
+    plotBar(meanFinalEpidemicSizes);
+    runVisualizationSims();
 }
 
 function detectVizSimCompletion() {
@@ -420,4 +533,93 @@ function findMaxConnectedByType(focalStatus, targetStatus) {
     globalMaxConnected = maxConnected;
     return maxConnectedNode;
 //    console.log(maxConnectedNode.id + " has " + maxConnected + " edges of type: " + focalStatus + " <-> " + targetStatus);
+}
+
+
+function runVisualizationSims() {
+    if (simSet >= 9) return;
+    revertNodeStatus();
+    patientZero();
+    updateNodeColor();
+    timestep = 1;
+    hiTimesteps();
+
+    if (simSet == 1) {
+        if (!flu) {
+            d3.select("#hiGuideText")
+                .html("At 10% coverage, only those vaccinated benefit.")
+        }
+        else {
+            if (!imperfectVaccines) {
+                d3.select("#hiGuideText")
+                    .html("Immediately, we see that outbreaks are less than half the size.")
+                }
+        }
+    }
+
+    if (simSet == 2) {
+        if (!flu) {
+            d3.select("#hiGuideText")
+                .html("As we increase vaccination coverage, <br> we see some improvement but widespread outbreaks are common.")
+        }
+
+    }
+
+    if (simSet == 4) {
+        if (!flu) {
+            d3.select("#hiGuideText")
+                .html("By now we should notice a substantial drops <br> in both outbreak <b>size</b> and <b>duration.</b>")
+        }
+    }
+
+    if (simSet == 6) {
+        if (flu){
+            if (!imperfectVaccines) {
+                d3.select("#hiGuideText")
+                    .html("Outbreaks fizzle out quickly and epidemics are exceedingly rare.")
+            }
+
+        }
+    }
+
+    if (simSet == 7) {
+        if (!flu) {
+            d3.select("#hiGuideText")
+                .html("At high rates vaccination coverage, <br> most outbreaks will not have a chance to become an epidemic.")
+        }
+    }
+}
+
+function revertNodeStatus() {
+    for (var i = 0; i < graph.nodes.length; i++) {
+        if (Math.random() < coverages[simSet]) graph.nodes[i].status = "V";
+        else graph.nodes[i].status = "S";
+
+        graph.nodes[i].infectedBy = null;
+        graph.nodes[i].exposureTimestep = null;
+    }
+
+}
+
+function updateNodeColor() {
+    d3.selectAll(".node")
+        .style("fill", function(d) {
+            if (d.status == "V") return "#76A788";
+            if (d.status == "S") return "#b7b7b7";
+            if (d.status == "I") return "#ef5555";
+        })
+}
+
+function patientZero() {
+    do {
+        var indexPatientID = Math.floor(Math.random() * graph.nodes.length);
+    }
+    while (graph.nodes[indexPatientID].status == "V");
+
+    timestep = 0;
+    graph.nodes[indexPatientID].status = "I";
+    graph.nodes[indexPatientID].infectedBy = null;
+    graph.nodes[indexPatientID].exposureTimestep = timestep;
+    diseaseIsSpreading = true;
+    timeToStop = false;
 }
