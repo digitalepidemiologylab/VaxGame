@@ -62,6 +62,7 @@ function init_hiSpace() {
         .style("font-size", "28px")
         .text("Start >")
         .on("click", function() {
+            if (diseaseIsSpreading && hiGuide < 11) return;
             hiGuide++;
             d3.select("#hiGuideText").transition().duration(300).style("color", backgroundHex)
             window.setTimeout(hiAdvance, 300);
@@ -74,8 +75,6 @@ function init_hiSpace() {
         .html("In this module, we'll look at how <i>herd immunity</i> works and </br> how it differs between different pathogens.")
 
     drawPlayNet();
-
-
 }
 
 

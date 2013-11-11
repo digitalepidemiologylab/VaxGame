@@ -319,6 +319,9 @@ function hiAdvance() {
         d3.select("#hiGuideText")
             .html("Let's see how far a measles outbreak will spread with 10% vaccination coverage...")
 
+        d3.select("#advanceHI").style("color", "#707070")
+
+
         for (var i = 0; i < graph.nodes.length; i++) {
             if (Math.random() < 0.10) graph.nodes[i].status = "V";
             else graph.nodes[i].status = "S";
@@ -399,7 +402,7 @@ function hiAdvance() {
     }
 
     if (hiGuide == 14) {
-        maxYaxis = 30;
+        maxYaxis = 40;
 
         d3.select("#playNetSVG").remove();
         d3.selectAll("#barChart").remove();
@@ -465,7 +468,7 @@ function hiAdvance() {
     }
 
     if (hiGuide == 19) {
-        maxYaxis = 25;
+        maxYaxis = 35;
 
         d3.select("#playNetSVG").remove();
         d3.selectAll("#barChart").remove();
@@ -721,10 +724,18 @@ function updateNodeColor() {
 }
 
 function patientZero() {
+    if (simSet > 9) {
+        return;
+    }
+    var breakCounter = 0;
     do {
         var indexPatientID = Math.floor(Math.random() * graph.nodes.length);
+        breakCounter++;
+        console.log(breakCounter + "\t" + meanFinalEpidemicSizes)
     }
-    while (graph.nodes[indexPatientID].status == "V");
+    while (graph.nodes[indexPatientID].status == "V" && breakCounter < 100);
+
+    if (breakCounter > 100) indexPatientID = 0;
 
     timestep = 0;
     graph.nodes[indexPatientID].status = "I";

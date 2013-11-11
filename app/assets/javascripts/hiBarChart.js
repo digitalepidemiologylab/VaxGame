@@ -14,8 +14,8 @@ function plotBar(data) {
     d3.select(".yAxis").remove();
     d3.select(".R0text").remove();
 
-    var margin = {top: 20, right: 20, bottom: 30, left: 40},
-        width = 650 - margin.left - margin.right,
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+        width = 750 - margin.left - margin.right,
         height = 375 - margin.top - margin.bottom;
 
     x = d3.scale.ordinal()
@@ -86,7 +86,6 @@ function plotBar(data) {
 //            .text(function() {if (meanMeasuredR0[i] > 0) return "R0 = " + meanMeasuredR0[i]})
 //
 //    }
-
 
 
 }
