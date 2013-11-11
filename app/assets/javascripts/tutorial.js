@@ -152,8 +152,20 @@ d3.select(".homeSVG").append("text")
     })
 
 d3.select(".homeSVG").append("text")
-    .attr("x", 733)
+    .attr("class", "homeHI")
+    .attr("x", 692)
     .attr("y", 588)
+    .attr("fill", "#707070")
+    .attr("font-size", "23px")
+    .style("font-family", "Nunito")
+    .text("Herd Immunity >")
+    .on("click", function() {
+        window.location.href = 'http://vax.herokuapp.com/herdImunity'
+    })
+
+d3.select(".homeSVG").append("text")
+    .attr("x", 718)
+    .attr("y", 612)
     .style("cursor", "pointer")
     .attr("fill", "#707070")
     .on("click", function() {

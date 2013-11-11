@@ -7,12 +7,13 @@ var susceptibleNeighbors;
 var meanFinalEpidemicSizes = [0,0,0,0,0,0,0,0,0];
 var coverages = [0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90]
 var meanMeasuredR0 = [0,0,0,0,0,0,0,0,0];
+var outbreakFrequency = [0,0,0,0,0,0,0,0,0];
 
 var hiNodeSize = 13;
 var simSet = 0;
 var vaxCoverage = 0;
 
-var visualizationTimesteps = 600;
+var visualizationTimesteps = 400;
 
 var mainScreen = false;
 var flu = false;
@@ -277,7 +278,7 @@ function hiAdvance() {
             .attr("cy",550)
             .attr("r", 16)
             .attr("class", "legendCircle")
-            .attr("fill", "#9400D3")
+            .attr("fill", "#fab45a")
             .style("stroke-width", "2px")
             .attr("opacity", 1)
             .style("stroke", "#707070")
@@ -384,7 +385,7 @@ function hiAdvance() {
         mainScreen = true;
         hiNodeSize = 13;
         drawRepeatNet();
-        plotBar(meanFinalEpidemicSizes)
+        plotBar(outbreakFrequency)
         simSet = 0;
         runVisualizationSims();
 
@@ -392,7 +393,7 @@ function hiAdvance() {
 
     if (hiGuide == 12) {
         d3.select("#hiGuideText")
-            .html("For measles, the vaccination coverage required <br> to achieve herd immunity is about 90%!")
+            .html("For <b>measles</b>, the vaccination coverage required <br> to achieve herd immunity is about <b>90%</b>!")
     }
 
     if (hiGuide == 13) {
@@ -402,7 +403,7 @@ function hiAdvance() {
     }
 
     if (hiGuide == 14) {
-        maxYaxis = 40;
+        d3.selectAll(".repeatRemovalText").remove();
 
         d3.select("#playNetSVG").remove();
         d3.selectAll("#barChart").remove();
@@ -439,12 +440,12 @@ function hiAdvance() {
         transmissionRate = 0.25;
         recoveryRate = 0.35;
 
-        meanFinalEpidemicSizes = [0,0,0,0,0,0,0,0,0]
+        outbreakFrequency = [0,0,0,0,0,0,0,0,0]
 
         mainScreen = true;
         hiNodeSize = 13;
         drawRepeatNet();
-        plotBar(meanFinalEpidemicSizes)
+        plotBar(outbreakFrequency)
         simSet = 0;
         runVisualizationSims();
 
@@ -453,7 +454,7 @@ function hiAdvance() {
 
     if (hiGuide == 16) {
         d3.select("#hiGuideText")
-            .html("For influenza, the herd immunity threshold is just over 50%. <br> But our simulation seems to suggest its a lot lower...")
+            .html("For <b>influenza</b>, the herd immunity threshold is just over <b>50%</b>. <br> But the real world doesn't always work out like simulations...")
     }
 
     if (hiGuide == 17) {
@@ -464,11 +465,12 @@ function hiAdvance() {
     if (hiGuide == 18) {
         d3.select("#hiGuideText")
             .html("So let's try that again but allow vaccines to fail for various reasons... <br><br>" +
-                " <div align=center> People who have already been exposed</div>  <div align=center> Weak immune responses</div> <div align=center> Defective doses</div> ");
+                " <div align=center> People who have <i>already been exposed</i></div>  <div align=center> <i>Weak</i> immune responses</div> <div align=center> <i>Defective</i> doses</div> ");
     }
 
     if (hiGuide == 19) {
-        maxYaxis = 35;
+        d3.select("#hiGuideText")
+            .html("Here, we'll see that the vaccination coverage threshold required to achieve <br> herd immunity is higher (right-shifted) as a result of vaccine failure.")
 
         d3.select("#playNetSVG").remove();
         d3.selectAll("#barChart").remove();
@@ -479,16 +481,34 @@ function hiAdvance() {
         transmissionRate = 0.25;
         recoveryRate = 0.35;
 
-        meanFinalEpidemicSizes = [0,0,0,0,0,0,0,0,0]
+        outbreakFrequency = [0,0,0,0,0,0,0,0,0]
 
         mainScreen = true;
         hiNodeSize = 13;
         drawRepeatNet();
-        plotBar(meanFinalEpidemicSizes)
+        plotBar(outbreakFrequency)
         simSet = 0;
         runVisualizationSims();
 
 
+    }
+
+    if (hiGuide == 20) {
+        d3.select("#hiGuideText")
+            .html("Now that we understand <i>herd immunity</i> in more detail, <br> I'll leave you with one caveat...")
+
+    }
+
+    if (hiGuide == 21) {
+        d3.select("#hiGuideText")
+            .html("Herd Immunity <b>only</b> works when susceptible individuals are <b>randomly</b> dispersed in the network.")
+    }
+
+    if (hiGuide == 22) {
+        d3.select("#hiGuideText")
+            .html("But herd immunity is <b>undermined when susceptibility is clustered</b> <br> (e.g., a community of vaccine refusers).")
+
+    d3.select("#advanceHI").text("Game >").on("click", function() {window.location.href = "http://vax.herokuapp.com/game"})
     }
 
 
@@ -510,7 +530,7 @@ function animateGamePathogens_thenUpdateHI() {
             if (d.status == "V") return "#76A788";
             if (d.status == "S") return "#b7b7b7";
             if (d.status == "I") return "#ef5555";
-            if (d.status == "R") return "#9400D3";
+            if (d.status == "R") return "#fab45a";
 
         })
     },550);
@@ -571,6 +591,8 @@ function removeGamePathogensHI() {
 }
 
 function hiTimesteps() {
+    d3.select("#advanceHI").transition().duration(500).style("color", "#707070")
+
     if (simSet>=9) {
         d3.selectAll(".node").style("fill", "#b7b7b7")
         return;
@@ -583,15 +605,28 @@ function hiTimesteps() {
     newInfections = updateExposures();
     timestep++;
     detectVizSimCompletion();
-    if (!timeToStop) {
+    if (!timeToStop && diseaseIsSpreading) {
         animateGamePathogens_thenUpdateHI();
         window.setTimeout(hiTimesteps, visualizationTimesteps)
     }
     else {
+        if (hiGuide < 11) {
+            d3.select("#advanceHI").transition().duration(500).style("color", "white")
+        }
         animateGamePathogens_thenUpdateHI();
         if (mainScreen) {
             updateBarChart()
+
+            if (meanFinalEpidemicSizes[8] > 0) {
+                d3.select("#advanceHI").transition().duration(500).style("color", "white")
+                diseaseIsSpreading = false;
+            }
+
+
+
         }
+
+
 
 
 
@@ -604,9 +639,9 @@ function updateBarChart() {
     }
 
     vaxCoverage = coverages[simSet];
-
     runSimsGivenCoverage(vaxCoverage);
-    plotBar(meanFinalEpidemicSizes);
+
+    plotBar(outbreakFrequency);
     runVisualizationSims();
 }
 
@@ -660,12 +695,12 @@ function runVisualizationSims() {
     if (simSet == 1) {
         if (!flu) {
             d3.select("#hiGuideText")
-                .html("At 10% coverage, only those vaccinated benefit.")
+                .html("At <b>10%</b> coverage, <i>only</i> those vaccinated benefit.")
         }
         else {
             if (!imperfectVaccines) {
                 d3.select("#hiGuideText")
-                    .html("Immediately, we see that outbreaks are less than half the size.")
+                    .html("Immediately, we see that epidemics are much less <b>frequent</b>.")
                 }
         }
     }
@@ -673,15 +708,14 @@ function runVisualizationSims() {
     if (simSet == 2) {
         if (!flu) {
             d3.select("#hiGuideText")
-                .html("As we increase vaccination coverage, <br> we see some improvement but widespread outbreaks are common.")
+                .html("As we increase vaccination coverage, <br> we see some improvement but widespread <b>epidemics are commonplace</b>.")
         }
-
     }
 
     if (simSet == 4) {
         if (!flu) {
             d3.select("#hiGuideText")
-                .html("By now we should notice a substantial drops <br> in both outbreak <b>size</b> and <b>duration.</b>")
+                .html("By now we should start to notice a drop <br> in the <b>frequency</b> and <b>size</b> of outbreaks.")
         }
     }
 
@@ -689,7 +723,7 @@ function runVisualizationSims() {
         if (flu){
             if (!imperfectVaccines) {
                 d3.select("#hiGuideText")
-                    .html("Outbreaks fizzle out quickly and epidemics are exceedingly rare.")
+                    .html("Outbreaks <i>fizzle out quickly</i> and epidemics are exceedingly rare.")
             }
 
         }
@@ -731,7 +765,6 @@ function patientZero() {
     do {
         var indexPatientID = Math.floor(Math.random() * graph.nodes.length);
         breakCounter++;
-        console.log(breakCounter + "\t" + meanFinalEpidemicSizes)
     }
     while (graph.nodes[indexPatientID].status == "V" && breakCounter < 100);
 

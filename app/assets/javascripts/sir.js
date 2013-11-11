@@ -2,12 +2,15 @@ var rerun = false;
 
 function selectIndexCase() {
     var numberOfPeople = graph.nodes.length;
-
+    var breakCounter = 0;
     do{
         var randomIndex = Math.floor(Math.random() * numberOfPeople);
         var indexCase = graph.nodes[randomIndex];
+        breakCounter++;
     }
-    while (indexCase.status == "V");
+    while (indexCase.status == "V" && breakCounter < 500);
+
+    if (breakCounter == 500) indexCase.status = "S";
 
     this.indexCase = null;
     this.indexCase = indexCase;

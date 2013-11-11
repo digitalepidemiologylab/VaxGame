@@ -62,7 +62,7 @@ function init_hiSpace() {
         .style("font-size", "28px")
         .text("Start >")
         .on("click", function() {
-            if (diseaseIsSpreading && hiGuide < 11) return;
+            if (diseaseIsSpreading) return;
             hiGuide++;
             d3.select("#hiGuideText").transition().duration(300).style("color", backgroundHex)
             window.setTimeout(hiAdvance, 300);

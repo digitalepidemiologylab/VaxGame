@@ -10,7 +10,7 @@ var topBound = 105;
 var bottomBound = 15;
 
 function drawPlayNet() {
-    graph = generateSmallWorld(60, 0.12, 4)
+    graph = generateSmallWorld(100, 0.10, 4)
 
     removeDuplicateEdges(graph);
 
@@ -48,7 +48,7 @@ function drawPlayNet() {
 function drawRepeatNet() {
     d3.select("#playNetSVG").remove()
 
-    graph = generateSmallWorld(60, 0.12, 4)
+    graph = generateSmallWorld(100, 0.10, 4)
 
     removeDuplicateEdges(graph);
 
@@ -61,7 +61,7 @@ function drawRepeatNet() {
     force = d3.layout.force()
         .nodes(graph.nodes)
         .links(graph.links)
-        .charge(-350)
+        .charge(-200)
         .friction(0.7)
         .gravity(0.0075)
         .on("tick", hiTick)
