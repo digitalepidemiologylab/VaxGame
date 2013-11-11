@@ -122,6 +122,14 @@ d3.select(".homeSVG").append("text")
     .attr("x", 802)
     .attr("y", 490)
     .attr("fill", "#707070")
+    .on("mouseover", function(d) {
+
+        d3.select(this).style("fill", "#2692F2")
+
+    })
+    .on("mouseout", function(d) {
+        d3.select(this).style("fill", "#707070")
+    })
     .text("Tour >")
     .on("click", function() {
         homeToTutorial();
@@ -136,6 +144,14 @@ d3.select(".homeSVG").append("text")
     .style("font-family", "Nunito")
     .style("fill", "#707070")
     .style("font-weight", 500)
+    .on("mouseover", function(d) {
+
+        d3.select(this).style("fill", "#2692F2")
+
+    })
+    .on("mouseout", function(d) {
+        d3.select(this).style("fill", "#707070")
+    })
     .on("click", function() {
         window.location.href = "http://vax.herokuapp.com/faq";
     })
@@ -147,6 +163,14 @@ d3.select(".homeSVG").append("text")
     .attr("y", 558)
     .attr("fill", "#707070")
     .text("Full Game >")
+    .on("mouseover", function(d) {
+
+        d3.select(this).style("fill", "#2692F2")
+
+    })
+    .on("mouseout", function(d) {
+        d3.select(this).style("fill", "#707070")
+    })
     .on("click", function() {
         window.location.href = 'http://vax.herokuapp.com/game'
     })
@@ -158,7 +182,16 @@ d3.select(".homeSVG").append("text")
     .attr("fill", "#707070")
     .attr("font-size", "23px")
     .style("font-family", "Nunito")
+    .style("cursor", "pointer")
     .text("Herd Immunity >")
+    .on("mouseover", function(d) {
+
+        d3.select(this).style("fill", "#2692F2")
+
+    })
+    .on("mouseout", function(d) {
+        d3.select(this).style("fill", "#707070")
+    })
     .on("click", function() {
         window.location.href = 'http://vax.herokuapp.com/herdImunity'
     })
@@ -168,6 +201,14 @@ d3.select(".homeSVG").append("text")
     .attr("y", 612)
     .style("cursor", "pointer")
     .attr("fill", "#707070")
+    .on("mouseover", function(d) {
+
+        d3.select(this).style("fill", "#2692F2")
+
+    })
+    .on("mouseout", function(d) {
+        d3.select(this).style("fill", "#707070")
+    })
     .on("click", function() {
         window.location.href = "http://salathegroup.com";
     })
