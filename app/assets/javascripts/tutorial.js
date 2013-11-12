@@ -193,7 +193,7 @@ d3.select(".homeSVG").append("text")
         d3.select(this).style("fill", "#707070")
     })
     .on("click", function() {
-        window.location.href = 'http://vax.herokuapp.com/herdImunity'
+        window.location.href = 'http://vax.herokuapp.com/herdImmunity'
     })
 
 d3.select(".homeSVG").append("text")
