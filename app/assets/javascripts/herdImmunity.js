@@ -44,6 +44,14 @@ function init_hiSpace() {
     d3.select("body").append("div")
         .attr("id", "hiNav")
 
+    d3.select("body").append("div")
+        .attr("id", "vaxLogoDiv")
+        .text("VAX!")
+        .style("cursor", "pointer")
+        .on("click", function() {
+            window.location.href = 'http://vax.herokuapp.com/'
+        })
+
     d3.select("#hiSVG").append("text")
         .attr("id", "headerHI")
         .style("font-size", "60px")
@@ -58,8 +66,8 @@ function init_hiSpace() {
     d3.select("#hiNav").append("div")
         .attr("class", "menuItemNormal")
         .attr("id", "advanceHI")
-        .style("right", "0px")
-        .style("font-size", "28px")
+        .style("right", "-40px")
+        .style("font-size", "20px")
         .text("Start >")
         .on("click", function() {
             if (diseaseIsSpreading) return;

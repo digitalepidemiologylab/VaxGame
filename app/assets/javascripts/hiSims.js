@@ -4,11 +4,7 @@ var meanDegree;
 var stddev;
 var coefficientOfVariation;
 var effectiveR0;
-var threshold = 10;
-
-// sir parameters
-var recoveryRate = 0.05;
-var transmissionRate = 0.25;
+var threshold = 3;
 
 // sim control
 var vaxCoverageInterval = 0.10;
@@ -103,10 +99,13 @@ function runSimsGivenCoverage(vaxCoverage) {
     for (var simCount = 0; simCount < maxSims; simCount++) {
         resetInitials();
         singleSim(vaxCoverage);
-        sumFinalEpidemicSize += getStatuses("R");
         sumMeasuredR0 += measureR0();
 
-        if (getStatuses("R") > threshold) sumOutbreaksAboveThreshold++;
+
+        if (getStatuses("R") > threshold) {
+            sumOutbreaksAboveThreshold++;
+            sumFinalEpidemicSize += getStatuses("R");
+        }
     }
     meanMeasuredR0[simSet] = (sumMeasuredR0 / maxSims);
     meanFinalEpidemicSizes[simSet] = (sumFinalEpidemicSize / maxSims)
@@ -151,7 +150,7 @@ function vaccinateRandomly(vaxCoverage) {
         var node = graph.nodes[i];
         if (Math.random() < vaxCoverage) {
             node.status = "V";
-            if (imperfectVaccines && Math.random() < 0.15) {
+            if (imperfectVaccines && Math.random() < 0.20) {
                 node.status = "S";
             }
         }

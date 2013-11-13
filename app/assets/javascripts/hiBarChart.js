@@ -108,9 +108,9 @@ function plotBar(data) {
         .style("fill", "#707070")
 
     d3.select("#hiSVG").append("text")
-        .text("(Outbreaks > 10%)")
+        .text("(Outbreaks > 3%)")
         .attr("class", "repeatRemovalText")
-        .attr("x", 420)
+        .attr("x", 420 + 3)
         .attr("y", 347)
         .style("font-size", "18px")
         .style("font-family", "Nunito")

@@ -3,8 +3,9 @@
   background: #85bc99;
   float:right;
   color: "white";
-  width:225px;
-  height: 45px;
+  width:200px;
+  height: 35px;
+  line-height: 0px;
   bottom: 10px;
   padding-top: 30px;
   padding-left: 12px;
@@ -12,6 +13,30 @@
   right:-5px;
   visibility: visible;
   display: inline;
+  box-shadow:5px 7px #838383;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+#vaxLogoDiv {
+  position:absolute;
+  background: #85bc99;
+  float:left;
+  width: 120px;
+  height: 50px;
+  bottom: 10px;
+  padding-top: 30px;
+  padding-left: 12px;
+  text-align: center;
+  left:0px;
+  visibility: visible;
+  display: inline;
+  font-family: "Nunito";
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 300;
   box-shadow:5px 7px #838383;
   -webkit-transition-duration: 0.5s;
   -moz-transition-duration: 0.5s;

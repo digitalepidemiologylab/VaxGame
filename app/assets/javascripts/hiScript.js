@@ -398,7 +398,7 @@ function hiAdvance() {
 
     if (hiGuide == 13) {
         d3.select("#hiGuideText")
-            .html("Let's try that again, but with a more common disease like influenza...")
+            .html("Let's try that again, but with a less transmissible disease like influenza...")
 
     }
 
@@ -437,8 +437,8 @@ function hiAdvance() {
 
         flu = true;
         d3.selectAll(".fluText").remove();
-        transmissionRate = 0.25;
-        recoveryRate = 0.35;
+        transmissionRate = 0.2;
+        recoveryRate = 0.53;
 
         outbreakFrequency = [0,0,0,0,0,0,0,0,0]
 
@@ -478,8 +478,8 @@ function hiAdvance() {
         flu = true;
         imperfectVaccines = true;
         d3.selectAll(".fluText").remove();
-        transmissionRate = 0.25;
-        recoveryRate = 0.35;
+        transmissionRate = 0.2;
+        recoveryRate = 0.53;
 
         outbreakFrequency = [0,0,0,0,0,0,0,0,0]
 
