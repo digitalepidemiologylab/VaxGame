@@ -120,7 +120,7 @@ d3.select(".homeSVG").append("text")
 d3.select(".homeSVG").append("text")
     .attr("class", "homeTutorial")
     .attr("x", 802)
-    .attr("y", 490)
+    .attr("y", 525)
     .attr("fill", "#707070")
     .on("mouseover", function(d) {
 
@@ -135,27 +135,27 @@ d3.select(".homeSVG").append("text")
         homeToTutorial();
     })
 
-d3.select(".homeSVG").append("text")
-    .attr("x", 786)
-    .attr("y", 525)
-    .style("cursor", "pointer")
-    .attr("fill", "#707070")
-    .attr("font-size", "23px")
-    .style("font-family", "Nunito")
-    .style("fill", "#707070")
-    .style("font-weight", 500)
-    .on("mouseover", function(d) {
-
-        d3.select(this).style("fill", "#2692F2")
-
-    })
-    .on("mouseout", function(d) {
-        d3.select(this).style("fill", "#707070")
-    })
-    .on("click", function() {
-        window.location.href = "http://vax.herokuapp.com/faq";
-    })
-    .text("About >")
+//d3.select(".homeSVG").append("text")
+//    .attr("x", 786)
+//    .attr("y", 525)
+//    .style("cursor", "pointer")
+//    .attr("fill", "#707070")
+//    .attr("font-size", "23px")
+//    .style("font-family", "Nunito")
+//    .style("fill", "#707070")
+//    .style("font-weight", 500)
+//    .on("mouseover", function(d) {
+//
+//        d3.select(this).style("fill", "#2692F2")
+//
+//    })
+//    .on("mouseout", function(d) {
+//        d3.select(this).style("fill", "#707070")
+//    })
+//    .on("click", function() {
+//        window.location.href = "http://vax.herokuapp.com/faq";
+//    })
+//    .text("About >")
 
 d3.select(".homeSVG").append("text")
     .attr("class", "homeGame")
@@ -286,13 +286,14 @@ function homeToTutorial() {
         .style("font-weight", 300)
         .text("")
 
-//    d3.select("body").append("div")
-//        .attr("class", "about")
-//        .style("bottom", "20px")
-//        .text("Salathé Group @ Penn State")
-//        .on("click", function() {
-//            window.location.href = 'http://salathegroup.com/'
-//        })
+    d3.select("body").append("div")
+        .attr("class", "about")
+        .style("right", "0px")
+        .style("bottom", "20px")
+        .text("More About Vax...")
+        .on("click", function() {
+            window.location.href = 'http://vax.herokuapp.com/about'
+        })
 
     advanceTutorial()
 }

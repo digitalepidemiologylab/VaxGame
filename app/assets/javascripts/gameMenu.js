@@ -7,13 +7,13 @@ var speed = false;
 var toggleDegree = true;
 
 function initBasicMenu() {
-    d3.select("body").append("div")
-        .attr("class", "vaxLogoDiv")
-        .text("VAX!")
-        .style("cursor", "pointer")
-        .on("click", function() {
-            window.location.href = 'http://vax.herokuapp.com/'
-        })
+//    d3.select("body").append("div")
+//        .attr("class", "vaxLogoDiv")
+//        .text("VAX!")
+//        .style("cursor", "pointer")
+//        .on("click", function() {
+//            window.location.href = 'http://vax.herokuapp.com/'
+//        })
 
     d3.select(".vaxLogoDiv")
         .style("visibility", "visible")
