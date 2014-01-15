@@ -56,6 +56,7 @@ function infectedToRecovered(individual) {
     // 1 - (1 - recoveryPerIndividualPerTimestep)^timeInfected
     if (Math.random() < (1-(Math.pow((1 - recoveryRate), timeSinceInfection))) || (timeSinceInfection > 10)) {
 
+        if (game) return;  // game has no recovery
         individual.status = "R";
     }
 }

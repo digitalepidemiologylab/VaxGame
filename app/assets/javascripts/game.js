@@ -77,6 +77,7 @@ var pop;
 var best;
 var current;
 
+
 initBasicMenu();
 window.setTimeout(initCookiesOnDelay, 500)
 
@@ -536,6 +537,10 @@ function initCustomGame() {
 
 }
 
+
+
+
+
 function initGameSpace() {
     d3.select(".vaxLogoDiv").remove();
 
@@ -600,9 +605,26 @@ function initGameSpace() {
         .attr("class", "link");
 
 // associate empty SVGs with node data. assign attributes. call force.drag to make them moveable.
+
+    clickArea = gameSVG.selectAll(".node")
+        .data(graph.nodes)
+        .enter()
+        .append("circle")
+        .attr("class", "clickArea")
+        .attr("r", function(node) {
+            return 1.5 * nodeSize(node);
+        })
+        .attr("opacity", 0)
+        .call(force.drag)
+        .on("click", function(node) {
+            if (speed) speedModeGameClick(node);
+            else gameClick(node);
+        })
+
     node = gameSVG.selectAll(".node")
         .data(graph.nodes)
-        .enter().append("circle")
+        .enter()
+        .append("circle")
         .attr("class", "node")
         .attr("r", nodeSize)
         .attr("fill", nodeColor)
@@ -626,6 +648,11 @@ function initGameSpace() {
     loadHotKeyText();
     if (difficultyString == "hard") refusersPresent();
     if (difficultyString == null || numberOfRefusers>0) refusersPresent();
+
+    d3.enter().append("rect")
+        .attr("class", "background")
+        .style("visibility", "hidden")
+        .style("cursor", "crosshair");
 
 }
 
@@ -778,14 +805,16 @@ function speedModeGameClick(node) {
 
 // tick function, which does the physics for each individual node & link.
 function tick() {
+    clickArea.attr("cx", function(d) { return d.x = Math.max(8, Math.min(width - 8, d.x)); })
+        .attr("cy", function(d) { return d.y = Math.max(8, Math.min((height *.85), d.y)); });
+
     node.attr("cx", function(d) { return d.x = Math.max(8, Math.min(width - 8, d.x)); })
         .attr("cy", function(d) { return d.y = Math.max(8, Math.min((height *.85), d.y)); });
+
     link.attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
-
-
 
 }
 
@@ -829,13 +858,28 @@ function gameUpdate() {
 
     // Update the nodes…
     node = gameSVG.selectAll("circle.node")
-        .data(nodes, function(d) { return d.id; })
+        .data(nodes, function(d) { return d.id })
         .style("fill", nodeColor)
 
-    d3.selectAll("circle.node")
+    d3.selectAll(".node")
         .transition()
         .duration(100)
         .attr("r", nodeSize)
+
+    d3.selectAll(".clickArea")
+        .on("click", function(node) {
+            if (node.status == "V" || node.status == "Q") return;
+            else {
+                if (speed) speedModeGameClick(node);
+                else gameClick(node);
+            }
+        })
+        .attr("r", function(node) {
+            if (node.degree = 0) return 0;
+            return 1.5 * nodeSize(node)
+        })
+
+
 
     // Enter any new nodes.
     node.enter().append("svg:circle")
