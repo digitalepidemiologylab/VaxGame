@@ -17,8 +17,6 @@ function initFooter() {
         .attr("class", "gameMenuBox")
 
 
-
-
     d3.select(".gameMenuBox").append("div")
         .attr("class", "gameMenuBoxItem")
         .attr("id", "helpNav")

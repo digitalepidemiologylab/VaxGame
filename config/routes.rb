@@ -9,6 +9,7 @@ VaxGame::Application.routes.draw do
   match '/scores', to: 'static_pages#scores'
   match '/herdImmunity', to: 'static_pages#herdImmunity'
   match '/herdimmunity', to: 'static_pages#herdImmunity'
+  match '/mode', to: 'static_pages#modeSelect'
 
   match '/game', to: 'static_pages#game'
 

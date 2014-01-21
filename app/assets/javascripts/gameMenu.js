@@ -290,7 +290,7 @@ $(function() {
     $( "#nodeSlider").slider({
         range: "min",
         min: 10,
-        max: 150,
+        max: 500,
         value: customNodeChoice,
         slide: function (event, ui) {
             $.cookie.json = false;
@@ -321,7 +321,7 @@ $(function() {
     $( "#degreeSlider").slider({
         range: "min",
         min: 1,
-        max: 5,
+        max: 8,
         value: customNeighborChoice,
         slide: function (event, ui) {
             $.cookie.json = false;
