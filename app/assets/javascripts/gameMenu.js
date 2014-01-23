@@ -388,3 +388,104 @@ $(function() {
 });
 
 
+function readCookiesJSON() {
+    $.cookie.json = true;
+    var cookies = $.cookie('vaxCookie')
+
+    if (cookies == undefined) initCookiesJSON();
+
+    cookie = $.cookie('vaxCookie')
+
+    vaxEasyCompletion = cookie.easy;
+    vaxMediumCompletion = cookie.medium;
+    vaxHardCompletion = cookie.hard;
+
+    vaxEasyHiScore = Math.max.apply( Math, cookie.scores[0])
+    vaxMediumHiScore = Math.max.apply( Math, cookie.scores[1])
+    vaxHardHiScore = Math.max.apply( Math, cookie.scores[2])
+
+    if (cookie.scoresRT == undefined) {
+        var easyScoresRT = [];
+        var mediumScoresRT = [];
+        var hardScoresRT = [];
+        var scoreRT = [easyScoresRT, mediumScoresRT, hardScoresRT]
+
+        cookie.scoresRT = scoreRT;
+
+    }
+
+    vaxEasyHiScoreRT = Math.max.apply( Math, cookie.scoresRT[0])
+    vaxMediumHiScoreRT = Math.max.apply( Math, cookie.scoresRT[1])
+    vaxHardHiScoreRT = Math.max.apply( Math, cookie.scoresRT[2])
+
+    $.cookie.json = false;
+    customNodeChoice = parseInt($.cookie().customNodes);
+    customNeighborChoice = parseInt($.cookie().customNeighbors);
+    customVaccineChoice = parseInt($.cookie().customVaccines);
+    customOutbreakChoice = parseInt($.cookie().customOutbreaks);
+    customRefuserChoice = parseInt($.cookie().customRefusers);
+
+
+    if (isNaN(customNodeChoice)) {
+        customNodeChoice = 75;
+        $.cookie('customNodes', 75)
+    }
+    if (isNaN(customNeighborChoice)) {
+        customNeighborChoice = 3;
+        $.cookie('customNeighbors', 3)
+
+    }
+    if (isNaN(customVaccineChoice)) {
+        customVaccineChoice = 10;
+        $.cookie('customVaccines', 10)
+
+    }
+    if (isNaN(customOutbreakChoice)) {
+        customOutbreakChoice = 2;
+        $.cookie('customOutbreaks', 2)
+    }
+    if (isNaN(customRefuserChoice)) {
+        customRefuserChoice = 0.05;
+        $.cookie('customRefusers', 0.05)
+
+    }
+
+    $.cookie.json = true;
+
+    initSocialShare();
+    cookieBasedModeSelection();
+}
+
+function initCookiesJSON() {
+    var oldCookieTest = $.cookie('vaxEasyCompletion');
+
+
+    if (oldCookieTest || isNaN(customNodeChoice)) clearCookies();
+    else { if (!oldCookieTest || isNaN(customNodeChoice)) clearCookies();}
+
+    $.cookie('customNodes', 75)
+    $.cookie('customNeighbors', 3)
+    $.cookie('customVaccines', 10)
+    $.cookie('customOutbreaks', 2)
+    $.cookie('customRefusers', 0.05)
+
+
+    $.cookie.json = true;
+
+    easyScores = [];
+    mediumScores = [];
+    hardScores = [];
+    var score = [easyScores, mediumScores, hardScores];
+
+    easyScoresRT = [];
+    mediumScoresRT = [];
+    hardScoresRT = [];
+    var scoreRT = [easyScoresRT, mediumScoresRT, hardScoresRT];
+
+    var cookie = {easy: false, medium: false, hard: false, scores: score, scoresRT: scoreRT}
+
+    $.cookie('vaxCookie', JSON.stringify(cookie), { expires: 365, path: '/' })
+
+}
+
+

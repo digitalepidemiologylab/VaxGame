@@ -1,6 +1,7 @@
 var numberOfIndividuals, meanDegree, rewire = 0.1;
 var graph = {};
 var force,node, link;
+var scenarioTitle;
 
 var transmissionRate,recoveryRate;
 var transmissionRates = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
@@ -491,6 +492,7 @@ function initBasicGame(difficulty) {
 function initCustomGame() {
     d3.select(".vaxLogoDiv").remove();
 
+    scenarioTitle = "custom";
     difficultyString = null;
 
     d3.select(".newGameHeader").remove();
@@ -522,7 +524,7 @@ function initCustomGame() {
 
     for (var i = 0; i < numberOfRefusers; i++) {
         do {
-            var node = graph.nodes[Math.round(Math.random() * graph.nodes.length)]
+            var node = graph.nodes[Math.floor(Math.random() * graph.nodes.length)]
         }
         while (node.refuser)
         node.refuser = true;
@@ -537,10 +539,6 @@ function initCustomGame() {
 
 }
 
-
-
-
-
 function initGameSpace() {
     d3.select(".vaxLogoDiv").remove();
 
@@ -549,7 +547,6 @@ function initGameSpace() {
 
     loadGameSyringe();
     initFooter();
-    d3.select(".gameMenuBox").style("right", "-300px")
     window.setTimeout(function() {d3.select(".gameMenuBox").style("right", "-10px"); d3.select(".gameVaxLogoDiv").style("left", "-12px")},1)
 
 
@@ -612,7 +609,7 @@ function initGameSpace() {
         .append("circle")
         .attr("class", "clickArea")
         .attr("r", function(node) {
-            return 1.5 * nodeSize(node);
+            return (1.5 * nodeSize(node));
         })
         .attr("opacity", 0)
         .call(force.drag)
@@ -658,7 +655,6 @@ function initGameSpace() {
 
 function loadHotKeyText() {
     var visible = true;
-
 
     d3.select("body").append("div")
         .attr("id", "pinNodesDiv")
@@ -2326,6 +2322,4 @@ function toggleDegreeFxn() {
     gameUpdate();
 
 }
-
-
 

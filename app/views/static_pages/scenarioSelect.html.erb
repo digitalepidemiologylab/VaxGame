@@ -1,5 +1,7 @@
 <% provide(:title, 'Scenario Selection') %>
-<%= javascript_include_tag "modeSelect" %>
+<%= javascript_include_tag "scenarioSelect" %>
+<%= javascript_include_tag "jquery.cookie" %>
+
 
 <div id="accordion">
 
@@ -113,8 +115,8 @@
 
   <h3 id="scenarioHead">Random Networks</h3>
       <div>
-        <p class="scenarioText" >
-          Original Vax. Play on a dynamically generated level that is designed to resemble human social networks. Customize the level to your liking after you beat all three difficulties!
+        <p id="scenarioText" >
+          Original Vax with dynamically generated levels that are designed to resemble human social networks. Complete all difficulties to unlock customizations.
 
 
         </p>
@@ -135,3 +137,43 @@
 
 
 </div>
+
+<audio id="audio">
+  <source src="/assets/pop.wav" type="audio/wav" />
+</audio>
+
+
+<div class="actionVax" onclick=activateGameVaccinationMode()>
+  <div class="vaccineDepressedState"></div>
+  <text id = "vaxShieldText"> VACCINES </text>
+  <img id="vaxShieldIcon" src="/assets/vaxShield.svg" onclick=activateGameVaccinationMode()>
+</div>
+
+<div class="actionQuarantine" onclick=activateGameQuarantineMode()>
+  <div class="quarantineDepressedState"></div>
+  <text id = "quarantineText"> QUARANTINE </text>
+  <img id="quarantineIcon" src="/assets/quarantine.svg" onclick=activateGameQuarantineMode()>
+</div>
+
+
+<div id = "customMenuDiv" >
+
+  <div class = "customHeaderFooter" id = "customLevelHeader"> CUSTOM LEVEL </div>
+
+  <div class = "customMenuItem" id = "customNodes"> Nodes: </div>
+  <div id = "nodeSlider">  </div>
+
+  <div class = "customMenuItem" id = "customDegree"> Neighbors: </div>
+  <div id = "degreeSlider" >  </div>
+
+  <div class = "customMenuItem" id = "customVaccines"> Vaccines:  </div>
+  <div id = "vaccineSlider" >  </div>
+
+  <div class = "customMenuItem" id = "customRefusers"> Refusers:  </div>
+  <div id = "refuserSlider" >  </div>
+
+  <div class = "customMenuItem" id = "customOutbreaks"> Outbreaks:  </div>
+  <div id = "outbreakSlider" >  </div>
+
+</div>
+

@@ -2,619 +2,420 @@ function initWorkNet() {
     var workGraph = {};
     var workLinks = [
         {
-            "Source":1,
-            "Target":22
+            "source":1,
+            "target":22
         },
         {
-            "Source":2,
-            "Target":4
+            "source":2,
+            "target":4
         },
         {
-            "Source":2,
-            "Target":6
+            "source":2,
+            "target":6
         },
         {
-            "Source":2,
-            "Target":29
+            "source":2,
+            "target":29
         },
         {
-            "Source":3,
-            "Target":4
+            "source":3,
+            "target":4
         },
         {
-            "Source":3,
-            "Target":7
+            "source":3,
+            "target":7
         },
         {
-            "Source":3,
-            "Target":21
+            "source":3,
+            "target":21
         },
         {
-            "Source":5,
-            "Target":4
+            "source":5,
+            "target":4
         },
         {
-            "Source":5,
-            "Target":8
+            "source":5,
+            "target":8
         },
         {
-            "Source":5,
-            "Target":11
+            "source":5,
+            "target":11
         },
         {
-            "Source":5,
-            "Target":12
+            "source":5,
+            "target":12
         },
         {
-            "Source":5,
-            "Target":13
+            "source":5,
+            "target":13
         },
         {
-            "Source":6,
-            "Target":4
+            "source":6,
+            "target":4
         },
         {
-            "Source":6,
-            "Target":23
+            "source":6,
+            "target":23
         },
         {
-            "Source":6,
-            "Target":24
+            "source":6,
+            "target":24
         },
         {
-            "Source":6,
-            "Target":26
+            "source":6,
+            "target":26
         },
         {
-            "Source":7,
-            "Target":5
+            "source":7,
+            "target":5
         },
         {
-            "Source":8,
-            "Target":9
+            "source":8,
+            "target":9
         },
         {
-            "Source":8,
-            "Target":14
+            "source":8,
+            "target":14
         },
         {
-            "Source":9,
-            "Target":1
+            "source":9,
+            "target":1
         },
         {
-            "Source":9,
-            "Target":7
+            "source":9,
+            "target":7
         },
         {
-            "Source":9,
-            "Target":10
+            "source":9,
+            "target":10
         },
         {
-            "Source":9,
-            "Target":22
+            "source":9,
+            "target":22
         },
         {
-            "Source":9,
-            "Target":44
+            "source":9,
+            "target":44
         },
         {
-            "Source":10,
-            "Target":2
+            "source":10,
+            "target":2
         },
         {
-            "Source":10,
-            "Target":3
+            "source":10,
+            "target":3
         },
         {
-            "Source":10,
-            "Target":5
+            "source":10,
+            "target":5
         },
         {
-            "Source":14,
-            "Target":16
+            "source":14,
+            "target":16
         },
         {
-            "Source":14,
-            "Target":19
+            "source":14,
+            "target":19
         },
         {
-            "Source":14,
-            "Target":37
+            "source":14,
+            "target":37
         },
         {
-            "Source":14,
-            "Target":38
+            "source":14,
+            "target":38
         },
         {
-            "Source":14,
-            "Target":39
+            "source":14,
+            "target":39
         },
         {
-            "Source":14,
-            "Target":40
+            "source":14,
+            "target":40
         },
         {
-            "Source":14,
-            "Target":41
+            "source":14,
+            "target":41
         },
         {
-            "Source":15,
-            "Target":9
+            "source":15,
+            "target":9
         },
         {
-            "Source":15,
-            "Target":11
+            "source":15,
+            "target":11
         },
         {
-            "Source":15,
-            "Target":13
+            "source":15,
+            "target":13
         },
         {
-            "Source":15,
-            "Target":17
+            "source":15,
+            "target":17
         },
         {
-            "Source":15,
-            "Target":18
+            "source":15,
+            "target":18
         },
         {
-            "Source":15,
-            "Target":19
+            "source":15,
+            "target":19
         },
         {
-            "Source":15,
-            "Target":31
+            "source":15,
+            "target":31
         },
         {
-            "Source":17,
-            "Target":43
+            "source":17,
+            "target":43
         },
         {
-            "Source":18,
-            "Target":14
+            "source":18,
+            "target":14
         },
         {
-            "Source":18,
-            "Target":19
+            "source":18,
+            "target":19
         },
         {
-            "Source":20,
-            "Target":3
+            "source":20,
+            "target":3
         },
         {
-            "Source":21,
-            "Target":20
+            "source":21,
+            "target":20
         },
         {
-            "Source":23,
-            "Target":25
+            "source":23,
+            "target":25
         },
         {
-            "Source":24,
-            "Target":25
+            "source":24,
+            "target":25
         },
         {
-            "Source":24,
-            "Target":26
+            "source":24,
+            "target":26
         },
         {
-            "Source":24,
-            "Target":30
+            "source":24,
+            "target":30
         },
         {
-            "Source":26,
-            "Target":27
+            "source":26,
+            "target":27
         },
         {
-            "Source":26,
-            "Target":28
+            "source":26,
+            "target":28
         },
         {
-            "Source":27,
-            "Target":24
+            "source":27,
+            "target":24
         },
         {
-            "Source":29,
-            "Target":6
+            "source":29,
+            "target":6
         },
         {
-            "Source":29,
-            "Target":23
+            "source":29,
+            "target":23
         },
         {
-            "Source":31,
-            "Target":4
+            "source":31,
+            "target":4
         },
         {
-            "Source":31,
-            "Target":5
+            "source":31,
+            "target":5
         },
         {
-            "Source":31,
-            "Target":32
+            "source":31,
+            "target":32
         },
         {
-            "Source":31,
-            "Target":33
+            "source":31,
+            "target":33
         },
         {
-            "Source":31,
-            "Target":36
+            "source":31,
+            "target":36
         },
         {
-            "Source":32,
-            "Target":15
+            "source":32,
+            "target":15
         },
         {
-            "Source":32,
-            "Target":34
+            "source":32,
+            "target":34
         },
         {
-            "Source":33,
-            "Target":29
+            "source":33,
+            "target":29
         },
         {
-            "Source":33,
-            "Target":36
+            "source":33,
+            "target":36
         },
         {
-            "Source":34,
-            "Target":35
+            "source":34,
+            "target":35
         },
         {
-            "Source":35,
-            "Target":33
+            "source":35,
+            "target":33
         },
         {
-            "Source":36,
-            "Target":32
+            "source":36,
+            "target":32
         },
         {
-            "Source":36,
-            "Target":34
+            "source":36,
+            "target":34
         },
         {
-            "Source":36,
-            "Target":35
+            "source":36,
+            "target":35
         },
         {
-            "Source":37,
-            "Target":46
+            "source":37,
+            "target":46
         },
         {
-            "Source":37,
-            "Target":48
+            "source":37,
+            "target":48
         },
         {
-            "Source":39,
-            "Target":14
+            "source":39,
+            "target":14
         },
         {
-            "Source":39,
-            "Target":38
+            "source":39,
+            "target":38
         },
         {
-            "Source":39,
-            "Target":49
+            "source":39,
+            "target":49
         },
         {
-            "Source":41,
-            "Target":16
+            "source":41,
+            "target":16
         },
         {
-            "Source":41,
-            "Target":37
+            "source":41,
+            "target":37
         },
         {
-            "Source":41,
-            "Target":38
+            "source":41,
+            "target":38
         },
         {
-            "Source":41,
-            "Target":39
+            "source":41,
+            "target":39
         },
         {
-            "Source":41,
-            "Target":40
+            "source":41,
+            "target":40
         },
         {
-            "Source":41,
-            "Target":47
+            "source":41,
+            "target":47
         },
         {
-            "Source":42,
-            "Target":14
+            "source":42,
+            "target":14
         },
         {
-            "Source":42,
-            "Target":44
+            "source":42,
+            "target":44
         },
         {
-            "Source":42,
-            "Target":45
+            "source":42,
+            "target":45
         },
         {
-            "Source":43,
-            "Target":19
+            "source":43,
+            "target":19
         },
         {
-            "Source":43,
-            "Target":38
+            "source":43,
+            "target":38
         },
         {
-            "Source":47,
-            "Target":52
+            "source":47,
+            "target":52
         },
         {
-            "Source":50,
-            "Target":14
+            "source":50,
+            "target":14
         },
         {
-            "Source":51,
-            "Target":47
+            "source":51,
+            "target":47
         },
         {
-            "Source":53,
-            "Target":1
+            "source":53,
+            "target":1
         },
         {
-            "Source":53,
-            "Target":22
+            "source":53,
+            "target":22
         },
         {
-            "Source":54,
-            "Target":7
+            "source":54,
+            "target":7
         },
         {
-            "Source":54,
-            "Target":20
+            "source":54,
+            "target":20
         },
         {
-            "Source":54,
-            "Target":22
+            "source":54,
+            "target":22
         },
         {
-            "Source":55,
-            "Target":22
+            "source":55,
+            "target":22
         },
         {
-            "Source":56,
-            "Target":1
+            "source":56,
+            "target":1
         }
     ]
-    var workNodes = [
-        {
-            "Id":14,
-            "Label":"group1"
-        },
-        {
-            "Id":16,
-            "Label":"group1"
-        },
-        {
-            "Id":18,
-            "Label":"group1"
-        },
-        {
-            "Id":19,
-            "Label":"group1"
-        },
-        {
-            "Id":37,
-            "Label":"group1"
-        },
-        {
-            "Id":38,
-            "Label":"group1"
-        },
-        {
-            "Id":39,
-            "Label":"group1"
-        },
-        {
-            "Id":40,
-            "Label":"group1"
-        },
-        {
-            "Id":41,
-            "Label":"group1"
-        },
-        {
-            "Id":42,
-            "Label":"group1"
-        },
-        {
-            "Id":43,
-            "Label":"group1"
-        },
-        {
-            "Id":45,
-            "Label":"group1"
-        },
-        {
-            "Id":46,
-            "Label":"group1"
-        },
-        {
-            "Id":47,
-            "Label":"group1"
-        },
-        {
-            "Id":48,
-            "Label":"group1"
-        },
-        {
-            "Id":49,
-            "Label":"group1"
-        },
-        {
-            "Id":51,
-            "Label":"group1"
-        },
-        {
-            "Id":52,
-            "Label":"group1"
-        },
-        {
-            "Id":1,
-            "Label":"group2"
-        },
-        {
-            "Id":9,
-            "Label":"group2"
-        },
-        {
-            "Id":22,
-            "Label":"group2"
-        },
-        {
-            "Id":53,
-            "Label":"group2"
-        },
-        {
-            "Id":55,
-            "Label":"group2"
-        },
-        {
-            "Id":56,
-            "Label":"group2"
-        },
-        {
-            "Id":3,
-            "Label":"group3"
-        },
-        {
-            "Id":4,
-            "Label":"group3"
-        },
-        {
-            "Id":5,
-            "Label":"group3"
-        },
-        {
-            "Id":7,
-            "Label":"group3"
-        },
-        {
-            "Id":10,
-            "Label":"group3"
-        },
-        {
-            "Id":20,
-            "Label":"group3"
-        },
-        {
-            "Id":21,
-            "Label":"group3"
-        },
-        {
-            "Id":54,
-            "Label":"group3"
-        },
-        {
-            "Id":31,
-            "Label":"group4"
-        },
-        {
-            "Id":32,
-            "Label":"group4"
-        },
-        {
-            "Id":33,
-            "Label":"group4"
-        },
-        {
-            "Id":34,
-            "Label":"group4"
-        },
-        {
-            "Id":35,
-            "Label":"group4"
-        },
-        {
-            "Id":36,
-            "Label":"group4"
-        },
-        {
-            "Id":6,
-            "Label":"group5"
-        },
-        {
-            "Id":23,
-            "Label":"group5"
-        },
-        {
-            "Id":24,
-            "Label":"group5"
-        },
-        {
-            "Id":25,
-            "Label":"group5"
-        },
-        {
-            "Id":26,
-            "Label":"group5"
-        },
-        {
-            "Id":27,
-            "Label":"group5"
-        },
-        {
-            "Id":28,
-            "Label":"group5"
-        },
-        {
-            "Id":29,
-            "Label":"group5"
-        },
-        {
-            "Id":30,
-            "Label":"group5"
-        },
-        {
-            "Id":2,
-            "Label":"group6"
-        },
-        {
-            "Id":8,
-            "Label":"group6"
-        },
-        {
-            "Id":11,
-            "Label":"group6"
-        },
-        {
-            "Id":12,
-            "Label":"group6"
-        },
-        {
-            "Id":13,
-            "Label":"group6"
-        },
-        {
-            "Id":15,
-            "Label":"group6"
-        },
-        {
-            "Id":17,
-            "Label":"group6"
-        },
-        {
-            "Id":44,
-            "Label":"group6"
-        },
-        {
-            "Id":50,
-            "Label":"group6"
-        }
-        ]
+
     var nodes = [];
-    for (var i = 1; i < workNodes.length; i++) {
-        var nodeString = {id:workNodes[i].Id, label:workNodes[i].Label, status:"S", group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null, infectedBy:null};
+    for (var i = 1; i < 57; i++) {
+        var nodeString = {id:i, status:"S", group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null, infectedBy:null};
         nodes.push(nodeString);
     }
-    workGraph.nodes = nodes;
+
+    for (var i = 0; i < workLinks.length; i++) {
+        var linkToMake = workLinks[i];
+        for (var ii = 0; ii < nodes.length; ii++) {
+            var nodeToCheck = nodes[ii];
+            if (linkToMake.source == nodeToCheck.id) {
+                workLinks[i].source = nodes[ii];
+            }
+        }
+    }
+
+    for (var i = 0; i < workLinks.length; i++) {
+        var linkToMake = workLinks[i];
+        for (var ii = 0; ii < nodes.length; ii++) {
+            var nodeToCheck = nodes[ii];
+            if (linkToMake.target == nodeToCheck.id) {
+                workLinks[i].target = nodes[ii];
+            }
+        }
+    }
+
+//    for (var i = 0; i < workLinks.length; i++) {
+//        console.log(workLinks[i].source.id + "\t" + workLinks[i].target.id + "\t" + i)
+//    }
+
+
     workGraph.links = workLinks;
+    workGraph.nodes = nodes;
     return workGraph;
 }
 
@@ -622,517 +423,392 @@ function initTheaterNet() {
     var theaterGraph = {};
     var theaterLinks = [
         {
-            "Source":1,
-            "Target":2
+            "source":1,
+            "target":2
         },
         {
-            "Source":2,
-            "Target":31
+            "source":2,
+            "target":31
         },
         {
-            "Source":2,
-            "Target":35
+            "source":2,
+            "target":35
         },
         {
-            "Source":4,
-            "Target":5
+            "source":4,
+            "target":5
         },
         {
-            "Source":5,
-            "Target":6
+            "source":5,
+            "target":6
         },
         {
-            "Source":6,
-            "Target":4
+            "source":6,
+            "target":4
         },
         {
-            "Source":7,
-            "Target":8
+            "source":7,
+            "target":8
         },
         {
-            "Source":8,
-            "Target":9
+            "source":8,
+            "target":9
         },
         {
-            "Source":8,
-            "Target":18
+            "source":8,
+            "target":18
         },
         {
-            "Source":9,
-            "Target":1
+            "source":9,
+            "target":1
         },
         {
-            "Source":9,
-            "Target":7
+            "source":9,
+            "target":7
         },
         {
-            "Source":10,
-            "Target":11
+            "source":10,
+            "target":11
         },
         {
-            "Source":11,
-            "Target":3
+            "source":11,
+            "target":3
         },
         {
-            "Source":12,
-            "Target":3
+            "source":12,
+            "target":3
         },
         {
-            "Source":12,
-            "Target":14
+            "source":12,
+            "target":14
         },
         {
-            "Source":12,
-            "Target":15
+            "source":12,
+            "target":15
         },
         {
-            "Source":13,
-            "Target":4
+            "source":13,
+            "target":4
         },
         {
-            "Source":13,
-            "Target":5
+            "source":13,
+            "target":5
         },
         {
-            "Source":13,
-            "Target":12
+            "source":13,
+            "target":12
         },
         {
-            "Source":13,
-            "Target":15
+            "source":13,
+            "target":15
         },
         {
-            "Source":14,
-            "Target":4
+            "source":14,
+            "target":4
         },
         {
-            "Source":14,
-            "Target":13
+            "source":14,
+            "target":13
         },
         {
-            "Source":15,
-            "Target":5
+            "source":15,
+            "target":5
         },
         {
-            "Source":15,
-            "Target":14
+            "source":15,
+            "target":14
         },
         {
-            "Source":16,
-            "Target":24
+            "source":16,
+            "target":24
         },
         {
-            "Source":17,
-            "Target":7
+            "source":17,
+            "target":7
         },
         {
-            "Source":17,
-            "Target":8
+            "source":17,
+            "target":8
         },
         {
-            "Source":18,
-            "Target":7
+            "source":18,
+            "target":7
         },
         {
-            "Source":18,
-            "Target":9
+            "source":18,
+            "target":9
         },
         {
-            "Source":18,
-            "Target":17
+            "source":18,
+            "target":17
         },
         {
-            "Source":19,
-            "Target":11
+            "source":19,
+            "target":11
         },
         {
-            "Source":20,
-            "Target":11
+            "source":20,
+            "target":11
         },
         {
-            "Source":20,
-            "Target":12
+            "source":20,
+            "target":12
         },
         {
-            "Source":20,
-            "Target":14
+            "source":20,
+            "target":14
         },
         {
-            "Source":20,
-            "Target":19
+            "source":20,
+            "target":19
         },
         {
-            "Source":21,
-            "Target":22
+            "source":21,
+            "target":22
         },
         {
-            "Source":22,
-            "Target":19
+            "source":22,
+            "target":19
         },
         {
-            "Source":23,
-            "Target":24
+            "source":23,
+            "target":24
         },
         {
-            "Source":24,
-            "Target":15
+            "source":24,
+            "target":15
         },
         {
-            "Source":25,
-            "Target":26
+            "source":25,
+            "target":26
         },
         {
-            "Source":25,
-            "Target":28
+            "source":25,
+            "target":28
         },
         {
-            "Source":26,
-            "Target":29
+            "source":26,
+            "target":29
         },
         {
-            "Source":26,
-            "Target":41
+            "source":26,
+            "target":41
         },
         {
-            "Source":28,
-            "Target":26
+            "source":28,
+            "target":26
         },
         {
-            "Source":28,
-            "Target":29
+            "source":28,
+            "target":29
         },
         {
-            "Source":28,
-            "Target":30
+            "source":28,
+            "target":30
         },
         {
-            "Source":28,
-            "Target":42
+            "source":28,
+            "target":42
         },
         {
-            "Source":29,
-            "Target":30
+            "source":29,
+            "target":30
         },
         {
-            "Source":31,
-            "Target":30
+            "source":31,
+            "target":30
         },
         {
-            "Source":31,
-            "Target":32
+            "source":31,
+            "target":32
         },
         {
-            "Source":32,
-            "Target":33
+            "source":32,
+            "target":33
         },
         {
-            "Source":33,
-            "Target":31
+            "source":33,
+            "target":31
         },
         {
-            "Source":34,
-            "Target":19
+            "source":34,
+            "target":19
         },
         {
-            "Source":34,
-            "Target":22
+            "source":34,
+            "target":22
         },
         {
-            "Source":34,
-            "Target":35
+            "source":34,
+            "target":35
         },
         {
-            "Source":34,
-            "Target":36
+            "source":34,
+            "target":36
         },
         {
-            "Source":35,
-            "Target":36
+            "source":35,
+            "target":36
         },
         {
-            "Source":37,
-            "Target":33
+            "source":37,
+            "target":33
         },
         {
-            "Source":37,
-            "Target":43
+            "source":37,
+            "target":43
         },
         {
-            "Source":38,
-            "Target":23
+            "source":38,
+            "target":23
         },
         {
-            "Source":39,
-            "Target":23
+            "source":39,
+            "target":23
         },
         {
-            "Source":39,
-            "Target":38
+            "source":39,
+            "target":38
         },
         {
-            "Source":40,
-            "Target":32
+            "source":40,
+            "target":32
         },
         {
-            "Source":40,
-            "Target":33
+            "source":40,
+            "target":33
         },
         {
-            "Source":40,
-            "Target":37
+            "source":40,
+            "target":37
         },
         {
-            "Source":41,
-            "Target":25
+            "source":41,
+            "target":25
         },
         {
-            "Source":41,
-            "Target":42
+            "source":41,
+            "target":42
         },
         {
-            "Source":42,
-            "Target":26
+            "source":42,
+            "target":26
         },
         {
-            "Source":42,
-            "Target":28
+            "source":42,
+            "target":28
         },
         {
-            "Source":42,
-            "Target":43
+            "source":42,
+            "target":43
         },
         {
-            "Source":43,
-            "Target":26
+            "source":43,
+            "target":26
         },
         {
-            "Source":43,
-            "Target":28
+            "source":43,
+            "target":28
         },
         {
-            "Source":43,
-            "Target":41
+            "source":43,
+            "target":41
         },
         {
-            "Source":43,
-            "Target":46
+            "source":43,
+            "target":46
         },
         {
-            "Source":44,
-            "Target":37
+            "source":44,
+            "target":37
         },
         {
-            "Source":44,
-            "Target":40
+            "source":44,
+            "target":40
         },
         {
-            "Source":44,
-            "Target":47
+            "source":44,
+            "target":47
         },
         {
-            "Source":44,
-            "Target":48
+            "source":44,
+            "target":48
         },
         {
-            "Source":45,
-            "Target":44
+            "source":45,
+            "target":44
         },
         {
-            "Source":45,
-            "Target":47
+            "source":45,
+            "target":47
         },
         {
-            "Source":45,
-            "Target":48
+            "source":45,
+            "target":48
         },
         {
-            "Source":46,
-            "Target":44
+            "source":46,
+            "target":44
         },
         {
-            "Source":46,
-            "Target":45
+            "source":46,
+            "target":45
         },
         {
-            "Source":46,
-            "Target":47
+            "source":46,
+            "target":47
         },
         {
-            "Source":46,
-            "Target":48
+            "source":46,
+            "target":48
         },
         {
-            "Source":47,
-            "Target":37
+            "source":47,
+            "target":37
         },
         {
-            "Source":47,
-            "Target":40
+            "source":47,
+            "target":40
         },
         {
-            "Source":48,
-            "Target":37
+            "source":48,
+            "target":37
         },
         {
-            "Source":48,
-            "Target":38
+            "source":48,
+            "target":38
         },
         {
-            "Source":48,
-            "Target":47
-        }
-    ]
-    var theaterNodes = [
-        {
-            "Id":1
-        },
-        {
-            "Id":2
-        },
-        {
-            "Id":3
-        },
-        {
-            "Id":4
-        },
-        {
-            "Id":5
-        },
-        {
-            "Id":6
-        },
-        {
-            "Id":7
-        },
-        {
-            "Id":8
-        },
-        {
-            "Id":9
-        },
-        {
-            "Id":10
-        },
-        {
-            "Id":11
-        },
-        {
-            "Id":12
-        },
-        {
-            "Id":13
-        },
-        {
-            "Id":14
-        },
-        {
-            "Id":15
-        },
-        {
-            "Id":16
-        },
-        {
-            "Id":17
-        },
-        {
-            "Id":18
-        },
-        {
-            "Id":19
-        },
-        {
-            "Id":20
-        },
-        {
-            "Id":21
-        },
-        {
-            "Id":22
-        },
-        {
-            "Id":23
-        },
-        {
-            "Id":24
-        },
-        {
-            "Id":25
-        },
-        {
-            "Id":26
-        },
-        {
-            "Id":28
-        },
-        {
-            "Id":29
-        },
-        {
-            "Id":30
-        },
-        {
-            "Id":31
-        },
-        {
-            "Id":32
-        },
-        {
-            "Id":33
-        },
-        {
-            "Id":34
-        },
-        {
-            "Id":35
-        },
-        {
-            "Id":36
-        },
-        {
-            "Id":37
-        },
-        {
-            "Id":38
-        },
-        {
-            "Id":39
-        },
-        {
-            "Id":40
-        },
-        {
-            "Id":41
-        },
-        {
-            "Id":42
-        },
-        {
-            "Id":43
-        },
-        {
-            "Id":44
-        },
-        {
-            "Id":45
-        },
-        {
-            "Id":46
-        },
-        {
-            "Id":47
-        },
-        {
-            "Id":48
+            "source":48,
+            "target":47
         }
     ]
 
     var nodes = [];
-    for (var i = 1; i < theaterNodes.length; i++) {
-        var nodeString = {id:theaterNodes[i].Id, status:"S", group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null, infectedBy:null};
+    for (var i = 1; i < 49; i++) {
+        var nodeString = {id:i, status:"S", group:null, edges:[], marked:false, degree:null, bcScore:null, exposureTimestep:null, infectedBy:null};
         nodes.push(nodeString);
     }
+
+    var links = [];
+    for (var i = 0; i < theaterLinks.length; i++) {
+        var sourceToMake = theaterLinks[i].source;
+        var targetToMake = theaterLinks[i].target;
+        for (var ii = 0; ii < nodes.length; ii++) {
+            if (sourceToMake == nodes[ii].id) {
+                for (var iii = 0; iii < nodes.length; iii++) {
+                    if (targetToMake == nodes[iii].id) {
+                        var linkString = {source:nodes[ii],target:nodes[iii],remove:false};
+                        links.push(linkString);
+                    }
+                }
+            }
+        }
+    }
+
+
     theaterGraph.nodes = nodes;
-    theaterGraph.links = theaterLinks;
+    theaterGraph.links = links;
     return theaterGraph;
 }
 
@@ -1146,5 +822,38 @@ function initShopNet() {
 
 function initClubNet() {
 
+}
+
+function initRandomNet() {
+    if (difficulty == "easy") {
+        numberOfIndividuals = 50;
+        meanDegree = 3;
+        numberOfVaccines = 5;
+        independentOutbreaks = 1;
+        transmissionRate = 0.7;
+        recoveryRate = 0;
+    }
+
+    if (difficulty == "medium") {
+        numberOfIndividuals = 75;
+        meanDegree = 4;
+        numberOfVaccines = 10;
+        independentOutbreaks = 2;
+        transmissionRate = 0.7;
+        recoveryRate = 0;
+        numberOfRefusers = 5;
+    }
+
+    if (difficulty == "hard") {
+        charge = -300;
+        numberOfIndividuals = 100;
+        meanDegree = 4;
+        numberOfVaccines = 15;
+        transmissionRate = 0.4;
+        recoveryRate = 0;
+        independentOutbreaks = 3;
+        numberOfRefusers = 10;
+    }
+    return generateSmallWorld(numberOfIndividuals, rewire, meanDegree);
 }
 
