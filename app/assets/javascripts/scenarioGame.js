@@ -14,7 +14,6 @@ var xyCoords;
 var rewire = 0.1;
 var meanDegree;
 
-
 // game phase markers
 var vaccinateMode;
 var quarantineMode;
@@ -45,6 +44,9 @@ var friction = 0.9;
 
 // d3 force directed
 var force;
+
+// cookies
+var unlocks;
 
 runScenario();
 
@@ -929,5 +931,63 @@ function recordScores() {
    $.cookie('vaxCurrentScenarioScores', JSON.stringify(currentScenarioScoresCookie), { expires: 365, path: '/' })
     console.log($.cookie('vaxCurrentScenarioScores'))
 
+    modifyUnlocks();
+
     window.location.href = 'http://0.0.0.0:3000/scores'
+}
+
+function modifyUnlocks() {
+    unlocks = $.cookie('vaxUnlocks')
+
+    if (scenarioTitle == "Workplace / School") {
+        if (difficulty == "easy") unlocks.work.difficulty.medium = true;
+        if (difficulty == "medium") unlocks.work.difficulty.hard = true;
+
+        if (unlocks.work.difficulty.easy && unlocks.work.difficulty.medium && unlocks.work.difficulty.hard) {
+            unlocks.theater.difficulty.easy = true;
+        }
+
+    }
+
+    if (scenarioTitle == "Movie Theater / Lecture Hall") {
+        if (difficulty == "easy") unlocks.theater.difficulty.medium = true;
+        if (difficulty == "medium") unlocks.theater.difficulty.hard = true;
+
+        if (unlocks.theater.difficulty.easy && unlocks.theater.difficulty.medium && unlocks.theater.difficulty.hard) {
+            unlocks.restaurant.difficulty.easy = true;
+        }
+    }
+
+    if (scenarioTitle == "Restaurant") {
+        if (difficulty == "easy") unlocks.restaurant.difficulty.medium = true;
+        if (difficulty == "medium") unlocks.restaurant.difficulty.hard = true;
+
+        if (unlocks.restaurant.difficulty.easy && unlocks.restaurant.difficulty.medium && unlocks.restaurant.difficulty.hard) {
+            unlocks.club.difficulty.easy = true;
+        }
+    }
+
+    if (scenarioTitle == "Organization") {
+        if (difficulty == "easy") unlocks.club.difficulty.medium = true;
+        if (difficulty == "medium") unlocks.club.difficulty.hard = true;
+
+        if (unlocks.club.difficulty.easy && unlocks.club.difficulty.medium && unlocks.club.difficulty.hard) {
+            unlocks.shop.difficulty.easy = true;
+        }
+    }
+
+    if (scenarioTitle == "Shopping") {
+        if (difficulty == "easy") unlocks.shop.difficulty.medium = true;
+        if (difficulty == "medium") unlocks.shop.difficulty.hard = true;
+    }
+
+    if (scenarioTitle == "Random Networks") {
+        if (difficulty == "easy") unlocks.original.difficulty.easy = true;
+        if (difficulty == "medium") unlocks.original.difficulty.medium = true;
+        if (difficulty == "hard") unlocks.original.difficulty.hard = true;
+    }
+
+    var stringifiedUnlocks = JSON.stringify(unlocks);
+    $.cookie('vaxUnlocks', stringifiedUnlocks, { expires: 365, path: '/' })
+    console.log($.cookie('vaxUnlocks'))
 }

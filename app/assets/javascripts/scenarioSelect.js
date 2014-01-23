@@ -9,6 +9,9 @@ var recoveryDifficulty;
 var independentOutbreakDifficulty;
 var refuserDifficulty;
 
+// cookies
+var unlocks;
+
 // actual game constants
 var graph;
 var numberOfIndividuals;
@@ -23,6 +26,7 @@ var speed = false;
 $(function() {
     $( "#accordion" ).accordion();
     drawDifficultyButtons();
+    checkUnlockables();
 });
 $( "#accordion" ).accordion({ heightStyle: "auto" });
 
@@ -195,6 +199,7 @@ function selectScenario(difficulty) {
     // now that the difficulty values have been chosen based on scenario, we set them based on difficulty
     setDifficultyConstants(scenarioTitle, difficulty);
 
+
     // remove accordion & title + move logo down
 
     d3.select("#accordion").remove()
@@ -216,6 +221,86 @@ function selectScenario(difficulty) {
         })
 
     window.setTimeout(function() {window.location.href = 'http://0.0.0.0:3000/scenarioGame'}, 500)
+}
+
+function createUnlocksCookie() {
+    // object of unlocks for first scenario & random
+    var initial = {easy: true, medium: false, hard:false};
+    // object of unlocks for all the rest
+    var locked = {easy: false, medium: false, hard:false};
+
+
+    // unlocks object, to be strified into JSON cookie
+    var unlocks = {work: {difficulty: initial}, theater: {difficulty:locked}, restaurant: {difficulty:locked}, club:  {difficulty:locked}, shop:  {difficulty:locked}, original:  {difficulty:initial}}
+
+    // create JSON unlocks cookie
+    $.cookie.json = true;
+    var stringifiedUnlocks = JSON.stringify(unlocks);
+    $.cookie('vaxUnlocks', stringifiedUnlocks, { expires: 365, path: '/' })
+    unlocks = $.cookie('vaxUnlocks')
+    console.log($.cookie('vaxUnlocks'))
+
+}
+
+function checkUnlockables() {
+    $.cookie.json = true;
+    unlocks = $.cookie('vaxUnlocks')
+    if (unlocks == undefined) createUnlocksCookie();
+    else modifyMenuByUnlocks();
+
+}
+
+function modifyMenuByUnlocks() {
+    disableDropdowns();
+    disableDifficultyText();
+}
+
+function disableDropdowns() {
+    if (unlocks.theater.difficulty.easy == false) $("#theater").addClass( "ui-state-disabled" );
+    if (unlocks.restaurant.difficulty.easy == false) $("#restaurant").addClass( "ui-state-disabled" );
+    if (unlocks.club.difficulty.easy == false) $("#club").addClass( "ui-state-disabled" );
+    if (unlocks.shop.difficulty.easy == false) $("#shop").addClass( "ui-state-disabled" );
+}
+
+function disableDifficultyText() {
+//    var scenarios = [unlocks.work, unlocks.theater, unlocks.restaurant, unlocks.club, unlocks.shop, unlocks.original]
+//
+//    var easyTexts = d3.selectAll(".svg").selectAll(".easyText")
+//    var mediumTexts = d3.selectAll(".svg").selectAll(".mediumText")
+//    var hardTexts = d3.selectAll(".svg").selectAll(".hardText")
+//
+//    for (var i = 0; i < easyTexts.length; i++) {
+//        if (scenarios[i].difficulty.easy == false) {
+//            d3.selectAll(".svg").select(".easyText")[i]
+//                .style("cursor", "no-drop")
+//                .on("mouseover", function() {
+//                     d3.select(this).style("fill", "#707070")
+//                }
+//            )
+//        }
+//    }
+//
+//    for (var i = 0; i < mediumTexts.length; i++) {
+//        if (scenarios[i].difficulty.easy == false) {
+//            d3.selectAll(".svg").select(".mediumText")[i]
+//                .style("cursor", "no-drop")
+//                .on("mouseover", function() {
+//                    d3.select(this).style("fill", "#707070")
+//                }
+//            )
+//        }
+//    }
+//
+//    for (var i = 0; i < hardTexts.length; i++) {
+//        if (scenarios[i].difficulty.easy == false) {
+//            d3.selectAll(".svg").select(".hardText")[i]
+//                .style("cursor", "no-drop")
+//                .on("mouseover", function() {
+//                    d3.select(this).style("fill", "#707070")
+//                }
+//            )
+//        }
+//    }
 }
 
 function setDifficultyConstants(scenarioTitle, difficulty) {
@@ -263,6 +348,8 @@ function setDifficultyConstants(scenarioTitle, difficulty) {
     var currentGameCookie = {scenario: scenarioTitle, difficulty: difficulty, speedMode:speed, refusers: numberOfRefusers, vax: numberOfVaccines, outbreaks: independentOutbreaks, transmissionRate: transmissionRate, recoveryRate: recoveryRate}
     $.cookie('vaxCurrentGame', JSON.stringify(currentGameCookie), { expires: 365, path: '/' })
     console.log($.cookie('vaxCurrentGame'))
+
+
 }
 
 
