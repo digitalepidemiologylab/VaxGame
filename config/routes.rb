@@ -11,6 +11,7 @@ VaxGame::Application.routes.draw do
   match '/herdimmunity', to: 'static_pages#herdImmunity'
   match '/scenario', to: 'static_pages#scenarioSelect'
   match '/scenarioGame', to: 'static_pages#scenarioGame'
+  match '/scores', to: 'static_pages#scores'
 
   match '/game', to: 'static_pages#game'
 

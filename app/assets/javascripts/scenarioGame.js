@@ -14,6 +14,7 @@ var xyCoords;
 var rewire = 0.1;
 var meanDegree;
 
+
 // game phase markers
 var vaccinateMode;
 var quarantineMode;
@@ -37,8 +38,8 @@ var node;
 var clickArea;
 
 // d3 constants
-var width = 700;
-var height = 600 - 45 - 50;  // standard height - footer:height - footer:bottomMargin
+var width = 900;
+var height = 700 - 45 - 50;  // standard height - footer:height - footer:bottomMargin
 var charge = -500;
 var friction = 0.9;
 
@@ -76,7 +77,6 @@ function setCurrentGameConditions() {
 }
 
 
-
 function initScenarioGraph(scenarioTitle) {
     if (scenarioTitle == "Workplace / School") graph = initWorkNet();
     if (scenarioTitle == "Movie Theater / Lecture Hall") graph = initTheaterNet();
@@ -86,6 +86,8 @@ function initScenarioGraph(scenarioTitle) {
     if (scenarioTitle == "Random Networks") graph = initRandomNet();
 
     if (numberOfRefusers > 0) createRefusers();
+
+    numberOfIndividuals = graph.nodes.length;
 
 }
 
@@ -302,6 +304,169 @@ function rtTimesteps() {
     }
 }
 
+function createIndexPatients() {
+    quarantineMode = true;
+    diseaseIsSpreading = true;
+    var indexPatientID = 0;
+    var independentOutbreaksCounter = independentOutbreaks;
+    while(independentOutbreaksCounter > 0) {
+        do {
+            indexPatientID = Math.floor(Math.random() * graph.nodes.length);
+        }
+        while (graph.nodes[indexPatientID].status != "S");
+
+        graph.nodes[indexPatientID].status = "I";
+        graph.nodes[indexPatientID].infectedBy = "indexPatient";
+        graph.nodes[indexPatientID].exposureTimestep = 0;
+        independentOutbreaksCounter--;
+
+    }
+    outbreakNotify();
+    update();
+
+}
+
+function update() {
+    friction = 0.83;
+
+    d3.select(".vaccineCounterText").text(numberOfVaccines)
+    d3.select(".quarantineCounterText").text("x" + numberQuarantined)
+    var nodes = removeVaccinatedNodes(graph);
+    var links = removeOldLinks(graph);
+    graph.links = links;
+    updateCommunities();
+
+    force
+        .nodes(nodes)
+        .charge(charge)
+        .friction(friction)
+        .links(links)
+        .start();
+
+    link = scenarioSVG.selectAll("line.link")
+        .data(links, function(link) { return link.source.id + "-" + link.target.id;});
+
+    link.enter().insert("svg:line", ".node")
+        .attr("class", "link")
+        .attr("x1", function(link) { return link.source.x; })
+        .attr("y1", function(link) { return link.source.y; })
+        .attr("x2", function(link) { return link.target.x; })
+        .attr("y2", function(link) { return link.target.y; });
+
+    // Exit any old links.
+    link.exit().remove();
+
+    // Update the nodes…
+    node = scenarioSVG.selectAll("circle.node")
+        .data(nodes, function(node) { return node.id })
+        .style("fill", nodeColoring)
+
+    d3.selectAll(".node")
+        .transition()
+        .duration(100)
+        .attr("r", nodeSizing)
+
+    d3.selectAll(".clickArea")
+        .on("click", function(node) {
+            if (node.status == "V" || node.status == "Q") return;
+            else {
+                if (speed) speedModeClick(node);
+                else turnModeClick(node);
+            }
+        })
+        .attr("r", function(node) {
+            if (node.degree = 0) return 0;
+            return 1.5 * nodeSizing(node)
+        })
+
+
+
+    // Enter any new nodes.
+    node.enter().append("svg:circle")
+        .attr("class", "node")
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; })
+        .style("fill", nodeColor)
+        .on("click", function(node) {
+            if (speed) speedModeClick(node)
+            else turnModeClick(node);
+        })
+        .call(force.drag);
+
+    // Exit any old nodes.
+    node.exit().remove();
+}
+
+function loadSyringeIcon() {
+    vaccinateMode = true;
+    d3.select(".actionVax").style("visibility", "visible");
+    d3.select(".actionVax").style("right", 0);
+
+    d3.select("#vaxShieldText").style("color", "white")
+
+    d3.select(".actionVax").append("text")
+        .attr("class", "vaccineCounterText")
+        .style("font-size", "16px")
+        .style("font-family", "Nunito")
+        .style("font-weight", 300)
+        .style("color", "white")
+        .text("")
+        .style("right", function() {
+            if (numberOfVaccines.toString().length == 1) return "49px"
+            if (numberOfVaccines.toString().length == 2) return "46px"
+
+        })
+
+    d3.select(".vaccineCounterText").text(numberOfVaccines)
+
+    window.setTimeout(activateVaxPhase, 100)
+
+}
+
+
+function tick() {
+    clickArea.attr("cx", function(d) { return d.x = Math.max(8, Math.min(width - 8, d.x)); })
+        .attr("cy", function(d) { return d.y = Math.max(8, Math.min((height *.85), d.y)); });
+
+    node.attr("cx", function(d) { return d.x = Math.max(8, Math.min(width - 8, d.x)); })
+        .attr("cy", function(d) { return d.y = Math.max(8, Math.min((height *.85), d.y)); });
+
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+}
+
+function nodeSizing(node) {
+    var size = 8;
+    if (toggleDegree) {
+        size = (findNeighbors(node).length + 1.5) * 1.9;
+        if (meanDegree > 3) size = (findNeighbors(node).length+1) * 1.65;
+        if (meanDegree > 4) size = (findNeighbors(node).length+1) * 1.25;
+
+    }
+    return size;
+}
+
+function nodeColoring(node) {
+    var color = null;
+    if (node.status == "S") color = "#b7b7b7";
+    if (node.status == "E") color = "#ef5555";
+    if (node.status == "I") color = "#ef5555";
+    if (node.status == "R") color = "#9400D3";
+    if (node.status == "V") color = "#76A788";
+    if (node.status == "Q") color = "#d9d678";
+
+    if (node.status == "S" && node.refuser) {
+        color = "#fab45a"
+    }
+
+    return color;
+}
+
+
+
 function animateInfectionRound() {
     if (gameIsOver) return;
     window.setTimeout(generatePathogen    , 50)
@@ -491,102 +656,7 @@ function outbreakNotify() {
 
 }
 
-function update() {
-    friction = 0.83;
 
-    d3.select(".vaccineCounterText").text(numberOfVaccines)
-    d3.select(".quarantineCounterText").text("x" + numberQuarantined)
-    var nodes = removeVaccinatedNodes(graph);
-    var links = removeOldLinks(graph);
-    graph.links = links;
-    updateCommunities();
-
-    force
-        .nodes(nodes)
-        .charge(charge)
-        .friction(friction)
-        .links(links)
-        .start();
-
-    link = scenarioSVG.selectAll("line.link")
-        .data(links, function(link) { return link.source.id + "-" + link.target.id;});
-
-    link.enter().insert("svg:line", ".node")
-        .attr("class", "link")
-        .attr("x1", function(link) { return link.source.x; })
-        .attr("y1", function(link) { return link.source.y; })
-        .attr("x2", function(link) { return link.target.x; })
-        .attr("y2", function(link) { return link.target.y; });
-
-    // Exit any old links.
-    link.exit().remove();
-
-    // Update the nodes…
-    node = scenarioSVG.selectAll("circle.node")
-        .data(nodes, function(node) { return node.id })
-        .style("fill", nodeColoring)
-
-    d3.selectAll(".node")
-        .transition()
-        .duration(100)
-        .attr("r", nodeSizing)
-
-    d3.selectAll(".clickArea")
-        .on("click", function(node) {
-            if (node.status == "V" || node.status == "Q") return;
-            else {
-                if (speed) speedModeClick(node);
-                else turnModeClick(node);
-            }
-        })
-        .attr("r", function(node) {
-            if (node.degree = 0) return 0;
-            return 1.5 * nodeSizing(node)
-        })
-
-
-
-    // Enter any new nodes.
-    node.enter().append("svg:circle")
-        .attr("class", "node")
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; })
-        .style("fill", nodeColor)
-        .on("click", function(node) {
-            if (speed) speedModeClick(node)
-            else turnModeClick(node);
-        })
-        .call(force.drag);
-
-    // Exit any old nodes.
-    node.exit().remove();
-}
-
-function loadSyringeIcon() {
-    vaccinateMode = true;
-    d3.select(".actionVax").style("visibility", "visible");
-    d3.select(".actionVax").style("right", 0);
-
-    d3.select("#vaxShieldText").style("color", "white")
-
-    d3.select(".actionVax").append("text")
-        .attr("class", "vaccineCounterText")
-        .style("font-size", "16px")
-        .style("font-family", "Nunito")
-        .style("font-weight", 300)
-        .style("color", "white")
-        .text("")
-        .style("right", function() {
-            if (numberOfVaccines.toString().length == 1) return "49px"
-            if (numberOfVaccines.toString().length == 2) return "46px"
-
-        })
-
-    d3.select(".vaccineCounterText").text(numberOfVaccines)
-
-    window.setTimeout(activateVaxPhase, 100)
-
-}
 
 function hideSyringeIcon() {
     vaccinationMode = false;
@@ -653,26 +723,7 @@ function activateQuarantinePhase() {
 
 }
 
-function createIndexPatients() {
-    quarantineMode = true;
-    diseaseIsSpreading = true;
-    var indexPatientID = 0;
-    while(independentOutbreaks > 0) {
-        do {
-            indexPatientID = Math.floor(Math.random() * graph.nodes.length);
-        }
-        while (graph.nodes[indexPatientID].status != "S");
 
-        graph.nodes[indexPatientID].status = "I";
-        graph.nodes[indexPatientID].infectedBy = "indexPatient";
-        graph.nodes[indexPatientID].exposureTimestep = 0;
-        independentOutbreaks--;
-
-    }
-    outbreakNotify();
-    update();
-
-}
 
 function loadHotkeys() {
     var visible = true;
@@ -753,46 +804,6 @@ function detectScenarioEndPoint() {
 
 }
 
-function tick() {
-    clickArea.attr("cx", function(d) { return d.x = Math.max(8, Math.min(width - 8, d.x)); })
-        .attr("cy", function(d) { return d.y = Math.max(8, Math.min((height *.85), d.y)); });
-
-    node.attr("cx", function(d) { return d.x = Math.max(8, Math.min(width - 8, d.x)); })
-        .attr("cy", function(d) { return d.y = Math.max(8, Math.min((height *.85), d.y)); });
-
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-}
-
-function nodeSizing(node) {
-    var size = 8;
-    if (toggleDegree) {
-        size = (findNeighbors(node).length + 1.5) * 1.9;
-        if (meanDegree > 3) size = (findNeighbors(node).length+1) * 1.65;
-        if (meanDegree > 4) size = (findNeighbors(node).length+1) * 1.25;
-
-    }
-    return size;
-}
-
-function nodeColoring(node) {
-    var color = null;
-    if (node.status == "S") color = "#b7b7b7";
-    if (node.status == "E") color = "#ef5555";
-    if (node.status == "I") color = "#ef5555";
-    if (node.status == "R") color = "#9400D3";
-    if (node.status == "V") color = "#76A788";
-    if (node.status == "Q") color = "#d9d678";
-
-    if (node.status == "S" && node.refuser) {
-        color = "#fab45a"
-    }
-
-    return color;
-}
 
 
 function endScenario() {
@@ -800,4 +811,123 @@ function endScenario() {
     console.log("end")
     $.removeCookie('vaxCurrentGame', { path: '/' });
 
+    d3.select(".scenarioSVG").append("rect")
+        .attr("class", "endGameShadow")
+        .attr("x", window.innerWidth/4 + 5 - 150)
+        .attr("y", -100)
+        .attr("width", 500)
+        .attr("height", 125)
+        .attr("fill", "#838383")
+
+
+    d3.select(".scenarioSVG").append("rect")
+        .attr("class", "endGameBox")
+        .attr("x", window.innerWidth/4 - 150)
+        .attr("y", -100)
+        .attr("width", 500)
+        .attr("height", 125)
+        .attr("fill", "#85bc99")
+
+    d3.select(".scenarioSVG").append("text")
+        .attr("class", "endGameText")
+        .attr("x", window.innerWidth/4 - 75)
+        .attr("y", -100)
+        .style("font-family", "Nunito")
+        .style("fill", "white")
+        .style("font-weight", 500)
+        .style("font-size", "25px")
+        .text("Outbreak has run its course.")
+
+    d3.select(".scenarioSVG").append("text")
+        .attr("class", "endGameSUBMIT")
+        .attr("x", window.innerWidth/4 + 75)
+        .attr("y", -100)
+        .style("font-family", "Nunito")
+        .style("fill", "white")
+        .style("font-weight", 500)
+        .style("font-size", "15px")
+        .style("cursor", "pointer")
+        .text("Submit")
+        .on("mouseover", function(d) {
+
+            d3.select(this).style("fill", "#2692F2")
+
+        })
+        .on("mouseout", function(d) {
+            d3.select(this).style("fill", "white")
+        })
+        .on("click", function() {
+            d3.select(".endGameText")
+                .transition()
+                .duration(250)
+                .attr("x", window.innerWidth/4 - 25)
+                .text("Reticulating splines.")
+
+            window.setTimeout(addDot, 350)
+
+            window.setTimeout(addDot2, 800)
+
+            window.setTimeout(recordScores, 1200)
+
+        })
+
+    d3.select(".endGameBox").transition().duration(500).attr("y", window.innerHeight/2 - 300)
+    d3.select(".endGameShadow").transition().duration(500).attr("y", window.innerHeight/2 - 300 + 7)
+    d3.select(".endGameText").transition().duration(500).attr("y", window.innerHeight/2 - 250)
+    d3.select(".endGameSUBMIT").transition().duration(500).attr("y", window.innerHeight/2 - 250 + 50)
+
+}
+
+function addDot() {
+    d3.select(".endGameText")
+        .transition()
+        .duration(250)
+        .attr("x", window.innerWidth/4 - 25)
+        .text("Reticulating splines..")
+}
+
+function addDot2() {
+    d3.select(".endGameText")
+        .transition()
+        .duration(250)
+        .attr("x", window.innerWidth/4 - 25)
+        .text("Reticulating splines...")
+}
+
+function countIndividuals(status) {
+    var counter = 0;
+    for (var i = 0; i < graph.nodes.length; i++) {
+        if (graph.nodes[i].status == status) counter++;
+    }
+    return counter;
+}
+
+
+function recordScores() {
+
+    var savedIndividuals = countIndividuals("S");
+    var proportionSaved = savedIndividuals/graph.nodes.length;
+
+    var quarantinedIndividuals = countIndividuals("Q");
+    var proportionQuarantined = quarantinedIndividuals/graph.nodes.length;
+
+    var vaccinatedIndividuals = countIndividuals("V");
+    var proportionVaccinated = vaccinatedIndividuals/graph.nodes.length;
+
+    var totalUninfected = savedIndividuals + quarantinedIndividuals + vaccinatedIndividuals;
+    var proportionUninfected = totalUninfected/graph.nodes.length;
+
+    // larger is better
+    var indirectSaveRatio =  savedIndividuals / (quarantinedIndividuals + vaccinatedIndividuals)
+
+    // save cookie
+//    var currentScenarioScoresCookie = {scenario: scenarioTitle, difficulty: difficulty, speedMode:speed, quarantined: quarantinedIndividuals, saved: savedIndividuals};
+    var currentScenarioScoresCookie = {scenario: scenarioTitle, difficulty: difficulty, speedMode:speed, outbreaks:independentOutbreaks, refusers:numberOfRefusers, vax: vaccinatedIndividuals, quarantined: quarantinedIndividuals, saved: savedIndividuals, netSize: numberOfIndividuals};
+
+
+
+   $.cookie('vaxCurrentScenarioScores', JSON.stringify(currentScenarioScoresCookie), { expires: 365, path: '/' })
+    console.log($.cookie('vaxCurrentScenarioScores'))
+
+    window.location.href = 'http://0.0.0.0:3000/scores'
 }
