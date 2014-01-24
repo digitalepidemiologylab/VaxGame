@@ -1607,8 +1607,6 @@ function generateStackedBarChart() {
         .text("Quarantined")
 
 
-
-
     d3.select(".gameSVG").append("text")
         .style("font-family", "Nunito")
         .style("font-size", "15px")
@@ -1626,13 +1624,6 @@ function generateStackedBarChart() {
         .attr("x", 180)
         .attr("y", 303)
         .text("Uninfected")
-
-
-
-
-
-
-
 }
 
 function generateUninfectedBar(total, bestScore) {

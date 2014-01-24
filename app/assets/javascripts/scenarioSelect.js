@@ -11,6 +11,7 @@ var refuserDifficulty;
 // cookies
 var unlocks;
 var saves;
+var scores;
 
 // actual game constants
 var graph;
@@ -160,6 +161,53 @@ function checkUnlockables() {
     if (unlocks == undefined) createUnlocksCookie();
     else modifyMenuByUnlocks();
 
+    checkSavesCookie();
+    checkScoresCookie();
+
+}
+
+function checkScoresCookie() {
+    $.cookie.json = true;
+    scores = $.cookie('vaxScores')
+    if (scores == undefined) createScoresCookie();
+    else postHighScores();
+
+}
+
+function postHighScores() {
+
+
+    // this will read the high scores cookie and write the relevant hiScore next-to/below/whatevs the easy/med/hard text
+
+}
+
+function createScoresCookie() {
+    // create empty score array
+    var emptyScoreArray = [];
+
+    // create an object that differentiates between real time and turn-based
+    var emptyScoreObject = {
+        realTime: {easy:emptyScoreArray, medium:emptyScoreArray, hard:emptyScoreArray},
+        turnBased: {easy:emptyScoreArray, medium:emptyScoreArray, hard:emptyScoreArray}
+    }
+
+    // create the master object that is separated by scenario
+    var scenarioScores = {
+        work: emptyScoreObject,
+        theater: emptyScoreObject,
+        restaurant: emptyScoreObject,
+        club: emptyScoreObject,
+        shop: emptyScoreObject,
+        original: emptyScoreObject
+    }
+
+    // write the cookie
+    $.cookie.json = true;
+    var stringifiedScores = JSON.stringify(scenarioScores);
+    $.cookie('vaxScores', stringifiedScores, { expires: 365, path: '/' })
+}
+
+function checkSavesCookie() {
     saves = $.cookie('vaxSaves')
     if (saves == undefined) {
         var initSaves = 0;

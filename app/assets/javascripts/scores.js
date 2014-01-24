@@ -102,6 +102,12 @@ function readCurrentScenarioScores() {
     newSaves = currentScenarioScores.saved;
 }
 
+function resetHighScores() {
+
+
+
+}
+
 function drawScoreCanvas() {
     var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
     var isIE = /*@cc_on!@*/false || document.documentMode;   // At least IE6
@@ -139,19 +145,19 @@ function drawScoreHeaders() {
     d3.select(".scoreSVG").append("text")
         .attr("class", "networkSize")
         .attr("x", 25)
-        .attr("y", 75)
+        .attr("y", 80)
         .text("Network Size: " + numberOfIndividuals)
 
     d3.select(".scoreSVG").append("text")
         .attr("class", "refuserCountText")
         .attr("x", 25)
-        .attr("y", 100)
+        .attr("y", 105)
         .text("Refusers: ")
 
     d3.select(".scoreSVG").append("text")
         .attr("class", "refuserCount")
         .attr("x", 160)
-        .attr("y", 100)
+        .attr("y", 105)
         .text(numberOfRefusers)
 
 
