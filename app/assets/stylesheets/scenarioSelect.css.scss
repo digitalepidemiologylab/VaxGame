@@ -19,6 +19,22 @@
   font-weight: 300;
 }
 
+#workSVG, #theaterSVG, #restaurantSVG, #clubSVG, #shopSVG, #originalSVG {
+  pointer-events: all;
+  position: relative;
+  left: 160px;
+  width: 500px;
+  height: 50px;
+}
+
+.workEasy, .workMedium, .workHard, .theaterEasy, .theaterMedium, .theaterHard, .restaurantEasy, .restaurantMedium, .restaurantHard, .clubEasy, .clubMedium, #clubHard, .shopEasy, .shopMedium, .shopHard, .originalEasy, .originalMedium, .originalHard {
+  fill: #707070;
+  font-family: "Nunito";
+  font-weight: 500;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 
 
 .scenarioVaxLogoDiv {
