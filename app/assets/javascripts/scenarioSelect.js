@@ -10,6 +10,7 @@ var refuserDifficulty;
 
 // cookies
 var unlocks;
+var saves;
 
 // actual game constants
 var graph;
@@ -159,6 +160,11 @@ function checkUnlockables() {
     if (unlocks == undefined) createUnlocksCookie();
     else modifyMenuByUnlocks();
 
+    saves = $.cookie('vaxSaves')
+    if (saves == undefined) {
+        var initSaves = 0;
+        $.cookie('vaxSaves', initSaves, { expires: 365, path: '/' })
+    }
 }
 
 function modifyMenuByUnlocks() {
@@ -174,16 +180,20 @@ function disableDropdowns() {
 }
 
 function disableDifficultyText() {
+    // array of shortcuts to object storing unlock states
     var scenarios = [unlocks.work, unlocks.theater, unlocks.restaurant, unlocks.club, unlocks.shop, unlocks.original]
+
+    // arrays of selector classes for each of the easy/medium/hard texts.
     var easyTexts = [".workEasy", ".theaterEasy", ".restaurantEasy", ".clubEasy", "shopEasy", ".originalEasy"]
     var mediumTexts = [".workMedium", ".theaterMedium", ".restaurantMedium", ".clubMedium", "shopMedium", ".originalMedium"]
     var hardTexts = [".workHard", ".theaterHard", ".restaurantHard", ".clubHard", "shopHard", ".originalHard"]
 
-
+    // loop over all texts selection classes and modify cursor, mouseover color & disable onClick
     for (var i = 0; i < easyTexts.length; i++) {
         if (scenarios[i].difficulty.easy == false) {
             d3.select(easyTexts[i])
                 .style("cursor", "no-drop")
+                .on("click", function(){})
                 .on("mouseover", function() {
                      d3.select(this).style("fill", "#707070")
                 }
@@ -194,6 +204,7 @@ function disableDifficultyText() {
     for (var i = 0; i < mediumTexts.length; i++) {
         if (scenarios[i].difficulty.medium == false) {
             d3.select(mediumTexts[i])
+                .on("click", function(){})
                 .style("cursor", "no-drop")
                 .on("mouseover", function() {
                     d3.select(this).style("fill", "#707070")
@@ -205,6 +216,7 @@ function disableDifficultyText() {
     for (var i = 0; i < hardTexts.length; i++) {
         if (scenarios[i].difficulty.hard == false) {
             d3.select(hardTexts[i])
+                .on("click", function(){})
                 .style("cursor", "no-drop")
                 .on("mouseover", function() {
                     d3.select(this).style("fill", "#707070")
@@ -265,7 +277,10 @@ function setDifficultyConstants(scenarioTitle, difficulty) {
 
 var buttonsDrawn = false;
 
-window.setTimeout(function() {drawButtons()}, 100)
+window.setTimeout(function() {
+    drawButtons();
+    checkUnlockables();
+}, 100)
 
 function drawButtons() {
     if (buttonsDrawn) return;
@@ -531,5 +546,152 @@ function drawButtons() {
             .on("click", function() {selectScenario("hard")});
     }
 }
+
+function drawLocks() {
+    d3.select("#work").append("svg")
+        .attr("class", "lock")
+        .attr("id", "workLock")
+        .style("background", "inherit")
+
+    d3.select("#workLock").append("circle")
+        .attr("cx", 12.5)
+        .attr("cy", 12.5)
+        .attr("r", 10)
+        .attr("fill", "#707070")
+        .on("mouseover", function() {
+            // pop-over showing the cost of the unlock
+        })
+        .on("click", function() {
+            // are you sure?
+            // // // reduce saves by posted amount
+            // // // change lock status
+            // // // change lock icon
+            // // // remove disabled class
+            // // // save cookie
+        })
+
+
+
+
+    d3.select("#theater").append("svg")
+        .attr("class", "lock")
+        .attr("id", "theaterLock")
+        .style("background", "inherit")
+
+    d3.select("#theaterLock").append("circle")
+        .attr("cx", 12.5)
+        .attr("cy", 12.5)
+        .attr("r", 10)
+        .attr("fill", "#707070")
+        .on("mouseover", function() {
+            // pop-over showing the cost of the unlock
+        })
+        .on("click", function() {
+            // are you sure?
+            // // // reduce saves by posted amount
+            // // // change lock status
+            // // // change lock icon
+            // // // remove disabled class
+            // // // save cookie
+        })
+
+
+
+    d3.select("#restaurant").append("svg")
+        .attr("class", "lock")
+        .attr("id", "restaurantLock")
+        .style("background", "inherit")
+
+    d3.select("#restaurantLock").append("circle")
+        .attr("cx", 12.5)
+        .attr("cy", 12.5)
+        .attr("r", 10)
+        .attr("fill", "#707070")
+        .on("mouseover", function() {
+            // pop-over showing the cost of the unlock
+        })
+        .on("click", function() {
+            // are you sure?
+            // // // reduce saves by posted amount
+            // // // change lock status
+            // // // change lock icon
+            // // // remove disabled class
+            // // // save cookie
+        })
+
+
+
+    d3.select("#club").append("svg")
+        .attr("class", "lock")
+        .attr("id", "clubLock")
+        .style("background", "inherit")
+
+    d3.select("#clubLock").append("circle")
+        .attr("cx", 12.5)
+        .attr("cy", 12.5)
+        .attr("r", 10)
+        .attr("fill", "#707070")
+        .on("mouseover", function() {
+            // pop-over showing the cost of the unlock
+        })
+        .on("click", function() {
+            // are you sure?
+            // // // reduce saves by posted amount
+            // // // change lock status
+            // // // change lock icon
+            // // // remove disabled class
+            // // // save cookie
+        })
+
+
+
+    d3.select("#shop").append("svg")
+        .attr("class", "lock")
+        .attr("id", "shopLock")
+        .style("background", "inherit")
+
+    d3.select("#shopLock").append("circle")
+        .attr("cx", 12.5)
+        .attr("cy", 12.5)
+        .attr("r", 10)
+        .attr("fill", "#707070")
+        .on("mouseover", function() {
+            // pop-over showing the cost of the unlock
+        })
+        .on("click", function() {
+            // are you sure?
+            // // // reduce saves by posted amount
+            // // // change lock status
+            // // // change lock icon
+            // // // remove disabled class
+            // // // save cookie
+        })
+
+    d3.select("#original").append("svg")
+        .attr("class", "lock")
+        .attr("id", "originalLock")
+        .style("background", "inherit")
+
+    d3.select("#originalLock").append("circle")
+        .attr("cx", 12.5)
+        .attr("cy", 12.5)
+        .attr("r", 10)
+        .attr("fill", "#707070")
+        .on("mouseover", function() {
+            // pop-over showing the cost of the unlock
+        })
+        .on("click", function() {
+            // are you sure?
+            // // // reduce saves by posted amount
+            // // // change lock status
+            // // // change lock icon
+            // // // remove disabled class
+            // // // save cookie
+        })
+
+
+}
+
+
 
 

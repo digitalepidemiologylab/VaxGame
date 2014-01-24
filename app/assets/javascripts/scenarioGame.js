@@ -926,9 +926,11 @@ function recordScores() {
 //    var currentScenarioScoresCookie = {scenario: scenarioTitle, difficulty: difficulty, speedMode:speed, quarantined: quarantinedIndividuals, saved: savedIndividuals};
     var currentScenarioScoresCookie = {scenario: scenarioTitle, difficulty: difficulty, speedMode:speed, outbreaks:independentOutbreaks, refusers:numberOfRefusers, vax: vaccinatedIndividuals, quarantined: quarantinedIndividuals, saved: savedIndividuals, netSize: numberOfIndividuals};
 
+    var saves = $.cookie('vaxSaves');
+    saves += savedIndividuals;
+    $.cookie('vaxSaves', saves, { expires: 365, path: '/' })
 
-
-   $.cookie('vaxCurrentScenarioScores', JSON.stringify(currentScenarioScoresCookie), { expires: 365, path: '/' })
+    $.cookie('vaxCurrentScenarioScores', JSON.stringify(currentScenarioScoresCookie), { expires: 365, path: '/' })
     console.log($.cookie('vaxCurrentScenarioScores'))
 
     modifyUnlocks();
@@ -943,37 +945,24 @@ function modifyUnlocks() {
         if (difficulty == "easy") unlocks.work.difficulty.medium = true;
         if (difficulty == "medium") unlocks.work.difficulty.hard = true;
 
-        if (unlocks.work.difficulty.easy && unlocks.work.difficulty.medium && unlocks.work.difficulty.hard) {
-            unlocks.theater.difficulty.easy = true;
-        }
-
     }
 
     if (scenarioTitle == "Movie Theater / Lecture Hall") {
         if (difficulty == "easy") unlocks.theater.difficulty.medium = true;
         if (difficulty == "medium") unlocks.theater.difficulty.hard = true;
 
-        if (unlocks.theater.difficulty.easy && unlocks.theater.difficulty.medium && unlocks.theater.difficulty.hard) {
-            unlocks.restaurant.difficulty.easy = true;
-        }
     }
 
     if (scenarioTitle == "Restaurant") {
         if (difficulty == "easy") unlocks.restaurant.difficulty.medium = true;
         if (difficulty == "medium") unlocks.restaurant.difficulty.hard = true;
 
-        if (unlocks.restaurant.difficulty.easy && unlocks.restaurant.difficulty.medium && unlocks.restaurant.difficulty.hard) {
-            unlocks.club.difficulty.easy = true;
-        }
     }
 
     if (scenarioTitle == "Organization") {
         if (difficulty == "easy") unlocks.club.difficulty.medium = true;
         if (difficulty == "medium") unlocks.club.difficulty.hard = true;
 
-        if (unlocks.club.difficulty.easy && unlocks.club.difficulty.medium && unlocks.club.difficulty.hard) {
-            unlocks.shop.difficulty.easy = true;
-        }
     }
 
     if (scenarioTitle == "Shopping") {
@@ -982,9 +971,8 @@ function modifyUnlocks() {
     }
 
     if (scenarioTitle == "Random Networks") {
-        if (difficulty == "easy") unlocks.original.difficulty.easy = true;
-        if (difficulty == "medium") unlocks.original.difficulty.medium = true;
-        if (difficulty == "hard") unlocks.original.difficulty.hard = true;
+        if (difficulty == "easy") unlocks.original.difficulty.medium = true;
+        if (difficulty == "medium") unlocks.original.difficulty.hard = true;
     }
 
     var stringifiedUnlocks = JSON.stringify(unlocks);
