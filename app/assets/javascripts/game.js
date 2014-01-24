@@ -1635,7 +1635,7 @@ function generateStackedBarChart() {
 
 }
 
-function generateUninfectedBar(total,bestScore) {
+function generateUninfectedBar(total, bestScore) {
 
     var data = [{score: total},
         {score: bestScore},

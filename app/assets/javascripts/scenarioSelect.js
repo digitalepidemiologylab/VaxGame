@@ -58,7 +58,7 @@ function selectScenario(difficulty) {
     // conditional statements determine which scenario we're in and which constant to choose, given difficulty input
     // graph is then drawn to spec
     if (scenarioTitle == "Workplace / School") {
-        numberOfIndividuals = 54;
+        numberOfIndividuals = 56;
         vaxDifficulty = [5,5,5];
         transmissionDifficulty = [0.25, 0.5, 0.75];
         recoveryDifficulty = [0.5, 0.25, 0.1];
