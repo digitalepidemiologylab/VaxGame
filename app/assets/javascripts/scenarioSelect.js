@@ -12,6 +12,7 @@ var refuserDifficulty;
 var unlocks;
 var saves;
 var scores;
+var unlockRequirement = 50;
 
 // actual game constants
 var graph;
@@ -216,15 +217,69 @@ function checkSavesCookie() {
 }
 
 function modifyMenuByUnlocks() {
+    drawLocks();
     disableDropdowns();
     disableDifficultyText();
 }
 
 function disableDropdowns() {
-    if (unlocks.theater.difficulty.easy == false) $("#theater").addClass( "ui-state-disabled" );
-    if (unlocks.restaurant.difficulty.easy == false) $("#restaurant").addClass( "ui-state-disabled" );
-    if (unlocks.club.difficulty.easy == false) $("#club").addClass( "ui-state-disabled" );
-    if (unlocks.shop.difficulty.easy == false) $("#shop").addClass( "ui-state-disabled" );
+    if (unlocks.work.difficulty.easy == false) {
+        $("#work").addClass( "ui-state-disabled" );
+    }
+    else {
+        d3.select(".workLockIcon").attr("opacity", 0)
+        $("#work").removeClass( "ui-state-disabled" );
+
+    }
+
+    if (unlocks.theater.difficulty.easy == false) {
+        $("#theater").addClass( "ui-state-disabled" );
+    }
+    else {
+        d3.select(".theaterLockIcon").attr("opacity", 0)
+        $("#theater").removeClass( "ui-state-disabled" );
+    }
+
+
+    if (unlocks.restaurant.difficulty.easy == false) {
+        $("#restaurant").addClass( "ui-state-disabled" );
+    }
+    else {
+        d3.select(".restaurantLockIcon").attr("opacity", 0)
+        $("#restaurant").removeClass( "ui-state-disabled" );
+
+    }
+
+
+    if (unlocks.club.difficulty.easy == false) {
+        $("#club").addClass( "ui-state-disabled" );
+    }
+    else {
+        d3.select(".clubLockIcon").attr("opacity", 0)
+        $("#club").removeClass( "ui-state-disabled" );
+
+    }
+
+
+    if (unlocks.shop.difficulty.easy == false) {
+        $("#shop").addClass( "ui-state-disabled" );
+    }
+    else {
+        d3.select(".shopLockIcon").attr("opacity", 0)
+        $("#shop").removeClass( "ui-state-disabled" );
+
+    }
+
+    if (unlocks.original.difficulty.easy == false) {
+        $("#original").addClass( "ui-state-disabled" );
+    }
+    else {
+        d3.select(".originalLockIcon").attr("opacity", 0)
+        $("#original").removeClass( "ui-state-disabled" );
+
+    }
+
+
 }
 
 function disableDifficultyText() {
@@ -595,147 +650,240 @@ function drawButtons() {
     }
 }
 
+function verifyUnlock(selectedLock) {
+    saves = $.cookie('vaxSaves');
+    unlocks = $.cookie('vaxUnlocks');
+
+    if (saves < unlockRequirement) {
+        // notify to play more & save more for unlocks
+        // ok to remove menu
+
+    }
+    else {
+        d3.select("body").append("div")
+            .attr("class","verifyUnlockBox")
+
+        d3.select(".verifyUnlockBox").transition().duration(200).style("top", "150px")
+
+        d3.select(".verifyUnlockBox").append("text")
+            .attr("class", "verifyUnlockHeader")
+            .text("Unlock Scenario?")
+
+        d3.select(".verifyUnlockBox").append("text")
+            .attr("class", "verifyUnlockYes")
+            .text("Yes")
+            .on("mouseover", function() {
+                d3.select(this).style("color", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("color", "white")
+            })
+            .on("click", function() {
+                saves -= 50;
+                $.removeCookie('vaxSaves')
+                $.cookie('vaxSaves', saves, { expires: 365, path: '/' })
+
+                if (selectedLock == "work") unlocks.work.difficulty.easy = true;
+                if (selectedLock == "theater") unlocks.theater.difficulty.easy = true;
+                if (selectedLock == "restaurant") unlocks.restaurant.difficulty.easy = true;
+                if (selectedLock == "club") unlocks.club.difficulty.easy = true;
+                if (selectedLock == "shop") unlocks.shop.difficulty.easy = true;
+                if (selectedLock == "original") unlocks.original.difficulty.easy = true;
+
+                d3.select(".verifyUnlockBox").style("top", "-300px")
+                window.setTimeout(function() {d3.select('.verifyUnlockBox').remove()}, 200)
+
+                $.removeCookie('vaxUnlocks')
+                $.cookie('vaxUnlocks', unlocks, { expires: 365, path: '/' })
+
+                unlocks = $.cookie('vaxUnlocks');
+
+                disableDropdowns();
+
+
+            })
+
+        d3.select(".verifyUnlockBox").append("text")
+            .attr("class", "verifyUnlockNo")
+            .text("No")
+            .on("mouseover", function() {
+                d3.select(this).style("color", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("color", "white")
+            })
+            .on("click", function() {
+                d3.select(".verifyUnlockBox").style("top", "-300px")
+                window.setTimeout(function() {d3.select('.verifyUnlockBox').remove()}, 200)
+
+            })
+
+    }
+
+}
+
 function drawLocks() {
-    d3.select("#work").append("svg")
+
+    var workSVG = d3.select("#work").append("svg")
         .attr("class", "lock")
         .attr("id", "workLock")
         .style("background", "inherit")
 
-    d3.select("#workLock").append("circle")
-        .attr("cx", 12.5)
-        .attr("cy", 12.5)
-        .attr("r", 10)
-        .attr("fill", "#707070")
+    var workLockIcon = workSVG.selectAll("image").data([0]);
+    workLockIcon.enter()
+        .append("image")
+        .attr("xlink:href", "/assets/lockIcon.svg")
+        .attr("x", "-10")
+        .attr("y", "-10")
+        .style("position", "absolute")
+        .style("left", "0")
+        .attr("width", "50")
+        .attr("height", "50")
+        .attr("class", "workLockIcon")
         .on("mouseover", function() {
             // pop-over showing the cost of the unlock
         })
         .on("click", function() {
-            // are you sure?
-            // // // reduce saves by posted amount
-            // // // change lock status
-            // // // change lock icon
-            // // // remove disabled class
-            // // // save cookie
+            var selectedLock = "work";
+            verifyUnlock(selectedLock);
         })
 
 
 
-
-    d3.select("#theater").append("svg")
+    var theaterSVG = d3.select("#theater").append("svg")
         .attr("class", "lock")
         .attr("id", "theaterLock")
         .style("background", "inherit")
 
-    d3.select("#theaterLock").append("circle")
-        .attr("cx", 12.5)
-        .attr("cy", 12.5)
-        .attr("r", 10)
-        .attr("fill", "#707070")
+    var theaterLockIcon = theaterSVG.selectAll("image").data([0]);
+    theaterLockIcon.enter()
+        .append("image")
+        .attr("xlink:href", "/assets/lockIcon.svg")
+        .attr("x", "-10")
+        .attr("y", "-10")
+        .style("position", "absolute")
+        .style("left", "0")
+        .attr("width", "50")
+        .attr("height", "50")
+        .attr("class", "theaterLockIcon")
         .on("mouseover", function() {
             // pop-over showing the cost of the unlock
         })
         .on("click", function() {
-            // are you sure?
-            // // // reduce saves by posted amount
-            // // // change lock status
-            // // // change lock icon
-            // // // remove disabled class
-            // // // save cookie
+            var selectedLock = "theater";
+            verifyUnlock(selectedLock);
+
         })
 
 
 
-    d3.select("#restaurant").append("svg")
+    var restaurantSVG = d3.select("#restaurant").append("svg")
         .attr("class", "lock")
         .attr("id", "restaurantLock")
         .style("background", "inherit")
 
-    d3.select("#restaurantLock").append("circle")
-        .attr("cx", 12.5)
-        .attr("cy", 12.5)
-        .attr("r", 10)
-        .attr("fill", "#707070")
+    var restaurantLockIcon = restaurantSVG.selectAll("image").data([0]);
+    restaurantLockIcon.enter()
+        .append("image")
+        .attr("xlink:href", "/assets/lockIcon.svg")
+        .attr("x", "-10")
+        .attr("y", "-10")
+        .style("position", "absolute")
+        .style("left", "0")
+        .attr("width", "50")
+        .attr("height", "50")
+        .attr("class", "restaurantLockIcon")
         .on("mouseover", function() {
             // pop-over showing the cost of the unlock
         })
         .on("click", function() {
-            // are you sure?
-            // // // reduce saves by posted amount
-            // // // change lock status
-            // // // change lock icon
-            // // // remove disabled class
-            // // // save cookie
+            var selectedLock = "restaurant";
+            verifyUnlock(selectedLock);
         })
 
 
 
-    d3.select("#club").append("svg")
+
+    var clubSVG = d3.select("#club").append("svg")
         .attr("class", "lock")
-        .attr("id", "clubLock")
+        .attr("id", "restaurantLock")
         .style("background", "inherit")
 
-    d3.select("#clubLock").append("circle")
-        .attr("cx", 12.5)
-        .attr("cy", 12.5)
-        .attr("r", 10)
-        .attr("fill", "#707070")
+    var clubLockIcon = clubSVG.selectAll("image").data([0]);
+    clubLockIcon.enter()
+        .append("image")
+        .attr("xlink:href", "/assets/lockIcon.svg")
+        .attr("x", "-10")
+        .attr("y", "-10")
+        .style("position", "absolute")
+        .style("left", "0")
+        .attr("width", "50")
+        .attr("height", "50")
+        .attr("class", "clubLockIcon")
+        .style("cursor", "pointer")
         .on("mouseover", function() {
             // pop-over showing the cost of the unlock
         })
         .on("click", function() {
-            // are you sure?
-            // // // reduce saves by posted amount
-            // // // change lock status
-            // // // change lock icon
-            // // // remove disabled class
-            // // // save cookie
+            var selectedLock = "club";
+            verifyUnlock(selectedLock);
+
         })
 
-
-
-    d3.select("#shop").append("svg")
+    var shopSVG = d3.select("#shop").append("svg")
         .attr("class", "lock")
         .attr("id", "shopLock")
         .style("background", "inherit")
 
-    d3.select("#shopLock").append("circle")
-        .attr("cx", 12.5)
-        .attr("cy", 12.5)
-        .attr("r", 10)
-        .attr("fill", "#707070")
+    var shopLockIcon = shopSVG.selectAll("image").data([0]);
+    shopLockIcon.enter()
+        .append("image")
+        .attr("xlink:href", "/assets/lockIcon.svg")
+        .attr("x", "-10")
+        .attr("y", "-10")
+        .style("position", "absolute")
+        .style("left", "0")
+        .attr("width", "50")
+        .attr("height", "50")
+        .attr("class", "shopLockIcon")
         .on("mouseover", function() {
             // pop-over showing the cost of the unlock
         })
         .on("click", function() {
-            // are you sure?
-            // // // reduce saves by posted amount
-            // // // change lock status
-            // // // change lock icon
-            // // // remove disabled class
-            // // // save cookie
+            var selectedLock = "shop";
+            verifyUnlock(selectedLock);
+
         })
 
-    d3.select("#original").append("svg")
+
+
+
+
+    var originalSVG = d3.select("#original").append("svg")
         .attr("class", "lock")
         .attr("id", "originalLock")
         .style("background", "inherit")
 
-    d3.select("#originalLock").append("circle")
-        .attr("cx", 12.5)
-        .attr("cy", 12.5)
-        .attr("r", 10)
-        .attr("fill", "#707070")
+    var originalLockIcon = originalSVG.selectAll("image").data([0]);
+    originalLockIcon.enter()
+        .append("image")
+        .attr("xlink:href", "/assets/lockIcon.svg")
+        .attr("x", "-10")
+        .attr("y", "-10")
+        .style("position", "absolute")
+        .style("left", "0")
+        .attr("width", "50")
+        .attr("height", "50")
+        .attr("class", "originalLockIcon")
         .on("mouseover", function() {
             // pop-over showing the cost of the unlock
         })
         .on("click", function() {
-            // are you sure?
-            // // // reduce saves by posted amount
-            // // // change lock status
-            // // // change lock icon
-            // // // remove disabled class
-            // // // save cookie
+            var selectedLock = "original";
+            verifyUnlock(selectedLock);
+
         })
+
 
 
 }

@@ -65,3 +65,53 @@
   -o-transition-duration: 0.5s;
   transition-duration: 0.5s;
 }
+
+.verifyUnlockBox {
+  position:absolute;
+  background: #85bc99;
+  float:right;
+  color: "white";
+  width:300px;
+  height: 100px;
+  padding-top: 30px;
+  padding-left: 0px;
+  top: -100px;
+  left: 35%;
+  box-shadow:5px 6px #838383;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+.verifyUnlockHeader {
+  position: absolute;
+  left: 40px;
+  color: white;
+  font-family: "Nunito";
+  font-weight: 500;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.verifyUnlockYes {
+  position: absolute;
+  left: 80px;
+  top: 80px;
+  color: white;
+  font-family: "Nunito";
+  font-weight: 300;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.verifyUnlockNo {
+  position: absolute;
+  left: 180px;
+  top: 80px;
+  color: white;
+  font-family: "Nunito";
+  font-weight: 300;
+  font-size: 22px;
+  cursor: pointer;
+}
