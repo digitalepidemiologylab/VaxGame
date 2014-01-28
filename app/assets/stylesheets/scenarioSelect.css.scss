@@ -21,10 +21,9 @@
 
 #workSVG, #theaterSVG, #restaurantSVG, #clubSVG, #shopSVG, #originalSVG {
   pointer-events: all;
-  position: relative;
-  left: 160px;
-  width: 500px;
-  height: 50px;
+  position: absolute;
+  width: 200px;
+  height: 200px;
 }
 
 .workEasy, .workMedium, .workHard, .theaterEasy, .theaterMedium, .theaterHard, .restaurantEasy, .restaurantMedium, .restaurantHard, .clubEasy, .clubMedium, #clubHard, .shopEasy, .shopMedium, .shopHard, .originalEasy, .originalMedium, .originalHard {
@@ -33,6 +32,18 @@
   font-weight: 500;
   font-size: 20px;
   cursor: pointer;
+}
+
+.scenarioThumbnail {
+  position: relative;
+  left: 0px;
+  display: inline;
+
+}
+
+.scenarioAction {
+  position: relative;
+  display: inline;
 }
 
 .lock  {
@@ -115,3 +126,4 @@
   font-size: 22px;
   cursor: pointer;
 }
+

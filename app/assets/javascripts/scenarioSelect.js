@@ -29,7 +29,7 @@ var speed = false;
 $(function() {
     $( "#accordion" ).accordion();
     });
-$( "#accordion" ).accordion({ heightStyle: "auto" });
+$( "#accordion" ).accordion({ heightStyle: "content" });
 
 
 // vax logo, top left
@@ -396,8 +396,8 @@ function drawButtons() {
 
         d3.selectAll("#workSVG").append("text")
             .attr("class", "workEasy")
-            .attr("x", 0)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 50)
             .text("Easy")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -409,8 +409,8 @@ function drawButtons() {
 
         d3.selectAll("#workSVG").append("text")
             .attr("class", "workMedium")
-            .attr("x", 200)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 125)
             .text("Medium")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -422,8 +422,8 @@ function drawButtons() {
 
         d3.selectAll("#workSVG").append("text")
             .attr("class", "workHard")
-            .attr("x", 425)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 200)
             .text("Hard")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -441,8 +441,8 @@ function drawButtons() {
 
         d3.selectAll("#theaterSVG").append("text")
             .attr("class", "theaterEasy")
-            .attr("x", 0)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 50)
             .text("Easy")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -454,8 +454,8 @@ function drawButtons() {
 
         d3.selectAll("#theaterSVG").append("text")
             .attr("class", "theaterMedium")
-            .attr("x", 200)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 125)
             .text("Medium")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -467,8 +467,8 @@ function drawButtons() {
 
         d3.selectAll("#theaterSVG").append("text")
             .attr("class", "theaterHard")
-            .attr("x", 425)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 200)
             .text("Hard")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -484,8 +484,8 @@ function drawButtons() {
 
         d3.selectAll("#restaurantSVG").append("text")
             .attr("class", "restaurantEasy")
-            .attr("x", 0)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 50)
             .text("Easy")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -497,8 +497,8 @@ function drawButtons() {
 
         d3.selectAll("#restaurantSVG").append("text")
             .attr("class", "restaurantMedium")
-            .attr("x", 200)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 125)
             .text("Medium")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -510,8 +510,8 @@ function drawButtons() {
 
         d3.selectAll("#restaurantSVG").append("text")
             .attr("class", "restaurantHard")
-            .attr("x", 425)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 200)
             .text("Hard")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -527,8 +527,8 @@ function drawButtons() {
 
         d3.selectAll("#clubSVG").append("text")
             .attr("class", "clubEasy")
-            .attr("x", 0)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 50)
             .text("Easy")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -540,8 +540,8 @@ function drawButtons() {
 
         d3.selectAll("#clubSVG").append("text")
             .attr("class", "clubMedium")
-            .attr("x", 200)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 125)
             .text("Medium")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -553,8 +553,8 @@ function drawButtons() {
 
         d3.selectAll("#clubSVG").append("text")
             .attr("class", "clubHard")
-            .attr("x", 425)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 200)
             .text("Hard")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -570,8 +570,8 @@ function drawButtons() {
 
         d3.selectAll("#shopSVG").append("text")
             .attr("class", "shopEasy")
-            .attr("x", 0)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 50)
             .text("Easy")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -583,8 +583,8 @@ function drawButtons() {
 
         d3.selectAll("#shopSVG").append("text")
             .attr("class", "shopMedium")
-            .attr("x", 200)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 125)
             .text("Medium")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -596,8 +596,8 @@ function drawButtons() {
 
         d3.selectAll("#shopSVG").append("text")
             .attr("class", "shopHard")
-            .attr("x", 425)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 200)
             .text("Hard")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -613,8 +613,8 @@ function drawButtons() {
 
         d3.selectAll("#originalSVG").append("text")
             .attr("class", "originalEasy")
-            .attr("x", 0)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 50)
             .text("Easy")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -626,8 +626,8 @@ function drawButtons() {
 
         d3.selectAll("#originalSVG").append("text")
             .attr("class", "originalMedium")
-            .attr("x", 200)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 125)
             .text("Medium")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
@@ -639,8 +639,8 @@ function drawButtons() {
 
         d3.selectAll("#originalSVG").append("text")
             .attr("class", "originalHard")
-            .attr("x", 425)
-            .attr("y", 25)
+            .attr("x", 60)
+            .attr("y", 200)
             .text("Hard")
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")

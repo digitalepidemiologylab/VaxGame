@@ -81,6 +81,7 @@ function setCurrentGameConditions() {
 
 function initScenarioGraph(scenarioTitle) {
     if (scenarioTitle == "Workplace / School") {
+        charge = -1000;
         toggleDegree = false;
         graph = initHuckNet();
     }
