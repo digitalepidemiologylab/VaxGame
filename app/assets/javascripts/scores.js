@@ -36,11 +36,12 @@ function readCurrentScenarioScores() {
     var difficultyIndex;
 
     if (scenarioTitle == "Workplace / School") {
-        numberOfIndividuals = 56;
-        vaxDifficulty = [5,5,5];
-        transmissionDifficulty = [0.25, 0.5, 0.75];
-        recoveryDifficulty = [0.5, 0.25, 0.1];
-        independentOutbreakDifficulty = [1,1,1];
+        toggleDegree = false;
+        numberOfIndividuals = 87;
+        vaxDifficulty = [12,7,5];
+        transmissionDifficulty = [0.0005, 0.0010, 0.0015];
+        recoveryDifficulty = [0.25, 0.15, 0.1];
+        independentOutbreakDifficulty = [3,5,6];
         refuserDifficulty = [0,5,10];
     }
     if (scenarioTitle == "Movie Theater / Lecture Hall") {
@@ -67,7 +68,7 @@ function readCurrentScenarioScores() {
         independentOutbreakDifficulty = [1,1,1];
         refuserDifficulty = [0,5,10];
     }
-    if (scenarioTitle == "Shopping") {
+    if (scenarioTitle == "Endless Queue") {
         numberOfIndividuals = 25;
         vaxDifficulty = [5,5,5];
         transmissionDifficulty = [0.25, 0.5, 0.75];

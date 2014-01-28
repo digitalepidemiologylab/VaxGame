@@ -1,5 +1,6 @@
 // menu variables
 var scenarioTitle;
+var noGuarantee;
 
 // game constant arrays
 var vaxDifficulty;
@@ -54,18 +55,19 @@ d3.select("body").append("div")
 
 
 function selectScenario(difficulty) {
+    noGuarantee = true;
     // when called, it will record the current active header title (scenario title)
     scenarioTitle = $(".ui-accordion-header-active").text();
 
     // conditional statements determine which scenario we're in and which constant to choose, given difficulty input
     // graph is then drawn to spec
     if (scenarioTitle == "Workplace / School") {
-        numberOfIndividuals = 56;
-        vaxDifficulty = [5,5,5];
-        transmissionDifficulty = [0.25, 0.5, 0.75];
-        recoveryDifficulty = [0.5, 0.25, 0.1];
-        independentOutbreakDifficulty = [1,1,1];
-        refuserDifficulty = [0,5,10];
+        numberOfIndividuals = 87;
+        vaxDifficulty = [25,18,15];
+        transmissionDifficulty = [0.08, 0.10, 0.15];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [3,4,5];
+        refuserDifficulty = [3,7,14];
     }
     if (scenarioTitle == "Movie Theater / Lecture Hall") {
         numberOfIndividuals = 48;
@@ -91,7 +93,7 @@ function selectScenario(difficulty) {
         independentOutbreakDifficulty = [1,1,1];
         refuserDifficulty = [0,5,10];
     }
-    if (scenarioTitle == "Shopping") {
+    if (scenarioTitle == "Endless Queue") {
         numberOfIndividuals = 25;
         vaxDifficulty = [5,5,5];
         transmissionDifficulty = [0.25, 0.5, 0.75];
@@ -695,11 +697,8 @@ function verifyUnlock(selectedLock) {
 
                 $.removeCookie('vaxUnlocks')
                 $.cookie('vaxUnlocks', unlocks, { expires: 365, path: '/' })
-
                 unlocks = $.cookie('vaxUnlocks');
-
                 disableDropdowns();
-
 
             })
 

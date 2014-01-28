@@ -80,12 +80,26 @@ function setCurrentGameConditions() {
 
 
 function initScenarioGraph(scenarioTitle) {
-    if (scenarioTitle == "Workplace / School") graph = initWorkNet();
-    if (scenarioTitle == "Movie Theater / Lecture Hall") graph = initTheaterNet();
-    if (scenarioTitle == "Restaurant") graph = initRestaurantNet();
-    if (scenarioTitle == "Organization") graph = initClubNet();
-    if (scenarioTitle == "Shopping") graph = initShopNet();
-    if (scenarioTitle == "Random Networks") graph = initRandomNet();
+    if (scenarioTitle == "Workplace / School") {
+        toggleDegree = false;
+        graph = initHuckNet();
+    }
+    if (scenarioTitle == "Movie Theater / Lecture Hall") {
+        graph = initTheaterNet();
+    }
+    if (scenarioTitle == "Restaurant") {
+        graph = initRestaurantNet();
+    }
+    if (scenarioTitle == "Organization") {
+        graph = initClubNet();
+    }
+    if (scenarioTitle == "Endless Queue") {
+        graph = initShopNet();
+        charge = -100;
+    }
+    if (scenarioTitle == "Random Networks") {
+        graph = initRandomNet();
+    }
 
     if (numberOfRefusers > 0) createRefusers();
 
@@ -276,7 +290,7 @@ function timesteps() {
 }
 
 function turnTimesteps() {
-    infection();
+    infection_noGuaranteedTransmission();
     stateChanges();
     newInfections = [];
     newInfections = updateExposures();
@@ -291,7 +305,7 @@ function turnTimesteps() {
 }
 
 function rtTimesteps() {
-    infection();
+    infection_noGuaranteedTransmission();
     stateChanges();
     newInfections = [];
     newInfections = updateExposures();
@@ -442,6 +456,9 @@ function tick() {
 
 function nodeSizing(node) {
     var size = 8;
+
+    if (scenarioTitle == "Workplace / School") size = 10;
+
     if (toggleDegree) {
         size = (findNeighbors(node).length + 1.5) * 1.9;
         if (meanDegree > 3) size = (findNeighbors(node).length+1) * 1.65;
@@ -965,7 +982,7 @@ function modifyUnlocks() {
 
     }
 
-    if (scenarioTitle == "Shopping") {
+    if (scenarioTitle == "Endless Queue") {
         if (difficulty == "easy") unlocks.shop.difficulty.medium = true;
         if (difficulty == "medium") unlocks.shop.difficulty.hard = true;
     }
