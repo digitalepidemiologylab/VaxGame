@@ -1,6 +1,7 @@
 // menu variables
 var scenarioTitle;
 var noGuarantee;
+var unlockCost = 100;
 
 // game constant arrays
 var vaxDifficulty;
@@ -31,6 +32,8 @@ $(function() {
     });
 $( "#accordion" ).accordion({ heightStyle: "content" });
 
+window.setTimeout(checkUnlockables, 200);
+
 
 // vax logo, top left
 d3.select("body").append("div")
@@ -48,7 +51,7 @@ var savesDiv = d3.select("body").append("div")
     .style("cursor", "pointer")
 
 savesDiv.append("svg")
-    .attr("height", "115px")
+    .attr("height", "105px")
     .attr("width", "100px")
     .attr("class", "savesSVG")
     .style("background", "inherit")
@@ -59,8 +62,8 @@ var savesIcon = d3.select(".savesSVG").selectAll("image").data([0]);
 savesIcon.enter()
     .append("image")
     .attr("xlink:href", "/assets/savesIcon.svg")
-    .attr("x", "-23")
-    .attr("y", "-10")
+    .attr("x", "-24")
+    .attr("y", "-12")
     .style("position", "absolute")
     .attr("width", "150%")
     .attr("height", "100%")
@@ -243,9 +246,9 @@ function checkSavesCookie() {
     }
     d3.select(".savesSVG").append("text")
         .attr("class", "savesText")
-        .attr("x", "20px")
-        .attr("y", "105px")
-        .text("x"+saves)
+        .attr("x", "26px")
+        .attr("y", "95px")
+        .text("x" + saves)
 }
 
 function modifyMenuByUnlocks() {
@@ -257,37 +260,42 @@ function modifyMenuByUnlocks() {
 function disableDropdowns() {
     if (unlocks.work.difficulty.easy == false) {
         $("#work").addClass( "ui-state-disabled" );
+        d3.selectAll(".workLockIcon").attr("opacity", 1)
     }
     else {
-        d3.select(".workLockIcon").attr("opacity", 0)
+        d3.selectAll(".workLockIcon").attr("opacity", 0)
         $("#work").removeClass( "ui-state-disabled" );
 
     }
 
     if (unlocks.theater.difficulty.easy == false) {
         $("#theater").addClass( "ui-state-disabled" );
+        d3.selectAll(".theaterLockIcon").attr("opacity", 1)
+
     }
     else {
-        d3.select(".theaterLockIcon").attr("opacity", 0)
+        d3.selectAll(".theaterLockIcon").attr("opacity", 0)
         $("#theater").removeClass( "ui-state-disabled" );
     }
 
 
     if (unlocks.restaurant.difficulty.easy == false) {
         $("#restaurant").addClass( "ui-state-disabled" );
+        d3.selectAll(".restaurantLockIcon").attr("opacity", 1)
+
     }
     else {
-        d3.select(".restaurantLockIcon").attr("opacity", 0)
+        d3.selectAll(".restaurantLockIcon").attr("opacity", 0)
         $("#restaurant").removeClass( "ui-state-disabled" );
-
     }
 
 
     if (unlocks.club.difficulty.easy == false) {
         $("#club").addClass( "ui-state-disabled" );
+        d3.selectAll(".clubLockIcon").attr("opacity", 1)
     }
     else {
-        d3.select(".clubLockIcon").attr("opacity", 0)
+        d3.selectAll(".clubLockIcon").attr("opacity", 0)
         $("#club").removeClass( "ui-state-disabled" );
 
     }
@@ -295,18 +303,21 @@ function disableDropdowns() {
 
     if (unlocks.shop.difficulty.easy == false) {
         $("#shop").addClass( "ui-state-disabled" );
+        d3.selectAll(".shopLockIcon").attr("opacity", 1)
     }
     else {
-        d3.select(".shopLockIcon").attr("opacity", 0)
+        d3.selectAll(".shopLockIcon").attr("opacity", 0)
         $("#shop").removeClass( "ui-state-disabled" );
 
     }
 
     if (unlocks.original.difficulty.easy == false) {
         $("#original").addClass( "ui-state-disabled" );
+        d3.selectAll(".originalLockIcon").attr("opacity", 1)
+
     }
     else {
-        d3.select(".originalLockIcon").attr("opacity", 0)
+        d3.selectAll(".originalLockIcon").attr("opacity", 0)
         $("#original").removeClass( "ui-state-disabled" );
 
     }
@@ -462,9 +473,6 @@ function drawButtons() {
                 d3.select(this).style("fill", "#707070")
             })
             .on("click", function() {selectScenario("hard")});
-
-
-
 
         d3.select("#theaterAction").append("svg")
             .attr("id", "theaterSVG")
@@ -711,7 +719,7 @@ function verifyUnlock(selectedLock) {
                 d3.select(this).style("color", "white")
             })
             .on("click", function() {
-                saves -= 50;
+                saves -= unlockCost;
                 $.removeCookie('vaxSaves')
                 $.cookie('vaxSaves', saves, { expires: 365, path: '/' })
 
@@ -729,6 +737,8 @@ function verifyUnlock(selectedLock) {
                 $.cookie('vaxUnlocks', unlocks, { expires: 365, path: '/' })
                 unlocks = $.cookie('vaxUnlocks');
                 disableDropdowns();
+
+                d3.select(".savesText").text("x" + saves)
 
             })
 
@@ -776,7 +786,6 @@ function drawLocks() {
             var selectedLock = "work";
             verifyUnlock(selectedLock);
         })
-
 
 
     var theaterSVG = d3.select("#theater").append("svg")
