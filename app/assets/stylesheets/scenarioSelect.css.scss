@@ -1,9 +1,9 @@
 #accordion {
   position:absolute;
   left: 200px;
-  top: 200px;
-  width: 65%;
-  padding-bottom: 50px;
+  top: 165px;
+  width: 60%;
+  padding-bottom: 20px;
 }
 
 .scenarioText {
@@ -41,9 +41,20 @@
 
 }
 
+.scenarioTooltip {
+  position: relative;
+  display: inline;
+  height: 150px;
+  width: 50px;
+  font-family: "Nunito";
+  font-weight: 300;
+  font-size: 18px;
+}
+
 .scenarioAction {
   position: relative;
   display: inline;
+
 }
 
 .lock  {
@@ -53,6 +64,35 @@
   left: 10px;
 }
 
+.scenarioSavesDiv {
+  position:absolute;
+  background: #85bc99;
+  font-family: "Nunito";
+  font-weight: 400;
+  font-size: 28px;
+  color: white;
+  width:100px;
+  height: 135px;
+  padding-top: 15px;
+  padding-left: 12px;
+  text-align: center;
+  top: 150px;
+  left:-12px;
+  cursor: pointer;
+  box-shadow:5px 6px #838383;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+.savesText {
+  font-family: "Nunito";
+  font-weight: 300;
+  font-size: 22px;
+  fill: white;
+
+}
 
 
 .scenarioVaxLogoDiv {

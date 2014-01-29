@@ -41,13 +41,38 @@ d3.select("body").append("div")
         window.location.href = 'http://vax.herokuapp.com/'
     })
 
+// saves icon, below vax logo
+var savesDiv = d3.select("body").append("div")
+    .attr("class", "scenarioSavesDiv")
+    .text("Saves")
+    .style("cursor", "pointer")
+
+savesDiv.append("svg")
+    .attr("height", "115px")
+    .attr("width", "100px")
+    .attr("class", "savesSVG")
+    .style("background", "inherit")
+
+
+var savesIcon = d3.select(".savesSVG").selectAll("image").data([0]);
+
+savesIcon.enter()
+    .append("image")
+    .attr("xlink:href", "/assets/savesIcon.svg")
+    .attr("x", "-23")
+    .attr("y", "-10")
+    .style("position", "absolute")
+    .attr("width", "150%")
+    .attr("height", "100%")
+    .attr("class", "savesIcon")
+
 // scenario title above jquery-ui accordion
 d3.select("body").append("div")
     .attr("class", "scenarioTitle")
     .text("Scenarios")
     .style("position", "absolute")
-    .style("top", "170px")
-    .style("left", "200px")
+    .style("top", "128px")
+    .style("left", "201px")
     .style("font-family", "Nunito")
     .style("font-size", "32px")
     .style("font-weight", "400")
@@ -71,44 +96,44 @@ function selectScenario(difficulty) {
     }
     if (scenarioTitle == "Movie Theater / Lecture Hall") {
         numberOfIndividuals = 48;
-        vaxDifficulty = [5,5,5];
-        transmissionDifficulty = [0.25, 0.5, 0.75];
-        recoveryDifficulty = [0.5, 0.25, 0.1];
-        independentOutbreakDifficulty = [1,1,1];
-        refuserDifficulty = [0,5,10];
+        vaxDifficulty = [12,7,5];
+        transmissionDifficulty = [0.15, 0.20, 0.25];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [1,2,3];
+        refuserDifficulty = [2,7,9];
     }
     if (scenarioTitle == "Restaurant") {
-        numberOfIndividuals = 30;
-        vaxDifficulty = [5,5,5];
-        transmissionDifficulty = [0.25, 0.5, 0.75];
-        recoveryDifficulty = [0.5, 0.25, 0.1];
-        independentOutbreakDifficulty = [1,1,1];
-        refuserDifficulty = [0,3,8];
+        numberOfIndividuals = 74;
+        vaxDifficulty = [6,4,3];
+        transmissionDifficulty = [0.15, 0.20, 0.25];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [1,2,3];
+        refuserDifficulty = [2,5,7];
     }
     if (scenarioTitle == "Organization") {
         numberOfIndividuals = 50;
-        vaxDifficulty = [5,5,5];
-        transmissionDifficulty = [0.25, 0.5, 0.75];
-        recoveryDifficulty = [0.5, 0.25, 0.1];
-        independentOutbreakDifficulty = [1,1,1];
-        refuserDifficulty = [0,5,10];
+        vaxDifficulty = [6,4,3];
+        transmissionDifficulty = [0.15, 0.20, 0.25];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [1,2,3];
+        refuserDifficulty = [2,5,7];
     }
     if (scenarioTitle == "Endless Queue") {
-        numberOfIndividuals = 25;
-        vaxDifficulty = [5,5,5];
-        transmissionDifficulty = [0.25, 0.5, 0.75];
-        recoveryDifficulty = [0.5, 0.25, 0.1];
-        independentOutbreakDifficulty = [1,1,1];
-        refuserDifficulty = [0,3,8];
+        numberOfIndividuals = 145;
+        vaxDifficulty = [20,15,10];
+        transmissionDifficulty = [0.15, 0.20, 0.25];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [2,5,7];
+        refuserDifficulty = [5,10,20];
     }
 
     if (scenarioTitle == "Random Networks") {
         numberOfIndividuals = 25;
-        vaxDifficulty = [5,5,5];
-        transmissionDifficulty = [0.25, 0.5, 0.75];
-        recoveryDifficulty = [0.5, 0.25, 0.1];
-        independentOutbreakDifficulty = [1,1,1];
-        refuserDifficulty = [0,3,8];
+        vaxDifficulty = [5, 10, 15];
+        transmissionDifficulty = [0.35, 0.35, 0.35];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [1, 1, 1];
+        refuserDifficulty = [2, 10, 15];
     }
 
 
@@ -216,6 +241,11 @@ function checkSavesCookie() {
         var initSaves = 0;
         $.cookie('vaxSaves', initSaves, { expires: 365, path: '/' })
     }
+    d3.select(".savesSVG").append("text")
+        .attr("class", "savesText")
+        .attr("x", "20px")
+        .attr("y", "105px")
+        .text("x"+saves)
 }
 
 function modifyMenuByUnlocks() {
