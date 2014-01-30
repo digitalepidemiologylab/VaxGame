@@ -3,6 +3,7 @@
 var currentScenarioScores;
 var scenarioTitle;
 var difficulty;
+var difficultyIndex;
 
 // scenario constants
 var numberOfIndividuals;
@@ -33,7 +34,6 @@ function readCurrentScenarioScores() {
     $.cookie.json = true;
     currentScenarioScores = $.cookie('vaxCurrentScenarioScores');
     scenarioTitle = currentScenarioScores.scenario;
-    var difficultyIndex;
 
     if (scenarioTitle == "Workplace / School") {
         numberOfIndividuals = 87;
@@ -77,7 +77,7 @@ function readCurrentScenarioScores() {
     }
 
     if (scenarioTitle == "Random Networks") {
-        numberOfIndividuals = 25;
+        numberOfIndividuals = [25,75,100];
         vaxDifficulty = [5, 10, 15];
         transmissionDifficulty = [0.35, 0.35, 0.35];
         recoveryDifficulty = [0.40, 0.35, 0.30];
@@ -147,7 +147,7 @@ function drawScoreHeaders() {
         .attr("class", "networkSize")
         .attr("x", 25)
         .attr("y", 80)
-        .text("Network Size: " + numberOfIndividuals)
+        .text("Network Size: " + numberOfIndividuals[difficultyIndex])
 
     d3.select(".scoreSVG").append("text")
         .attr("class", "refuserCountText")

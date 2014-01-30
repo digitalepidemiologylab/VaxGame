@@ -8719,8 +8719,10 @@ function initRandomNet() {
         meanDegree = 3;
         numberOfVaccines = 5;
         independentOutbreaks = 1;
-        transmissionRate = 0.7;
-        recoveryRate = 0;
+        transmissionRate = 0.55;
+        recoveryRate = 0.30;
+        numberOfRefusers = 3;
+
     }
 
     if (difficulty == "medium") {
@@ -8728,9 +8730,9 @@ function initRandomNet() {
         meanDegree = 4;
         numberOfVaccines = 10;
         independentOutbreaks = 2;
-        transmissionRate = 0.7;
-        recoveryRate = 0;
-        numberOfRefusers = 5;
+        transmissionRate = 0.60;
+        recoveryRate = 0.25;
+        numberOfRefusers = 8;
     }
 
     if (difficulty == "hard") {
@@ -8738,10 +8740,10 @@ function initRandomNet() {
         numberOfIndividuals = 100;
         meanDegree = 4;
         numberOfVaccines = 15;
-        transmissionRate = 0.4;
-        recoveryRate = 0;
+        transmissionRate = 0.70;
+        recoveryRate = 0.15;
         independentOutbreaks = 3;
-        numberOfRefusers = 10;
+        numberOfRefusers = 15;
     }
     return generateSmallWorld(numberOfIndividuals, rewire, meanDegree);
 }

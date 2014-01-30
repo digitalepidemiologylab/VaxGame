@@ -95,29 +95,29 @@ function selectScenario(difficulty) {
         vaxDifficulty = [25,18,15];
         transmissionDifficulty = [0.08, 0.10, 0.15];
         recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [3,4,5];
+        independentOutbreakDifficulty = [2,3,4];
         refuserDifficulty = [3,7,14];
     }
     if (scenarioTitle == "Movie Theater / Lecture Hall") {
         numberOfIndividuals = 48;
-        vaxDifficulty = [12,7,5];
-        transmissionDifficulty = [0.15, 0.20, 0.25];
+        vaxDifficulty = [5,4,3];
+        transmissionDifficulty = [0.50, 0.55, 0.55];
         recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [1,2,3];
+        independentOutbreakDifficulty = [2,3,3];
         refuserDifficulty = [2,7,9];
     }
     if (scenarioTitle == "Restaurant") {
         numberOfIndividuals = 74;
-        vaxDifficulty = [6,4,3];
-        transmissionDifficulty = [0.15, 0.20, 0.25];
+        vaxDifficulty = [4,3,2];
+        transmissionDifficulty = [0.55, 0.65, 0.75];
         recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [1,2,3];
-        refuserDifficulty = [2,5,7];
+        independentOutbreakDifficulty = [2,3,4];
+        refuserDifficulty = [3,5,7];
     }
     if (scenarioTitle == "Organization") {
         numberOfIndividuals = 50;
-        vaxDifficulty = [6,4,3];
-        transmissionDifficulty = [0.15, 0.20, 0.25];
+        vaxDifficulty = [5,4,3];
+        transmissionDifficulty = [0.45, 0.55, 0.65];
         recoveryDifficulty = [0.40, 0.35, 0.30];
         independentOutbreakDifficulty = [1,2,3];
         refuserDifficulty = [2,5,7];
@@ -125,7 +125,7 @@ function selectScenario(difficulty) {
     if (scenarioTitle == "Endless Queue") {
         numberOfIndividuals = 145;
         vaxDifficulty = [20,15,10];
-        transmissionDifficulty = [0.15, 0.20, 0.25];
+        transmissionDifficulty = [0.45, 0.55, 0.65];
         recoveryDifficulty = [0.40, 0.35, 0.30];
         independentOutbreakDifficulty = [2,5,7];
         refuserDifficulty = [5,10,20];
@@ -134,9 +134,9 @@ function selectScenario(difficulty) {
     if (scenarioTitle == "Random Networks") {
         numberOfIndividuals = 25;
         vaxDifficulty = [5, 10, 15];
-        transmissionDifficulty = [0.35, 0.35, 0.35];
+        transmissionDifficulty = [0.35, 0.50, 0.65];
         recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [1, 1, 1];
+        independentOutbreakDifficulty = [1, 2, 3];
         refuserDifficulty = [2, 10, 15];
     }
 
@@ -176,7 +176,7 @@ function createUnlocksCookie() {
 
 
     // unlocks object, to be strified into JSON cookie
-    var unlocks = {work: {difficulty: initial}, theater: {difficulty:locked}, restaurant: {difficulty:locked}, club:  {difficulty:locked}, shop:  {difficulty:locked}, original:  {difficulty:initial}}
+    var unlocks = {work: {difficulty: locked}, theater: {difficulty:locked}, restaurant: {difficulty:locked}, club:  {difficulty:locked}, shop:  {difficulty:locked}, original:  {difficulty:initial}}
 
     // create JSON unlocks cookie
     $.cookie.json = true;
@@ -245,9 +245,20 @@ function checkSavesCookie() {
         var initSaves = 0;
         $.cookie('vaxSaves', initSaves, { expires: 365, path: '/' })
     }
+    d3.selectAll(".savesText").remove();
     d3.select(".savesSVG").append("text")
         .attr("class", "savesText")
-        .attr("x", "26px")
+        .attr("x", function() {
+            var string = "x" + saves;
+            var xPosition;
+            if (string.length == 2) xPosition = "39px"
+            if (string.length == 3) xPosition = "33px"
+            if (string.length == 4) xPosition = "26px"
+            if (string.length == 5) xPosition = "21px"
+            if (string.length == 6) xPosition = "16px"
+            if (string.length == 7) xPosition = "13px"
+            return xPosition;
+        })
         .attr("y", "95px")
         .text("x" + saves)
 }
@@ -329,31 +340,29 @@ function disableDropdowns() {
 function setDifficultyConstants(scenarioTitle, difficulty) {
     var index;
 
-    if (scenarioTitle != "Random Networks") {
-        if (difficulty == "easy") {
-            index = 0;
-            numberOfRefusers = refuserDifficulty[0];
-            numberOfVaccines = vaxDifficulty[0];
-            independentOutbreaks = independentOutbreakDifficulty[0];
-            transmissionRate = transmissionDifficulty[0];
-            recoveryRate = recoveryDifficulty[0];
-        }
-        if (difficulty == "medium") {
-            index = 1;
-            numberOfRefusers = refuserDifficulty[1];
-            numberOfVaccines = vaxDifficulty[1];
-            independentOutbreaks = independentOutbreakDifficulty[1];
-            transmissionRate = transmissionDifficulty[1];
-            recoveryRate = recoveryDifficulty[1];
-        }
-        if (difficulty == "hard") {
-            index = 2;
-            numberOfRefusers = refuserDifficulty[2];
-            numberOfVaccines = vaxDifficulty[2];
-            independentOutbreaks = independentOutbreakDifficulty[2];
-            transmissionRate = transmissionDifficulty[2];
-            recoveryRate = recoveryDifficulty[2];
-        }
+    if (difficulty == "easy") {
+        index = 0;
+        numberOfRefusers = refuserDifficulty[0];
+        numberOfVaccines = vaxDifficulty[0];
+        independentOutbreaks = independentOutbreakDifficulty[0];
+        transmissionRate = transmissionDifficulty[0];
+        recoveryRate = recoveryDifficulty[0];
+    }
+    if (difficulty == "medium") {
+        index = 1;
+        numberOfRefusers = refuserDifficulty[1];
+        numberOfVaccines = vaxDifficulty[1];
+        independentOutbreaks = independentOutbreakDifficulty[1];
+        transmissionRate = transmissionDifficulty[1];
+        recoveryRate = recoveryDifficulty[1];
+    }
+    if (difficulty == "hard") {
+        index = 2;
+        numberOfRefusers = refuserDifficulty[2];
+        numberOfVaccines = vaxDifficulty[2];
+        independentOutbreaks = independentOutbreakDifficulty[2];
+        transmissionRate = transmissionDifficulty[2];
+        recoveryRate = recoveryDifficulty[2];
     }
 
     //  print the constants out for troubleshooting down the road
@@ -853,16 +862,9 @@ function drawButtons() {
 
 function verifyUnlock(selectedLock) {
     var unlockRequirement;
-
-    if (selectedLock.indexOf("Easy") == -1 &&
-        selectedLock.indexOf("Medium") == -1 &&
-        selectedLock.indexOf("Hard") == -1) {
-
-        unlockRequirement = 50;
-
-    }
+    // set unlock requirement based on selected locked item (scenario or difficulty)
+    if (selectedLock.indexOf("Medium") == -1 && selectedLock.indexOf("Hard") == -1) unlockRequirement = 50;
     else unlockRequirement = 10;
-
     if (saves <= unlockRequirement) return;
 
     saves = $.cookie('vaxSaves');
@@ -974,9 +976,22 @@ function verifyUnlock(selectedLock) {
             window.setTimeout(function() {d3.select('.verifyUnlockBox').remove()}, 200)
 
             d3.selectAll(".savesText").remove();
+
             d3.select(".savesSVG").append("text")
                 .attr("class", "savesText")
-                .attr("x", "26px")
+                .attr("x", function() {
+                    var string = "x" + saves;
+                    var xPosition;
+                    if (string.length == 2) xPosition = "39px"
+                    if (string.length == 3) xPosition = "33px"
+                    if (string.length == 4) xPosition = "26px"
+                    if (string.length == 5) xPosition = "21px"
+                    if (string.length == 6) xPosition = "16px"
+                    if (string.length == 7) xPosition = "13px"
+
+
+                    return xPosition;
+                })
                 .attr("y", "95px")
                 .text("x" + saves)
 
