@@ -13,6 +13,13 @@
 
 }
 
+.unlockDifficultyPopover {
+  font-family: "Nunito";
+  font-size: 18px;
+  font-weight: 300;
+
+}
+
 .scenarioHead {
   font-family: "Nunito";
   font-size: 20px;
@@ -26,7 +33,7 @@
   height: 200px;
 }
 
-.workEasy, .workMedium, .workHard, .theaterEasy, .theaterMedium, .theaterHard, .restaurantEasy, .restaurantMedium, .restaurantHard, .clubEasy, .clubMedium, #clubHard, .shopEasy, .shopMedium, .shopHard, .originalEasy, .originalMedium, .originalHard {
+#workEasy, #workMedium, #workHard, #theaterEasy, #theaterMedium, #theaterHard, #restaurantEasy, #restaurantMedium, #restaurantHard, #clubEasy, #clubMedium, #clubHard, #shopEasy, #shopMedium, #shopHard, #originalEasy, #originalMedium, #originalHard {
   fill: #707070;
   font-family: "Nunito";
   font-weight: 500;
@@ -137,18 +144,30 @@
 
 .verifyUnlockHeader {
   position: absolute;
+  top: 50px;
   left: 40px;
-  color: white;
+  color: #707070;
   font-family: "Nunito";
   font-weight: 500;
   font-size: 28px;
   cursor: pointer;
 }
 
+.verifyUnlockCost {
+  position: absolute;
+  left: 70px;
+  color: white;
+  top: 10px;
+  font-family: "Nunito";
+  font-weight: 300;
+  font-size: 24px;
+  cursor: pointer;
+}
+
 .verifyUnlockYes {
   position: absolute;
   left: 80px;
-  top: 80px;
+  top: 95px;
   color: white;
   font-family: "Nunito";
   font-weight: 300;
@@ -159,7 +178,7 @@
 .verifyUnlockNo {
   position: absolute;
   left: 180px;
-  top: 80px;
+  top: 95px;
   color: white;
   font-family: "Nunito";
   font-weight: 300;

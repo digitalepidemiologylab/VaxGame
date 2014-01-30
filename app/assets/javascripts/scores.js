@@ -36,55 +36,55 @@ function readCurrentScenarioScores() {
     var difficultyIndex;
 
     if (scenarioTitle == "Workplace / School") {
-        toggleDegree = false;
         numberOfIndividuals = 87;
-        vaxDifficulty = [12,7,5];
-        transmissionDifficulty = [0.0005, 0.0010, 0.0015];
-        recoveryDifficulty = [0.25, 0.15, 0.1];
-        independentOutbreakDifficulty = [3,5,6];
-        refuserDifficulty = [0,5,10];
+        vaxDifficulty = [25,18,15];
+        transmissionDifficulty = [0.08, 0.10, 0.15];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [3,4,5];
+        refuserDifficulty = [3,7,14];
     }
     if (scenarioTitle == "Movie Theater / Lecture Hall") {
         numberOfIndividuals = 48;
-        vaxDifficulty = [5,5,5];
-        transmissionDifficulty = [0.25, 0.5, 0.75];
-        recoveryDifficulty = [0.5, 0.25, 0.1];
-        independentOutbreakDifficulty = [1,1,1];
-        refuserDifficulty = [0,5,10];
+        vaxDifficulty = [12,7,5];
+        transmissionDifficulty = [0.15, 0.20, 0.25];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [1,2,3];
+        refuserDifficulty = [2,7,9];
     }
     if (scenarioTitle == "Restaurant") {
-        numberOfIndividuals = 30;
-        vaxDifficulty = [5,5,5];
-        transmissionDifficulty = [0.25, 0.5, 0.75];
-        recoveryDifficulty = [0.5, 0.25, 0.1];
-        independentOutbreakDifficulty = [1,1,1];
-        refuserDifficulty = [0,3,8];
+        numberOfIndividuals = 74;
+        vaxDifficulty = [6,4,3];
+        transmissionDifficulty = [0.15, 0.20, 0.25];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [1,2,3];
+        refuserDifficulty = [2,5,7];
     }
     if (scenarioTitle == "Organization") {
         numberOfIndividuals = 50;
-        vaxDifficulty = [5,5,5];
-        transmissionDifficulty = [0.25, 0.5, 0.75];
-        recoveryDifficulty = [0.5, 0.25, 0.1];
-        independentOutbreakDifficulty = [1,1,1];
-        refuserDifficulty = [0,5,10];
+        vaxDifficulty = [6,4,3];
+        transmissionDifficulty = [0.15, 0.20, 0.25];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [1,2,3];
+        refuserDifficulty = [2,5,7];
     }
     if (scenarioTitle == "Endless Queue") {
-        numberOfIndividuals = 25;
-        vaxDifficulty = [5,5,5];
-        transmissionDifficulty = [0.25, 0.5, 0.75];
-        recoveryDifficulty = [0.5, 0.25, 0.1];
-        independentOutbreakDifficulty = [1,1,1];
-        refuserDifficulty = [0,3,8];
+        numberOfIndividuals = 145;
+        vaxDifficulty = [20,15,10];
+        transmissionDifficulty = [0.15, 0.20, 0.25];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [2,5,7];
+        refuserDifficulty = [5,10,20];
     }
 
     if (scenarioTitle == "Random Networks") {
         numberOfIndividuals = 25;
-        vaxDifficulty = [5,5,5];
-        transmissionDifficulty = [0.25, 0.5, 0.75];
-        recoveryDifficulty = [0.5, 0.25, 0.1];
-        independentOutbreakDifficulty = [1,1,1];
-        refuserDifficulty = [0,3,8];
+        vaxDifficulty = [5, 10, 15];
+        transmissionDifficulty = [0.35, 0.35, 0.35];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [1, 1, 1];
+        refuserDifficulty = [2, 10, 15];
     }
+
 
     difficulty = currentScenarioScores.difficulty;
 

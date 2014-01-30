@@ -1,7 +1,8 @@
 // menu variables
 var scenarioTitle;
 var noGuarantee;
-var unlockCost = 100;
+var scenarioUnlockCost = 50;
+var difficultyUnlockCost = 10;
 
 // game constant arrays
 var vaxDifficulty;
@@ -254,7 +255,6 @@ function checkSavesCookie() {
 function modifyMenuByUnlocks() {
     drawLocks();
     disableDropdowns();
-    disableDifficultyText();
 }
 
 function disableDropdowns() {
@@ -325,52 +325,6 @@ function disableDropdowns() {
 
 }
 
-function disableDifficultyText() {
-    // array of shortcuts to object storing unlock states
-    var scenarios = [unlocks.work, unlocks.theater, unlocks.restaurant, unlocks.club, unlocks.shop, unlocks.original]
-
-    // arrays of selector classes for each of the easy/medium/hard texts.
-    var easyTexts = [".workEasy", ".theaterEasy", ".restaurantEasy", ".clubEasy", "shopEasy", ".originalEasy"]
-    var mediumTexts = [".workMedium", ".theaterMedium", ".restaurantMedium", ".clubMedium", "shopMedium", ".originalMedium"]
-    var hardTexts = [".workHard", ".theaterHard", ".restaurantHard", ".clubHard", "shopHard", ".originalHard"]
-
-    // loop over all texts selection classes and modify cursor, mouseover color & disable onClick
-    for (var i = 0; i < easyTexts.length; i++) {
-        if (scenarios[i].difficulty.easy == false) {
-            d3.select(easyTexts[i])
-                .style("cursor", "no-drop")
-                .on("click", function(){})
-                .on("mouseover", function() {
-                     d3.select(this).style("fill", "#707070")
-                }
-            )
-        }
-    }
-
-    for (var i = 0; i < mediumTexts.length; i++) {
-        if (scenarios[i].difficulty.medium == false) {
-            d3.select(mediumTexts[i])
-                .on("click", function(){})
-                .style("cursor", "no-drop")
-                .on("mouseover", function() {
-                    d3.select(this).style("fill", "#707070")
-                }
-            )
-        }
-    }
-
-    for (var i = 0; i < hardTexts.length; i++) {
-        if (scenarios[i].difficulty.hard == false) {
-            d3.select(hardTexts[i])
-                .on("click", function(){})
-                .style("cursor", "no-drop")
-                .on("mouseover", function() {
-                    d3.select(this).style("fill", "#707070")
-                }
-            )
-        }
-    }
-}
 
 function setDifficultyConstants(scenarioTitle, difficulty) {
     var index;
@@ -429,231 +383,122 @@ window.setTimeout(function() {
 }, 100)
 
 function drawButtons() {
+    $.cookie.json = true;
+    unlocks = $.cookie('vaxUnlocks')
+
     if (buttonsDrawn) return;
     else {
         buttonsDrawn = true;
+
         d3.select("#workAction").append("svg")
             .attr("id", "workSVG")
-
-        d3.selectAll("#workSVG").append("text")
-            .attr("class", "workEasy")
-            .attr("x", 60)
-            .attr("y", 50)
-            .text("Easy")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("easy")});
-
-        d3.selectAll("#workSVG").append("text")
-            .attr("class", "workMedium")
-            .attr("x", 60)
-            .attr("y", 125)
-            .text("Medium")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("medium")});
-
-        d3.selectAll("#workSVG").append("text")
-            .attr("class", "workHard")
-            .attr("x", 60)
-            .attr("y", 200)
-            .text("Hard")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("hard")});
 
         d3.select("#theaterAction").append("svg")
             .attr("id", "theaterSVG")
 
-        d3.selectAll("#theaterSVG").append("text")
-            .attr("class", "theaterEasy")
-            .attr("x", 60)
-            .attr("y", 50)
-            .text("Easy")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("easy")});
-
-        d3.selectAll("#theaterSVG").append("text")
-            .attr("class", "theaterMedium")
-            .attr("x", 60)
-            .attr("y", 125)
-            .text("Medium")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("medium")});
-
-        d3.selectAll("#theaterSVG").append("text")
-            .attr("class", "theaterHard")
-            .attr("x", 60)
-            .attr("y", 200)
-            .text("Hard")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("hard")});
-
-
         d3.select("#restaurantAction").append("svg")
             .attr("id", "restaurantSVG")
-
-        d3.selectAll("#restaurantSVG").append("text")
-            .attr("class", "restaurantEasy")
-            .attr("x", 60)
-            .attr("y", 50)
-            .text("Easy")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("easy")});
-
-        d3.selectAll("#restaurantSVG").append("text")
-            .attr("class", "restaurantMedium")
-            .attr("x", 60)
-            .attr("y", 125)
-            .text("Medium")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("medium")});
-
-        d3.selectAll("#restaurantSVG").append("text")
-            .attr("class", "restaurantHard")
-            .attr("x", 60)
-            .attr("y", 200)
-            .text("Hard")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("hard")});
-
 
         d3.select("#clubAction").append("svg")
             .attr("id", "clubSVG")
 
-        d3.selectAll("#clubSVG").append("text")
-            .attr("class", "clubEasy")
-            .attr("x", 60)
-            .attr("y", 50)
-            .text("Easy")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("easy")});
-
-        d3.selectAll("#clubSVG").append("text")
-            .attr("class", "clubMedium")
-            .attr("x", 60)
-            .attr("y", 125)
-            .text("Medium")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("medium")});
-
-        d3.selectAll("#clubSVG").append("text")
-            .attr("class", "clubHard")
-            .attr("x", 60)
-            .attr("y", 200)
-            .text("Hard")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("hard")});
-
-
         d3.select("#shopAction").append("svg")
             .attr("id", "shopSVG")
-
-        d3.selectAll("#shopSVG").append("text")
-            .attr("class", "shopEasy")
-            .attr("x", 60)
-            .attr("y", 50)
-            .text("Easy")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("easy")});
-
-        d3.selectAll("#shopSVG").append("text")
-            .attr("class", "shopMedium")
-            .attr("x", 60)
-            .attr("y", 125)
-            .text("Medium")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("medium")});
-
-        d3.selectAll("#shopSVG").append("text")
-            .attr("class", "shopHard")
-            .attr("x", 60)
-            .attr("y", 200)
-            .text("Hard")
-            .on("mouseover", function() {
-                d3.select(this).style("fill", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("fill", "#707070")
-            })
-            .on("click", function() {selectScenario("hard")});
-
 
         d3.select("#originalAction").append("svg")
             .attr("id", "originalSVG")
 
-        d3.selectAll("#originalSVG").append("text")
-            .attr("class", "originalEasy")
+        ///// work
+        //easy
+        d3.selectAll("#workSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "workEasy")
             .attr("x", 60)
             .attr("y", 50)
             .text("Easy")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.work.difficulty.easy) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {
+                selectScenario("easy")
+            });
+
+        //medium
+        d3.selectAll("#workSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "workMedium")
+            .attr("x", 60)
+            .attr("y", 125)
+            .text("Medium")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.work.difficulty.medium) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {
+                if (!unlocks.work.difficulty.medium) {
+                    verifyUnlock("workMedium")
+                    return;
+                }
+                else selectScenario("medium")
+            });
+
+        //hard
+        d3.selectAll("#workSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "workHard")
+            .attr("x", 60)
+            .attr("y", 200)
+            .text("Hard")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.work.difficulty.hard) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {
+                if (!unlocks.work.difficulty.hard) {
+                    verifyUnlock("workHard")
+                    return;
+                }
+                else selectScenario("hard")
+            });
+        ////theater
+        //easy
+        d3.selectAll("#theaterSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "theaterEasy")
+            .attr("x", 60)
+            .attr("y", 50)
+            .text("Easy")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.theater.difficulty.easy) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
             })
@@ -662,102 +507,516 @@ function drawButtons() {
             })
             .on("click", function() {selectScenario("easy")});
 
-        d3.selectAll("#originalSVG").append("text")
-            .attr("class", "originalMedium")
+        //medium
+        d3.selectAll("#theaterSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "theaterMedium")
             .attr("x", 60)
             .attr("y", 125)
             .text("Medium")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.theater.difficulty.medium) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
             })
-            .on("click", function() {selectScenario("medium")});
-
-        d3.selectAll("#originalSVG").append("text")
-            .attr("class", "originalHard")
+            .on("click", function() {
+                if (!unlocks.theater.difficulty.medium) {
+                    verifyUnlock("theaterMedium")
+                }
+                else selectScenario("medium")
+            });
+        //hard
+        d3.selectAll("#theaterSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "theaterHard")
             .attr("x", 60)
             .attr("y", 200)
             .text("Hard")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.theater.difficulty.hard) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
             })
-            .on("click", function() {selectScenario("hard")});
+            .on("click", function() {
+                if (!unlocks.theater.difficulty.hard) {
+                    verifyUnlock("theaterHard")
+                }
+                else selectScenario("hard")
+            });
+        //// restaurant
+        //easy
+        d3.selectAll("#restaurantSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "restaurantEasy")
+            .attr("x", 60)
+            .attr("y", 50)
+            .text("Easy")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.restaurant.difficulty.easy) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {selectScenario("easy")});
+        //medium
+        d3.selectAll("#restaurantSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "restaurantMedium")
+            .attr("x", 60)
+            .attr("y", 125)
+            .text("Medium")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.restaurant.difficulty.medium) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {
+                if (!unlocks.restaurant.difficulty.medium) {
+                    verifyUnlock("restaurantMedium")
+                }
+                else selectScenario("medium")
+            });
+        //hard
+        d3.selectAll("#restaurantSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "restaurantHard")
+            .attr("x", 60)
+            .attr("y", 200)
+            .text("Hard")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.restaurant.difficulty.hard) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {
+                if (!unlocks.restaurant.difficulty.hard) {
+                    verifyUnlock("restaurantHard")
+                }
+                else selectScenario("hard")
+            });
+        ////org
+        //easy
+        d3.selectAll("#clubSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "clubEasy")
+            .attr("x", 60)
+            .attr("y", 50)
+            .text("Easy")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.club.difficulty.easy) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {selectScenario("easy")});
+        //medium
+        d3.selectAll("#clubSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "clubMedium")
+            .attr("x", 60)
+            .attr("y", 125)
+            .text("Medium")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.club.difficulty.medium) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {
+                if (!unlocks.club.difficulty.medium) {
+                    verifyUnlock("clubMedium")
+                }
+                else selectScenario("medium")
+            });
+                    //hard
+        d3.selectAll("#clubSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "clubHard")
+            .attr("x", 60)
+            .attr("y", 200)
+            .text("Hard")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.club.difficulty.hard) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {
+                if (!unlocks.club.difficulty.hard) {
+                    verifyUnlock("clubHard")
+                }
+                else selectScenario("hard")
+            });
+        //// line
+        //easy
+        d3.selectAll("#shopSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "shopEasy")
+            .attr("x", 60)
+            .attr("y", 50)
+            .text("Easy")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.shop.difficulty.easy) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {selectScenario("easy")});
+        //medium
+        d3.selectAll("#shopSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "shopMedium")
+            .attr("x", 60)
+            .attr("y", 125)
+            .text("Medium")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.shop.difficulty.medium) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {
+                if (!unlocks.shop.difficulty.medium) {
+                    verifyUnlock("shopMedium")
+                    return;
+                }
+                else selectScenario("medium")
+            });
+        //hard
+        d3.selectAll("#shopSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "shopHard")
+            .attr("x", 60)
+            .attr("y", 200)
+            .text("Hard")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.shop.difficulty.hard) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {
+                if (!unlocks.shop.difficulty.hard) {
+                    verifyUnlock("shopHard")
+                    return;
+                }
+                else selectScenario("hard")
+            });
+        //// original
+        //easy
+        d3.selectAll("#originalSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "originalEasy")
+            .attr("x", 60)
+            .attr("y", 50)
+            .text("Easy")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.original.difficulty.easy) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {selectScenario("easy")});
+        //medium
+        d3.selectAll("#originalSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "originalMedium")
+            .attr("x", 60)
+            .attr("y", 125)
+            .text("Medium")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.original.difficulty.medium) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {
+                if (!unlocks.original.difficulty.medium) {
+                    verifyUnlock("originalMedium")
+                    return;
+                }
+                else selectScenario("medium")
+            });
+        //hard
+        d3.selectAll("#originalSVG").append("text")
+            .attr("class", "difficultyButton")
+            .attr("id", "originalHard")
+            .attr("x", 60)
+            .attr("y", 200)
+            .text("Hard")
+            .style("cursor", function() {
+                var cursorStyle;
+                if (unlocks.original.difficulty.hard) cursorStyle = "pointer"
+                else cursorStyle = "no-drop";
+                return cursorStyle;
+            })
+            .on("mouseover", function() {
+                d3.select(this).style("fill", "#2692F2")
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("fill", "#707070")
+            })
+            .on("click", function() {
+                if (!unlocks.original.difficulty.hard) {
+                    verifyUnlock("originalHard")
+                    return;
+                }
+                else selectScenario("hard")
+            });
     }
+
 }
 
+
+
 function verifyUnlock(selectedLock) {
+    var unlockRequirement;
+
+    if (selectedLock.indexOf("Easy") == -1 &&
+        selectedLock.indexOf("Medium") == -1 &&
+        selectedLock.indexOf("Hard") == -1) {
+
+        unlockRequirement = 50;
+
+    }
+    else unlockRequirement = 10;
+
+    if (saves <= unlockRequirement) return;
+
     saves = $.cookie('vaxSaves');
     unlocks = $.cookie('vaxUnlocks');
 
-    if (saves < unlockRequirement) {
-        // notify to play more & save more for unlocks
-        // ok to remove menu
+    d3.select("body").append("div")
+        .attr("class","verifyUnlockBox")
 
-    }
-    else {
-        d3.select("body").append("div")
-            .attr("class","verifyUnlockBox")
+    d3.select(".verifyUnlockBox").transition().duration(200).style("top", "150px")
 
-        d3.select(".verifyUnlockBox").transition().duration(200).style("top", "150px")
+    d3.select(".verifyUnlockBox").append("text")
+        .attr("class", "verifyUnlockHeader")
+        .text("Unlock Scenario?")
 
-        d3.select(".verifyUnlockBox").append("text")
-            .attr("class", "verifyUnlockHeader")
-            .text("Unlock Scenario?")
+    d3.select(".verifyUnlockBox").append("text")
+        .attr("class", "verifyUnlockCost")
+        .text("Cost: " + unlockRequirement + " Saves")
 
-        d3.select(".verifyUnlockBox").append("text")
-            .attr("class", "verifyUnlockYes")
-            .text("Yes")
-            .on("mouseover", function() {
-                d3.select(this).style("color", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("color", "white")
-            })
-            .on("click", function() {
-                saves -= unlockCost;
-                $.removeCookie('vaxSaves')
-                $.cookie('vaxSaves', saves, { expires: 365, path: '/' })
+    d3.select(".verifyUnlockBox").append("text")
+        .attr("class", "verifyUnlockYes")
+        .text("Yes")
+        .on("mouseover", function() {
+            d3.select(this).style("color", "#2692F2")
+        })
+        .on("mouseout", function() {
+            d3.select(this).style("color", "white")
+        })
+        .on("click", function() {
 
-                if (selectedLock == "work") unlocks.work.difficulty.easy = true;
-                if (selectedLock == "theater") unlocks.theater.difficulty.easy = true;
-                if (selectedLock == "restaurant") unlocks.restaurant.difficulty.easy = true;
-                if (selectedLock == "club") unlocks.club.difficulty.easy = true;
-                if (selectedLock == "shop") unlocks.shop.difficulty.easy = true;
-                if (selectedLock == "original") unlocks.original.difficulty.easy = true;
+            if (selectedLock == "work") {
+                unlocks.work.difficulty.easy = true;
+                saves -= scenarioUnlockCost;
 
-                d3.select(".verifyUnlockBox").style("top", "-300px")
-                window.setTimeout(function() {d3.select('.verifyUnlockBox').remove()}, 200)
+            }
+            if (selectedLock == "theater") {
+                unlocks.theater.difficulty.easy = true;
+                saves -= scenarioUnlockCost;
+            }
+            if (selectedLock == "restaurant") {
+                unlocks.restaurant.difficulty.easy = true;
+                saves -= scenarioUnlockCost;
+            }
+            if (selectedLock == "club") {
+                unlocks.club.difficulty.easy = true;
+                saves -= scenarioUnlockCost;
+            }
+            if (selectedLock == "shop") {
+                unlocks.shop.difficulty.easy = true;
+                saves -= scenarioUnlockCost;
+            }
+            if (selectedLock == "original") {
+                unlocks.original.difficulty.easy = true;
+                saves -= scenarioUnlockCost;
+            }
 
-                $.removeCookie('vaxUnlocks')
-                $.cookie('vaxUnlocks', unlocks, { expires: 365, path: '/' })
-                unlocks = $.cookie('vaxUnlocks');
-                disableDropdowns();
 
-                d3.select(".savesText").text("x" + saves)
+            if (selectedLock == "workMedium") {
+                unlocks.work.difficulty.medium = true;
+                saves -= difficultyUnlockCost;
+            }
+            if (selectedLock == "theaterMedium") {
+                unlocks.theater.difficulty.medium = true;
+                saves -= difficultyUnlockCost;
+            }
+            if (selectedLock == "restaurantMedium") {
+                unlocks.restaurant.difficulty.medium = true;
+                saves -= difficultyUnlockCost;
+            }
+            if (selectedLock == "clubMedium") {
+                unlocks.club.difficulty.medium = true;
+                saves -= difficultyUnlockCost;
+            }
+            if (selectedLock == "shopMedium") {
+                unlocks.shop.difficulty.medium = true;
+                saves -= difficultyUnlockCost;
+            }
+            if (selectedLock == "originalMedium") {
+                unlocks.original.difficulty.medium = true;
+                saves -= difficultyUnlockCost;
+            }
 
-            })
 
-        d3.select(".verifyUnlockBox").append("text")
-            .attr("class", "verifyUnlockNo")
-            .text("No")
-            .on("mouseover", function() {
-                d3.select(this).style("color", "#2692F2")
-            })
-            .on("mouseout", function() {
-                d3.select(this).style("color", "white")
-            })
-            .on("click", function() {
-                d3.select(".verifyUnlockBox").style("top", "-300px")
-                window.setTimeout(function() {d3.select('.verifyUnlockBox').remove()}, 200)
+            if (selectedLock == "workHard") {
+                unlocks.work.difficulty.hard = true;
+                saves -= difficultyUnlockCost;
+            }
+            if (selectedLock == "theaterHard") {
+                unlocks.theater.difficulty.hard = true;
+                saves -= difficultyUnlockCost;
+            }
+            if (selectedLock == "restaurantHard") {
+                unlocks.restaurant.difficulty.hard = true;
+                saves -= difficultyUnlockCost;
+            }
+            if (selectedLock == "clubHard") {
+                unlocks.club.difficulty.hard = true;
+                saves -= difficultyUnlockCost;
+            }
+            if (selectedLock == "shopHard") {
+                unlocks.shop.difficulty.hard = true;
+                saves -= difficultyUnlockCost;
+            }
+            if (selectedLock == "originalHard") {
+                unlocks.original.difficulty.hard = true;
+                saves -= difficultyUnlockCost;
+            }
 
-            })
+            d3.select(".verifyUnlockBox").style("top", "-300px")
+            window.setTimeout(function() {d3.select('.verifyUnlockBox').remove()}, 200)
 
-    }
+            d3.selectAll(".savesText").remove();
+            d3.select(".savesSVG").append("text")
+                .attr("class", "savesText")
+                .attr("x", "26px")
+                .attr("y", "95px")
+                .text("x" + saves)
+
+            $.removeCookie('vaxSaves')
+            $.removeCookie('vaxUnlocks')
+
+            $.cookie('vaxSaves', saves, { expires: 365, path: '/' })
+            $.cookie('vaxUnlocks', unlocks, { expires: 365, path: '/' })
+
+            saves = $.cookie('vaxSaves')
+            unlocks = $.cookie('vaxUnlocks');
+
+
+            d3.selectAll(".difficultyButton").remove();
+            buttonsDrawn = false;
+            drawButtons();
+
+            disableDropdowns();
+
+
+        })
+
+    d3.select(".verifyUnlockBox").append("text")
+        .attr("class", "verifyUnlockNo")
+        .text("No")
+        .on("mouseover", function() {
+            d3.select(this).style("color", "#2692F2")
+        })
+        .on("mouseout", function() {
+            d3.select(this).style("color", "white")
+        })
+        .on("click", function() {
+            d3.select(".verifyUnlockBox").style("top", "-300px")
+            window.setTimeout(function() {d3.select('.verifyUnlockBox').remove()}, 200)
+
+        })
+
+
+
+
 
 }
 
@@ -774,11 +1033,12 @@ function drawLocks() {
         .attr("xlink:href", "/assets/lockIcon.svg")
         .attr("x", "-10")
         .attr("y", "-10")
-        .style("position", "absolute")
-        .style("left", "0")
         .attr("width", "50")
         .attr("height", "50")
         .attr("class", "workLockIcon")
+        .style("position", "absolute")
+        .style("left", "0")
+        .style("cursor", "pointer")
         .on("mouseover", function() {
             // pop-over showing the cost of the unlock
         })
@@ -803,6 +1063,7 @@ function drawLocks() {
         .style("left", "0")
         .attr("width", "50")
         .attr("height", "50")
+        .style("cursor", "pointer")
         .attr("class", "theaterLockIcon")
         .on("mouseover", function() {
             // pop-over showing the cost of the unlock
@@ -830,6 +1091,7 @@ function drawLocks() {
         .style("left", "0")
         .attr("width", "50")
         .attr("height", "50")
+        .style("cursor", "pointer")
         .attr("class", "restaurantLockIcon")
         .on("mouseover", function() {
             // pop-over showing the cost of the unlock
@@ -857,6 +1119,7 @@ function drawLocks() {
         .style("left", "0")
         .attr("width", "50")
         .attr("height", "50")
+        .style("cursor", "pointer")
         .attr("class", "clubLockIcon")
         .style("cursor", "pointer")
         .on("mouseover", function() {
@@ -883,6 +1146,7 @@ function drawLocks() {
         .style("left", "0")
         .attr("width", "50")
         .attr("height", "50")
+        .style("cursor", "pointer")
         .attr("class", "shopLockIcon")
         .on("mouseover", function() {
             // pop-over showing the cost of the unlock
@@ -912,6 +1176,7 @@ function drawLocks() {
         .style("left", "0")
         .attr("width", "50")
         .attr("height", "50")
+        .style("cursor", "pointer")
         .attr("class", "originalLockIcon")
         .on("mouseover", function() {
             // pop-over showing the cost of the unlock
