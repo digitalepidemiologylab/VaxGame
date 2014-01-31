@@ -20,29 +20,52 @@
 .difficultyPopover {
   position: absolute;
   display: inline;
+  background: #f1f1f1;
   top: -60px;
-  left: 215px;
-  height: 200px;
+  left: 175px;
+  height: 150px;
   width: 150px;
+  color: #f1f1f1;
   font-family: "Nunito";
   font-size: 18px;
   font-weight: 300;
+  box-shadow:5px 6px #f1f1f1;
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s;
+
+}
+
+#difficultyPopoverHeader {
+  color: #85bc99;
+  font-family: "Nunito";
+  font-size: 20px;
+  font-weight: 500;
+
 }
 
 .popoverStat {
+  margin-top: 5px;
+  font-weight: 200;
+  font-family: "Nunito";
+  font-size: 18px;
   display: block;
+  text-align: center;
+  text-justify: center;
 }
 
 .scenarioHead {
   font-family: "Nunito";
   font-size: 20px;
   font-weight: 300;
+
 }
 
 #workSVG, #theaterSVG, #restaurantSVG, #clubSVG, #shopSVG, #originalSVG {
   pointer-events: all;
   position: absolute;
-  width: 200px;
+  width: 175px;
   height: 200px;
 }
 
@@ -58,23 +81,11 @@
   position: relative;
   left: 0px;
   display: inline;
-
-}
-
-.scenarioTooltip {
-  position: relative;
-  display: inline;
-  height: 150px;
-  width: 50px;
-  font-family: "Nunito";
-  font-weight: 300;
-  font-size: 18px;
 }
 
 .scenarioAction {
   position: relative;
   display: inline;
-
 }
 
 .lock  {
@@ -90,7 +101,7 @@
   font-family: "Nunito";
   font-weight: 300;
   font-size: 22px;
-  color: white;
+  color: #f1f1f1;
   width:100px;
   height: 125px;
   padding-top: 5px;
@@ -110,7 +121,7 @@
   font-family: "Nunito";
   font-weight: 300;
   font-size: 18px;
-  fill: white;
+  fill: #f1f1f1;
 
 }
 
@@ -121,7 +132,7 @@
   font-family: "Nunito";
   font-weight: 400;
   font-size: 28px;
-  color: white;
+  color: #f1f1f1;
   width:125px;
   height: 45px;
   padding-top: 30px;
@@ -141,7 +152,7 @@
   position:absolute;
   background: #85bc99;
   float:right;
-  color: "white";
+  color: "#f1f1f1";
   width:300px;
   height: 100px;
   padding-top: 30px;
@@ -159,7 +170,7 @@
   position: absolute;
   top: 20px;
   left: 40px;
-  color: white;
+  color: #f1f1f1;
   font-family: "Nunito";
   font-weight: 500;
   font-size: 28px;
@@ -178,7 +189,7 @@
   position: absolute;
   left: 80px;
   top: 62px;
-  color: white;
+  color: #f1f1f1;
   font-family: "Nunito";
   font-weight: 300;
   font-size: 22px;
@@ -189,7 +200,7 @@
   position: absolute;
   left: 180px;
   top: 62px;
-  color: white;
+  color: #f1f1f1;
   font-family: "Nunito";
   font-weight: 300;
   font-size: 22px;

@@ -387,11 +387,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("easy")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
             })
             .on("click", function() {
                 selectScenario("easy")
@@ -413,11 +417,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("medium")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
 
             })
             .on("click", function() {
@@ -444,11 +452,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("hard")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
 
             })
             .on("click", function() {
@@ -475,12 +487,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("easy")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
-
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
             })
             .on("click", function() {selectScenario("easy")});
 
@@ -500,12 +515,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("medium")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
-
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
             })
             .on("click", function() {
                 if (!unlocks.theater.difficulty.medium) {
@@ -529,11 +547,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("hard")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
 
             })
             .on("click", function() {
@@ -559,11 +581,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("easy")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
 
             })
             .on("click", function() {selectScenario("easy")});
@@ -583,11 +609,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("medium")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
 
             })
             .on("click", function() {
@@ -612,11 +642,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("hard")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
 
             })
             .on("click", function() {
@@ -642,11 +676,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("easy")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
 
             })
             .on("click", function() {selectScenario("easy")});
@@ -666,11 +704,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("medium")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
 
             })
             .on("click", function() {
@@ -695,11 +737,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("hard")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
 
             })
             .on("click", function() {
@@ -725,11 +771,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("easy")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
             })
             .on("click", function() {selectScenario("easy")});
         //medium
@@ -748,11 +798,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("medium")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
             })
             .on("click", function() {
                 if (!unlocks.shop.difficulty.medium) {
@@ -777,12 +831,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("hard")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove()
-
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
             })
             .on("click", function() {
                 if (!unlocks.shop.difficulty.hard) {
@@ -808,10 +865,14 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("easy")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove();
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
             })
             .on("click", function() {selectScenario("easy")});
         //medium
@@ -830,11 +891,15 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("medium")
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
 
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
                 d3.selectAll(".popoverStat").remove();
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
 
             })
             .on("click", function() {
@@ -860,10 +925,13 @@ function drawButtons() {
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
                 drawDifficultyPopover("hard")
-
+                d3.selectAll(".difficultyPopover").style("background", "#85bc99")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #838383")
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".difficultyPopover").style("background", "#f1f1f1")
+                d3.selectAll(".difficultyPopover").style("box-shadow", "5px 6px #f1f1f1")
                 d3.selectAll(".popoverStat").remove();
 
             })
@@ -941,8 +1009,14 @@ function drawDifficultyPopover(difficulty) {
 
     d3.selectAll(".difficultyPopover").append("text")
         .attr("class", "popoverStat")
+        .attr("id", "difficultyPopoverHeader")
+        .style("color", "#838383")
+        .text("Difficulty Stats")
+
+    d3.selectAll(".difficultyPopover").append("text")
+        .attr("class", "popoverStat")
         .attr("id", "sizeStat")
-        .text("Size: " + networkSize[difficultyIndex]);
+        .text("Net Size: " + networkSize[difficultyIndex]);
 
     d3.selectAll(".difficultyPopover").append("text")
         .attr("class", "popoverStat")
@@ -957,7 +1031,8 @@ function drawDifficultyPopover(difficulty) {
     d3.selectAll(".difficultyPopover").append("text")
         .attr("class", "popoverStat")
         .attr("id", "outbreakStat")
-        .text("Outbreaks: " + independentOutbreakDifficulty[difficultyIndex])
+        .text("Outbreak: " + independentOutbreakDifficulty[difficultyIndex])
+
 
 //    d3.select(".difficultyPopover").append("text")
 //        .attr("class", "popoverStat")
