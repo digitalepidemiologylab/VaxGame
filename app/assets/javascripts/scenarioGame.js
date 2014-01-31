@@ -80,9 +80,11 @@ function setCurrentGameConditions() {
 
 
 function initScenarioGraph(scenarioTitle) {
+    friction = 0.83;
+
     if (scenarioTitle == "Workplace / School") {
-        charge = -1000;
-        toggleDegree = false;
+        friction = 0.15;
+        charge = -7500;
         graph = initHuckNet();
     }
     if (scenarioTitle == "Movie Theater / Lecture Hall") {
@@ -344,8 +346,6 @@ function createIndexPatients() {
 }
 
 function update() {
-    friction = 0.83;
-
     d3.select(".vaccineCounterText").text(numberOfVaccines)
     d3.select(".quarantineCounterText").text("x" + numberQuarantined)
     var nodes = removeVaccinatedNodes(graph);
@@ -458,14 +458,26 @@ function tick() {
 function nodeSizing(node) {
     var size = 8;
 
-    if (scenarioTitle == "Workplace / School") size = 10;
+    if (scenarioTitle == "Workplace / School") {
+        if (toggleDegree) {
+            if (findNeighbors(node).length >= 50) size = 16;
+            if (findNeighbors(node).length >= 20 && findNeighbors(node).length < 50) size = 14;
+            if (findNeighbors(node).length >= 10 && findNeighbors(node).length < 20) size = 12;
+            if (findNeighbors(node).length >= 5 && findNeighbors(node).length < 10) size = 8;
+            if (findNeighbors(node).length >= 2 && findNeighbors(node).length < 5) size = 5;
+            if (findNeighbors(node).length >= 0 && findNeighbors(node).length < 2) size = 2;
+        }
+    }
+    else {
+        if (toggleDegree) {
+            size = (findNeighbors(node).length + 1.5) * 1.9;
+            if (meanDegree > 3) size = (findNeighbors(node).length+1) * 1.65;
+            if (meanDegree > 4) size = (findNeighbors(node).length+1) * 1.25;
 
-    if (toggleDegree) {
-        size = (findNeighbors(node).length + 1.5) * 1.9;
-        if (meanDegree > 3) size = (findNeighbors(node).length+1) * 1.65;
-        if (meanDegree > 4) size = (findNeighbors(node).length+1) * 1.25;
+        }
 
     }
+
     return size;
 }
 
@@ -503,19 +515,41 @@ function animateNewInfection() {
         .duration(500)
         .attr("r", function(node) {
             var currentSize;
-            if (toggleDegree) {
-                currentSize = (findNeighbors(node).length + 1.5) * 1.9;
-                if (meanDegree > 3) currentSize = (findNeighbors(node).length+1) * 1.65;
-                if (meanDegree > 4) currentSize = (findNeighbors(node).length+1) * 1.25;
 
-            }
-            else currentSize = 8;
+            if (scenarioTitle == "Workplace / School") {
+                if (findNeighbors(node).length >= 50) currentSize = 16;
+                if (findNeighbors(node).length >= 20 && findNeighbors(node).length < 50) currentSize = 14;
+                if (findNeighbors(node).length >= 10 && findNeighbors(node).length < 20) currentSize = 12;
+                if (findNeighbors(node).length >= 5 && findNeighbors(node).length < 10) currentSize = 8;
+                if (findNeighbors(node).length >= 2 && findNeighbors(node).length < 5) currentSize = 5;
+                if (findNeighbors(node).length >= 0 && findNeighbors(node).length < 2) currentSize = 2;
 
-            if (node.status == "I") {
-                if (timestep - node.exposureTimestep == 1) return currentSize * 1.5;
+
+                if (node.status == "I") {
+                    if (timestep - node.exposureTimestep == 1) return currentSize * 1.5;
+                    else return currentSize;
+                }
                 else return currentSize;
+
             }
-            else return currentSize;
+            else {
+                if (toggleDegree) {
+                    currentSize = (findNeighbors(node).length + 1.5) * 1.9;
+                    if (meanDegree > 3) currentSize = (findNeighbors(node).length+1) * 1.65;
+                    if (meanDegree > 4) currentSize = (findNeighbors(node).length+1) * 1.25;
+
+                }
+                else currentSize = 8;
+
+                if (node.status == "I") {
+                    if (timestep - node.exposureTimestep == 1) return currentSize * 1.5;
+                    else return currentSize;
+                }
+                else return currentSize;
+
+            }
+
+
         })
 }
 
@@ -924,15 +958,14 @@ function countIndividuals(status) {
 
 
 function recordScores() {
-
-    var savedIndividuals = countIndividuals("S");
-    var proportionSaved = savedIndividuals/graph.nodes.length;
-
     var quarantinedIndividuals = countIndividuals("Q");
     var proportionQuarantined = quarantinedIndividuals/graph.nodes.length;
 
     var vaccinatedIndividuals = countIndividuals("V");
     var proportionVaccinated = vaccinatedIndividuals/graph.nodes.length;
+
+    var savedIndividuals = numberOfIndividuals - vaccinatedIndividuals - quarantinedIndividuals - countIndividuals("R") - countIndividuals("I");
+    var proportionSaved = savedIndividuals/graph.nodes.length;
 
     var totalUninfected = savedIndividuals + quarantinedIndividuals + vaccinatedIndividuals;
     var proportionUninfected = totalUninfected/graph.nodes.length;
@@ -952,7 +985,6 @@ function recordScores() {
     console.log($.cookie('vaxCurrentScenarioScores'))
 
     modifyUnlocks();
-
     window.location.href = 'http://0.0.0.0:3000/scores'
 }
 

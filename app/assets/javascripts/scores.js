@@ -36,7 +36,7 @@ function readCurrentScenarioScores() {
     scenarioTitle = currentScenarioScores.scenario;
 
     if (scenarioTitle == "Workplace / School") {
-        numberOfIndividuals = 87;
+        numberOfIndividuals = [87,87,87];
         vaxDifficulty = [25,18,15];
         transmissionDifficulty = [0.08, 0.10, 0.15];
         recoveryDifficulty = [0.40, 0.35, 0.30];
@@ -44,7 +44,7 @@ function readCurrentScenarioScores() {
         refuserDifficulty = [3,7,14];
     }
     if (scenarioTitle == "Movie Theater / Lecture Hall") {
-        numberOfIndividuals = 48;
+        numberOfIndividuals = [48,48,48];
         vaxDifficulty = [12,7,5];
         transmissionDifficulty = [0.15, 0.20, 0.25];
         recoveryDifficulty = [0.40, 0.35, 0.30];
@@ -52,7 +52,7 @@ function readCurrentScenarioScores() {
         refuserDifficulty = [2,7,9];
     }
     if (scenarioTitle == "Restaurant") {
-        numberOfIndividuals = 74;
+        numberOfIndividuals = [74,74,74];
         vaxDifficulty = [6,4,3];
         transmissionDifficulty = [0.15, 0.20, 0.25];
         recoveryDifficulty = [0.40, 0.35, 0.30];
@@ -60,7 +60,7 @@ function readCurrentScenarioScores() {
         refuserDifficulty = [2,5,7];
     }
     if (scenarioTitle == "Organization") {
-        numberOfIndividuals = 50;
+        numberOfIndividuals = [50,50,50];
         vaxDifficulty = [6,4,3];
         transmissionDifficulty = [0.15, 0.20, 0.25];
         recoveryDifficulty = [0.40, 0.35, 0.30];
@@ -68,7 +68,7 @@ function readCurrentScenarioScores() {
         refuserDifficulty = [2,5,7];
     }
     if (scenarioTitle == "Endless Queue") {
-        numberOfIndividuals = 145;
+        numberOfIndividuals = [145,145,145];
         vaxDifficulty = [20,15,10];
         transmissionDifficulty = [0.15, 0.20, 0.25];
         recoveryDifficulty = [0.40, 0.35, 0.30];
@@ -183,10 +183,10 @@ function stackedChart() {
     z = d3.scale.ordinal().range(["#b7b7b7","#85BC99","#d9d678" , "#ef5555" ])
     // 1 column
 
-    console.log(newSaves +"\t" +  vaccinesUsed +"\t" +  quarantinesUsed +"\t" +  (numberOfIndividuals - quarantinesUsed - vaccinesUsed - newSaves))
+    console.log(newSaves +"\t" +  vaccinesUsed +"\t" +  quarantinesUsed +"\t" +  (numberOfIndividuals[difficultyIndex] - quarantinesUsed - vaccinesUsed - newSaves))
 
     var matrix = [
-        [ 1,  newSaves, vaccinesUsed, quarantinesUsed, (numberOfIndividuals - quarantinesUsed - vaccinesUsed - newSaves)]
+        [ 1,  newSaves, vaccinesUsed, quarantinesUsed, (numberOfIndividuals[difficultyIndex] - quarantinesUsed - vaccinesUsed - newSaves)]
 
     ];
 
