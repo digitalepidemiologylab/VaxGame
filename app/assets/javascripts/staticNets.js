@@ -8715,35 +8715,35 @@ function initHuckNet() {
 
 function initRandomNet() {
     if (difficulty == "easy") {
-        numberOfIndividuals = 50;
+        numberOfIndividuals = 40;
         meanDegree = 3;
         numberOfVaccines = 5;
         independentOutbreaks = 1;
-        transmissionRate = 0.55;
-        recoveryRate = 0.30;
+        transmissionRate = 0.35;
+        recoveryRate = 0.40;
         numberOfRefusers = 3;
 
     }
 
     if (difficulty == "medium") {
-        numberOfIndividuals = 75;
+        numberOfIndividuals = 60;
         meanDegree = 4;
-        numberOfVaccines = 10;
+        numberOfVaccines = 8;
         independentOutbreaks = 2;
-        transmissionRate = 0.60;
-        recoveryRate = 0.25;
-        numberOfRefusers = 8;
+        transmissionRate = 0.5;
+        recoveryRate = 0.35;
+        numberOfRefusers = 6;
     }
 
     if (difficulty == "hard") {
         charge = -300;
-        numberOfIndividuals = 100;
+        numberOfIndividuals = 85;
         meanDegree = 4;
-        numberOfVaccines = 15;
-        transmissionRate = 0.70;
-        recoveryRate = 0.15;
+        numberOfVaccines = 10;
+        transmissionRate = 0.65;
+        recoveryRate = 0.30;
         independentOutbreaks = 3;
-        numberOfRefusers = 15;
+        numberOfRefusers = 10;
     }
     return generateSmallWorld(numberOfIndividuals, rewire, meanDegree);
 }

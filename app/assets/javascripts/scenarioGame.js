@@ -13,6 +13,8 @@ var speed;
 var xyCoords;
 var rewire = 0.1;
 var meanDegree;
+var resizingParameter = 1.9;
+var invisibleParameter = 1.5;
 
 // game phase markers
 var vaccinateMode;
@@ -89,19 +91,47 @@ function initScenarioGraph(scenarioTitle) {
     }
     if (scenarioTitle == "Movie Theater / Lecture Hall") {
         graph = initTheaterNet();
+        invisibleParameter = 1.5;
+        resizingParameter = 1.7;
+        charge = -600;
+
     }
     if (scenarioTitle == "Restaurant") {
+        charge = -450;
         graph = initRestaurantNet();
+        invisibleParameter = 1.2;
+        resizingParameter = 1.3
     }
     if (scenarioTitle == "Organization") {
+        invisibleParameter = 1.5;
+        resizingParameter = 1.9;
+        charge = -600;
         graph = initClubNet();
     }
     if (scenarioTitle == "Endless Queue") {
         graph = initShopNet();
-        charge = -100;
+        invisibleParameter = 1.3;
+        resizingParameter = 1.4;
+        charge = -190;
     }
     if (scenarioTitle == "Random Networks") {
         graph = initRandomNet();
+
+        if (difficulty == "easy") {
+            invisibleParameter = 1.7;
+            resizingParameter = 1.9;
+            charge = -750;
+        }
+        if (difficulty == "medium") {
+            invisibleParameter = 1.7;
+            resizingParameter = 1.8;
+            charge = -600;
+        }
+        if (difficulty == "hard") {
+            invisibleParameter = 1.7;
+            resizingParameter = 1.7;
+            charge = -400;
+        }
     }
 
     if (numberOfRefusers > 0) createRefusers();
@@ -183,10 +213,9 @@ function drawScenarioSpace() {
         .enter()
         .append("circle")
         .attr("class", "clickArea")
-        .attr("r", function(node) {
-            return (1.5 * nodeSizing(node));
-        })
-        .attr("opacity", 0)
+        .attr("fill", "black")
+        .attr("r", function(node) {return invisibleParameter * nodeSize(node)})
+        .attr("opacity", 0.25)
         .call(force.drag)
         .on("click", function(node) {
             if (speed) speedModeClick(node);
@@ -391,12 +420,7 @@ function update() {
                 else turnModeClick(node);
             }
         })
-        .attr("r", function(node) {
-            if (node.degree = 0) return 0;
-            return 1.5 * nodeSizing(node)
-        })
-
-
+        .attr("r", function(node) {return invisibleParameter * nodeSize(node)})
 
     // Enter any new nodes.
     node.enter().append("svg:circle")
@@ -457,27 +481,7 @@ function tick() {
 
 function nodeSizing(node) {
     var size = 8;
-
-    if (scenarioTitle == "Workplace / School") {
-        if (toggleDegree) {
-            if (findNeighbors(node).length >= 50) size = 16;
-            if (findNeighbors(node).length >= 20 && findNeighbors(node).length < 50) size = 14;
-            if (findNeighbors(node).length >= 10 && findNeighbors(node).length < 20) size = 12;
-            if (findNeighbors(node).length >= 5 && findNeighbors(node).length < 10) size = 8;
-            if (findNeighbors(node).length >= 2 && findNeighbors(node).length < 5) size = 5;
-            if (findNeighbors(node).length >= 0 && findNeighbors(node).length < 2) size = 2;
-        }
-    }
-    else {
-        if (toggleDegree) {
-            size = (findNeighbors(node).length + 1.5) * 1.9;
-            if (meanDegree > 3) size = (findNeighbors(node).length+1) * 1.65;
-            if (meanDegree > 4) size = (findNeighbors(node).length+1) * 1.25;
-
-        }
-
-    }
-
+    if (toggleDegree) size = (findNeighbors(node).length + 1.5) * resizingParameter;
     return size;
 }
 
@@ -515,41 +519,15 @@ function animateNewInfection() {
         .duration(500)
         .attr("r", function(node) {
             var currentSize;
-
-            if (scenarioTitle == "Workplace / School") {
-                if (findNeighbors(node).length >= 50) currentSize = 16;
-                if (findNeighbors(node).length >= 20 && findNeighbors(node).length < 50) currentSize = 14;
-                if (findNeighbors(node).length >= 10 && findNeighbors(node).length < 20) currentSize = 12;
-                if (findNeighbors(node).length >= 5 && findNeighbors(node).length < 10) currentSize = 8;
-                if (findNeighbors(node).length >= 2 && findNeighbors(node).length < 5) currentSize = 5;
-                if (findNeighbors(node).length >= 0 && findNeighbors(node).length < 2) currentSize = 2;
-
-
-                if (node.status == "I") {
-                    if (timestep - node.exposureTimestep == 1) return currentSize * 1.5;
-                    else return currentSize;
-                }
-                else return currentSize;
-
+            if (toggleDegree) {
+                currentSize = (findNeighbors(node).length + 1.5) * resizingParameter;
             }
-            else {
-                if (toggleDegree) {
-                    currentSize = (findNeighbors(node).length + 1.5) * 1.9;
-                    if (meanDegree > 3) currentSize = (findNeighbors(node).length+1) * 1.65;
-                    if (meanDegree > 4) currentSize = (findNeighbors(node).length+1) * 1.25;
-
-                }
-                else currentSize = 8;
-
-                if (node.status == "I") {
-                    if (timestep - node.exposureTimestep == 1) return currentSize * 1.5;
-                    else return currentSize;
-                }
+            else currentSize = 8;
+            if (node.status == "I") {
+                if (timestep - node.exposureTimestep == 1) return currentSize * 1.5;
                 else return currentSize;
-
             }
-
-
+            else return currentSize;
         })
 }
 

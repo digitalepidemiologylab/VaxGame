@@ -17,7 +17,7 @@ var numberOfRefusers;
 var gameSVG ;
 var width = 975;
 var height = 800 - 45 - 50;  // standard height - footer:height - footer:bottomMargin
-var charge = -500;
+var charge = -900;
 var friction = 0.9;
 
 var numberOfVaccines = 0;
@@ -621,8 +621,21 @@ function initGameSpace() {
         .append("circle")
         .attr("class", "clickArea")
         .attr("r", function(node) {
-            return (1.5 * nodeSize(node));
+            var clickAreaSize;
+
+            if (difficultyString == "easy") {
+                clickAreaSize = 1.9 * nodeSize(node);
+            }
+            if (difficultyString == "medium") {
+                clickAreaSize = 1.7 * nodeSize(node);
+            }
+            if (difficultyString == "hard") {
+                clickAreaSize = 1.6 * nodeSize(node);
+            }
+
+            return clickAreaSize;
         })
+        .attr("fill", "black")
         .attr("opacity", 0)
         .call(force.drag)
         .on("click", function(node) {
@@ -662,6 +675,16 @@ function initGameSpace() {
         .attr("class", "background")
         .style("visibility", "hidden")
         .style("cursor", "crosshair");
+
+    if (toggleDegree && difficultyString == "easy") {
+        charge = -850;
+    }
+    if (toggleDegree && difficultyString == "medium") {
+        charge = -450;
+    }
+    if (toggleDegree && difficultyString == "hard") {
+        charge = -300;
+    }
 
 }
 
@@ -875,6 +898,8 @@ function gameUpdate() {
         .attr("r", nodeSize)
 
     d3.selectAll(".clickArea")
+        .attr("fill", "black")
+        .attr("opacity", 0)
         .on("click", function(node) {
             if (node.status == "V" || node.status == "Q") return;
             else {
@@ -883,8 +908,20 @@ function gameUpdate() {
             }
         })
         .attr("r", function(node) {
-            if (node.degree = 0) return 0;
-            return 1.5 * nodeSize(node)
+            var clickAreaSize;
+            if (findNeighbors(node).length <= 1) clickAreaSize = 0;
+            else {
+                if (difficultyString == "easy") {
+                    clickAreaSize = 1.9 * nodeSize(node);
+                }
+                if (difficultyString == "medium") {
+                    clickAreaSize = 1.7 * nodeSize(node);
+                }
+                if (difficultyString == "hard") {
+                    clickAreaSize = 1.6 * nodeSize(node);
+                }
+            }
+            return clickAreaSize;
         })
 
 
@@ -2317,8 +2354,9 @@ jQuery(document).bind('keydown', function (evt){
 function toggleDegreeFxn() {
     toggleDegree = !toggleDegree;
 
-    if (toggleDegree && difficultyString == "medium") charge = -600;
-    if (toggleDegree && difficultyString == "hard") charge = -400;
+    if (toggleDegree && difficultyString == "easy") charge = -900;
+    if (toggleDegree && difficultyString == "medium") charge = -700;
+    if (toggleDegree && difficultyString == "hard") charge = -600;
 
     if (!toggleDegree) charge = -300;
 

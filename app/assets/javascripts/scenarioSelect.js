@@ -991,12 +991,12 @@ function defineDifficultyConstants() {
     }
 
     if (scenarioTitle == "Random Networks") {
-        networkSize = [25,75,100];
-        vaxDifficulty = [5, 10, 15];
+        networkSize = [40,60,85];
+        vaxDifficulty = [5, 10, 10];
         transmissionDifficulty = [0.35, 0.50, 0.65];
         recoveryDifficulty = [0.40, 0.35, 0.30];
         independentOutbreakDifficulty = [1, 2, 3];
-        refuserDifficulty = [2, 10, 15];
+        refuserDifficulty = [3, 8, 10];
     }
 }
 
