@@ -5,11 +5,13 @@ var scenarioUnlockCost = 50;
 var difficultyUnlockCost = 10;
 
 // game constant arrays
+var networkSize;
 var vaxDifficulty;
 var transmissionDifficulty;
 var recoveryDifficulty;
 var independentOutbreakDifficulty;
 var refuserDifficulty;
+var difficultyIndex;
 
 // cookies
 var unlocks;
@@ -90,56 +92,7 @@ function selectScenario(difficulty) {
 
     // conditional statements determine which scenario we're in and which constant to choose, given difficulty input
     // graph is then drawn to spec
-    if (scenarioTitle == "Workplace / School") {
-        numberOfIndividuals = 87;
-        vaxDifficulty = [25,18,15];
-        transmissionDifficulty = [0.08, 0.10, 0.15];
-        recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [2,3,4];
-        refuserDifficulty = [3,7,14];
-    }
-    if (scenarioTitle == "Movie Theater / Lecture Hall") {
-        numberOfIndividuals = 48;
-        vaxDifficulty = [5,4,3];
-        transmissionDifficulty = [0.50, 0.55, 0.55];
-        recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [2,3,3];
-        refuserDifficulty = [2,7,9];
-    }
-    if (scenarioTitle == "Restaurant") {
-        numberOfIndividuals = 74;
-        vaxDifficulty = [4,3,2];
-        transmissionDifficulty = [0.55, 0.65, 0.75];
-        recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [2,3,4];
-        refuserDifficulty = [3,5,7];
-    }
-    if (scenarioTitle == "Organization") {
-        numberOfIndividuals = 50;
-        vaxDifficulty = [5,4,3];
-        transmissionDifficulty = [0.45, 0.55, 0.65];
-        recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [1,2,3];
-        refuserDifficulty = [2,5,7];
-    }
-    if (scenarioTitle == "Endless Queue") {
-        numberOfIndividuals = 145;
-        vaxDifficulty = [20,15,10];
-        transmissionDifficulty = [0.45, 0.55, 0.65];
-        recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [2,5,7];
-        refuserDifficulty = [5,10,20];
-    }
-
-    if (scenarioTitle == "Random Networks") {
-        numberOfIndividuals = 25;
-        vaxDifficulty = [5, 10, 15];
-        transmissionDifficulty = [0.35, 0.50, 0.65];
-        recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [1, 2, 3];
-        refuserDifficulty = [2, 10, 15];
-    }
-
+    defineDifficultyConstants();
 
     // now that the difficulty values have been chosen based on scenario, we set them based on difficulty
     setDifficultyConstants(scenarioTitle, difficulty);
@@ -433,9 +386,12 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("easy")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
             })
             .on("click", function() {
                 selectScenario("easy")
@@ -456,9 +412,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("medium")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
+
             })
             .on("click", function() {
                 if (!unlocks.work.difficulty.medium) {
@@ -483,9 +443,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("hard")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
+
             })
             .on("click", function() {
                 if (!unlocks.work.difficulty.hard) {
@@ -510,9 +474,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("easy")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
+
             })
             .on("click", function() {selectScenario("easy")});
 
@@ -531,9 +499,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("medium")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
+
             })
             .on("click", function() {
                 if (!unlocks.theater.difficulty.medium) {
@@ -556,9 +528,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("hard")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
+
             })
             .on("click", function() {
                 if (!unlocks.theater.difficulty.hard) {
@@ -582,9 +558,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("easy")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
+
             })
             .on("click", function() {selectScenario("easy")});
         //medium
@@ -602,9 +582,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("medium")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
+
             })
             .on("click", function() {
                 if (!unlocks.restaurant.difficulty.medium) {
@@ -627,9 +611,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("hard")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
+
             })
             .on("click", function() {
                 if (!unlocks.restaurant.difficulty.hard) {
@@ -653,9 +641,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("easy")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
+
             })
             .on("click", function() {selectScenario("easy")});
         //medium
@@ -673,9 +665,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("medium")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
+
             })
             .on("click", function() {
                 if (!unlocks.club.difficulty.medium) {
@@ -698,9 +694,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("hard")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
+
             })
             .on("click", function() {
                 if (!unlocks.club.difficulty.hard) {
@@ -724,9 +724,12 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("easy")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
             })
             .on("click", function() {selectScenario("easy")});
         //medium
@@ -744,9 +747,12 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("medium")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
             })
             .on("click", function() {
                 if (!unlocks.shop.difficulty.medium) {
@@ -770,9 +776,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("hard")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove()
+
             })
             .on("click", function() {
                 if (!unlocks.shop.difficulty.hard) {
@@ -797,9 +807,11 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("easy")
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove();
             })
             .on("click", function() {selectScenario("easy")});
         //medium
@@ -817,9 +829,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("medium")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove();
+
             })
             .on("click", function() {
                 if (!unlocks.original.difficulty.medium) {
@@ -843,9 +859,13 @@ function drawButtons() {
             })
             .on("mouseover", function() {
                 d3.select(this).style("fill", "#2692F2")
+                drawDifficultyPopover("hard")
+
             })
             .on("mouseout", function() {
                 d3.select(this).style("fill", "#707070")
+                d3.selectAll(".popoverStat").remove();
+
             })
             .on("click", function() {
                 if (!unlocks.original.difficulty.hard) {
@@ -855,6 +875,101 @@ function drawButtons() {
                 else selectScenario("hard")
             });
     }
+
+}
+
+function defineDifficultyConstants() {
+    scenarioTitle = $(".ui-accordion-header-active").text();
+
+    if (scenarioTitle == "Workplace / School") {
+        networkSize = [87,87,87];
+        vaxDifficulty = [25,18,15];
+        transmissionDifficulty = [0.08, 0.10, 0.15];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [2,3,4];
+        refuserDifficulty = [3,7,14];
+    }
+    if (scenarioTitle == "Movie Theater / Lecture Hall") {
+        networkSize = [48,48,48];
+        vaxDifficulty = [5,4,3];
+        transmissionDifficulty = [0.50, 0.55, 0.55];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [2,3,3];
+        refuserDifficulty = [2,7,9];
+    }
+    if (scenarioTitle == "Restaurant") {
+        networkSize = [74,74,74];
+        vaxDifficulty = [4,3,2];
+        transmissionDifficulty = [0.55, 0.65, 0.75];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [2,3,4];
+        refuserDifficulty = [3,5,7];
+    }
+    if (scenarioTitle == "Organization") {
+        networkSize = [50,50,50];
+        vaxDifficulty = [5,4,3];
+        transmissionDifficulty = [0.45, 0.55, 0.65];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [1,2,3];
+        refuserDifficulty = [2,5,7];
+    }
+    if (scenarioTitle == "Endless Queue") {
+        networkSize = [145,145,145];
+        vaxDifficulty = [20,15,10];
+        transmissionDifficulty = [0.45, 0.55, 0.65];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [2,5,7];
+        refuserDifficulty = [5,10,20];
+    }
+
+    if (scenarioTitle == "Random Networks") {
+        networkSize = [25,75,100];
+        vaxDifficulty = [5, 10, 15];
+        transmissionDifficulty = [0.35, 0.50, 0.65];
+        recoveryDifficulty = [0.40, 0.35, 0.30];
+        independentOutbreakDifficulty = [1, 2, 3];
+        refuserDifficulty = [2, 10, 15];
+    }
+}
+
+function drawDifficultyPopover(difficulty) {
+    defineDifficultyConstants();
+
+    if (difficulty == "easy") difficultyIndex = 0;
+    if (difficulty == "medium") difficultyIndex = 1;
+    if (difficulty == "hard") difficultyIndex = 2;
+
+    d3.selectAll(".difficultyPopover").append("text")
+        .attr("class", "popoverStat")
+        .attr("id", "sizeStat")
+        .text("Size: " + networkSize[difficultyIndex]);
+
+    d3.selectAll(".difficultyPopover").append("text")
+        .attr("class", "popoverStat")
+        .attr("id", "vaxStat")
+        .text("Vaccines: " + vaxDifficulty[difficultyIndex])
+
+    d3.selectAll(".difficultyPopover").append("text")
+        .attr("class", "popoverStat")
+        .attr("id", "refuserStat")
+        .text("Refusers: " + refuserDifficulty[difficultyIndex])
+
+    d3.selectAll(".difficultyPopover").append("text")
+        .attr("class", "popoverStat")
+        .attr("id", "outbreakStat")
+        .text("Outbreaks: " + independentOutbreakDifficulty[difficultyIndex])
+
+//    d3.select(".difficultyPopover").append("text")
+//        .attr("class", "popoverStat")
+//        .attr("id", "transmissionStat")
+//        .text("Infect: " + transmissionDifficulty[difficultyIndex] * 100 + "%")
+//
+//    d3.select(".difficultyPopover").append("text")
+//        .attr("class", "popoverStat")
+//        .attr("id", "recoveryStat")
+//        .text("Cure: " + recoveryDifficulty[difficultyIndex] * 100 + "%")
+//
+
 
 }
 
@@ -881,13 +996,14 @@ function verifyUnlock(selectedLock) {
 
     d3.select(".verifyUnlockBox").append("text")
         .attr("class", "verifyUnlockCost")
-        .text("Cost: " + unlockRequirement + " Saves")
+        .style("color", "#2692f2")
+        .text("(Costs " + unlockRequirement + " Saves)")
 
     d3.select(".verifyUnlockBox").append("text")
         .attr("class", "verifyUnlockYes")
         .text("Yes")
         .on("mouseover", function() {
-            d3.select(this).style("color", "#2692F2")
+            d3.select(this).style("color", "#2692f2")
         })
         .on("mouseout", function() {
             d3.select(this).style("color", "white")

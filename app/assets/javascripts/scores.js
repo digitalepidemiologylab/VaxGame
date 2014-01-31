@@ -6,7 +6,7 @@ var difficulty;
 var difficultyIndex;
 
 // scenario constants
-var numberOfIndividuals;
+var networkSize;
 var vaxDifficulty;
 var transmissionDifficulty;
 var recoveryDifficulty;
@@ -36,52 +36,52 @@ function readCurrentScenarioScores() {
     scenarioTitle = currentScenarioScores.scenario;
 
     if (scenarioTitle == "Workplace / School") {
-        numberOfIndividuals = [87,87,87];
+        networkSize = [87,87,87];
         vaxDifficulty = [25,18,15];
         transmissionDifficulty = [0.08, 0.10, 0.15];
         recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [3,4,5];
+        independentOutbreakDifficulty = [2,3,4];
         refuserDifficulty = [3,7,14];
     }
     if (scenarioTitle == "Movie Theater / Lecture Hall") {
-        numberOfIndividuals = [48,48,48];
-        vaxDifficulty = [12,7,5];
-        transmissionDifficulty = [0.15, 0.20, 0.25];
+        networkSize = [48,48,48];
+        vaxDifficulty = [5,4,3];
+        transmissionDifficulty = [0.50, 0.55, 0.55];
         recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [1,2,3];
+        independentOutbreakDifficulty = [2,3,3];
         refuserDifficulty = [2,7,9];
     }
     if (scenarioTitle == "Restaurant") {
-        numberOfIndividuals = [74,74,74];
-        vaxDifficulty = [6,4,3];
-        transmissionDifficulty = [0.15, 0.20, 0.25];
+        networkSize = [74,74,74];
+        vaxDifficulty = [4,3,2];
+        transmissionDifficulty = [0.55, 0.65, 0.75];
         recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [1,2,3];
-        refuserDifficulty = [2,5,7];
+        independentOutbreakDifficulty = [2,3,4];
+        refuserDifficulty = [3,5,7];
     }
     if (scenarioTitle == "Organization") {
-        numberOfIndividuals = [50,50,50];
-        vaxDifficulty = [6,4,3];
-        transmissionDifficulty = [0.15, 0.20, 0.25];
+        networkSize = [50,50,50];
+        vaxDifficulty = [5,4,3];
+        transmissionDifficulty = [0.45, 0.55, 0.65];
         recoveryDifficulty = [0.40, 0.35, 0.30];
         independentOutbreakDifficulty = [1,2,3];
         refuserDifficulty = [2,5,7];
     }
     if (scenarioTitle == "Endless Queue") {
-        numberOfIndividuals = [145,145,145];
+        networkSize = [145,145,145];
         vaxDifficulty = [20,15,10];
-        transmissionDifficulty = [0.15, 0.20, 0.25];
+        transmissionDifficulty = [0.45, 0.55, 0.65];
         recoveryDifficulty = [0.40, 0.35, 0.30];
         independentOutbreakDifficulty = [2,5,7];
         refuserDifficulty = [5,10,20];
     }
 
     if (scenarioTitle == "Random Networks") {
-        numberOfIndividuals = [25,75,100];
+        networkSize = [25,75,100];
         vaxDifficulty = [5, 10, 15];
-        transmissionDifficulty = [0.35, 0.35, 0.35];
+        transmissionDifficulty = [0.35, 0.50, 0.65];
         recoveryDifficulty = [0.40, 0.35, 0.30];
-        independentOutbreakDifficulty = [1, 1, 1];
+        independentOutbreakDifficulty = [1, 2, 3];
         refuserDifficulty = [2, 10, 15];
     }
 
@@ -147,7 +147,7 @@ function drawScoreHeaders() {
         .attr("class", "networkSize")
         .attr("x", 25)
         .attr("y", 80)
-        .text("Network Size: " + numberOfIndividuals[difficultyIndex])
+        .text("Network Size: " + networkSize[difficultyIndex])
 
     d3.select(".scoreSVG").append("text")
         .attr("class", "refuserCountText")
@@ -183,10 +183,10 @@ function stackedChart() {
     z = d3.scale.ordinal().range(["#b7b7b7","#85BC99","#d9d678" , "#ef5555" ])
     // 1 column
 
-    console.log(newSaves +"\t" +  vaccinesUsed +"\t" +  quarantinesUsed +"\t" +  (numberOfIndividuals[difficultyIndex] - quarantinesUsed - vaccinesUsed - newSaves))
+    console.log(newSaves +"\t" +  vaccinesUsed +"\t" +  quarantinesUsed +"\t" +  (networkSize[difficultyIndex] - quarantinesUsed - vaccinesUsed - newSaves))
 
     var matrix = [
-        [ 1,  newSaves, vaccinesUsed, quarantinesUsed, (numberOfIndividuals[difficultyIndex] - quarantinesUsed - vaccinesUsed - newSaves)]
+        [ 1,  newSaves, vaccinesUsed, quarantinesUsed, (networkSize[difficultyIndex] - quarantinesUsed - vaccinesUsed - newSaves)]
 
     ];
 

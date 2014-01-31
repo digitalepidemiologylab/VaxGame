@@ -17,11 +17,20 @@
 
 }
 
-.unlockDifficultyPopover {
+.difficultyPopover {
+  position: absolute;
+  display: inline;
+  top: -60px;
+  left: 215px;
+  height: 200px;
+  width: 150px;
   font-family: "Nunito";
   font-size: 18px;
   font-weight: 300;
+}
 
+.popoverStat {
+  display: block;
 }
 
 .scenarioHead {
@@ -148,30 +157,27 @@
 
 .verifyUnlockHeader {
   position: absolute;
-  top: 50px;
+  top: 20px;
   left: 40px;
-  color: #707070;
+  color: white;
   font-family: "Nunito";
   font-weight: 500;
   font-size: 28px;
-  cursor: pointer;
 }
 
 .verifyUnlockCost {
   position: absolute;
-  left: 70px;
-  color: white;
-  top: 10px;
+  left: 56px;
+  top: 100px;
   font-family: "Nunito";
   font-weight: 300;
   font-size: 24px;
-  cursor: pointer;
 }
 
 .verifyUnlockYes {
   position: absolute;
   left: 80px;
-  top: 95px;
+  top: 62px;
   color: white;
   font-family: "Nunito";
   font-weight: 300;
@@ -182,7 +188,7 @@
 .verifyUnlockNo {
   position: absolute;
   left: 180px;
-  top: 95px;
+  top: 62px;
   color: white;
   font-family: "Nunito";
   font-weight: 300;
