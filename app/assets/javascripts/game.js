@@ -530,6 +530,18 @@ function initCustomGame() {
         node.refuser = true;
     }
 
+    // prevent all nodes from being refusers and halting the game
+    var refuserCount = 0;
+    for (var i = 0; i < graph.nodes.length; i++) {
+        if (graph.nodes[i].refuser) refuserCount++;
+    }
+
+    if (refuserCount == numberOfIndividuals) {
+        numberOfVaccines = 1;
+        graph.nodes[0].refuser = false;
+    }
+
+
     d3.select("#customMenuDiv").style("right", "-1000px").style("visibility", "hidden")
 
     window.setTimeout(function() {
