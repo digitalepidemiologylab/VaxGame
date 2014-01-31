@@ -92,8 +92,8 @@ function initSocialShare() {
     var twitterText;
     var facebookText;
 
-    twitterText = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F.vax.herokuapp.com&text=I just stopped an epidemic in its tracks! Can you can beat my high scores? Easy: " + vaxEasyHiScore + "%25 %7C Medium: " + vaxMediumHiScoreRT + "%25 %7C Hard: " + vaxHardHiScoreRT + "%25. vax.herokuapp.com";
-    facebookText = "http://www.facebook.com/sharer.php?s=100&p[title]=Vax! | Gamifying Epidemic Prevention&p[summary]=I just stopped an epidemic in its tracks! Can you beat my high scores? Easy: " + vaxEasyHiScore + "% | Medium: " + vaxMediumHiScoreRT + "% | Hard: " + vaxHardHiScoreRT + "%.&p[url]=http://vax.herokuapp.com";
+    twitterText = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F.vax.herokuapp.com&text=I just stopped an epidemic in its tracks! Can you can beat my high scores? Easy: " + vaxEasyHiScore + "%25 %7C Medium: " + vaxMediumHiScore + "%25 %7C Hard: " + vaxHardHiScore + "%25. vax.herokuapp.com";
+    facebookText = "http://www.facebook.com/sharer.php?s=100&p[title]=Vax! | Gamifying Epidemic Prevention&p[summary]=I just stopped an epidemic in its tracks! Can you beat my high scores? Easy: " + vaxEasyHiScore + "% | Medium: " + vaxMediumHiScore + "% | Hard: " + vaxHardHiScore + "%.&p[url]=http://vax.herokuapp.com";
 
     d3.select(".difficultySelection").append("svg")
         .attr("class", "socialShareMain")
@@ -510,7 +510,7 @@ function initCustomGame() {
     numberOfRefusers = customRefuserChoice;
 
     if (numberOfVaccines == 0) numberOfVaccines = 1;
-    if (independentOutbreaks > (graph.nodes.length - numberOfVaccines)) independentOutbreaks = 1;
+    if (independentOutbreaks < (numberOfIndividuals - numberOfVaccines)) independentOutbreaks = 1;
 
     if (customNodeChoice > 100) charge = -150;
     if (customNodeChoice > 125) charge = -130;
