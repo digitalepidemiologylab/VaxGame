@@ -508,8 +508,17 @@ function hiAdvance() {
         d3.select("#hiGuideText")
             .html("But herd immunity is <b>undermined when susceptibility is clustered</b> <br> (e.g., a community of vaccine refusers).")
 
-    d3.select("#advanceHI").text("Game >").on("click", function() {window.location.href = "http://vax.herokuapp.com/game"})
     }
+
+    if (hiGuide == 23) {
+        d3.select("#hiGuideText")
+            .html("Keep yourself and your loved ones vaccinated. <br> If not for your own benefit then consider it <br> a favor to those with weakened immune systems. <br> (Young, sick, and elderly)")
+
+        d3.select("#advanceHI").text("Game >").on("click", function() {window.location.href = "http://vax.herokuapp.com/game"})
+
+    }
+
+
 
 
 
