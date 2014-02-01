@@ -3,7 +3,7 @@ var graph = {};
 var force,node, link;
 var scenarioTitle;
 
-var resizingParameter = 1.9;
+var resizingParameter = 2;
 var invisibleParameter = 1.9;
 
 var transmissionRate,recoveryRate;
@@ -734,13 +734,11 @@ function loadHotKeyText() {
 }
 
 function nodeSize(node) {
-    var size = 8;
+    var size;
     if (toggleDegree) {
-        size = (findNeighbors(node).length + 1.5) * 1.9;
-        if (meanDegree > 3) size = (findNeighbors(node).length+1) * 1.65;
-        if (meanDegree > 4) size = (findNeighbors(node).length+1) * 1.25;
-
+        size = (findNeighbors(node).length + 1.5) * resizingParameter;
     }
+    else size = 8;
     return size;
 }
 
@@ -915,10 +913,10 @@ function gameUpdate() {
                     clickAreaSize = 1.9 * nodeSize(node);
                 }
                 if (difficultyString == "medium") {
-                    clickAreaSize = 1.7 * nodeSize(node);
+                    clickAreaSize = (invisibleParameter-0.2) * nodeSize(node);
                 }
                 if (difficultyString == "hard") {
-                    clickAreaSize = 1.6 * nodeSize(node);
+                    clickAreaSize = (invisibleParameter-0.3) * nodeSize(node);
                 }
             }
             return clickAreaSize;
