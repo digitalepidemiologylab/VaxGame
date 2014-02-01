@@ -212,7 +212,7 @@ d3.select(".homeSVG").append("text")
     .on("click", function() {
         window.location.href = "http://salathegroup.com";
     })
-    .text("Salathé Group | 2013")
+    .text("Salathé Group | 2014")
 
 
 
