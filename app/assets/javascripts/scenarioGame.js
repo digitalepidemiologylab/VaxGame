@@ -52,6 +52,8 @@ var unlocks;
 
 runScenario();
 
+d3.select(".scenarioSVG").append("text").attr("x", 350).attr("y", 50).text("UNDER CONSTRUCTION...")
+
 function runScenario() {
     setCurrentGameConditions();
     initScenarioGraph(scenarioTitle);
@@ -215,7 +217,7 @@ function drawScenarioSpace() {
         .attr("class", "clickArea")
         .attr("fill", "black")
         .attr("r", function(node) {return invisibleParameter * nodeSize(node)})
-        .attr("opacity", 0.25)
+        .attr("opacity", 0)
         .call(force.drag)
         .on("click", function(node) {
             if (speed) speedModeClick(node);
