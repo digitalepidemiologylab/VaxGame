@@ -25,6 +25,7 @@ function infectIndividual(individual) {
 }
 
 function exposeIndividual(individual, exposer) {
+    exposureEdges = [];
     if (individual.status == "S" || individual.status == "REF") {
         individual.status = "E";
         individual.infectedBy = exposer;

@@ -34,8 +34,9 @@ var customOutbreakChoice;
 var customRefuserChoice;
 
 var timestep = 0;
-var newInfections;
-var xyCoords;
+var newInfections = [];
+var exposureEdges = [];
+var xyCoords = [];
 var diseaseIsSpreading = false;
 var timeToStop = false;
 
