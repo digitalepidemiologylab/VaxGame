@@ -39,6 +39,7 @@ function exposeIndividual(individual, exposer) {
 }
 
 function updateExposures() {
+    var newInfections = [];
     for (var i = 0; i < graph.nodes.length; i++) {
         if (graph.nodes[i].status == "E") {
             graph.nodes[i].status = "I";

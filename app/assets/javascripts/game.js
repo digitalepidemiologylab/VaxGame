@@ -3,6 +3,9 @@ var graph = {};
 var force,node, link;
 var scenarioTitle;
 
+var resizingParameter = 1.9;
+var invisibleParameter = 1.9;
+
 var transmissionRate,recoveryRate;
 var transmissionRates = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 var recoveryRates = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
@@ -623,15 +626,11 @@ function initGameSpace() {
         .attr("r", function(node) {
             var clickAreaSize;
 
-            if (difficultyString == "easy") {
-                clickAreaSize = 1.9 * nodeSize(node);
-            }
-            if (difficultyString == "medium") {
-                clickAreaSize = 1.7 * nodeSize(node);
-            }
-            if (difficultyString == "hard") {
-                clickAreaSize = 1.6 * nodeSize(node);
-            }
+            if (difficultyString == "easy") clickAreaSize = (invisibleParameter) * nodeSize(node);
+
+            if (difficultyString == "medium") clickAreaSize = (invisibleParameter-0.2) * nodeSize(node);
+
+            if (difficultyString == "hard") clickAreaSize = (invisibleParameter-0.3) * nodeSize(node);
 
             return clickAreaSize;
         })
@@ -1028,12 +1027,7 @@ function popNewGameInfection() {
         .duration(500)
         .attr("r", function(d) {
             var currentSize;
-            if (toggleDegree) {
-                currentSize = (findNeighbors(d).length + 1.5) * 1.9;
-                if (meanDegree > 3) currentSize = (findNeighbors(d).length+1) * 1.65;
-                if (meanDegree > 4) currentSize = (findNeighbors(d).length+1) * 1.25;
-
-            }
+            if (toggleDegree) currentSize = (findNeighbors(d).length + 1.5) * resizingParameter;
             else currentSize = 8;
 
 
