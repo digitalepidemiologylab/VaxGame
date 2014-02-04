@@ -1,17 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  user_id: 1
-  network_id: 1
-  refusers: MyText
-  vax: MyText
-  stars: 1
-  sim_size: 1.5
+  scenario: MyString
+  difficulty: MyString
+  realtime: false
+  quarantined: 1
+  infected: 1
+  saved: 1
 
 two:
-  user_id: 1
-  network_id: 1
-  refusers: MyText
-  vax: MyText
-  stars: 1
-  sim_size: 1.5
+  scenario: MyString
+  difficulty: MyString
+  realtime: false
+  quarantined: 1
+  infected: 1
+  saved: 1

@@ -4,6 +4,7 @@ var currentScenarioScores;
 var scenarioTitle;
 var difficulty;
 var difficultyIndex;
+var realTimeMode;
 
 // scenario constants
 var networkSize;
@@ -21,6 +22,7 @@ var independentOutbreaks;
 var recoveryRate;
 var transmissionRate;
 var numberOfRefusers;
+var infected;
 
 // graphics
 var scoreSVG;
@@ -29,6 +31,8 @@ readCurrentScenarioScores();
 drawScoreCanvas();
 drawScoreHeaders();
 stackedChart();
+
+window.setTimeout(pushScoresToHiddenFormFields, 100)
 
 function readCurrentScenarioScores() {
     $.cookie.json = true;
@@ -87,11 +91,13 @@ function readCurrentScenarioScores() {
 
 
     difficulty = currentScenarioScores.difficulty;
+    realTimeMode = currentScenarioScores.speedMode;
 
     if (difficulty == "easy") difficultyIndex = 0;
     if (difficulty == "medium") difficultyIndex = 1;
     if (difficulty == "hard") difficultyIndex = 2;
 
+    numberOfIndividuals = networkSize[difficultyIndex];
     vaccinesUsed = vaxDifficulty[difficultyIndex];
     independentOutbreaks = independentOutbreakDifficulty[difficultyIndex];
     transmissionRate = transmissionDifficulty[difficultyIndex];
@@ -101,6 +107,19 @@ function readCurrentScenarioScores() {
 
     quarantinesUsed = currentScenarioScores.quarantined;
     newSaves = currentScenarioScores.saved;
+    infected = numberOfIndividuals - quarantinesUsed - newSaves - vaccinesUsed;
+
+
+
+}
+
+function pushScoresToHiddenFormFields() {
+    d3.select("#score_scenario").property("value", scenarioTitle)
+    d3.select("#score_difficulty").property("value", difficulty)
+    d3.select("#score_realtime").property("value", realTimeMode)
+    d3.select("#score_infected").property("value", infected)
+    d3.select("#score_quarantined").property("value", quarantinesUsed)
+    d3.select("#score_saved").property("value", newSaves)
 }
 
 function resetHighScores() {
