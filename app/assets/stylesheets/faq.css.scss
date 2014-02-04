@@ -1,16 +1,23 @@
-#accordion {
-  position:absolute;
-  left: 200px;
-  top: 200px;
-  width: 50%;
-  padding-bottom: 50px;
+.faqTitle {
+  font-family: "Nunito";
+  font-size: 32px;
+  font-weight: 400;
+  color: #707070;
+}
+
+#accordion.faq-accordion {
+  margin-top: 6px;
+}
+
+.faq-wrapper {
+  margin-top: 60px;
+  margin-bottom: 100px;
 }
 
 .faqText {
   font-family: "Nunito";
   font-size: 18px;
   font-weight: 300;
-
 }
 
 #faqHead {
