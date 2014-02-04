@@ -6,7 +6,6 @@ VaxGame::Application.routes.draw do
   match '/faq', to: 'static_pages#faq'
   match '/about', to: 'static_pages#faq'
   match '/contact', to: 'static_pages#faq'
-  match '/scores', to: 'static_pages#scores'
   match '/herdImmunity', to: 'static_pages#herdImmunity'
   match '/herdimmunity', to: 'static_pages#herdImmunity'
   match '/scenario', to: 'static_pages#scenarioSelect'

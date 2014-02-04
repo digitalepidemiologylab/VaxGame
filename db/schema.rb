@@ -11,36 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130610223051) do
+ActiveRecord::Schema.define(:version => 20140204190451) do
 
-  create_table "networks", :force => true do |t|
-    t.integer  "net_id"
-    t.text     "description"
+  create_table "scores", :force => true do |t|
+    t.string   "scenario"
+    t.string   "difficulty"
+    t.boolean  "realtime"
+    t.integer  "quarantined"
+    t.integer  "infected"
+    t.integer  "saved"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
-
-  create_table "scores", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "net_id"
-    t.text     "refusers"
-    t.text     "vax"
-    t.integer  "stars"
-    t.float    "sim_size"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "users", :force => true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-    t.string   "password_digest"
-    t.string   "remember_token"
-    t.boolean  "admin"
-  end
-
-  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end
