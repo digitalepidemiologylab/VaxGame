@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <% provide(:title, 'Score Recap') %>
+  <%= javascript_include_tag "jquery.cookie" %>
+  <%= javascript_include_tag "scores" %>
+
+
+
+
+</head>
+
+<body>
+
+
+
+<div id="scoreForm">
+  <%= form_for(@score) do |f| %>
+
+      <%= f.hidden_field :scenario %>
+
+      <%= f.hidden_field :difficulty %>
+
+      <%= f.hidden_field :realtime %>
+
+      <%= f.hidden_field :infected %>
+
+      <%= f.hidden_field :quarantined %>
+
+      <%= f.hidden_field :saved %>
+
+      <%= f.submit "Submit"%>
+  <% end %>
+
+</body>
+
+
+</html>
+
