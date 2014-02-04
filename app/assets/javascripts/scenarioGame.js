@@ -59,16 +59,6 @@ var dragEndDateObject;
 var dragEndMillis;
 
 
-
-//var mouseDown = false;
-//document.body.onmousedown = function() {
-//    mouseDown = true;
-//}
-//document.body.onmouseup = function() {
-//    mouseDown = false;
-//}
-//
-
 runScenario();
 
 d3.select(".scenarioSVG").append("text").attr("x", 350).attr("y", 50).text("UNDER CONSTRUCTION...")
@@ -236,46 +226,50 @@ function drawScenarioSpace() {
         .attr("fill", "black")
         .attr("r", function(node) {return invisibleParameter * nodeSize(node)})
         .attr("opacity", 0)
+        .on("click", function(node) {
+            if (speed) speedModeClick(node);
+            else turnModeClick(node);
+        })
         .call(d3.behavior.drag()
-            .on("dragstart", function(d,i) {
+            .on("dragstart", function(node) {
                 dragStartDateObject = new Date();
                 dragStartMillis = dragStartDateObject.getMilliseconds();
 
-                originalLocation[0] = d.x;
-                originalLocation[1] = d.y;
+                originalLocation[0] = node.x;
+                originalLocation[1] = node.y;
                 force.stop();
-                d.fixed = true;
+                node.fixed = true;
 
             })
-            .on("drag", function(d,i) {
-                d.px += d3.event.dx;
-                d.py += d3.event.dy;
-                d.x += d3.event.dx;
-                d.y += d3.event.dy;
+            .on("drag", function(node) {
+                node.px += d3.event.dx;
+                node.py += d3.event.dy;
+                node.x += d3.event.dx;
+                node.y += d3.event.dy;
                 tick();
 
-                newLocation[0] = d.x;
-                newLocation[1] = d.y;
+                newLocation[0] = node.x;
+                newLocation[1] = node.y;
 
             })
-            .on("dragend", function(d,i) {
+            .on("dragend", function(node) {
                 dragEndDateObject = new Date();
                 dragEndMillis = dragEndDateObject.getMilliseconds();
                 var clickTime = Math.abs(dragEndMillis - dragStartMillis);
                 console.log(clickTime + "\t" + getCartesianDistance(originalLocation, newLocation))
 
-                d.fixed = false;
+                node.fixed = false;
                 tick();
                 force.resume();
 
                 if (getCartesianDistance(originalLocation, newLocation) < 10 && clickTime < 100) {
-                    if (speed) speedModeClick(d);
-                    else turnModeClick(d);
+                    if (speed) speedModeClick(node);
+                    else turnModeClick(node);
                 }
                 else {
                     if (getCartesianDistance(originalLocation, newLocation) > 10 && clickTime < 100) {
-                        if (speed) speedModeClick(d);
-                        else turnModeClick(d);
+                        if (speed) speedModeClick(node);
+                        else turnModeClick(node);
                     }
                 }
             })
@@ -289,6 +283,10 @@ function drawScenarioSpace() {
         .attr("class", "node")
         .attr("r", nodeSizing)
         .attr("fill", nodeColoring)
+        .on("click", function(node) {
+            if (speed) speedModeClick(node);
+            else turnModeClick(node);
+        })
         .on("mouseover", function(node) {
             d3.select(this).style("stroke-width","3px");
             currentNode = node;
@@ -301,45 +299,45 @@ function drawScenarioSpace() {
             currentElement = null;
         })
         .call(d3.behavior.drag()
-            .on("dragstart", function(d,i) {
+            .on("dragstart", function(node) {
                 dragStartDateObject = new Date();
                 dragStartMillis = dragStartDateObject.getMilliseconds();
 
-                originalLocation[0] = d.x;
-                originalLocation[1] = d.y;
+                originalLocation[0] = node.x;
+                originalLocation[1] = node.y;
                 force.stop();
-                d.fixed = true;
+                node.fixed = true;
 
             })
-            .on("drag", function(d,i) {
-                d.px += d3.event.dx;
-                d.py += d3.event.dy;
-                d.x += d3.event.dx;
-                d.y += d3.event.dy;
+            .on("drag", function(node) {
+                node.px += d3.event.dx;
+                node.py += d3.event.dy;
+                node.x += d3.event.dx;
+                node.y += d3.event.dy;
                 tick();
 
-                newLocation[0] = d.x;
-                newLocation[1] = d.y;
+                newLocation[0] = node.x;
+                newLocation[1] = node.y;
 
             })
-            .on("dragend", function(d,i) {
+            .on("dragend", function(node) {
                 dragEndDateObject = new Date();
                 dragEndMillis = dragEndDateObject.getMilliseconds();
                 var clickTime = Math.abs(dragEndMillis - dragStartMillis);
                 console.log(clickTime + "\t" + getCartesianDistance(originalLocation, newLocation))
 
-                d.fixed = false;
+                node.fixed = false;
                 tick();
                 force.resume();
 
                 if (getCartesianDistance(originalLocation, newLocation) < 10 && clickTime < 100) {
-                    if (speed) speedModeClick(d);
-                    else turnModeClick(d);
+                    if (speed) speedModeClick(node);
+                    else turnModeClick(node);
                 }
                 else {
                     if (getCartesianDistance(originalLocation, newLocation) > 10 && clickTime < 100) {
-                        if (speed) speedModeClick(d);
-                        else turnModeClick(d);
+                        if (speed) speedModeClick(node);
+                        else turnModeClick(node);
                     }
                 }
             })
