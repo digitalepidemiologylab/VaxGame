@@ -50,6 +50,25 @@ var force;
 // cookies
 var unlocks;
 
+// fine tuning the drag versus click differentiation
+var originalLocation = [0,0];
+var newLocation = [0,0];
+var dragStartDateObject;
+var dragStartMillis;
+var dragEndDateObject;
+var dragEndMillis;
+
+
+
+//var mouseDown = false;
+//document.body.onmousedown = function() {
+//    mouseDown = true;
+//}
+//document.body.onmouseup = function() {
+//    mouseDown = false;
+//}
+//
+
 runScenario();
 
 d3.select(".scenarioSVG").append("text").attr("x", 350).attr("y", 50).text("UNDER CONSTRUCTION...")
@@ -208,8 +227,7 @@ function drawScenarioSpace() {
         .enter().append("line")
         .attr("class", "link");
 
-// associate empty SVGs with node data. assign attributes. call force.drag to make them moveable.
-
+// associate empty SVGs with node data. assign attributes.
     clickArea = scenarioSVG.selectAll(".node")
         .data(graph.nodes)
         .enter()
@@ -218,11 +236,51 @@ function drawScenarioSpace() {
         .attr("fill", "black")
         .attr("r", function(node) {return invisibleParameter * nodeSize(node)})
         .attr("opacity", 0)
-        .call(force.drag)
-        .on("click", function(node) {
-            if (speed) speedModeClick(node);
-            else turnModeClick(node);
-        })
+        .call(d3.behavior.drag()
+            .on("dragstart", function(d,i) {
+                dragStartDateObject = new Date();
+                dragStartMillis = dragStartDateObject.getMilliseconds();
+
+                originalLocation[0] = d.x;
+                originalLocation[1] = d.y;
+                force.stop();
+                d.fixed = true;
+
+            })
+            .on("drag", function(d,i) {
+                d.px += d3.event.dx;
+                d.py += d3.event.dy;
+                d.x += d3.event.dx;
+                d.y += d3.event.dy;
+                tick();
+
+                newLocation[0] = d.x;
+                newLocation[1] = d.y;
+
+            })
+            .on("dragend", function(d,i) {
+                dragEndDateObject = new Date();
+                dragEndMillis = dragEndDateObject.getMilliseconds();
+                var clickTime = Math.abs(dragEndMillis - dragStartMillis);
+                console.log(clickTime + "\t" + getCartesianDistance(originalLocation, newLocation))
+
+                d.fixed = false;
+                tick();
+                force.resume();
+
+                if (getCartesianDistance(originalLocation, newLocation) < 10 && clickTime < 100) {
+                    if (speed) speedModeClick(d);
+                    else turnModeClick(d);
+                }
+                else {
+                    if (getCartesianDistance(originalLocation, newLocation) > 10 && clickTime < 100) {
+                        if (speed) speedModeClick(d);
+                        else turnModeClick(d);
+                    }
+                }
+            })
+        )
+
 
     node = scenarioSVG.selectAll(".node")
         .data(graph.nodes)
@@ -231,11 +289,6 @@ function drawScenarioSpace() {
         .attr("class", "node")
         .attr("r", nodeSizing)
         .attr("fill", nodeColoring)
-        .call(force.drag)
-        .on("click", function(node) {
-            if (speed) speedModeClick(node);
-            else turnModeClick(node);
-        })
         .on("mouseover", function(node) {
             d3.select(this).style("stroke-width","3px");
             currentNode = node;
@@ -247,6 +300,50 @@ function drawScenarioSpace() {
             currentNode = null;
             currentElement = null;
         })
+        .call(d3.behavior.drag()
+            .on("dragstart", function(d,i) {
+                dragStartDateObject = new Date();
+                dragStartMillis = dragStartDateObject.getMilliseconds();
+
+                originalLocation[0] = d.x;
+                originalLocation[1] = d.y;
+                force.stop();
+                d.fixed = true;
+
+            })
+            .on("drag", function(d,i) {
+                d.px += d3.event.dx;
+                d.py += d3.event.dy;
+                d.x += d3.event.dx;
+                d.y += d3.event.dy;
+                tick();
+
+                newLocation[0] = d.x;
+                newLocation[1] = d.y;
+
+            })
+            .on("dragend", function(d,i) {
+                dragEndDateObject = new Date();
+                dragEndMillis = dragEndDateObject.getMilliseconds();
+                var clickTime = Math.abs(dragEndMillis - dragStartMillis);
+                console.log(clickTime + "\t" + getCartesianDistance(originalLocation, newLocation))
+
+                d.fixed = false;
+                tick();
+                force.resume();
+
+                if (getCartesianDistance(originalLocation, newLocation) < 10 && clickTime < 100) {
+                    if (speed) speedModeClick(d);
+                    else turnModeClick(d);
+                }
+                else {
+                    if (getCartesianDistance(originalLocation, newLocation) > 10 && clickTime < 100) {
+                        if (speed) speedModeClick(d);
+                        else turnModeClick(d);
+                    }
+                }
+            })
+        )
 
     loadHotkeys();
     if (numberOfRefusers>0) refuserNotify();
@@ -285,6 +382,8 @@ function turnModeClick(node) {
 }
 
 function speedModeClick(node) {
+
+
     if (vaccinateMode) {
         if (node.refuser == true) return;
 
@@ -434,7 +533,6 @@ function update() {
             if (speed) speedModeClick(node)
             else turnModeClick(node);
         })
-        .call(force.drag);
 
     // Exit any old nodes.
     node.exit().remove();
@@ -1009,3 +1107,17 @@ function modifyUnlocks() {
     $.cookie('vaxUnlocks', stringifiedUnlocks, { expires: 365, path: '/' })
     console.log($.cookie('vaxUnlocks'))
 }
+
+function getCartesianDistance(originalLocation, newLocation) {
+    var x1 = originalLocation[0];
+    var y1 = originalLocation[1];
+    var x2 = newLocation[0];
+    var y2 = newLocation[1];
+    var squaredDeltaX = Math.pow(x1 - x2, 2)
+    var squaredDeltaY = Math.pow(y1 - y2, 2)
+    return Math.pow(squaredDeltaX + squaredDeltaY, 0.5)
+}
+
+
+
+
