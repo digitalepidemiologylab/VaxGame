@@ -31,9 +31,9 @@ var speed = false;
 
 // jquery-ui accordion function that draws difficulty buttons in each panel
 $(function() {
-    $( "#accordion" ).accordion();
+    $( "#scenarioAccordion" ).accordion();
     });
-$( "#accordion" ).accordion({ heightStyle: "content" });
+$( "#scenarioAccordion" ).accordion({ heightStyle: "content" });
 
 window.setTimeout(checkUnlockables, 200);
 
@@ -100,7 +100,7 @@ function selectScenario(difficulty) {
 
     // remove accordion & title + move logo down
 
-    d3.select("#accordion").remove()
+    d3.select("#scenarioAccordion").remove()
     d3.select(".scenarioVaxLogoDiv").attr("class", "gameVaxLogoDiv").style("left", "0px")
     d3.select(".scenarioTitle").remove()
 
