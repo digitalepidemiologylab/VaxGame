@@ -2,7 +2,7 @@ $(function() {
     $( "#accordion" ).accordion();
 });
 
-$( "#accordion" ).accordion({ heightStyle: "auto" });
+$( "#accordion" ).accordion({ heightStyle: "content" });
 
 d3.select("body").append("div")
     .attr("class", "helpVaxLogoDiv")
