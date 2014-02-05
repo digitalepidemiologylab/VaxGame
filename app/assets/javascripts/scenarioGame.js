@@ -57,7 +57,13 @@ var dragStartDateObject;
 var dragStartMillis;
 var dragEndDateObject;
 var dragEndMillis;
+var clickTime;
+var dragDistanceThreshold = 10;
+var clickTimeThreshold = 150;
 
+var timestep = 0;
+var toggleDegree = true;
+var game = false;
 
 runScenario();
 
@@ -98,6 +104,7 @@ function initScenarioGraph(scenarioTitle) {
     if (scenarioTitle == "Workplace / School") {
         friction = 0.15;
         charge = -7500;
+        toggleDegree = false;
         graph = initHuckNet();
     }
     if (scenarioTitle == "Movie Theater / Lecture Hall") {
@@ -224,7 +231,7 @@ function drawScenarioSpace() {
         .append("circle")
         .attr("class", "clickArea")
         .attr("fill", "black")
-        .attr("r", function(node) {return invisibleParameter * nodeSize(node)})
+        .attr("r", function(node) {return invisibleParameter * nodeSizing(node)})
         .attr("opacity", 0)
         .on("click", function(node) {
             if (speed) speedModeClick(node);
@@ -232,12 +239,19 @@ function drawScenarioSpace() {
         })
         .call(d3.behavior.drag()
             .on("dragstart", function(node) {
+                dragStartDateObject = {};
+                dragStartMillis = 0;
+                dragEndMillis = 0;
+                clickTime = 10000;
+
+
                 dragStartDateObject = new Date();
                 dragStartMillis = dragStartDateObject.getMilliseconds();
+                originalLocation = [];
+                newLocation = [];
 
                 originalLocation[0] = node.x;
                 originalLocation[1] = node.y;
-                force.stop();
                 node.fixed = true;
 
             })
@@ -253,27 +267,41 @@ function drawScenarioSpace() {
 
             })
             .on("dragend", function(node) {
-                dragEndDateObject = new Date();
-                dragEndMillis = dragEndDateObject.getMilliseconds();
-                var clickTime = Math.abs(dragEndMillis - dragStartMillis);
+                dragEndMillis = dragStartDateObject.getMilliseconds();
+                clickTime = Math.abs(dragEndMillis - dragStartMillis);
                 console.log(clickTime + "\t" + getCartesianDistance(originalLocation, newLocation))
 
                 node.fixed = false;
                 tick();
                 force.resume();
 
-                if (getCartesianDistance(originalLocation, newLocation) < 10 && clickTime < 100) {
-                    if (speed) speedModeClick(node);
-                    else turnModeClick(node);
-                }
-                else {
-                    if (getCartesianDistance(originalLocation, newLocation) > 10 && clickTime < 100) {
+                // ACCOUNT FOR MICRO-MOVEMENT DURING INTENDED CLICK
+                // if dragDistance is very small
+                if (getCartesianDistance(originalLocation, newLocation) < dragDistanceThreshold) {
+                    // AND clickTime very fast
+                    if (clickTime < clickTimeThreshold) {
+                        // assume intended click
                         if (speed) speedModeClick(node);
                         else turnModeClick(node);
                     }
                 }
+                //ACCOUNT FOR LARGE-FAST MOVEMENT DURING INTENDED CLICK
+                // however, if dragDistance is larger than the threshold
+                else {
+                    // but the clickTime is still very fast
+                    if (clickTime < clickTimeThreshold) {
+                        // assume intended click
+                        if (speed) speedModeClick(node);
+                        else turnModeClick(node);
+                    }
+                }
+
+
             })
+
+
         )
+
 
 
     node = scenarioSVG.selectAll(".node")
@@ -287,25 +315,23 @@ function drawScenarioSpace() {
             if (speed) speedModeClick(node);
             else turnModeClick(node);
         })
-        .on("mouseover", function(node) {
-            d3.select(this).style("stroke-width","3px");
-            currentNode = node;
-            currentElement = d3.select(this);
-        })
-        .on("mouseout", function() {
-            d3.select(this).style("stroke-width","2px")
-            if (currentNode.fixed == true) d3.select(this).style("stroke-width","3px");
-            currentNode = null;
-            currentElement = null;
-        })
         .call(d3.behavior.drag()
             .on("dragstart", function(node) {
+                dragStartDateObject;
+                dragStartMillis;
+                dragEndDateObject;
+                dragEndMillis;
+                clickTime = 10000;
+                originalLocation = [];
+                newLocation = [];
+
+
                 dragStartDateObject = new Date();
                 dragStartMillis = dragStartDateObject.getMilliseconds();
 
+
                 originalLocation[0] = node.x;
                 originalLocation[1] = node.y;
-                force.stop();
                 node.fixed = true;
 
             })
@@ -323,25 +349,48 @@ function drawScenarioSpace() {
             .on("dragend", function(node) {
                 dragEndDateObject = new Date();
                 dragEndMillis = dragEndDateObject.getMilliseconds();
-                var clickTime = Math.abs(dragEndMillis - dragStartMillis);
+                clickTime = Math.abs(dragEndMillis - dragStartMillis);
                 console.log(clickTime + "\t" + getCartesianDistance(originalLocation, newLocation))
 
                 node.fixed = false;
                 tick();
                 force.resume();
 
-                if (getCartesianDistance(originalLocation, newLocation) < 10 && clickTime < 100) {
-                    if (speed) speedModeClick(node);
-                    else turnModeClick(node);
-                }
-                else {
-                    if (getCartesianDistance(originalLocation, newLocation) > 10 && clickTime < 100) {
+                // ACCOUNT FOR MICRO-MOVEMENT DURING INTENDED CLICK
+                // if dragDistance is very small
+                if (getCartesianDistance(originalLocation, newLocation) < dragDistanceThreshold) {
+                    // AND clickTime very fast
+                    if (clickTime < clickTimeThreshold) {
+                        // assume intended click
                         if (speed) speedModeClick(node);
                         else turnModeClick(node);
                     }
                 }
+                //ACCOUNT FOR LARGE-FAST MOVEMENT DURING INTENDED CLICK
+                // however, if dragDistance is larger than the threshold
+                else {
+                    // but the clickTime is still very fast
+                    if (clickTime < clickTimeThreshold) {
+                        // assume intended click
+                        if (speed) speedModeClick(node);
+                        else turnModeClick(node);
+                    }
+                }
+
+
             })
         )
+        .on("mouseover", function(node) {
+            d3.select(this).style("stroke-width","3px");
+            currentNode = node;
+            currentElement = d3.select(this);
+        })
+        .on("mouseout", function() {
+            d3.select(this).style("stroke-width","2px")
+            if (currentNode.fixed == true) d3.select(this).style("stroke-width","3px");
+            currentNode = null;
+            currentElement = null;
+        })
 
     loadHotkeys();
     if (numberOfRefusers>0) refuserNotify();
@@ -519,14 +568,14 @@ function update() {
                 else turnModeClick(node);
             }
         })
-        .attr("r", function(node) {return invisibleParameter * nodeSize(node)})
+        .attr("r", function(node) {return invisibleParameter * nodeSizing(node)})
 
     // Enter any new nodes.
     node.enter().append("svg:circle")
         .attr("class", "node")
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; })
-        .style("fill", nodeColor)
+        .style("fill", nodeColoring)
         .on("click", function(node) {
             if (speed) speedModeClick(node)
             else turnModeClick(node);
@@ -1115,6 +1164,22 @@ function getCartesianDistance(originalLocation, newLocation) {
     var squaredDeltaY = Math.pow(y1 - y2, 2)
     return Math.pow(squaredDeltaX + squaredDeltaY, 0.5)
 }
+
+
+jQuery(document).bind('keydown', function (evt){
+    if (currentNode == undefined) return;
+
+    if (evt.shiftKey && evt.which == 32) {
+        currentNode.fixed = false;
+        currentElement.style("stroke-width", "2px")
+    }
+    else {
+        if (evt.which == 32) {
+            currentNode.fixed = true;
+            currentElement.style("stroke-width", "3px")
+        }
+    }
+});
 
 
 

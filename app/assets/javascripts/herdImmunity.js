@@ -1,8 +1,14 @@
 var hiSVG;
 var hiGuide = 0;
+var width = 975;
+var height = 800 - 45 - 50;  // standard height - footer:height - footer:bottomMargin
 var hiGuideText;
 var backgroundHex = "#F1F1F1";
 var textHex = "#707070";
+var diseaseIsSpreading = false;
+var game = false;
+var timestep = 0;
+
 
 
 init_hiSpace();

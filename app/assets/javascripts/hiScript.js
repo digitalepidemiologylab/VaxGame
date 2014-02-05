@@ -18,8 +18,10 @@ var visualizationTimesteps = 400;
 var mainScreen = false;
 var flu = false;
 var imperfectVaccines = false;
+var newInfections = [];
 
 function hiAdvance() {
+    newInfections = [];
     if (hiGuide == 1) {
         d3.select("#advanceHI").text("Next >")
         d3.select("#hiGuideText")
@@ -201,6 +203,7 @@ function hiAdvance() {
     }
 
     if (hiGuide == 7) {
+        newInfections = []
         timestep = 1;
         var neighbors = findNeighbors(graph.nodes[0]);
         for (var i = 0; i < neighbors.length; i++) {
@@ -337,6 +340,7 @@ function hiAdvance() {
         }
         while (graph.nodes[indexPatientID].status == "V");
 
+        var newInfections = [];
         timestep = 0;
         graph.nodes[indexPatientID].status = "I";
         graph.nodes[indexPatientID].infectedBy = null;
@@ -569,6 +573,17 @@ function moveGamePathogensHI() {
         .duration(visualizationTimesteps)
         .attr("cx", function(d) { return d.receiverX} )
         .attr("cy", function(d) { return d.receiverY} );
+}
+
+function getPathogen_xyCoords(newInfections) {
+    var xyCoords = [];
+    var recentTransmitters = [];
+    for (var i = 0; i < newInfections.length; i++) {
+        recentTransmitters.push(newInfections[i].infectedBy);
+        var coordString = {id: i, receiverX: newInfections[i].x, receiverY: newInfections[i].y, transmitterX: newInfections[i].infectedBy.x, transmitterY: newInfections[i].infectedBy.y}
+        xyCoords.push(coordString);
+    }
+    return xyCoords;
 }
 
 function createGamePathogensHI() {

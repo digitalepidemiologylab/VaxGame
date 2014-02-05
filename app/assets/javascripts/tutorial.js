@@ -54,6 +54,7 @@ var exposureEdges = [];
 var simulation = true;
 var vaccineResearched = false;
 var pleaseWait = false;
+var game = false;
 
 var startButton;
 

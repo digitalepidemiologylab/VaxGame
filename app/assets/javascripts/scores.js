@@ -26,6 +26,8 @@ var infected;
 
 // graphics
 var scoreSVG;
+var width = 975;
+var height = 800 - 45 - 50;  // standard height - footer:height - footer:bottomMargin
 
 readCurrentScenarioScores();
 drawScoreCanvas();
@@ -33,8 +35,6 @@ drawScoreHeaders();
 stackedChart();
 
 window.setTimeout(pushScoresToHiddenFormFields, 100)
-
-
 
 
 function readCurrentScenarioScores() {

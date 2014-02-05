@@ -82,6 +82,17 @@ var pop;
 var best;
 var current;
 
+// fine tuning the drag versus click differentiation
+var originalLocation = [0,0];
+var newLocation = [0,0];
+var dragStartDateObject;
+var dragStartMillis;
+var dragEndDateObject;
+var dragEndMillis;
+var clickTime;
+var dragDistanceThreshold = 10;
+var clickTimeThreshold = 100
+
 
 initBasicMenu();
 window.setTimeout(initCookiesOnDelay, 500)
@@ -637,11 +648,76 @@ function initGameSpace() {
         })
         .attr("fill", "black")
         .attr("opacity", 0)
-        .call(force.drag)
         .on("click", function(node) {
             if (speed) speedModeGameClick(node);
             else gameClick(node);
         })
+        .call(d3.behavior.drag()
+            .on("dragstart", function(node) {
+                dragStartDateObject = {};
+                dragStartMillis = 0;
+                dragEndMillis = 0;
+                clickTime = 10000;
+                dragStartDateObject = new Date();
+                dragStartMillis = dragStartDateObject.getMilliseconds();
+                originalLocation = [];
+                newLocation = [];
+
+
+
+
+                originalLocation[0] = node.x;
+                originalLocation[1] = node.y;
+                node.fixed = true;
+
+            })
+            .on("drag", function(node) {
+                node.px += d3.event.dx;
+                node.py += d3.event.dy;
+                node.x += d3.event.dx;
+                node.y += d3.event.dy;
+                tick();
+
+                newLocation[0] = node.x;
+                newLocation[1] = node.y;
+
+            })
+            .on("dragend", function(node) {
+                dragEndDateObject = new Date();
+                dragEndMillis = dragEndDateObject.getMilliseconds();
+                clickTime = Math.abs(dragEndMillis - dragStartMillis);
+                console.log(clickTime + "\t" + getCartesianDistance(originalLocation, newLocation))
+
+                node.fixed = false;
+                tick();
+                force.resume();
+
+                // ACCOUNT FOR MICRO-MOVEMENT DURING INTENDED CLICK
+                // if dragDistance is very small
+                if (getCartesianDistance(originalLocation, newLocation) < dragDistanceThreshold) {
+                    // AND clickTime very fast
+                    if (clickTime < clickTimeThreshold) {
+                        // assume intended click
+                        if (speed) speedModeGameClick(node);
+                        else gameClick(node);
+                    }
+                }
+                //ACCOUNT FOR LARGE-FAST MOVEMENT DURING INTENDED CLICK
+                // however, if dragDistance is larger than the threshold
+                else {
+                    // but the clickTime is still very fast
+                    if (clickTime < clickTimeThreshold) {
+                        // assume intended click
+                        if (speed) speedModeGameClick(node);
+                        else gameClick(node);
+                    }
+                }
+
+
+            })
+
+
+        )
 
     node = gameSVG.selectAll(".node")
         .data(graph.nodes)
@@ -650,7 +726,6 @@ function initGameSpace() {
         .attr("class", "node")
         .attr("r", nodeSize)
         .attr("fill", nodeColor)
-        .call(force.drag)
         .on("click", function(d) {
             if (speed) speedModeGameClick(d);
             else gameClick(d);
@@ -666,6 +741,72 @@ function initGameSpace() {
             currentNode = null;
             currentElement = null;
         })
+        .call(d3.behavior.drag()
+            .on("dragstart", function(node) {
+                dragStartDateObject = {};
+                dragStartMillis = 0;
+                dragEndMillis = 0;
+                clickTime = 10000;
+                dragStartDateObject = new Date();
+                dragStartMillis = dragStartDateObject.getMilliseconds();
+                originalLocation = [];
+                newLocation = [];
+
+
+
+
+                originalLocation[0] = node.x;
+                originalLocation[1] = node.y;
+                node.fixed = true;
+
+            })
+            .on("drag", function(node) {
+                node.px += d3.event.dx;
+                node.py += d3.event.dy;
+                node.x += d3.event.dx;
+                node.y += d3.event.dy;
+                tick();
+
+                newLocation[0] = node.x;
+                newLocation[1] = node.y;
+
+            })
+            .on("dragend", function(node) {
+                dragEndDateObject = new Date();
+                dragEndMillis = dragEndDateObject.getMilliseconds();
+                clickTime = Math.abs(dragEndMillis - dragStartMillis);
+                console.log(clickTime + "\t" + getCartesianDistance(originalLocation, newLocation))
+
+                node.fixed = false;
+                tick();
+                force.resume();
+
+                // ACCOUNT FOR MICRO-MOVEMENT DURING INTENDED CLICK
+                // if dragDistance is very small
+                if (getCartesianDistance(originalLocation, newLocation) < dragDistanceThreshold) {
+                    // AND clickTime very fast
+                    if (clickTime < clickTimeThreshold) {
+                        // assume intended click
+                        if (speed) speedModeGameClick(node);
+                        else gameClick(node);
+                    }
+                }
+                //ACCOUNT FOR LARGE-FAST MOVEMENT DURING INTENDED CLICK
+                // however, if dragDistance is larger than the threshold
+                else {
+                    // but the clickTime is still very fast
+                    if (clickTime < clickTimeThreshold) {
+                        // assume intended click
+                        if (speed) speedModeGameClick(node);
+                        else gameClick(node);
+                    }
+                }
+
+
+            })
+
+
+        )
 
     loadHotKeyText();
     if (difficultyString == "hard") refusersPresent();
@@ -1061,6 +1202,19 @@ function createGamePathogens() {
         .attr("r", 4)
         .style("fill", "black")
 }
+
+
+function getPathogen_xyCoords(newInfections) {
+    var xyCoords = [];
+    var recentTransmitters = [];
+    for (var i = 0; i < newInfections.length; i++) {
+        recentTransmitters.push(newInfections[i].infectedBy);
+        var coordString = {id: i, receiverX: newInfections[i].x, receiverY: newInfections[i].y, transmitterX: newInfections[i].infectedBy.x, transmitterY: newInfections[i].infectedBy.y}
+        xyCoords.push(coordString);
+    }
+    return xyCoords;
+}
+
 
 function removeGamePathogens() {
     d3.selectAll(".node")
@@ -2355,5 +2509,15 @@ function toggleDegreeFxn() {
 
     gameUpdate();
 
+}
+
+function getCartesianDistance(originalLocation, newLocation) {
+    var x1 = originalLocation[0];
+    var y1 = originalLocation[1];
+    var x2 = newLocation[0];
+    var y2 = newLocation[1];
+    var squaredDeltaX = Math.pow(x1 - x2, 2)
+    var squaredDeltaY = Math.pow(y1 - y2, 2)
+    return Math.pow(squaredDeltaX + squaredDeltaY, 0.5)
 }
 
