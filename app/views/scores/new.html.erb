@@ -16,7 +16,7 @@
 
 
 <div id="scoreForm">
-  <%= form_for(@score) do |f| %>
+  <%= form_for(@score, remote: true) do |f| %>
 
       <%= f.hidden_field :scenario %>
 
@@ -30,8 +30,9 @@
 
       <%= f.hidden_field :saved %>
 
-      <%= f.submit "Submit"%>
+      <%= f.submit "How did I compare?" %>
   <% end %>
+</div>
 
 </body>
 

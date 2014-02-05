@@ -4,14 +4,11 @@ class ScoresController < ApplicationController
   end
 
   def create
-    @score = Score.new()
+    @score = Score.new(params[:score])
     @score.save
+    #if @score.save
+    #  redirect_to :action => :new
+    #end
   end
-
-  def destroy
-  end
-
-
-
 
 end

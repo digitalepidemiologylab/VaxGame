@@ -34,6 +34,9 @@ stackedChart();
 
 window.setTimeout(pushScoresToHiddenFormFields, 100)
 
+
+
+
 function readCurrentScenarioScores() {
     $.cookie.json = true;
     currentScenarioScores = $.cookie('vaxCurrentScenarioScores');
@@ -121,6 +124,8 @@ function pushScoresToHiddenFormFields() {
     d3.select("#score_quarantined").property("value", quarantinesUsed)
     d3.select("#score_saved").property("value", newSaves)
 }
+
+
 
 function resetHighScores() {
 
