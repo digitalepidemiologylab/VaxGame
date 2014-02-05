@@ -4,9 +4,14 @@ class ScoresController < ApplicationController
   end
 
   def create
+    @score = Score.new()
+    @score.save
   end
 
   def destroy
   end
+
+
+
 
 end

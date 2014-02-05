@@ -1,4 +1,6 @@
 VaxGame::Application.routes.draw do
+  resources :scores, only: [:new, :create]
+
   root to: 'static_pages#home'
 
   match '/home', to: 'static_pages#home'
