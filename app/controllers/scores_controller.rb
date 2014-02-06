@@ -1,27 +1,29 @@
 class ScoresController < ApplicationController
   def index
-    @original = Score.find_by_scenario("Random Networks")
-    @work = Score.find_by_scenario("Workplace / School")
-    @theater = Score.find_by_scenario("Movie Theater / Lecture Hall")
-    @shop = Score.find_by_scenario("Endless Queue")
-    @restaurant = Score.find_by_scenario("Restaurant")
-    @club = Score.find_by_scenario("Organization")
+
   end
 
   def new
     @score = Score.new
 
-    @original = Score.find_by_scenario("Random Networks")
-    @work = Score.find_by_scenario("Workplace / School")
-    @theater = Score.find_by_scenario("Movie Theater / Lecture Hall")
-    @shop = Score.find_by_scenario("Endless Queue")
-    @restaurant = Score.find_by_scenario("Restaurant")
-    @club = Score.find_by_scenario("Organization")
+    #gon.currentScenario = @score.scenario
+    #gon.currentDifficulty = @score.difficulty
+    #gon.currentMode = @score.realtime
+    #
+    #gon.relevantScores = Score.where(scenario: currentScenario).where(difficulty: currentDifficulty).where(realtime: currentMode)
+
   end
 
   def create
     @score = Score.new(params[:score])
     @score.save
+
+    gon.relevantScores = Score.where(scenario: @score.scenario)
+                              .where(difficulty: @score.difficulty)
+                              .where(realtime: @score.realtime)
+
+
+
   end
 
 end

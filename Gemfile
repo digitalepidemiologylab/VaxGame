@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'gon'
 gem 'strong_parameters'
 gem 'rails', '3.2.11'
 gem 'bootstrap-sass', '2.1'

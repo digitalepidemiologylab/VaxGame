@@ -1,4 +1,3 @@
-
 // scenario basics
 var currentScenarioScores;
 var scenarioTitle;
