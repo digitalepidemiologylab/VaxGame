@@ -53,7 +53,7 @@ function hiAdvance() {
                     if (d.status == "V") {return "#76A788";}
                     if (d.status == "S") return "#b7b7b7";})
 
-        }, 1000)
+        }, 800)
     }
 
     if (hiGuide == 4) {
@@ -71,7 +71,7 @@ function hiAdvance() {
                 window.setTimeout(function() {
                     for (var i = 0; i < graph.nodes.length; i++) graph.nodes[i].status = "S";
                     d3.selectAll(".node").style("fill", "#b7b7b7");
-                }, 300)
+                }, 200)
 
 
                 window.setTimeout(function() {
@@ -144,8 +144,8 @@ function hiAdvance() {
 
 
 
-            }, 1500)
-        } , 300)
+            }, 1200)
+        } , 250)
 
     }
 
@@ -615,6 +615,8 @@ function removeGamePathogensHI() {
 }
 
 function hiTimesteps() {
+    console.log(simSet)
+
     d3.select("#advanceHI").transition().duration(500).style("color", "#707070")
 
     if (simSet>=9) {
@@ -641,19 +643,20 @@ function hiTimesteps() {
         if (mainScreen) {
             updateBarChart()
 
+            if (simSet == 9 && meanFinalEpidemicSizes[8] == 0) {
+                diseaseIsSpreading = false;
+                timeToStop = true;
+                meanFinalEpidemicSizes[8] = 0.01;
+                console.log(meanFinalEpidemicSizes)
+                d3.select("#advanceHI").transition().duration(500).style("color", "white")
+
+            }
+
             if (meanFinalEpidemicSizes[8] > 0) {
                 d3.select("#advanceHI").transition().duration(500).style("color", "white")
                 diseaseIsSpreading = false;
             }
-
-
-
         }
-
-
-
-
-
     }
 }
 

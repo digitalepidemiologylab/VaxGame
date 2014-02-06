@@ -70,6 +70,8 @@ function measureR0() {
 }
 
 function runSims() {
+    testSimCounter = 0;
+    testSimArray = [];
     meanFinalEpidemicSizes = [];
     meanMeasuredR0 = [];
     var vaxCoverage;
@@ -100,8 +102,6 @@ function runSimsGivenCoverage(vaxCoverage) {
         resetInitials();
         singleSim(vaxCoverage);
         sumMeasuredR0 += measureR0();
-
-
         if (getStatuses("R") > threshold) {
             sumOutbreaksAboveThreshold++;
             sumFinalEpidemicSize += getStatuses("R");
@@ -114,9 +114,9 @@ function runSimsGivenCoverage(vaxCoverage) {
 }
 
 function singleSim(vaxCoverage) {
+    diseaseIsSpreading = true;
     vaccinateRandomly(vaxCoverage)
     selectIndexCase();
-    diseaseIsSpreading = true;
     outbreakTimesteps();
 }
 
