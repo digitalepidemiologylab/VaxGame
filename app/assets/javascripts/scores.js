@@ -22,11 +22,15 @@ var recoveryRate;
 var transmissionRate;
 var numberOfRefusers;
 var infected;
+var submitted = false;
 
 // graphics
 var scoreSVG;
 var width = 975;
 var height = 800 - 45 - 50;  // standard height - footer:height - footer:bottomMargin
+
+var comparableGames = {};
+var meanScores = [];
 
 readCurrentScenarioScores();
 drawScoreCanvas();
@@ -35,6 +39,24 @@ stackedChart();
 
 window.setTimeout(pushScoresToHiddenFormFields, 100)
 
+// block to gather scores from database after POST
+comparableGames = gon.relevantScores;
+var infectedSum = 0;
+var savedSum = 0;
+var quarantinedSum = 0;
+
+var savedDistribution = [];
+
+for (var i = 0; i < comparableGames.length; i++) {
+    savedDistribution.push(comparableGames[i].infected)
+    infectedSum += comparableGames[i].infected;
+    savedSum += comparableGames[i].saved;
+    quarantinedSum += comparableGames[i].quarantined;
+}
+
+meanScores[0] = infectedSum / comparableGames.length;
+meanScores[1] = savedSum / comparableGames.length;
+meanScores[2] = quarantinedSum / comparableGames.length;
 
 function readCurrentScenarioScores() {
     $.cookie.json = true;
@@ -122,6 +144,7 @@ function pushScoresToHiddenFormFields() {
     d3.select("#score_infected").property("value", infected)
     d3.select("#score_quarantined").property("value", quarantinesUsed)
     d3.select("#score_saved").property("value", newSaves)
+    submitted = true;
 }
 
 
@@ -359,5 +382,128 @@ function stackedChart() {
         .attr("x", 180)
         .attr("y", 303)
         .text("Saved")
+
+}
+
+function testBar() {
+
+
+
+    var data = [
+        {score: 25},   // bin 1   1-10
+        {score: 50},   // bin 2   11-20
+        {score: 65},   // bin 3   21-30
+        {score: 65},   // bin 4   31-40
+        {score: 65},   // bin 5   41-50
+        {score: 65},   // bin 6   51-60
+        {score: 65},   // bin 7   61-70
+        {score: 65},   // bin 8   71-80
+        {score: 65},   // bin 9   81-90
+        {score: 65},   // bin 10   91-100
+        {score: 65}    // bin 11   100+
+    ];
+
+
+    var barWidth = 35;
+    var width = (barWidth + 25) * data.length;
+    var height = 320;
+
+    var x = d3.scale.linear().domain([0, data.length]).range([0, width]);
+    var y = d3.scale.linear().domain([0, d3.max(data, function(datum) { return 100 })]).
+        rangeRound([0, height]);
+
+// add the canvas to the DOM
+    var barDemo = d3.select(".scoreSVG").
+        append("svg").
+        attr("class", "barSVG").
+        attr("width", width).
+        attr("height", height).
+        attr("x", 420).
+        attr("y", 150)
+
+    barDemo.selectAll("rect").
+        data(data).
+        enter().
+        append("svg:rect").
+        attr("x", function(datum, index) { return x(index); }).
+        attr("y", function(datum) { return height - y(datum.score); }).
+        attr("height", function(datum) { return y(datum.score); }).
+        attr("class", function(datum, index) { if (index == 0) return "current"; else return "best"}).
+        attr("width", barWidth).
+        attr("fill", function(datum, index) { if (index == 0) return "#b7b7b7"; else return "#00adea"})
+
+    d3.select(".scoreSVG").append("line")
+        .style("stroke", "#707070")
+        .style("stroke-width", "1px")
+        .attr("x1", 395)
+        .attr("x2", 625)
+        .attr("y1", 470)
+        .attr("y2", 470)
+
+    d3.select(".scoreSVG").append("line")
+        .style("stroke", "#707070")
+        .style("stroke-width", "1px")
+        .attr("x1", 395)
+        .attr("x2", 395)
+        .attr("y1", 140)
+        .attr("y2", 470)
+
+}
+
+
+function plotHistogram(distribution) {
+
+    // format a string for the counts of each bin
+    var formatCount = d3.format(",.0f");
+
+    var margin = {top: 150, right: 30, bottom: 30, left: 450},
+        width = 950 - margin.left - margin.right,
+        height = 350 - margin.bottom;
+
+    var x = d3.scale.linear()
+        .domain([0, numberOfIndividuals])
+        .range([0, width]);
+
+// Generate a histogram using 8 uniformly-spaced bins.
+    var data = d3.layout.histogram()
+        .bins(x.ticks(8))
+        (distribution)
+
+    var y = d3.scale.linear()
+        .domain([0, d3.max(data, function(d) { return d.y; })])
+        .range([height, 0]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var svg = d3.select(".scoreSVG").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var bar = svg.selectAll(".bar")
+        .data(data)
+        .enter().append("g")
+        .attr("class", "bar")
+        .attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
+
+    bar.append("rect")
+        .attr("x", 1)
+        .attr("width", x(data[0].dx) - 1)
+        .attr("height", function(d) { return height - y(d.y); });
+
+    bar.append("text")
+        .attr("dy", ".75em")
+        .attr("y", 6)
+        .attr("x", x(data[0].dx) / 2)
+        .attr("text-anchor", "middle")
+        .text(function(d) { return formatCount(d.y); });
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
 
 }
