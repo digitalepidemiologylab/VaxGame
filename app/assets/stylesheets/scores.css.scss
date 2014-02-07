@@ -18,11 +18,13 @@
 }
 
 .bar text {
-  fill: #fff;
+  fill: #f1f1f1;
 }
 
-.axis path, .axis line {
-  fill: none;
-  stroke: #000;
+.axis path, .axis line{
+  fill: #707070;
+  stroke: #707070;
   shape-rendering: crispEdges;
 }
+
+

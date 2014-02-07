@@ -385,73 +385,8 @@ function stackedChart() {
 
 }
 
-function testBar() {
 
-
-
-    var data = [
-        {score: 25},   // bin 1   1-10
-        {score: 50},   // bin 2   11-20
-        {score: 65},   // bin 3   21-30
-        {score: 65},   // bin 4   31-40
-        {score: 65},   // bin 5   41-50
-        {score: 65},   // bin 6   51-60
-        {score: 65},   // bin 7   61-70
-        {score: 65},   // bin 8   71-80
-        {score: 65},   // bin 9   81-90
-        {score: 65},   // bin 10   91-100
-        {score: 65}    // bin 11   100+
-    ];
-
-
-    var barWidth = 35;
-    var width = (barWidth + 25) * data.length;
-    var height = 320;
-
-    var x = d3.scale.linear().domain([0, data.length]).range([0, width]);
-    var y = d3.scale.linear().domain([0, d3.max(data, function(datum) { return 100 })]).
-        rangeRound([0, height]);
-
-// add the canvas to the DOM
-    var barDemo = d3.select(".scoreSVG").
-        append("svg").
-        attr("class", "barSVG").
-        attr("width", width).
-        attr("height", height).
-        attr("x", 420).
-        attr("y", 150)
-
-    barDemo.selectAll("rect").
-        data(data).
-        enter().
-        append("svg:rect").
-        attr("x", function(datum, index) { return x(index); }).
-        attr("y", function(datum) { return height - y(datum.score); }).
-        attr("height", function(datum) { return y(datum.score); }).
-        attr("class", function(datum, index) { if (index == 0) return "current"; else return "best"}).
-        attr("width", barWidth).
-        attr("fill", function(datum, index) { if (index == 0) return "#b7b7b7"; else return "#00adea"})
-
-    d3.select(".scoreSVG").append("line")
-        .style("stroke", "#707070")
-        .style("stroke-width", "1px")
-        .attr("x1", 395)
-        .attr("x2", 625)
-        .attr("y1", 470)
-        .attr("y2", 470)
-
-    d3.select(".scoreSVG").append("line")
-        .style("stroke", "#707070")
-        .style("stroke-width", "1px")
-        .attr("x1", 395)
-        .attr("x2", 395)
-        .attr("y1", 140)
-        .attr("y2", 470)
-
-}
-
-
-function plotHistogram(distribution) {
+function plotHistogram(distribution, numberOfTicks) {
 
     // format a string for the counts of each bin
     var formatCount = d3.format(",.0f");
@@ -464,9 +399,9 @@ function plotHistogram(distribution) {
         .domain([0, numberOfIndividuals])
         .range([0, width]);
 
-// Generate a histogram using 8 uniformly-spaced bins.
+// Generate a histogram using input value of uniformly-spaced bins.
     var data = d3.layout.histogram()
-        .bins(x.ticks(8))
+        .bins(x.ticks(numberOfTicks))
         (distribution)
 
     var y = d3.scale.linear()
@@ -475,7 +410,8 @@ function plotHistogram(distribution) {
 
     var xAxis = d3.svg.axis()
         .scale(x)
-        .orient("bottom");
+        .orient("bottom")
+        .ticks(numberOfTicks)
 
     var svg = d3.select(".scoreSVG").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -499,11 +435,187 @@ function plotHistogram(distribution) {
         .attr("y", 6)
         .attr("x", x(data[0].dx) / 2)
         .attr("text-anchor", "middle")
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("font-weight", "500")
         .text(function(d) { return formatCount(d.y); });
 
     svg.append("g")
         .attr("class", "x axis")
+        .style("font-family", "Nunito")
+        .style("font-size", "15px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
         .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+        .call(xAxis)
+
+    // y-axis line & label
+    d3.select(".scoreSVG").append("line")
+        .style("stroke", "#707070")
+        .style("stroke-width", "1px")
+        .attr("x1", 450)
+        .attr("x2", 920)
+        .attr("y1", 470)
+        .attr("y2", 470)
+
+    d3.select(".scoreSVG").append("text")
+        .attr("x", 375)
+        .attr("y", 275)
+        .style("font-family", "Nunito")
+        .style("font-size", "19px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
+        .text("Players")
+
+    d3.select(".scoreSVG").append("text")
+        .attr("x", 386)
+        .attr("y", 295)
+        .style("font-family", "Nunito")
+        .style("font-size", "19px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
+        .text("with")
+
+    d3.select(".scoreSVG").append("text")
+        .attr("x", 380)
+        .attr("y", 315)
+        .style("font-family", "Nunito")
+        .style("font-size", "19px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
+        .text("Score")
+
+    // x-axis line & label
+    d3.select(".scoreSVG").append("line")
+        .style("stroke", "#707070")
+        .style("stroke-width", "1px")
+        .attr("x1", 450)
+        .attr("x2", 450)
+        .attr("y1", 140)
+        .attr("y2", 470)
+
+    d3.select(".scoreSVG").append("text")
+        .attr("x", 640)
+        .attr("y", 515)
+        .style("font-family", "Nunito")
+        .style("font-size", "19px")
+        .style("font-weight", "500")
+        .style("fill", "#707070")
+        .text("Number Saved")
+
+
+
+    //navigation buttons
+    d3.select(".scoreSVG").append("text")
+        .attr("class", "recapButton")
+        .attr("x", 409)
+        .attr("y", 675)
+        .text("Replay")
+        .style("cursor", "pointer")
+        .style("font-size", "35px")
+        .on("click", retryScenario)
+        .on("mouseover", function() {
+            d3.select(this).style("fill", "#2692F2")
+        })
+        .on("mouseout", function() {
+            d3.select(this).style("fill", "#707070")
+        })
+
+    d3.select(".scoreSVG").append("text")
+        .attr("class", "recapButton")
+        .attr("x", 350)
+        .attr("y", 625)
+        .text("New Scenario")
+        .style("cursor", "pointer")
+        .style("font-size", "35px")
+        .on("click", function() {window.location.href = "http://0.0.0.0:3000/scenario"})
+        .on("mouseover", function() {
+            d3.select(this).style("fill", "#2692F2")
+        })
+        .on("mouseout", function() {
+            d3.select(this).style("fill", "#707070")
+        })
+
+    // share buttons
+
+    var twitterText = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F.vax.herokuapp.com&text=I just stopped an epidemic in its tracks! Can you can save more than " + newSaves + "%25 on " + difficulty + "? Fight the outbreak at&url=http%3A%2F%2Fvax.herokuapp.com";
+    var facebookText = "http://www.facebook.com/sharer.php?s=100&p[title]=Vax! | Gamifying Epidemic Prevention&p[summary]=I just stopped an epidemic in its tracks! Can you save more than " + newSaves + "% on " + difficulty + "?&p[url]=http://vax.herokuapp.com";
+
+    d3.select(".scoreSVG").append("image")
+        .attr("x", 790 - 200)
+        .attr("y", 65)
+        .attr("height", "50px")
+        .attr("width", "50px")
+        .attr("xlink:href", "/assets/facebook_icon.png")
+        .attr("class", "shareIcon")
+        .attr("id", "facebook")
+        .style("padding", "12px 7px 0px 7px")
+        .style("width", "25px")
+        .style("cursor", "pointer")
+        .attr("opacity", 0)
+        .on("click", function() {
+            window.location.href = facebookText;
+        })
+
+    d3.select(".scoreSVG").append("image")
+        .attr("x", 865 - 200)
+        .attr("y", 65)
+        .attr("height", "50px")
+        .attr("width", "50px")
+        .attr("xlink:href", "/assets/twitter_icon.png")
+        .attr("class", "shareIcon")
+        .attr("id", "twitter")
+        .style("padding", "12px 7px 0px 7px")
+        .style("width", "25px")
+        .attr("opacity", 0)
+        .style("cursor", "pointer")
+        .on("click", function() {
+            window.location.href = twitterText;
+        })
+
+    d3.select(".scoreSVG").append("image")
+        .attr("x", 940 - 200)
+        .attr("y", 65)
+        .attr("height", "50px")
+        .attr("width", "50px")
+        .attr("xlink:href", "/assets/googleplus_icon.png")
+        .attr("class", "shareIcon")
+        .attr("id", "g+")
+        .attr("opacity", 0)
+        .style("padding", "12px 7px 0px 7px")
+        .style("width", "25px")
+        .style("cursor", "pointer")
+        .on("click", function() {
+            window.location.href = "https://plus.google.com/share?url=http://vax.herokuapp.com";
+        })
+
+    d3.select(".scoreSVG").append("text")
+        .attr("x", 750 - 200)
+        .attr("y", 45)
+        .style("font-family", "Nunito")
+        .style("font-size", "35px")
+        .style("font-weight", "500")
+        .style("cursor", "pointer")
+        .style("fill", "#707070")
+        .text("Share ▾")
+        .on("click", function() {
+            d3.selectAll(".shareIcon")
+                .transition()
+                .duration(500)
+                .attr("opacity", 1)
+        })
+
+
 
 }
+
+
+function retryScenario() {
+    $.cookie.json = true;
+    var currentGameCookie = {scenario: scenarioTitle, difficulty: difficulty, speedMode:realTimeMode, refusers: refuserDifficulty[difficultyIndex], vax: vaxDifficulty[difficultyIndex], outbreaks: independentOutbreakDifficulty[difficultyIndex], transmissionRate: transmissionRate, recoveryRate: recoveryRate}
+    $.cookie('vaxCurrentGame', JSON.stringify(currentGameCookie), { expires: 365, path: '/' })
+    window.location.href = 'http://0.0.0.0:3000/scenarioGame'
+
+}
+
+
