@@ -46,9 +46,14 @@ var savedSum = 0;
 var quarantinedSum = 0;
 
 var savedDistribution = [];
+var infectedDistribution = [];
+var quarantinedDistribution = [];
 
 for (var i = 0; i < comparableGames.length; i++) {
-    savedDistribution.push(comparableGames[i].infected)
+    infectedDistribution.push(comparableGames[i].infected)
+    savedDistribution.push(comparableGames[i].saved)
+    quarantinedDistribution.push(comparableGames[i].quarantined)
+
     infectedSum += comparableGames[i].infected;
     savedSum += comparableGames[i].saved;
     quarantinedSum += comparableGames[i].quarantined;
@@ -196,15 +201,28 @@ function drawScoreHeaders() {
         .text("Network Size: " + networkSize[difficultyIndex])
 
     d3.select(".scoreSVG").append("text")
-        .attr("class", "refuserCountText")
+        .attr("class", "vaxAvailable")
         .attr("x", 25)
         .attr("y", 105)
+        .text("Vaccines: ")
+
+    d3.select(".scoreSVG").append("text")
+        .attr("class", "vaxCount")
+        .attr("x", 165)
+        .attr("y", 105)
+        .text(vaxDifficulty[difficultyIndex])
+
+
+    d3.select(".scoreSVG").append("text")
+        .attr("class", "refuserCountText")
+        .attr("x", 25)
+        .attr("y", 130)
         .text("Refusers: ")
 
     d3.select(".scoreSVG").append("text")
         .attr("class", "refuserCount")
-        .attr("x", 160)
-        .attr("y", 105)
+        .attr("x", 165)
+        .attr("y", 130)
         .text(numberOfRefusers)
 
 
@@ -404,6 +422,7 @@ function plotHistogram(distribution, numberOfTicks) {
         .bins(x.ticks(numberOfTicks))
         (distribution)
 
+
     var y = d3.scale.linear()
         .domain([0, d3.max(data, function(d) { return d.y; })])
         .range([height, 0]);
@@ -477,7 +496,7 @@ function plotHistogram(distribution, numberOfTicks) {
         .text("with")
 
     d3.select(".scoreSVG").append("text")
-        .attr("x", 380)
+        .attr("x", 381)
         .attr("y", 315)
         .style("font-family", "Nunito")
         .style("font-size", "19px")
@@ -503,16 +522,17 @@ function plotHistogram(distribution, numberOfTicks) {
         .style("fill", "#707070")
         .text("Number Saved")
 
+    drawNavButtons();
+}
 
-
-    //navigation buttons
+function drawNavButtons() {
     d3.select(".scoreSVG").append("text")
         .attr("class", "recapButton")
-        .attr("x", 409)
+        .attr("x", 364)
         .attr("y", 675)
         .text("Replay")
         .style("cursor", "pointer")
-        .style("font-size", "35px")
+        .style("font-size", "40px")
         .on("click", retryScenario)
         .on("mouseover", function() {
             d3.select(this).style("fill", "#2692F2")
@@ -523,12 +543,12 @@ function plotHistogram(distribution, numberOfTicks) {
 
     d3.select(".scoreSVG").append("text")
         .attr("class", "recapButton")
-        .attr("x", 350)
+        .attr("x", 300)
         .attr("y", 625)
         .text("New Scenario")
         .style("cursor", "pointer")
-        .style("font-size", "35px")
-        .on("click", function() {window.location.href = "http://0.0.0.0:3000/scenario"})
+        .style("font-size", "40px")
+        .on("click", function() {window.location.href = "http://vax.herokuapp.com/scenario"})
         .on("mouseover", function() {
             d3.select(this).style("fill", "#2692F2")
         })
@@ -537,12 +557,11 @@ function plotHistogram(distribution, numberOfTicks) {
         })
 
     // share buttons
-
-    var twitterText = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F.vax.herokuapp.com&text=I just stopped an epidemic in its tracks! Can you can save more than " + newSaves + "%25 on " + difficulty + "? Fight the outbreak at&url=http%3A%2F%2Fvax.herokuapp.com";
-    var facebookText = "http://www.facebook.com/sharer.php?s=100&p[title]=Vax! | Gamifying Epidemic Prevention&p[summary]=I just stopped an epidemic in its tracks! Can you save more than " + newSaves + "% on " + difficulty + "?&p[url]=http://vax.herokuapp.com";
+    var twitterText = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F.vax.herokuapp.com&text=I just stopped an epidemic in its tracks! Can you can save more than " + newSaves + "people on " + difficulty + "? Fight the outbreak at&url=http%3A%2F%2Fvax.herokuapp.com";
+    var facebookText = "http://www.facebook.com/sharer.php?s=100&p[title]=Vax! | Gamifying Epidemic Prevention&p[summary]=I just stopped an epidemic in its tracks! Can you save more than " + newSaves + "people on " + difficulty + "?&p[url]=http://vax.herokuapp.com";
 
     d3.select(".scoreSVG").append("image")
-        .attr("x", 790 - 200)
+        .attr("x", 830 - 218)
         .attr("y", 65)
         .attr("height", "50px")
         .attr("width", "50px")
@@ -558,7 +577,7 @@ function plotHistogram(distribution, numberOfTicks) {
         })
 
     d3.select(".scoreSVG").append("image")
-        .attr("x", 865 - 200)
+        .attr("x", 905 - 218)
         .attr("y", 65)
         .attr("height", "50px")
         .attr("width", "50px")
@@ -574,7 +593,7 @@ function plotHistogram(distribution, numberOfTicks) {
         })
 
     d3.select(".scoreSVG").append("image")
-        .attr("x", 940 - 200)
+        .attr("x", 985 - 218)
         .attr("y", 65)
         .attr("height", "50px")
         .attr("width", "50px")
@@ -590,10 +609,10 @@ function plotHistogram(distribution, numberOfTicks) {
         })
 
     d3.select(".scoreSVG").append("text")
-        .attr("x", 750 - 200)
-        .attr("y", 45)
+        .attr("x", 790 - 200)
+        .attr("y", 50)
         .style("font-family", "Nunito")
-        .style("font-size", "35px")
+        .style("font-size", "40px")
         .style("font-weight", "500")
         .style("cursor", "pointer")
         .style("fill", "#707070")
@@ -602,11 +621,8 @@ function plotHistogram(distribution, numberOfTicks) {
             d3.selectAll(".shareIcon")
                 .transition()
                 .duration(500)
-                .attr("opacity", 1)
+                .attr("opacity", 0.45)
         })
-
-
-
 }
 
 
@@ -614,7 +630,7 @@ function retryScenario() {
     $.cookie.json = true;
     var currentGameCookie = {scenario: scenarioTitle, difficulty: difficulty, speedMode:realTimeMode, refusers: refuserDifficulty[difficultyIndex], vax: vaxDifficulty[difficultyIndex], outbreaks: independentOutbreakDifficulty[difficultyIndex], transmissionRate: transmissionRate, recoveryRate: recoveryRate}
     $.cookie('vaxCurrentGame', JSON.stringify(currentGameCookie), { expires: 365, path: '/' })
-    window.location.href = 'http://0.0.0.0:3000/scenarioGame'
+    window.location.href = 'http://vax.herokuapp.com/scenarioGame'
 
 }
 

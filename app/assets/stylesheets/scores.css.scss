@@ -5,7 +5,7 @@
   font-size: 40px;
 }
 
-.networkSize, .refuserCount, .refuserCountText {
+.networkSize, .refuserCount, .refuserCountText, .vaxAvailable, .vaxCount {
   font-family: "Nunito";
   fill: #BABABA;
   font-weight: 300;
@@ -13,7 +13,7 @@
 }
 
 .bar rect {
-  fill: steelblue;
+  fill: #00adea;
   shape-rendering: crispEdges;
 }
 

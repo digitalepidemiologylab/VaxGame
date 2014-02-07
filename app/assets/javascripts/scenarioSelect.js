@@ -115,10 +115,10 @@ function selectScenario(difficulty) {
     // reset onClick for development purposes
     d3.select(".gameMenuBox")
         .on("click", function() {
-            window.location.href = 'http://0.0.0.0:3000/scenario'
+            window.location.href = 'http://vax.herokuapp.com/scenario'
         })
 
-    window.setTimeout(function() {window.location.href = 'http://0.0.0.0:3000/scenarioGame'}, 500)
+    window.setTimeout(function() {window.location.href = 'http://vax.herokuapp.com/scenarioGame'}, 500)
 }
 
 function createUnlocksCookie() {
@@ -204,13 +204,13 @@ function checkSavesCookie() {
         .attr("x", function() {
             var string = "x" + saves;
             var xPosition;
-            if (string.length == 2) xPosition = "39px"
-            if (string.length == 3) xPosition = "33px"
-            if (string.length == 4) xPosition = "26px"
-            if (string.length == 5) xPosition = "21px"
-            if (string.length == 6) xPosition = "16px"
-            if (string.length == 7) xPosition = "13px"
-            return xPosition;
+            if (string.length == 2) xPosition = "39px";
+            if (string.length == 3) xPosition = "33px";
+            if (string.length == 4) xPosition = "26px";
+            if (string.length == 5) xPosition = "21px";
+            if (string.length == 6) xPosition = "16px";
+            if (string.length == 7) xPosition = "13px";
+            return xPosition                          ;
         })
         .attr("y", "95px")
         .text("x" + saves)
@@ -1173,12 +1173,12 @@ function verifyUnlock(selectedLock) {
                 .attr("x", function() {
                     var string = "x" + saves;
                     var xPosition;
-                    if (string.length == 2) xPosition = "39px"
-                    if (string.length == 3) xPosition = "33px"
-                    if (string.length == 4) xPosition = "26px"
-                    if (string.length == 5) xPosition = "21px"
-                    if (string.length == 6) xPosition = "16px"
-                    if (string.length == 7) xPosition = "13px"
+                    if (string.length == 2) xPosition = "39px";
+                    if (string.length == 3) xPosition = "33px";
+                    if (string.length == 4) xPosition = "26px";
+                    if (string.length == 5) xPosition = "21px";
+                    if (string.length == 6) xPosition = "16px";
+                    if (string.length == 7) xPosition = "13px";
 
 
                     return xPosition;
