@@ -11,12 +11,9 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery.cookie
 //= require d3.v3.min
 //= require netrics
 //= require sir
-//= require footerMenu
-//= require jquery-ui
 //= require jquery_ujs
 
 
