@@ -7,9 +7,15 @@
   <%= stylesheet_link_tag    "application", media: "all" %>
   <%= csrf_meta_tags %>
 
-  <meta name="google-site-verification" content="HWP7ea-b6Rv97I3KR7qvk5eX-yaaZ3cNdUL1-qxBrHI" />
-  <meta name="description" content="Vax! is a puzzle-game infused with chance that was inspired by real-world challenges, infectious disease modeling, and addictively rewarding gameplay.">
-  <meta name="keywords" content="epidemic game, disease game, vaccination game, outbreak game, epidemic, pandemic, vaccine, plague">
+
+  <% if content_for?(:head) %>
+      <%= yield(:head) %>
+  <% else %>
+      <meta name="google-site-verification" content="HWP7ea-b6Rv97I3KR7qvk5eX-yaaZ3cNdUL1-qxBrHI" />
+      <meta name="description" content="Vax! is a puzzle-game infused with chance that was inspired by real-world challenges, infectious disease modeling, and addictively rewarding gameplay.">
+
+  <% end %>
+
 
   <script type="text/javascript">
       var _gaq = _gaq || [];
