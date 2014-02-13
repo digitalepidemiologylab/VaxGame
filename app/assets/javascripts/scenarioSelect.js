@@ -44,7 +44,7 @@ d3.select("body").append("div")
     .text("VAX!")
     .style("cursor", "pointer")
     .on("click", function() {
-        window.location.href = 'http://vax.herokuapp.com/'
+        window.location.href = '/'
     })
 
 // saves icon, below vax logo
@@ -115,10 +115,10 @@ function selectScenario(difficulty) {
     // reset onClick for development purposes
     d3.select(".gameMenuBox")
         .on("click", function() {
-            window.location.href = 'http://vax.herokuapp.com/scenario'
+            window.location.href = '/scenario'
         })
 
-    window.setTimeout(function() {window.location.href = 'http://vax.herokuapp.com/scenarioGame'}, 500)
+    window.setTimeout(function() {window.location.href = '/scenarioGame'}, 500)
 }
 
 function createUnlocksCookie() {

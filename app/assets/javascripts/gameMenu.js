@@ -12,7 +12,7 @@ function initBasicMenu() {
 //        .text("VAX!")
 //        .style("cursor", "pointer")
 //        .on("click", function() {
-//            window.location.href = 'http://vax.herokuapp.com/'
+//            window.location.href = '/'
 //        })
 
     d3.select(".vaxLogoDiv")

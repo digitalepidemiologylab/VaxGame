@@ -2465,7 +2465,7 @@ function next() {
     hideGameQuarantine();
 
     if (difficultyString == "hard" || difficultyString == null) {
-        window.location.href = "http://vax.herokuapp.com/game"
+        window.location.href = "/game"
 
     }
     else {

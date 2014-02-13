@@ -1727,7 +1727,7 @@ function guideRails(back) {
         d3.select(".nextArrow")
             .text("Play!")
             .on("click", function() {
-                window.location.href = "http://vax.herokuapp.com/game"
+                window.location.href = "/game"
             })
     }
 
