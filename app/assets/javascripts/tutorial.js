@@ -154,7 +154,7 @@ d3.select(".homeSVG").append("text")
 //        d3.select(this).style("fill", "#707070")
 //    })
 //    .on("click", function() {
-//        window.location.href = "http://vax.herokuapp.com/faq";
+//        window.location.href = "/faq";
 //    })
 //    .text("About >")
 
@@ -173,7 +173,7 @@ d3.select(".homeSVG").append("text")
         d3.select(this).style("fill", "#707070")
     })
     .on("click", function() {
-        window.location.href = 'http://vax.herokuapp.com/game'
+        window.location.href = '/game'
     })
 
 d3.select(".homeSVG").append("text")
@@ -194,7 +194,7 @@ d3.select(".homeSVG").append("text")
         d3.select(this).style("fill", "#707070")
     })
     .on("click", function() {
-        window.location.href = 'http://vax.herokuapp.com/herdImmunity'
+        window.location.href = '/herdImmunity'
     })
 
 d3.select(".homeSVG").append("text")
@@ -293,7 +293,7 @@ function homeToTutorial() {
         .style("bottom", "20px")
         .text("More About Vax...")
         .on("click", function() {
-            window.location.href = 'http://vax.herokuapp.com/about'
+            window.location.href = '/about'
         })
 
     advanceTutorial()
@@ -1132,7 +1132,7 @@ function menuConfirm() {
                     .text("VAX!")
                     .style("cursor", "pointer")
                     .on("click", function() {
-                        window.location.href = 'http://vax.herokuapp.com/'
+                        window.location.href = '/'
                     })
 
                 d3.select(".vaxLogoDiv")
@@ -1206,7 +1206,7 @@ function initTutorial() {
         .text("VAX!")
         .style("cursor", "pointer")
         .on("click", function() {
-            window.location.href = 'http://vax.herokuapp.com/'
+            window.location.href = '/'
         })
 
 

@@ -9,7 +9,7 @@ function initFooter() {
         .text("VAX!")
         .style("cursor", "pointer")
         .on("click", function() {
-            window.location.href = 'http://vax.herokuapp.com/'
+            window.location.href = '/'
         })
 
 
@@ -22,7 +22,7 @@ function initFooter() {
         .attr("id", "helpNav")
         .text("FAQ")
         .on("click", function() {
-            window.location.href = 'http://vax.herokuapp.com/faq'
+            window.location.href = '/faq'
         })
         .on("mouseover", function() {
             d3.select(this).style("color", "#2692F2")
@@ -36,7 +36,7 @@ function initFooter() {
         .attr("id", "newGameNav")
         .text("New Game")
         .on("click", function() {
-            window.location.href = 'http://vax.herokuapp.com/game'
+            window.location.href = '/game'
         })
         .on("mouseover", function() {
             d3.select(this).style("color", "#2692F2")
@@ -52,7 +52,7 @@ function initMainFooter() {
         .text("VAX!")
         .style("cursor", "pointer")
         .on("click", function() {
-            window.location.href = 'http://vax.herokuapp.com/'
+            window.location.href = '/'
         })
 //
 //    d3.select("body").append("div")
