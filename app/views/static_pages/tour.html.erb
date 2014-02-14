@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-      <% provide(:title, 'Home') %>
-      <%= csrf_meta_tags %>
+<head>
+  <% provide(:title, 'Home') %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "footerMenu" %>
+  <%= javascript_include_tag "tutorial" %>
+  <%= javascript_include_tag "tutorialAdvance" %>
+  <%= javascript_include_tag "tutorialReverse" %>
 
-    </head>
-    <body>
+  <%= csrf_meta_tags %>
 
-    <audio id="audio">
-      <source src="/assets/pop.wav" type="audio/wav" />
-    </audio>
+</head>
+<body>
+
 
     <div class="actionVax" onclick=activateVaccinationMode()>
-          <div class="vaccineDepressedState"></div>
-          <text id = "vaxShieldText"> VACCINES </text>
-          <img id="vaxShieldIcon" src="/assets/vaxShield.svg" onclick=activateVaccinationMode()>
-        </div>
+      <div class="vaccineDepressedState"></div>
+      <text id = "vaxShieldText"> VACCINES </text>
+      <img id="vaxShieldIcon" src="/assets/vaxShield.svg" onclick=activateVaccinationMode()>
+    </div>
 
-        <div class="actionQuarantine" onclick=activateQuarantineMode()>
-          <div class="quarantineDepressedState"></div>
-          <text id = "quarantineText"> QUARANTINE </text>
-          <img id="quarantineIcon" src="/assets/quarantine.svg" onclick=activateQuarantineMode()>
-        </div>
-    </body>
+    <div class="actionQuarantine" onclick=activateQuarantineMode()>
+      <div class="quarantineDepressedState"></div>
+      <text id = "quarantineText"> QUARANTINE </text>
+      <img id="quarantineIcon" src="/assets/quarantine.svg" onclick=activateQuarantineMode()>
+    </div>
+</body>
+
+</body>
 
 </html>
 
