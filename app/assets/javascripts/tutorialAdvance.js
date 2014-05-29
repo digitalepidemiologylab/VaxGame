@@ -720,7 +720,7 @@ function guideRails(back) {
             .attr("x", guideXCoord)
             .attr("y", guideYCoord)
             .attr("opacity", 0)
-            .text("Your friends have friends, that may be strangers to you,")
+            .text("Your friends have friends, who may be strangers to you,")
 
         d3.select(".guide2")
             .attr("x", guideXCoord)
