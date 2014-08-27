@@ -234,7 +234,7 @@ function homeToTutorial() {
             .attr("x", 0)
             .attr("y", 0)
             .attr("width", 950)
-            .attr("height", 768 - 45 - 50 - 35 - 20)
+            .attr("height", 600 - 45 - 50 - 35 - 20)
             .attr("class", "svg")
             .style("pointer-events", "all")
     }
@@ -244,7 +244,7 @@ function homeToTutorial() {
             .attr("y", 0)
             .attr({
                 "width": "100%",
-                "height": "83%"
+                "height": "60%"
             })
             .attr("viewBox", "0 0 " + width + " " + height )
             .attr("class", "svg")
