@@ -604,7 +604,7 @@ function initGameSpace() {
         gameSVG = d3.select("body").append("svg")
             .attr({
                 "width": "100%",
-                "height": "87.5%"  //footer takes ~12.5% of the page
+                "height": "60.5%"  //footer takes ~12.5% of the page
             })
             .attr("viewBox", "0 0 " + width + " " + height )
             .attr("class", "gameSVG")
