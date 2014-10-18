@@ -18,8 +18,8 @@ var numberInfected;
 var numberOfRefusers;
 
 var gameSVG ;
-var width = 975;
-var height = 800 - 45 - 50;  // standard height - footer:height - footer:bottomMargin
+var width = 925;
+var height = 750 - 45 - 50;  // standard height - footer:height - footer:bottomMargin
 var charge = -900;
 var friction = 0.9;
 
@@ -91,11 +91,11 @@ var dragEndDateObject;
 var dragEndMillis;
 var clickTime;
 var dragDistanceThreshold = 10;
-var clickTimeThreshold = 100
+var clickTimeThreshold = 100;
 
 
 initBasicMenu();
-window.setTimeout(initCookiesOnDelay, 500)
+window.setTimeout(initCookiesOnDelay, 500);
 
 function initCookiesOnDelay() {
     readCookiesJSON();
@@ -603,12 +603,13 @@ function initGameSpace() {
     else {
         gameSVG = d3.select("body").append("svg")
             .attr({
-                "width": "100%",
-                "height": "60.5%"  //footer takes ~12.5% of the page
+                "width": "75%",
+                "height": "80.5%"  //footer takes ~12.5% of the page
             })
             .attr("viewBox", "0 0 " + width + " " + height )
             .attr("class", "gameSVG")
             .attr("pointer-events", "all")
+            .style("margin-left", 135)
             .append('svg:g');
     }
 

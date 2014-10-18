@@ -35,7 +35,7 @@ var indexCase = null;
 var opacityIndex = 0;
 var lessonText;
 var start = false;
-var nextX = 800;
+var nextX = 750;
 var nextY = 140;
 var guideXCoord = 400;
 var guideYCoord = 70;
@@ -233,7 +233,7 @@ function homeToTutorial() {
         svg = d3.select("body").append("svg")
             .attr("x", 0)
             .attr("y", 0)
-            .attr("width", 950)
+            .attr("width", 900)
             .attr("height", 600 - 45 - 50 - 35 - 20)
             .attr("class", "svg")
             .style("pointer-events", "all")
@@ -243,11 +243,12 @@ function homeToTutorial() {
             .attr("x", 0)
             .attr("y", 0)
             .attr({
-                "width": "100%",
-                "height": "60%"
+                "width": "75%",
+                "height": "65%"
             })
             .attr("viewBox", "0 0 " + width + " " + height )
             .attr("class", "svg")
+            .style("margin-left", 135)
             .style("pointer-events", "all")
 
     }
@@ -290,7 +291,6 @@ function homeToTutorial() {
     d3.select("body").append("div")
         .attr("class", "about")
         .style("right", "0px")
-        .style("bottom", "20px")
         .text("More About Vax...")
         .on("click", function() {
             window.location.href = '/about'
