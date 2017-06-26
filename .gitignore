@@ -7,6 +7,8 @@ log/development.log
 
 *.log
 
+.DS_Store
+
 .idea/workspace.xml
 
 *.rbc
