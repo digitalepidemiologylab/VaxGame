@@ -1,0 +1,21 @@
+@import url(http://fonts.googleapis.com/css?family=Nunito:300,400,700);
+
+
+.link {
+  stroke-width: 3px;
+}
+
+svg {
+  background-color: #f1f1f1;
+}
+
+html {
+  background-color: #f1f1f1;
+  height: 768px;
+}
+
+body {
+  min-width: 780px;
+  min-height: 700px;
+  background-color: #f1f1f1;
+}

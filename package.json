@@ -1,0 +1,14 @@
+{
+  "name": "VaxGame",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:digitalepidemiologylab/VaxGame.git",
+  "author": "Diego Muracciole <diegomuracciole@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "http-server ./src"
+  },
+  "devDependencies": {
+    "http-server": "^0.12.3"
+  }
+}

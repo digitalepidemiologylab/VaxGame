@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vax | Gamifying Epidemic Prevention | Tour</title>
+    <meta
+      name="description"
+      content="Vax! is a puzzle-game infused with chance that was inspired by real-world challenges, infectious disease modeling, and addictively rewarding gameplay."
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link rel="stylesheet" href="/css/application.css" />
+    <link rel="stylesheet" href="/css/tutorial.css" />
+  </head>
+  <body>
+    <div class="actionVax" onclick="activateVaccinationMode()">
+      <div class="vaccineDepressedState"></div>
+      <text id="vaxShieldText"> VACCINES </text>
+      <img
+        id="vaxShieldIcon"
+        src="/img/vaxShield.svg"
+        onclick="activateVaccinationMode()"
+      />
+    </div>
+
+    <div class="actionQuarantine" onclick="activateQuarantineMode()">
+      <div class="quarantineDepressedState"></div>
+      <text id="quarantineText"> QUARANTINE </text>
+      <img
+        id="quarantineIcon"
+        src="/img/quarantine.svg"
+        onclick="activateQuarantineMode()"
+      />
+    </div>
+
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+
+    <script src="/js/sir.js"></script>
+    <script src="/js/netrics.js"></script>
+    <script src="/js/d3.v3.min.js"></script>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+    <script src="/js/jquery-ui-1.10.3.custom.min.js"></script>
+
+    <script src="/js/footerMenu.js"></script>
+    <script src="/js/tutorial.js"></script>
+    <script src="/js/tutorialAdvance.js"></script>
+    <script src="/js/tutorialReverse.js"></script>
+  </body>
+</html>
