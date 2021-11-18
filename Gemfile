@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.1.7"
+ruby "2.6.8"
 
 gem 'gon'
 gem 'strong_parameters'
