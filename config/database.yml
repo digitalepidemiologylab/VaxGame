@@ -50,6 +50,7 @@ production:
   adapter: postgresql
   encoding: unicode
   database: VaxGame_production
+  sslmode: require
   pool: 5
   username:
   password:
