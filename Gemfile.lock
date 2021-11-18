@@ -61,7 +61,7 @@ GEM
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.8.0)
+    json (1.8.6)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -132,8 +132,15 @@ DEPENDENCIES
   gon
   jquery-cookie-rails
   jquery-rails
+  json (~> 1.8)
   pg
   rails (= 3.2.11)
   sass-rails (~> 3.2.3)
   strong_parameters
   uglifier (>= 1.0.3)
+
+RUBY VERSION
+   ruby 2.6.8p205
+
+BUNDLED WITH
+   1.17.3
