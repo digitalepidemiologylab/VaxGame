@@ -574,7 +574,7 @@ function initGameSpace() {
 
     loadGameSyringe();
     initFooter();
-    window.setTimeout(function() {d3.select(".gameMenuBox").style("right", "-10px"); d3.select(".gameVaxLogoDiv").style("left", "-12px")},1)
+    window.setTimeout(function() {d3.select(".gameMenuBox").style("right", "0px"); d3.select(".gameVaxLogoDiv").style("left", "-12px")},1)
 
 
 
@@ -583,35 +583,23 @@ function initGameSpace() {
     numberVaccinated  = 0     ;
     numberQuarantined = 0     ;
 
-    var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
-    var isIE = /*@cc_on!@*/false || document.documentMode;   // At least IE6
+    gameSVG = d3.select("body").append("svg")
+        .attr({
+            "width": window.innerWidth - 135,
+            "height": window.innerHeight
+        })
+        .attr("viewBox", "0 0 " + width + " " + height )
+        .attr("class", "gameSVG")
+        .attr("pointer-events", "all")
+        .style("margin-left", 135)
+        .append('svg:g');
 
-
-    if (isFirefox || isIE) {
-        gameSVG = d3.select("body").append("svg")
-            .attr({
-                "width": 950,
-                "height": 768 - 45
-            })
-            .attr("class", "gameSVG")
-            .attr("pointer-events", "all")
-            .append('svg:g');
-
-
-
-    }
-    else {
-        gameSVG = d3.select("body").append("svg")
-            .attr({
-                "width": "75%",
-                "height": "80.5%"  //footer takes ~12.5% of the page
-            })
-            .attr("viewBox", "0 0 " + width + " " + height )
-            .attr("class", "gameSVG")
-            .attr("pointer-events", "all")
-            .style("margin-left", 135)
-            .append('svg:g');
-    }
+    $(window).resize(function() {
+        gameSVG.attr({
+            "width": window.innerWidth - 135,
+            "height": window.innerHeight
+        })
+    });
 
     // initialize force layout. point to nodes & links.  size based on prior height and width.  set particle charge. setup step-wise force settling.
     force = d3.layout.force()
