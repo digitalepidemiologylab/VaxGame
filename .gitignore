@@ -7,8 +7,6 @@ log/development.log
 
 *.log
 
-.idea/workspace.xml
-
 *.rbc
 *.sassc
 .sass-cache
@@ -28,16 +26,4 @@ rerun.txt
 pickle-email-*.html
 .project
 
-.idea/jsLibraryMappings.xml
-
-.idea/dataSources.xml
-
-.idea/dataSources.xml
-
-.idea/VaxGame.iml
-
-.idea/VaxGame.iml
-
-.idea/.generators
-
-.idea/.generators
+.idea/*
